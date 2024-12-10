@@ -46,14 +46,14 @@ export default function Home() {
         {services.map((service, index) => (
           <div
             key={index}
-            className={`flex flex-col px-48 border-b-1 border-black pb-16 border-transparent ${
+            className={`flex flex-col sm:px-48 border-b-1 border-black pb-16 border-transparent ${
               index % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"
             } items-center gap-8`}
           >
             {/* Image Section */}
             <div className="sm:w-1/2 w-full">
               <div
-                className="bg-gray-300 w-full h-64 rounded-lg flex items-end justify-center bg-cover bg-center"
+                className="bg-gray-300 w-full h-64 rounded-lg items-end justify-center bg-cover bg-center hidden sm:flex"
                 style={{ backgroundImage: `url(${service.image})` }}
               >
                 <p className="bg-black/50 text-white text-sm py-2 px-4 rounded-b-lg">
@@ -63,8 +63,8 @@ export default function Home() {
             </div>
 
             {/* Text Section */}
-            <div className="sm:w-1/2 w-full text-center sm:text-left">
-              <p className="text-gray-800 mb-4">{service.description}</p>
+            <div className="sm:w-3/4 w-full text-center sm:text-left">
+              <p className="text-gray-800 mb-4 w-full">{service.description}</p>
             </div>
           </div>
         ))}

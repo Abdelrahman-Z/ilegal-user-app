@@ -1,9 +1,14 @@
+import { cn } from "@nextui-org/react";
 import Link from "next/link";
 import React from "react";
 
-const Footer = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer = ({className}:FooterProps) => {
   return (
-    <footer className="bg-gray-200 text-gray-700 text-sm">
+    <footer className={cn("bg-gray-200 text-gray-700 text-sm" , className)}>
       {/* Top Disclaimer */}
       <div className="sm:ml-20 text-center sm:text-left py-4 border-b border-gray-300">
         *Powered by iLegal Solutions Limited, a regulated legal consultancy
@@ -22,7 +27,7 @@ const Footer = () => {
 
         {/* Footer Links */}
         <div className="flex flex-wrap justify-center sm:justify-end gap-6">
-          <Link href="/privacy-policy" className="text-black">
+          <Link href="/privacy-policy" className="hover:text-black">
             Privacy Policy
           </Link>
           <Link href="/terms-and-conditions" className="hover:text-black">

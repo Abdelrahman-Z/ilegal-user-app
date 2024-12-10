@@ -35,7 +35,7 @@ export default function Home() {
         heroTitle="Privacy Policy"
         imagePath="'/images/landing3.svg'"
       />
-      <div className="bg-gray-100 py-12 px-40">
+      <div className="bg-gray-100 py-12 sm:px-40">
         {content.map((item, index) => (
           <div key={index} className=" p-6 space-y-4 border-solid border-black border-transparent border-l-1">
             {/* Header with Title */}
