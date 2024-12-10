@@ -2,7 +2,6 @@
 
 import Footer from "@/components/commercial-app/Footer";
 import Header from "@/components/commercial-app/Navbar";
-import SectionTitle from "@/components/commercial-app/SectionTitle";
 import { Button, cn } from "@nextui-org/react";
 import React from "react";
 
