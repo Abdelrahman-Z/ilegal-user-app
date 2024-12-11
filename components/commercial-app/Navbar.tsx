@@ -11,15 +11,17 @@ import {
   NavbarItem,
   Link,
 } from "@nextui-org/react";
+import { useParams } from "next/navigation";
 const Header = () => {
+  const {locale} = useParams()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    { name: "Home", link: "/" },
-    { name: "About Us", link: "/aboutUs" },
-    { name: "Services", link: "/services" },
-    { name: "Team", link: "/team" },
-    { name: "Pricing", link: "/pricing" },
+    { name: "Home", link: `/${locale}/` },
+    { name: "About Us", link: `/${locale}/aboutUs` },
+    { name: "Services", link: `/${locale}/services` },
+    { name: "Team", link: `/${locale}/team` },
+    { name: "Pricing", link: `/${locale}/pricing`},
   ];
   
   return (

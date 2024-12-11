@@ -1,5 +1,8 @@
+'use client'
+
 import { cn } from "@nextui-org/react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import React from "react";
 
 interface FooterProps {
@@ -7,6 +10,7 @@ interface FooterProps {
 }
 
 const Footer = ({className}:FooterProps) => {
+  const {locale} = useParams()
   return (
     <footer className={cn("bg-gray-200 text-gray-700 text-sm" , className)}>
       {/* Top Disclaimer */}
@@ -27,10 +31,10 @@ const Footer = ({className}:FooterProps) => {
 
         {/* Footer Links */}
         <div className="flex flex-wrap justify-center sm:justify-end gap-6">
-          <Link href="/privacy-policy" className="hover:text-black">
+          <Link href={`/${locale}/privacy-policy`} className="hover:text-black">
             Privacy Policy
           </Link>
-          <Link href="/terms-and-conditions" className="hover:text-black">
+          <Link href={`/${locale}/terms-and-conditions`} className="hover:text-black">
             Terms and Conditions
           </Link>
           <a href="#" className="hover:text-black">
