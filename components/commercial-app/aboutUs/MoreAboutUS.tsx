@@ -1,12 +1,10 @@
 'use client';
 
 import { cn } from "@nextui-org/react";
-import { useParams } from "next/navigation";
 import React from "react";
 import { useTranslations } from "next-intl";
 
 const MoreAboutUS = () => {
-  const { locale } = useParams();
   const t = useTranslations("about.moreAboutUs");
 
   return (
