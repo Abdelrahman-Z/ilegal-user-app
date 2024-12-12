@@ -1,38 +1,35 @@
 import React from "react";
 import SectionTitle from "./SectionTitle";
 import { Divider } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 
 const ServicesSection = () => {
+  const t = useTranslations("home.services");
+
   const services = [
     {
-      title: "Document Creation",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      title: t("items.documentCreation.title"),
+      description: t("items.documentCreation.description"),
     },
     {
-      title: "Document Creation",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      title: t("items.documentReview.title"),
+      description: t("items.documentReview.description"),
     },
     {
-      title: "Document Creation",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      title: t("items.documentTranslation.title"),
+      description: t("items.documentTranslation.description"),
     },
     {
-      title: "Document Creation",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      title: t("items.documentValidation.title"),
+      description: t("items.documentValidation.description"),
     },
     {
-      title: "Document Creation",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      title: t("items.documentExtraction.title"),
+      description: t("items.documentExtraction.description"),
     },
     {
-      title: "Document Creation",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      title: t("items.documentArchiving.title"),
+      description: t("items.documentArchiving.description"),
     },
   ];
 
@@ -42,7 +39,7 @@ const ServicesSection = () => {
         <Divider orientation="vertical" className=" h- bg-[#A5A3A3]  w-1 hidden sm:block" />
       <div>
         <div className="flex items-center justify-center mb-8">
-          <SectionTitle title="Our Services" />
+          <SectionTitle title={t("title")} />
         </div>
 
         {/* Services Grid */}
@@ -69,7 +66,7 @@ const ServicesSection = () => {
         {/* Learn More Button */}
         <div className="flex justify-center mt-8">
           <button className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800">
-            Learn more...
+            {t("learnMore")}
           </button>
         </div>
       </div>

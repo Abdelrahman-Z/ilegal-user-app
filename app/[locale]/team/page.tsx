@@ -25,7 +25,7 @@ const partners = [
 
 export default function Home() {
   return (
-    <div className="">
+    <>
       <HeroCard
         heroDescription="Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
@@ -164,6 +164,6 @@ export default function Home() {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }

@@ -1,19 +1,125 @@
 {
-    "NavbarLinks": {
-      "home": "Home",
-      "homeTitle": "Home page",
-      "about": "About",
-      "aboutTitle": "About page",
-      "profile": "Profile",
-      "profileTitle": "Profile page"
+  "navbar": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "team": "Team",
+    "pricing": "Pricing",
+    "getInTouch": "Get In Touch"
+  },
+  "footer": {
+    "disclaimer": "*Powered by iLegal Solutions Limited, a regulated legal consultancy firm based in the RAKDAO, UAE, holding license number 07010134.",
+    "allRightsReserved": "All rights reserved",
+    "privacyPolicy": "Privacy Policy",
+    "termsAndConditions": "Terms and Conditions",
+    "cookiePolicy": "Cookie Policy",
+    "contactUs": "Contact Us"
+  },
+  "home": {
+    "hero": {
+      "title": "Build Your Own Digital Organization",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      "loginButton": "Log in"
     },
-    "HomePage": {
-      "title": "Landing page"
+    "aboutUs": {
+      "title": "About Us",
+      "description1": "iLegal® Solutions® is an innovative one-stop-shop platform for document management.",
+      "description2": "iLegal® Solutions® is a digital platform that automates document creation, review, translation, validation, and extraction and can be customized to an organization's specific requirements.",
+      "learnMore": "Learn more..."
     },
-    "AboutPage": {
-      "title": "About"
+    "services": {
+      "title": "Our Services",
+      "learnMore": "Learn more...",
+      "items": {
+        "documentCreation": {
+          "title": "Document Creation",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        "documentReview": {
+          "title": "Document Review",
+          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+        },
+        "documentTranslation": {
+          "title": "Document Translation",
+          "description": "It is used as placeholder text in the printing and typesetting industry."
+        },
+        "documentValidation": {
+          "title": "Document Validation",
+          "description": "It ensures the document is error-free and meets all formatting requirements."
+        },
+        "documentExtraction": {
+          "title": "Document Extraction",
+          "description": "Data extraction from various types of documents for analysis and storage."
+        },
+        "documentArchiving": {
+          "title": "Document Archiving",
+          "description": "Securely store and organize documents for long-term access and retrieval."
+        }
+      }
     },
-    "ProfilePage": {
-      "title": "Profile"
+    "stayUpdated": {
+      "title": "Stay Updated",
+      "description1": "Sign up for periodic updates for the latest on our new services, offers, and customer experience.",
+      "description2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "emailPlaceholder": "Enter your email id...",
+      "sendButton": "Send",
+      "disclaimer": "By providing your email address, you agree to the Privacy Policy and Terms and Conditions."
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About our business",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+    },
+    "overview": {
+      "title": "Overview",
+      "paragraph1": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "paragraph2": "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    "moreAboutUs": {
+      "row1": {
+        "text": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "buttonText": "Learn more..."
+      },
+      "row2": {
+        "text": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "buttonText": "Learn more..."
+      }
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "Our Practice Area",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+    },
+    "ourServices": {
+      "title": "Our Services",
+      "items": {
+        "item-1": {
+          "title": "Document Creation",
+          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+        },
+        "item-2": {
+          "title": "Document Review",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        "item-3": {
+          "title": "Document Translation",
+          "description": "It is used as placeholder text in the printing and typesetting industry."
+        },
+        "item-4": {
+          "title": "Document Validation",
+          "description": "Ensures the document is error-free and meets all formatting requirements."
+        },
+        "item-5": {
+          "title": "Document Extraction",
+          "description": "Data extraction from various types of documents for analysis and storage."
+        },
+        "item-6": {
+          "title": "Document Management",
+          "description": "A comprehensive system for managing, tracking, and storing documents efficiently."
+        }
+      }
     }
   }
+}

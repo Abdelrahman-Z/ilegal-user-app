@@ -1,22 +1,24 @@
-'use client'
+'use client';
 
 import { cn } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 interface FooterProps {
   className?: string;
 }
 
-const Footer = ({className}:FooterProps) => {
-  const {locale} = useParams()
+const Footer = ({ className }: FooterProps) => {
+  const { locale } = useParams();
+  const t = useTranslations('footer');
+
   return (
-    <footer className={cn("bg-gray-200 text-gray-700 text-sm" , className)}>
+    <footer className={cn("bg-gray-200 text-gray-700 text-sm", className)}>
       {/* Top Disclaimer */}
       <div className="sm:ml-20 text-center sm:text-left py-4 border-b border-gray-300">
-        *Powered by iLegal Solutions Limited, a regulated legal consultancy
-        firm based in the RAKDAO, UAE, holding license number 07010134.
+        {t('disclaimer')}
       </div>
 
       {/* Footer Content */}
@@ -26,22 +28,24 @@ const Footer = ({className}:FooterProps) => {
           <div className="bg-gray-400 w-20 h-10 rounded-md flex items-center justify-center">
             <span className="text-white">Logo</span>
           </div>
-          <div>iLegal® Solutions® 2023 All rights reserved</div>
+          <div>
+            iLegal® Solutions® {new Date().getFullYear()} {t('allRightsReserved')}
+          </div>
         </div>
 
         {/* Footer Links */}
         <div className="flex flex-wrap justify-center sm:justify-end gap-6">
           <Link href={`/${locale}/privacy-policy`} className="hover:text-black">
-            Privacy Policy
+            {t('privacyPolicy')}
           </Link>
           <Link href={`/${locale}/terms-and-conditions`} className="hover:text-black">
-            Terms and Conditions
+            {t('termsAndConditions')}
           </Link>
           <a href="#" className="hover:text-black">
-            Cookie Policy
+            {t('cookiePolicy')}
           </a>
           <a href="#" className="hover:text-black">
-            Contact us
+            {t('contactUs')}
           </a>
         </div>
       </div>

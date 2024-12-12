@@ -12,18 +12,20 @@ import {
   Link,
 } from "@nextui-org/react";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 const Header = () => {
-  const {locale} = useParams()
+  const { locale } = useParams();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const t = useTranslations("navbar");
 
   const menuItems = [
-    { name: "Home", link: `/${locale}/` },
-    { name: "About Us", link: `/${locale}/aboutUs` },
-    { name: "Services", link: `/${locale}/services` },
-    { name: "Team", link: `/${locale}/team` },
-    { name: "Pricing", link: `/${locale}/pricing`},
+    { name: t("home"), link: `/${locale}/` },
+    { name: t("aboutUs"), link: `/${locale}/aboutUs` },
+    { name: t("services"), link: `/${locale}/services` },
+    { name: t("team"), link: `/${locale}/team` },
+    { name: t("pricing"), link: `/${locale}/pricing` },
   ];
-  
+
   return (
     <Navbar
       isMenuOpen={isMenuOpen}
@@ -69,7 +71,7 @@ const Header = () => {
             href="#"
             className="bg-black text-white hover:bg-gray-800"
           >
-            Get In Touch
+            {t("getInTouch")}
           </Button>
         </NavbarItem>
       </NavbarContent>
@@ -78,7 +80,12 @@ const Header = () => {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link className="w-full" color="foreground" href={item.link} size="lg">
+            <Link
+              className="w-full"
+              color="foreground"
+              href={item.link}
+              size="lg"
+            >
               {item.name}
             </Link>
           </NavbarMenuItem>
@@ -88,7 +95,7 @@ const Header = () => {
           href="#"
           className="bg-black text-white hover:bg-gray-800"
         >
-          Get In Touch
+          {t("getInTouch")}
         </Button>
       </NavbarMenu>
     </Navbar>

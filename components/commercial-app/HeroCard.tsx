@@ -3,6 +3,7 @@
 import React from "react";
 import Header from "./Navbar";
 import { Button, cn } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 
 interface Hero {
   centerd?: boolean;
@@ -19,6 +20,8 @@ const App = ({
   heroDescription,
   imagePath,
 }: Hero) => {
+  const t = useTranslations("home.hero");
+
   return (
     <div
       className={cn("min-h-screen bg-cover bg-center text-white w-full")}
@@ -36,7 +39,7 @@ const App = ({
         <p className={cn("text-gray-300 mb-6", !centerd && 'sm:text-left')}>{heroDescription}</p>
         {loginButtton && (
           <Button className="bg-black hover:bg-gray-800 text-white py-2 px-6 rounded-md w-fit">
-            Log in
+            {t("loginButton")}
           </Button>
         )}
       </div>
