@@ -24,8 +24,7 @@ const MoreAboutUS = () => {
         {/* Image Section */}
         <div
           className={cn(
-            "sm:w-1/2 hidden sm:block",
-            locale === "ar" ? "sm:-ml-16" : "sm:-mr-16"
+            "sm:w-1/2 hidden sm:block sm:-mr-16"
           )}
         >
           <div className="bg-gray-400 w-full h-48 rounded-lg"></div>
@@ -45,8 +44,7 @@ const MoreAboutUS = () => {
         {/* Image Section */}
         <div
           className={cn(
-            "sm:w-1/2 hidden sm:block",
-            locale === "ar" ? "sm:-mr-16" : "sm:-ml-16"
+            "sm:w-1/2 hidden sm:block sm:-ml-16",
           )}
         >
           <div className="bg-gray-400 w-full h-48 rounded-lg"></div>
