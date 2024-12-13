@@ -68,7 +68,7 @@ const Header = () => {
         <NavbarItem>
           <Button
             as={Link}
-            href="#"
+            href={`/${locale}/contactUs`}
             className="bg-black text-white hover:bg-gray-800"
           >
             {t("getInTouch")}
@@ -92,7 +92,7 @@ const Header = () => {
         ))}
         <Button
           as={Link}
-          href="#"
+          href={`/${locale}/contactUs`}
           className="bg-black text-white hover:bg-gray-800"
         >
           {t("getInTouch")}
