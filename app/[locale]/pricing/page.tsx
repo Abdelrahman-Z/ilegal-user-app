@@ -25,13 +25,13 @@ const plans = [
 const page = () => {
   return (
     <div
-      className={cn("min-h-screen bg-cover bg-center text-white w-full")}
+      className={cn("min-h-screen bg-cover bg-center text-white w-full flex flex-col justify-between")}
       style={{ backgroundImage: `url(/images/landing7.svg)` }} // Set dynamic background image
     >
       <Header />
       <div className="flex flex-col items-center p-8">
         {/* Title */}
-        <h1 className="text-3xl font-bold  mb-10 w-3/4 sm:pl-10 sm:border-l border-white sm:ml-16">Choose Your <br/> Pricing Plan</h1>
+        <h1 className="text-3xl font-bold  mb-10 w-3/4 sm:pl-10 sm:border-l border-white sm:ml-48">Choose Your <br/> Pricing Plan</h1>
 
         {/* Pricing Boxes */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">

@@ -4,6 +4,8 @@ import React from "react";
 import Header from "./Navbar";
 import { Button, cn } from "@nextui-org/react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 interface Hero {
   centerd?: boolean;
@@ -21,6 +23,7 @@ const App = ({
   imagePath,
 }: Hero) => {
   const t = useTranslations("home.hero");
+  const {locale} = useParams()
 
   return (
     <div
@@ -38,7 +41,7 @@ const App = ({
         <h1 className={cn("text-6xl font-bold mb-4" , !centerd && 'sm:text-left')} >{heroTitle}</h1>
         <p className={cn("text-gray-300 mb-6", !centerd && 'sm:text-left')}>{heroDescription}</p>
         {loginButtton && (
-          <Button className="bg-black hover:bg-gray-800 text-white py-2 px-6 rounded-md w-fit">
+          <Button as={Link} href={`/${locale}/login`} className="bg-black hover:bg-gray-800 text-white py-2 px-6 rounded-md w-fit">
             {t("loginButton")}
           </Button>
         )}
