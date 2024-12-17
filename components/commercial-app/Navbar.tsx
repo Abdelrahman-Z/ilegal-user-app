@@ -45,14 +45,14 @@ const Header = () => {
       {/* Mobile Center Content */}
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand>
-          <p className="font-bold text-inherit">Logo</p>
+          <img src="/images/logo.svg" className=" w-[200px] h-20" alt="logo" />
         </NavbarBrand>
       </NavbarContent>
 
       {/* Desktop Navbar */}
       <NavbarContent className="hidden sm:flex gap-8" justify="start">
-        <NavbarBrand>
-          <p className="font-bold text-lg text-inherit">Logo</p>
+        <NavbarBrand className="flex items-center">
+          <img src="/images/logo.svg" className=" w-[200px] h-20" alt="logo" />
         </NavbarBrand>
       </NavbarContent>
 

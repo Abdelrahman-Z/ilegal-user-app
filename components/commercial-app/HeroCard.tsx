@@ -38,7 +38,7 @@ const App = ({
           centerd ? "items-center w-3/4" : " w-fit"
         )}
       >
-        <h1 className={cn("text-6xl font-bold mb-4 text-[#4499E3]" , !centerd && 'sm:text-left')} >{heroTitle}</h1>
+        <h1 className={cn("text-6xl font-bold mb-4 text-sky" , !centerd && 'sm:text-left')} >{heroTitle}</h1>
         <p className={cn("text-gray-300 mb-6", !centerd && 'sm:text-left')}>{heroDescription}</p>
         {loginButtton && (
           <Button as={Link} href={`/${locale}/login`} className="bg-black hover:bg-gray-800 text-white py-2 px-6 rounded-md w-fit">
