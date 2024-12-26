@@ -4,30 +4,23 @@ import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
-import {
-  FaHome,
-  FaFileAlt,
-  FaCog,
-  FaPen,
-} from "react-icons/fa";
+import { FaHome, FaFileAlt, FaCog, FaPen } from "react-icons/fa";
 import { RiOrganizationChart } from "react-icons/ri";
 import { BsTranslate } from "react-icons/bs";
 import { AiFillSignature } from "react-icons/ai";
 import { GiInjustice } from "react-icons/gi";
 
-
-
 const navLinks = [
-  {
-    name: "Home",
-    icon: <FaHome className="text-2xl" />,
-    path: "/dashboard",
-  },
-  {
-    name: "Tenants",
-    icon: <RiOrganizationChart className="text-2xl" />,
-    path: "/dashboard/tenants",
-  },
+  // {
+  //   name: "Home",
+  //   icon: <FaHome className="text-2xl" />,
+  //   path: "/dashboard",
+  // },
+  // {
+  //   name: "Tenants",
+  //   icon: <RiOrganizationChart className="text-2xl" />,
+  //   path: "/dashboard/tenants",
+  // },
   {
     name: "Documents",
     icon: <FaFileAlt className="text-2xl" />,
@@ -50,7 +43,7 @@ const navLinks = [
   },
   {
     name: "Sign Document",
-    icon: <AiFillSignature  className="text-2xl" />,
+    icon: <AiFillSignature className="text-2xl" />,
     path: "/dashboard/sign-document",
   },
   {
@@ -63,8 +56,10 @@ const navLinks = [
 const Sidebar = () => {
   const { locale } = useParams();
   return (
-    <aside className="w-fit bg-gray-800 h-full flex flex-col items-center py-4 space-y-8 text-white justify-between rounded-3xl">
-      <div className="text-lg font-bold">Logo</div>
+    <aside className="w-fit h-full flex flex-col items-center py-4 space-y-8 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue">
+      <div className="text-lg font-bold">
+        <img src="/images/logo.svg" alt="logo" className="w-8 h-8" />
+      </div>
       <nav className="flex flex-col items-center space-y-10">
         {navLinks.map((link, index) => (
           <Button
