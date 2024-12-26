@@ -10,7 +10,7 @@ const OverviewSection = () => {
       <div className="border border-solid border-black border-y-transparent px-5">
         <div className="flex w-full items-center justify-center">
           {/* Header */}
-          <SectionTitle title={t("title")} />
+          <SectionTitle title={t("title")} titleStyle='text-deepBlue' dotStyle='bg-deepBlue' lineStyle='bg-deepBlue' />
         </div>
 
         {/* Content */}

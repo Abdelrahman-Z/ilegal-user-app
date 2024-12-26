@@ -11,13 +11,14 @@ interface FooterProps {
 }
 
 const Footer = ({ className }: FooterProps) => {
+  console.log(className);
   const { locale } = useParams();
   const t = useTranslations("footer");
 
   return (
     <footer
       className={cn(
-        "bg-gradient-to-r from-deepBlue to-lightBlue text-white text-sm",
+        "text-white text-sm",
         className
       )}
     >

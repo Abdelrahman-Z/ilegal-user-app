@@ -12,7 +12,7 @@ const page = () => {
     >
       <Header />
       <div className="flex items-center justify-center">
-        <div className="bg-black text-white rounded-lg shadow-lg p-8 w-96">
+        <div className="bg-gradient-to-b from-deepBlue to-lightBlue text-white rounded-lg shadow-lg p-8 w-96">
           <h2 className="text-2xl font-bold mb-6 text-center">Sign in Form</h2>
           <form className="space-y-4">
             {/* Username/ID Input */}

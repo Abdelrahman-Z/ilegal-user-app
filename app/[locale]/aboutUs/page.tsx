@@ -18,7 +18,7 @@ export default function Home() {
       <OverviewSection />
       <MoreAboutUS/>
       <OverviewSection />
-      <Footer />
+      <Footer className="bg-gradient-to-r from-deepBlue to-lightBlue" />
     </>
   );
 }

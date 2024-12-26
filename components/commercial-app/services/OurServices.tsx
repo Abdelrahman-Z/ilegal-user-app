@@ -13,7 +13,7 @@ const OurServices = () => {
   return (
     <div className="bg-gray-100 py-12 px-6 space-y-16">
       {/* Header */}
-      <SectionTitle title={t('title')} className="mx-auto" />
+      <SectionTitle title={t('title')} titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto" />
 
       {/* Services Rows */}
       {serviceKeys.map((key, index) => (

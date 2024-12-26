@@ -42,8 +42,10 @@ const page = () => {
         </div>
 
         {/* Contact Form */}
-        <div className="bg-black text-white rounded-lg shadow-lg p-8 w-full">
-          <h2 className="text-2xl font-bold mb-6 text-center">Contact Form</h2>
+        <div className="bg-white rounded-lg shadow-lg p-8 w-full">
+          <h2 className="text-2xl font-bold mb-6 text-center text-deepBlue">
+            Contact Form
+          </h2>
           <form className="space-y-4">
             {/* Name Input */}
             <div>
@@ -54,7 +56,8 @@ const page = () => {
                 name="name"
                 variant="underlined"
                 classNames={{
-                  label: "text-white",
+                  label: "text-deepBlue",
+                  input: "text-deepBlue",
                 }}
                 color="primary"
               />
@@ -68,7 +71,8 @@ const page = () => {
                 name="email"
                 variant="underlined"
                 classNames={{
-                  label: "text-white",
+                  label: "text-deepBlue",
+                  input: "text-deepBlue",
                 }}
                 color="primary"
               />
@@ -82,7 +86,8 @@ const page = () => {
                 name="message"
                 variant="underlined"
                 classNames={{
-                  label: "text-white",
+                  label: "text-deepBlue",
+                  input: "text-deepBlue",
                 }}
                 color="primary"
               />
@@ -91,7 +96,7 @@ const page = () => {
             <div>
               <Button
                 type="submit"
-                className="w-full bg-white text-black font-semibold py-2 px-4 rounded-md hover:bg-gray-200 transition"
+                className="w-full bg-deepBlue text-white font-semibold py-2 px-4 rounded-md hover:bg-gray-200 transition"
               >
                 Send
               </Button>

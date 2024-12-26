@@ -21,7 +21,7 @@ export default function Home() {
       <AboutUsSection/>
       <ServicesSection/>
       <StayUpdatedSection/>
-      <Footer/>
+      <Footer className="bg-gradient-to-r from-deepBlue to-lightBlue" />
     </>
   );
 }

@@ -31,7 +31,7 @@ const page = () => {
       <Header />
       <div className="flex flex-col items-center p-8">
         {/* Title */}
-        <h1 className="text-3xl font-bold  mb-10 w-3/4 sm:pl-10 sm:border-l border-white sm:ml-48">Choose Your <br/> Pricing Plan</h1>
+        <h1 className="text-3xl font-bold  mb-10 w-3/4 sm:pl-10 sm:border-l border-white">Choose Your <br/> Pricing Plan</h1>
 
         {/* Pricing Boxes */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">

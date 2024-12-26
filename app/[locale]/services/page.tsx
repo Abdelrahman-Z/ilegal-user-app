@@ -15,7 +15,7 @@ export default function Home() {
         imagePath="'/images/landing5.svg'"
       />
       <OurServices/>
-      <Footer />
+      <Footer className="bg-gradient-to-r from-deepBlue to-lightBlue" />
     </>
   );
 }

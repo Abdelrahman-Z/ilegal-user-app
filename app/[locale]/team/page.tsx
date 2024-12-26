@@ -38,14 +38,14 @@ export default function Home() {
         <div className="flex items-start sm:w-1/3">
           <div className="flex flex-row items-center gap-2 sm:gap-4">
             {/* Vertical Line */}
-            <div className="w-[1px] h-24 bg-gray-400 hidden sm:block"></div>
+            <div className="w-[1px] h-24 bg-deepBlue hidden sm:block"></div>
 
             {/* Text Content */}
-            <div>
-              <p className="text-gray-600 text-sm uppercase tracking-wide">
+            <div className="text-deepBlue">
+              <p className=" text-sm uppercase tracking-wide">
                 Service With A Smile
               </p>
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-2xl font-bold">
                 Meet Our People
               </h2>
             </div>
@@ -67,7 +67,7 @@ export default function Home() {
       </div>
       <div className="bg-gray-50 py-12 px-8">
         {/* Header */}
-        <SectionTitle title="The Partners" className="mx-auto my-20" />
+        <SectionTitle title="The Partners" titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto my-20" />
 
         {/* Partners Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -95,7 +95,7 @@ export default function Home() {
       </div>
       <div className="bg-gray-50 py-12 px-8">
         {/* Header */}
-        <SectionTitle title="Attorneys" className="mx-auto my-20" />
+        <SectionTitle title="Attorneys" titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto my-20" />
 
         {/* Partners Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -127,14 +127,14 @@ export default function Home() {
         <div className="flex  items-center gap-10 sm:w-1/3">
           {/* Vertical Line */}
           <div className="flex flex-row sm:flex-col items-center sm:gap-4">
-            <div className="hidden sm:block w-[1px] h-24 bg-gray-400"></div>
+            <div className="hidden sm:block w-[1px] h-24 bg-deepBlue"></div>
           </div>
           {/* Text */}
-          <div>
-            <p className="text-sm uppercase tracking-wide text-gray-500">
+          <div className="text-deepBlue">
+            <p className="text-sm uppercase tracking-wide">
               What People Say About Us
             </p>
-            <h2 className="text-2xl font-bold text-gray-800 mt-2">
+            <h2 className="text-2xl font-bold mt-2">
               Client Testimonials
             </h2>
           </div>
@@ -163,7 +163,7 @@ export default function Home() {
           <p>It has survived</p>
         </div>
       </div>
-      <Footer />
+      <Footer  className="bg-gradient-to-r from-deepBlue to-lightBlue"/>
     </>
   );
 }

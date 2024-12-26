@@ -39,7 +39,7 @@ export default function Home() {
         {content.map((item, index) => (
           <div key={index} className=" p-6 space-y-4 border-solid border-black border-transparent border-l-1">
             {/* Header with Title */}
-            <SectionTitle title={item.title} className="mx-auto" />
+            <SectionTitle title={item.title} titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto" />
 
             {/* Description */}
             <p className="text-gray-700 mb-4">{item.description1}</p>
@@ -47,7 +47,7 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <Footer />
+      <Footer className="bg-gradient-to-r from-deepBlue to-lightBlue" />
     </div>
   );
 }
