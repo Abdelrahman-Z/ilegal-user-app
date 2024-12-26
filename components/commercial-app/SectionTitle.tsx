@@ -1,29 +1,38 @@
 import { cn } from "@nextui-org/react";
 import React from "react";
 
-
 interface Section {
-
-    title: string
-    className?: string;
+  title: string;
+  className?: string;
+  titleStyle?: string;
+  lineStyle?: string;
+  dotStyle?: string;
 }
-const SectionTitle = ({title , className}: Section) => {
+const SectionTitle = ({
+  title,
+  className,
+  titleStyle,
+  dotStyle,
+  lineStyle,
+}: Section) => {
   return (
     <div className={cn("flex items-center justify-center w-96", className)}>
       {/* Left Line */}
-      <div className="flex-grow h-[1px] bg-gray-400"></div>
+      <div className={cn("flex-grow h-[1px] bg-gray-400", lineStyle)}></div>
 
       {/* Left Dot */}
-      <div className="w-2 h-2 bg-black rounded-full mx-2"></div>
+      <div className={cn("w-2 h-2 bg-black rounded-full mx-2", dotStyle)}></div>
 
       {/* Text */}
-      <h2 className="text-lg font-bold text-black mx-2">{title}</h2>
+      <h2 className={cn("text-lg font-bold text-black mx-2", titleStyle)}>
+        {title}
+      </h2>
 
       {/* Right Dot */}
-      <div className="w-2 h-2 bg-black rounded-full mx-2"></div>
+      <div className={cn("w-2 h-2 bg-black rounded-full mx-2", dotStyle)}></div>
 
       {/* Right Line */}
-      <div className="flex-grow h-[1px] bg-gray-400"></div>
+      <div className={cn("flex-grow h-[1px] bg-gray-400", lineStyle)}></div>
     </div>
   );
 };

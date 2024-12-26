@@ -13,8 +13,12 @@ export default {
     extend: {
       colors: {
         navy: "#0E558C", // Almost Navy
-        fuschia: "#E21860", // Fuschia
+        fuschia_maked: "#E21860", // Fuschia
         sky: "#4499E3", // New Sky Blue
+        deepBlue: "#114B7E", // Name for #114B7E
+        lightBlue: "#1F88E4", // Name for #1F88E4
+        deepRed: "#770F2E", // Name for #770F2E
+        brightRed: "#DD1C55", // Name for #DD1C55
       },
     },
   },

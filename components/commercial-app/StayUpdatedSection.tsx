@@ -10,14 +10,20 @@ const StayUpdatedSection = () => {
     <div className="flex items-center flex-wrap sm:flex-nowrap w-full p-8 gap-8">
       {/* Left Image Placeholder */}
       <div className="sm:w-1/2 w-full flex justify-center">
-        <div className="bg-gray-300 w-80 h-48 rounded-md"></div>
+        <div className="bg-gray-300 w-80 h-48 rounded-md">
+          <img
+            src="/images/landing1-stay.svg"
+            alt="About Us"
+            className="w-full h-full object-cover rounded-md"
+          />
+        </div>
       </div>
-      <Divider orientation="vertical" className="h-80 hidden sm:block" />
+      <Divider orientation="vertical" className="h-80 hidden sm:block bg-deepBlue" />
 
       {/* Right Content */}
       <div className="sm:w-1/2 w-full">
         {/* Header */}
-        <SectionTitle title={t("title")} />
+        <SectionTitle title={t("title")} titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" />
 
         {/* Description */}
         <p className="text-gray-700 mb-4 text-2xl">{t("description1")}</p>
@@ -30,7 +36,7 @@ const StayUpdatedSection = () => {
             placeholder={t("emailPlaceholder")}
             className="w-full sm:w-full flex-grow p-2 rounded-md focus:outline-none focus:ring focus:ring-gray-200"
           />
-          <Button className="bg-black text-white py-2 px-6 rounded-md hover:bg-gray-800">
+          <Button className="bg-deepBlue text-white py-2 px-6 rounded-md">
             {t("sendButton")}
           </Button>
         </div>

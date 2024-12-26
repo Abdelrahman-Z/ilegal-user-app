@@ -60,7 +60,7 @@ const Header = () => {
       <NavbarContent justify="end" className="hidden sm:flex">
         {menuItems.map((item, index) => (
           <NavbarItem key={index}>
-            <Link href={item.link} className="text-white hover:text-gray-300">
+            <Link href={item.link} className="text-white hover:text-fuschia_maked">
               {item.name}
             </Link>
           </NavbarItem>
@@ -69,7 +69,7 @@ const Header = () => {
           <Button
             as={Link}
             href={`/${locale}/contactUs`}
-            className="bg-black text-white hover:bg-gray-800"
+            className="bg-gradient-to-r from-deepBlue to-lightBlue text-white hover:bg-gray-800"
           >
             {t("getInTouch")}
           </Button>
@@ -81,7 +81,7 @@ const Header = () => {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link
-              className="w-full"
+              className="w-full hover:text-fuschia_maked"
               color="foreground"
               href={item.link}
               size="lg"
@@ -93,7 +93,7 @@ const Header = () => {
         <Button
           as={Link}
           href={`/${locale}/contactUs`}
-          className="bg-black text-white hover:bg-gray-800"
+          className="bg-gradient-to-r from-deepBlue to-lightBlue text-white hover:bg-gray-800"
         >
           {t("getInTouch")}
         </Button>
