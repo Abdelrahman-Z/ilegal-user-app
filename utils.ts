@@ -26,7 +26,7 @@ export function getToken(tokenName: string) {
       return cookie.substring(name.length, cookie.length);
     }
   }
-  return null; // Return null if the token is not found
+  return undefined; // Return null if the token is not found
 }
 
 export async function validateToken(
@@ -50,14 +50,12 @@ export async function validateToken(
 
     // Check if the response is OK (status code 200)
     if (!response.ok) {
-      console.error("Failed to validate token:", response.statusText);
       return false; // If the response is not OK, return false
     }
 
     const data = await response.json(); // Parse the response as JSON
     return data.validate === true; // Return the validate property if true, otherwise false
   } catch (error) {
-    console.error("Error during token validation:", error);
     return false; // If there’s an error (e.g., network issues), return false
   }
 }

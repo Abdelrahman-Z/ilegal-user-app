@@ -1,10 +1,10 @@
 "use client";
 import Footer from "@/components/commercial-app/Footer";
 import Header from "@/components/commercial-app/Navbar";
-import { Button, cn, Input } from "@nextui-org/react";
+import { cn } from "@nextui-org/react";
 import React from "react";
 
-const page = ({ children } : { children: React.ReactNode }) => {
+const page = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       className={cn(
