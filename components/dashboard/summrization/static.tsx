@@ -1,4 +1,6 @@
 import React, {  useState } from "react";
+import Markdown from 'markdown-to-jsx';
+
 import {
     Button,
     Modal,
@@ -13,6 +15,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSummarizeTextMutation } from "@/redux/services/api";
+import { formatObjectToMarkdown } from "@/utils";
 
 const schema = yup.object().shape({
   text: yup
@@ -40,7 +43,8 @@ export const StaticComponent = () => {
     setSummary(""); // Clear previous summary
     try {
       const response = await summarizeText(data.text).unwrap();
-      const words = response.Data.Summary.split(" ");
+      const text = formatObjectToMarkdown(response.Data)
+      const words = text.split(" ");
       let wordIndex = 0;
 
       const streamSummary = () => {
@@ -115,10 +119,9 @@ export const StaticComponent = () => {
       {/* Summary Output */}
       <div className="mt-5 whitespace-pre-wrap">
         {summary && (
-          <>
-            <h4 className="font-semibold">Summary:</h4>
-            <p>{summary}</p>
-          </>
+          <Markdown>
+            {summary}
+          </Markdown>
         )}
       </div>
     </div>

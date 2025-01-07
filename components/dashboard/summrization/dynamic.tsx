@@ -12,14 +12,14 @@ import {
 } from "@nextui-org/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSubmitDynamicFormMutation } from "@/redux/services/api";
+import { formatObjectToMarkdown } from "@/utils";
+import Markdown from "markdown-to-jsx";
 
 export const DynamicComponent = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const [file, setFile] = useState<File | null>(null);
-  const [streamedResponse, setStreamedResponse] = useState<
-    { key: string; value: string }[]
-  >([]); // Array to store streamed key-value pairs
+  const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
 
   const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -59,14 +59,22 @@ export const DynamicComponent = () => {
       const result = await submitDynamicForm(formData).unwrap();
 
       // Stream the response from the array
-      const categories = Object.keys(result.Data);
-      const answers = Object.values(result.Data);
-      const array = categories.map((key, index) => ({
-        key,
-        value: answers[index] as string,
-      }));
-      onClose()
-      setStreamedResponse(array); // Clear previous responses
+      // console.log(formatObjectToPlainText(result.Data))
+      const text = formatObjectToMarkdown(result.Data);
+      const words = text.split(" ");
+
+      let wordIndex = 0;
+
+      const streamSummary = () => {
+        if (wordIndex < words.length) {
+          setStreamedResponse((prev) => prev + " " + words[wordIndex]);
+          wordIndex++;
+          setTimeout(streamSummary, 100); // Adjust delay as needed
+        }
+      };
+      onClose();
+      streamSummary();
+      reset();
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -158,12 +166,7 @@ export const DynamicComponent = () => {
 
       {/* Response Display */}
       <div className="mt-5 whitespace-pre-wrap">
-        {streamedResponse.map(({ key, value }, index) => (
-          <div key={index} className="mb-2">
-            <strong>{key}:</strong>
-            <p>{value}</p>
-          </div>
-        ))}
+        <Markdown>{streamedResponse}</Markdown>
       </div>
     </div>
   );

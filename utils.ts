@@ -59,3 +59,13 @@ export async function validateToken(
     return false; // If there’s an error (e.g., network issues), return false
   }
 }
+
+export function formatObjectToMarkdown(obj: Record<string, any>): string {
+  let result = "";
+
+  for (const [key, value] of Object.entries(obj)) {
+    result += `**${key}**\n\n${value}\n\n\n`;
+  }
+
+  return result.trim();
+}
