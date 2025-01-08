@@ -57,6 +57,7 @@ export const DynamicComponent = () => {
 
     try {
       const result = await submitDynamicForm(formData).unwrap();
+      setStreamedResponse('')
 
       // Stream the response from the array
       // console.log(formatObjectToPlainText(result.Data))

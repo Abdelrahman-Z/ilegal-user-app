@@ -58,6 +58,14 @@ export const api = createApi({
         body: formData,
       }),
     }),
+    // translation
+    translate: builder.mutation({
+      query: (data) => ({
+        url: "/translate/text",
+        method: "POST",
+        body: data,
+      }),
+    }),
     // Add other endpoints here
   }),
 });
@@ -70,5 +78,7 @@ export const {
   useResetPassordMutation,
   // summrization
   useSummarizeTextMutation,
-  useSubmitDynamicFormMutation
+  useSubmitDynamicFormMutation,
+  useTranslateMutation
+  // translation
 } = api;
