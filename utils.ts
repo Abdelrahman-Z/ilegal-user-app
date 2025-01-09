@@ -64,8 +64,11 @@ export function formatObjectToMarkdown(obj: Record<string, any>): string {
   let result = "";
 
   for (const [key, value] of Object.entries(obj)) {
-    result += `**${key}**\n\n${value}\n\n\n`;
+    if (value !== undefined && value !== null) {
+      // Check for undefined or null values
+      result += `**${key}**\n\n${value}\n\n\n`;
+    }
   }
 
-  return result.trim();
+  return result.trim(); // Ensure no trailing newlines
 }

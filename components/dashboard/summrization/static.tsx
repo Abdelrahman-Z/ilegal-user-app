@@ -1,16 +1,16 @@
-import React, {  useState } from "react";
-import Markdown from 'markdown-to-jsx';
+import React, { useState } from "react";
+import Markdown from "markdown-to-jsx";
 
 import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Textarea,
-    ModalFooter,
-    useDisclosure,
-    ModalContent,
-  } from "@nextui-org/react";
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Textarea,
+  ModalFooter,
+  useDisclosure,
+  ModalContent,
+} from "@nextui-org/react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -43,7 +43,16 @@ export const StaticComponent = () => {
     setSummary(""); // Clear previous summary
     try {
       const response = await summarizeText(data.text).unwrap();
-      const text = formatObjectToMarkdown(response.Data)
+      console.log("Response Data:", response.Data);
+
+      if (!response.Data || typeof response.Data !== "object") {
+        console.error("Invalid response.Data:", response.Data);
+        return;
+      }
+
+      const text = formatObjectToMarkdown(response.Data);
+      console.log("Formatted Markdown:", text);
+
       const words = text.split(" ");
       let wordIndex = 0;
 
@@ -60,7 +69,7 @@ export const StaticComponent = () => {
     } catch (error) {
       console.error("Error summarizing text:", error);
     }
-  })
+  });
 
   return (
     <div className="flex-1">
@@ -118,11 +127,7 @@ export const StaticComponent = () => {
 
       {/* Summary Output */}
       <div className="mt-5 whitespace-pre-wrap">
-        {summary && (
-          <Markdown>
-            {summary}
-          </Markdown>
-        )}
+        {summary && <Markdown>{summary}</Markdown>}
       </div>
     </div>
   );
