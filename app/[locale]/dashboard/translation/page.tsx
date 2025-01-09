@@ -81,7 +81,7 @@ const DashboardPage = () => {
       streamSummary();
       reset();
     } catch (error) {
-      alert("Something went wrong while translating. Please try again.");
+      console.error(error)
     }
   });
 

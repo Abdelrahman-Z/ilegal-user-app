@@ -52,7 +52,7 @@ export default function LoginForm() {
   };
 
   return (
-      <div className="max-w-md w-full p-6 bg-gradient-to-b from-lightBlue to-deepBlue shadow-md rounded-lg">
+      <div className="max-w-md w-full p-6 bg-gradient-to-b mx-auto from-lightBlue to-deepBlue shadow-md rounded-lg">
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Email Field */}
           <div className="mb-4">
@@ -98,7 +98,7 @@ export default function LoginForm() {
             isDisabled={isLoading}
             isLoading={isLoading}
           >
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? "Updating..." : "Update"}
           </Button>
         </form>
 
