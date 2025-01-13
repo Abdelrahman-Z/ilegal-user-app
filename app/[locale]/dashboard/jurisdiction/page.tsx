@@ -1,1 +1,3 @@
-export default function Page() { return <div>Jurisdiction</div>; }
+export default function Page() {
+  return <div>Jurisdiction</div>;
+}

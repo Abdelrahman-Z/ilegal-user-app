@@ -10,7 +10,7 @@ const intlMiddleware = createMiddleware({
 export default async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value; // Retrieve the auth token from cookies
 
-  const url = req.nextUrl.clone();
+  const url = req.nextUrl
   const isDashboardRoute = url.pathname.includes(`/dashboard`);
   const isLoginPage = url.pathname.includes(`/login`);
   const isPublicRoute = !isDashboardRoute && !isLoginPage;
@@ -53,14 +53,14 @@ export const config = {
   matcher: [
     "/", // Root
     "/(en|ar)/:path*", // Localized routes
-    "/dashboard/:path*", // Dashboard routes
-    "/login", // Login page
-    "/aboutUs", // Public routes
-    "/contactUs",
-    "/pricing",
-    "/privacy-policy",
-    "/services",
-    "/team",
-    "/terms-and-conditions",
+    "/(en|ar)/dashboard/:path*", // Dashboard routes
+    "/(en|ar)/login", // Login page
+    "/(en|ar)/aboutUs", // Public routes
+    "/(en|ar)/contactUs",
+    "/(en|ar)/pricing",
+    "/(en|ar)/privacy-policy",
+    "/(en|ar)/services",
+    "/(en|ar)/team",
+    "/(en|ar)/terms-and-conditions",
   ],
 };
