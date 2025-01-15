@@ -1,12 +1,10 @@
 "use client";
 import React from "react";
-import {
-  Tabs,
-  Tab,
-} from "@nextui-org/react";
+import { Tabs, Tab } from "@nextui-org/react";
 import { StaticComponent } from "@/components/dashboard/summrization/static";
 import { DynamicComponent } from "@/components/dashboard/summrization/dynamic";
 import { AddQuestion } from "@/components/dashboard/summrization/addQuestion";
+import { PreConfigure } from "@/components/dashboard/summrization/PreConfigure";
 
 const DashboardPage = () => {
   return (
@@ -27,11 +25,15 @@ const DashboardPage = () => {
           <Tab className="w-full flex-1" key="dynamic" title="Dynamic">
             <DynamicComponent />
           </Tab>
-          <Tab className="w-full flex-1" key="preConfigure" title="preConfigure">
-            <DynamicComponent />
+          <Tab
+            className="w-full flex-1"
+            key="preConfigure"
+            title="preConfigure"
+          >
+            <PreConfigure />
           </Tab>
           <Tab className="w-full flex-1" key="addQuestion" title="Add Question">
-            <AddQuestion/>
+            <AddQuestion />
           </Tab>
         </Tabs>
       </div>
