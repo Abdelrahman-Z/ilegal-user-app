@@ -6,6 +6,7 @@ import {
 } from "@nextui-org/react";
 import { StaticComponent } from "@/components/dashboard/summrization/static";
 import { DynamicComponent } from "@/components/dashboard/summrization/dynamic";
+import { AddQuestion } from "@/components/dashboard/summrization/addQuestion";
 
 const DashboardPage = () => {
   return (
@@ -25,6 +26,12 @@ const DashboardPage = () => {
           </Tab>
           <Tab className="w-full flex-1" key="dynamic" title="Dynamic">
             <DynamicComponent />
+          </Tab>
+          <Tab className="w-full flex-1" key="preConfigure" title="preConfigure">
+            <DynamicComponent />
+          </Tab>
+          <Tab className="w-full flex-1" key="addQuestion" title="Add Question">
+            <AddQuestion/>
           </Tab>
         </Tabs>
       </div>

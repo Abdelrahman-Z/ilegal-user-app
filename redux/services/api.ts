@@ -1,8 +1,10 @@
+import { GetQuestionsQueryParams, GetQuestionsResponse } from "@/types";
 import { getToken } from "@/utils";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
+  tagTypes: ["question"],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -66,6 +68,19 @@ export const api = createApi({
         body: data,
       }),
     }),
+    // questions
+    createQuestion: builder.mutation({
+      query: (data) => ({
+        url: "/question",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["question"],
+    }),
+    getQuestions: builder.query<GetQuestionsResponse, GetQuestionsQueryParams>({
+      query: ({ page, limit }) => `/question?page=${page}&limit=${limit}`,
+      providesTags: ["question"], // Attach tags for cache invalidation
+    }),
     // Add other endpoints here
   }),
 });
@@ -79,6 +94,9 @@ export const {
   // summrization
   useSummarizeTextMutation,
   useSubmitDynamicFormMutation,
-  useTranslateMutation
   // translation
+  useTranslateMutation,
+  //questions
+  useCreateQuestionMutation,
+  useGetQuestionsQuery,
 } = api;
