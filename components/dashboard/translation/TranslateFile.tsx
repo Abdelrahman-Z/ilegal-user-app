@@ -8,18 +8,20 @@ import {
   ModalHeader,
   Select,
   SelectItem,
-  Textarea,
   useDisclosure,
+  Input,
 } from "@nextui-org/react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useTranslateMutation } from "@/redux/services/api";
+import { useTranslateFileMutation } from "@/redux/services/api";
 import Markdown from "markdown-to-jsx";
-import { formatObjectToMarkdown } from "@/utils";
 
+// Update schema to allow PDF, .txt, and Word documents
 const schema = yup.object({
-  text: yup.string().required("Text is required"),
+  file: yup
+    .mixed<File>()
+    .required("File is required"),
   original_lang: yup
     .string()
     .oneOf(
@@ -33,36 +35,42 @@ const schema = yup.object({
     .required("Target language is required"),
 });
 
-type TranslationFormValues = yup.InferType<typeof schema>;
+type FileTranslationFormValues = yup.InferType<typeof schema>;
 
-export const Static = () => {
+export const TranslateFile = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
+  const [streamedResponse, setStreamedResponse] = useState<string>("");
 
   const {
     handleSubmit,
     formState: { errors },
     reset,
     register,
-    setValue
-  } = useForm<TranslationFormValues>({
+    setValue,
+  } = useForm<FileTranslationFormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
-      text: "",
       original_lang: "english",
       target_lang: "arabic",
     },
   });
 
-  // RTK Query mutation hook for translation
-  const [translate, { isLoading }] = useTranslateMutation();
+  const [translate, { isLoading }] = useTranslateFileMutation();
 
   const onSubmit = handleSubmit(async (data) => {
+    // @ts-expect-error  -> error from the YUP resolver
+    const file = data.file?.[0]
     try {
-      const response = await translate(data).unwrap();
-      setStreamedResponse("");
-      const text = formatObjectToMarkdown(response);
+      const formData = new FormData();
+      formData.append("file", file as File);
+      formData.append("original_lang", data.original_lang);
+      formData.append("target_lang", data.target_lang);
 
+      const response = await translate(formData).unwrap();
+      setStreamedResponse("");
+
+      // Process and stream the response
+      const text = response.translation;
       const words = text.split(" ");
 
       let wordIndex = 0;
@@ -71,9 +79,10 @@ export const Static = () => {
         if (wordIndex < words.length) {
           setStreamedResponse((prev) => prev + " " + words[wordIndex]);
           wordIndex++;
-          setTimeout(streamSummary, 100); // Adjust delay as needed
+          setTimeout(streamSummary, 100);
         }
       };
+
       onClose();
       streamSummary();
       reset();
@@ -81,19 +90,19 @@ export const Static = () => {
       console.error(error);
     }
   });
+
   return (
-    <div className="flex flex-col flex-1">
+    <>
       <Button onClick={onOpen} color="primary">
-        Open Translation Form
+        Open File Translation Form
       </Button>
 
-      {/* Modal */}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
         <ModalContent>
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                <h4>Translate Text</h4>
+                <h4>Translate File</h4>
               </ModalHeader>
               <ModalBody>
                 <form
@@ -101,20 +110,22 @@ export const Static = () => {
                   onSubmit={onSubmit}
                   className="flex flex-col gap-5"
                 >
-                  {/* Textarea for text */}
+                  {/* File Upload */}
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
-                      Text
+                      File Upload
                     </label>
-                    <Textarea
-                      {...register("text")}
-                      placeholder="Type or paste your text here..."
-                    //   className="mt-1 block w-full px-3 py-2 border rounded-md"
-                      rows={10}
+                    <Input
+                      type="file"
+                      accept=".pdf" // Accept only specified file types
+                      {...register("file")}
+                      className={`mt-1 block w-full ${
+                        errors.file ? "border-red-500" : ""
+                      }`}
                     />
-                    {errors.text && (
+                    {errors.file && (
                       <p className="text-red-500 text-xs mt-1">
-                        {errors.text.message}
+                        {errors.file.message}
                       </p>
                     )}
                   </div>
@@ -127,9 +138,12 @@ export const Static = () => {
                     <Select
                       label="Select Original Language"
                       placeholder="Choose the original language"
-                      defaultSelectedKeys={['english']}
+                      defaultSelectedKeys={["english"]}
                       onSelectionChange={(value) =>
-                        setValue("original_lang", value.currentKey as "english" | "arabic")
+                        setValue(
+                          "original_lang",
+                          value.currentKey as "english" | "arabic"
+                        )
                       }
                     >
                       <SelectItem key="english" value="english">
@@ -154,9 +168,12 @@ export const Static = () => {
                     <Select
                       label="Select Target Language"
                       placeholder="Choose the target language"
-                      defaultSelectedKeys={['arabic']}
+                      defaultSelectedKeys={["arabic"]}
                       onSelectionChange={(value) =>
-                        setValue("target_lang", value.currentKey as "english" | "arabic")
+                        setValue(
+                          "target_lang",
+                          value.currentKey as "english" | "arabic"
+                        )
                       }
                     >
                       <SelectItem key="english" value="english">
@@ -201,6 +218,6 @@ export const Static = () => {
       <div className="mt-5 whitespace-pre-wrap">
         <Markdown>{streamedResponse}</Markdown>
       </div>
-    </div>
+    </>
   );
 };

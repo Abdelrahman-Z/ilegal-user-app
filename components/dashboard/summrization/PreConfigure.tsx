@@ -42,7 +42,7 @@ export function PreConfigure() {
 
   const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, isFetching } = useGetQuestionsQuery({ page: 1, limit: 10 }); // Fetch the first 10 questions
+  const { data } = useGetQuestionsQuery({ page: 1, limit: 10 }); // Fetch the first 10 questions
 
   // React Hook Form setup
   const {
@@ -83,7 +83,7 @@ export function PreConfigure() {
     });
     const formData = new FormData();
     formData.append("fields", JSON.stringify(dynamicFields));
-    formData.append('file' , file)
+    formData.append("file", file);
     try {
       const result = await submitDynamicForm(formData).unwrap();
       setStreamedResponse("");
@@ -208,7 +208,12 @@ export function PreConfigure() {
                 >
                   Close
                 </Button>
-                <Button type="submit" color="primary" form="dynamicForm">
+                <Button
+                  type="submit"
+                  color="primary"
+                  form="dynamicForm"
+                  isLoading={isLoading}
+                >
                   Submit
                 </Button>
               </ModalFooter>

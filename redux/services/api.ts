@@ -68,6 +68,13 @@ export const api = createApi({
         body: data,
       }),
     }),
+    translateFile: builder.mutation({
+      query: (data) => ({
+        url: "/translate/pdf",
+        method: "POST",
+        body: data,
+      }),
+    }),
     // questions
     createQuestion: builder.mutation({
       query: (data) => ({
@@ -96,6 +103,7 @@ export const {
   useSubmitDynamicFormMutation,
   // translation
   useTranslateMutation,
+  useTranslateFileMutation,
   //questions
   useCreateQuestionMutation,
   useGetQuestionsQuery,
