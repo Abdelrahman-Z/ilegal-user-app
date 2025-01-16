@@ -1,4 +1,4 @@
-import { GetQuestionsQueryParams, GetQuestionsResponse } from "@/types";
+import { GetJurisdictionsQueryParams, GetJurisdictionsResponse, GetQuestionsQueryParams, GetQuestionsResponse } from "@/types";
 import { getToken } from "@/utils";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -88,6 +88,30 @@ export const api = createApi({
       query: ({ page, limit }) => `/question?page=${page}&limit=${limit}`,
       providesTags: ["question"], // Attach tags for cache invalidation
     }),
+    // jurisdictions
+    createJurisdiction: builder.mutation({
+      query: (body) => ({
+        url: "/jurisdiction/create",
+        method: "POST",
+        body,
+      }),
+    }),
+    getJurisdictions: builder.query<GetJurisdictionsResponse, GetJurisdictionsQueryParams>({
+      query: ({ page = 1, limit = 10 }) => `/jurisdiction?page=${page}&limit=${limit}`,
+    }),
+    updateJurisdiction: builder.mutation({
+      query: ({ id, name }) => ({
+        url: `/jurisdiction/${id}`,
+        method: "PATCH",
+        body: { name },
+      }),
+    }),
+    deleteJurisdiction: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/jurisdiction/${id}`,
+        method: "DELETE",
+      }),
+    }),
     // Add other endpoints here
   }),
 });
@@ -107,4 +131,9 @@ export const {
   //questions
   useCreateQuestionMutation,
   useGetQuestionsQuery,
+  // jurisdictions
+  useCreateJurisdictionMutation,
+  useGetJurisdictionsQuery,
+  useUpdateJurisdictionMutation,
+  useDeleteJurisdictionMutation
 } = api;

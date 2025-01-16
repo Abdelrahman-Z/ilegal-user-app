@@ -23,3 +23,21 @@ export interface GetQuestionsQueryParams {
   page: number;
   limit: number;
 }
+
+export interface Jurisdiction {
+  id: string;
+  name: string;
+  imageUrl: string;
+  referenceUrl: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface GetJurisdictionsResponse {
+  data: Jurisdiction[];
+  metaData: Metadata;
+}
+
+export interface GetJurisdictionsQueryParams {
+  page: number;
+  limit: number;
+}
