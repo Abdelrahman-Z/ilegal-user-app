@@ -27,14 +27,14 @@ const DeleteJurisdictionModal: React.FC<DeleteJurisdictionModalProps> = ({
       await deleteJurisdiction(id).unwrap();
       onClose();
     } catch (error) {
-      alert("Failed to delete jurisdiction. Please try again.");
+      console.error(error)
     }
   };
 
   return (
     <>
-      <Button color="primary" onPress={onOpen}>
-        Update
+      <Button color="danger" onPress={onOpen}>
+        Delete
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onClose}>
         <ModalContent>

@@ -13,6 +13,7 @@ import {
 import { useGetJurisdictionsQuery } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { UpdateJurisdiction } from "./UpdateJurisdictions";
+import DeleteJurisdictionModal from "./DeleteJurisdiction";
 
 export function AllJurisdictions() {
   const [page, setPage] = React.useState(1);
@@ -78,7 +79,10 @@ export function AllJurisdictions() {
             <TableCell>{item?.referenceUrl}</TableCell>
             <TableCell>{item?.imageUrl}</TableCell>
             <TableCell>
-              <UpdateJurisdiction id={item.id} currentName={item.name}/>
+              <div className="flex items-center gap-2">
+                <UpdateJurisdiction id={item.id} currentName={item.name} />
+                <DeleteJurisdictionModal id={item.id} />
+              </div>
             </TableCell>
           </TableRow>
         )}
