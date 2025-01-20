@@ -86,6 +86,24 @@ export const api = createApi({
       }),
       invalidatesTags: ["users"],
     }),
+    getUserById: builder.query<{ userRole: { roleId: string }[] }, string>({
+      query: (userId) => `/user/one/${userId}`,
+    }),
+    // roles
+    getAllRoles: builder.query<
+      { id: string; name: string }[],
+      { search: string }
+    >({
+      query: ({ search }) => `/roles/search?search=${search}`,
+    }),
+    assignRoles: builder.mutation<void, { userId: string; roleIds: string[] }>({
+      query: ({ userId, roleIds }) => ({
+        url: `/users/${userId}/roles`,
+        method: "POST",
+        body: { roleIds },
+      }),
+      invalidatesTags: ["users"],
+    }),
     // summrization
     summarizeText: builder.mutation({
       query: (text) => ({
@@ -177,6 +195,12 @@ export const {
   usePatchUserStatusMutation,
   useDeleteUserMutation,
   useUpdateUserMutation,
+  useGetUserByIdQuery,
+  useLazyGetUserByIdQuery,
+  // roles
+  useGetAllRolesQuery,
+  useLazyGetAllRolesQuery,
+  useAssignRolesMutation,
   // summrization
   useSummarizeTextMutation,
   useSubmitDynamicFormMutation,

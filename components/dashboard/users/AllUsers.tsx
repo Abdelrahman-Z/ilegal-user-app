@@ -17,6 +17,7 @@ import { User } from "@/types";
 import ToggleUserStatus from "./ToggleUsers";
 import DeleteUserModal from "./DeleteUser";
 import { UpdateUserModal } from "./UpdateUser";
+import { AddRole } from "./AddRole";
 
 export function AllUsers() {
   const [page, setPage] = React.useState(1);
@@ -102,12 +103,11 @@ export function AllUsers() {
                     currentPhone={item.phone}
                     src={item.imageUrl}
                     currentUserName={item.userName}
-                    key={item.id}
                   />
+                  <AddRole userId={item.id}/>
                   <DeleteUserModal
                     id={item.id}
                     userName={item.userName}
-                    key={item.id}
                   />
                 </div>
               </TableCell>

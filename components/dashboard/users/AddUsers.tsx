@@ -161,6 +161,17 @@ export function AddUser() {
                     )}
                   </div>
                 </div>
+                {error && isFetchBaseQueryError(error) && (
+                  <div className="mt-4">
+                    <p className="text-red-500 text-sm">
+                      {error.data &&
+                      typeof error.data === "object" &&
+                      "message" in error.data
+                        ? (error.data as { message: string }).message
+                        : "An error occurred. Please try again."}
+                    </p>
+                  </div>
+                )}
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
