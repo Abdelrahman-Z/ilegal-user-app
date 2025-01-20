@@ -10,6 +10,8 @@ import { BsShieldFillCheck, BsTranslate } from "react-icons/bs";
 import { AiFillSignature } from "react-icons/ai";
 import { GiInjustice } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
+import { HiOutlineKey } from "react-icons/hi2";
+import Image from "next/image";
 
 const navLinks = [
   // {
@@ -62,21 +64,32 @@ const navLinks = [
     icon: <BsShieldFillCheck className="text-2xl" />,
     path: "/dashboard/roles",
   },
+  {
+    name: "Permissions",
+    icon: <HiOutlineKey className="text-2xl" />,
+    path: "/dashboard/permissions",
+  },
 ];
 
 const Sidebar = () => {
   const { locale } = useParams();
   return (
-    <aside className="w-fit h-full flex flex-col items-center py-4 space-y-8 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue">
-      <div className="text-lg font-bold">
-        <img src="/images/logo.svg" alt="logo" className="w-8 h-8" />
+    <aside className="w-60 h-full py-4 space-y-8 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue px-10">
+      <div>
+        <Image
+          src="/images/logo.svg"
+          alt="logo"
+          className="w-32 h-32"
+          width={32}
+          height={32}
+        />
       </div>
-      <nav className="flex flex-col items-center space-y-10">
+      <nav className="flex flex-col items-start justify-start space-y-10 w-full ">
         {navLinks.map((link, index) => (
           <Button
             key={index}
             startContent={link.icon}
-            className="bg-transparent text-white hover:text-gray-300"
+            className="bg-transparent text-white hover:text-gray-300 p-0 w-full justify-start"
             as={Link}
             href={`/${locale}${link.path}`}
           >
@@ -84,7 +97,6 @@ const Sidebar = () => {
           </Button>
         ))}
       </nav>
-      <div></div>
     </aside>
   );
 };

@@ -144,6 +144,16 @@ export const api = createApi({
     getPermissions: builder.query<any[], void>({
       query: () => "/permission/category",
     }),
+    getAllPermissions: builder.query({
+      query: ({ page, limit }) => ({
+        url: `/permission`,
+        method: 'GET',
+        params: {
+          page,
+          limit,
+        },
+      }),
+    }),
     // summrization
     summarizeText: builder.mutation({
       query: (text) => ({
@@ -248,6 +258,7 @@ export const {
   useUpdateRolePermissionsMutation,
   // permissions
   useLazyGetPermissionsQuery,
+  useGetAllPermissionsQuery,
   // summrization
   useSummarizeTextMutation,
   useSubmitDynamicFormMutation,
