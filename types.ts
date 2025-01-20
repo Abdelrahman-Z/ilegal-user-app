@@ -41,3 +41,17 @@ export interface GetJurisdictionsQueryParams {
   page: number;
   limit: number;
 }
+
+
+export type User = {
+  id: string;
+  userName: string;
+  email: string;
+  phone: string;
+  isActive: boolean;
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  userPermissions: Array<any>; // Adjust type if permissions have a specific structure
+  userRole: Array<{ roleId: string }>;
+};

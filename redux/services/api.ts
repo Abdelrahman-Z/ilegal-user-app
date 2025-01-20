@@ -9,7 +9,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["question", "jurisdictions"],
+  tagTypes: ["question", "jurisdictions", "users"],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -49,6 +49,42 @@ export const api = createApi({
         method: "PATCH",
         body: data,
       }),
+    }),
+    // users
+    createUser: builder.mutation({
+      query: (user) => ({
+        url: "/user", // Replace with the actual endpoint for creating users
+        method: "POST",
+        body: user,
+      }),
+      invalidatesTags: ["users"],
+    }),
+    getUsers: builder.query({
+      query: ({ page, limit }) =>
+        `/user/all/tenant?page=${page}&limit=${limit}`,
+      providesTags: ["users"],
+    }),
+    patchUserStatus: builder.mutation({
+      query: ({ id, activate }: { id: string; activate: boolean }) => ({
+        url: `/user/activate-deactivate/${id}?activate=${activate}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["users"],
+    }),
+    deleteUser: builder.mutation({
+      query: (id: string) => ({
+        url: `/user/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["users"],
+    }),
+    updateUser: builder.mutation({
+      query: ({ id, formData }: { id: string; formData: FormData }) => ({
+        url: `/user/${id}`,
+        method: "PATCH",
+        body: formData,
+      }),
+      invalidatesTags: ["users"],
     }),
     // summrization
     summarizeText: builder.mutation({
@@ -135,6 +171,12 @@ export const {
   useForgetPasswordMutation,
   useVerifyOtpMutation,
   useResetPassordMutation,
+  // users
+  useCreateUserMutation,
+  useGetUsersQuery,
+  usePatchUserStatusMutation,
+  useDeleteUserMutation,
+  useUpdateUserMutation,
   // summrization
   useSummarizeTextMutation,
   useSubmitDynamicFormMutation,

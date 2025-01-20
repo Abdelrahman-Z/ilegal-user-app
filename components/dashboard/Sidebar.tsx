@@ -4,11 +4,12 @@ import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
-import {  FaFileAlt, FaCog, FaPen } from "react-icons/fa";
+import { FaFileAlt, FaCog, FaPen } from "react-icons/fa";
 // import { RiOrganizationChart } from "react-icons/ri";
 import { BsTranslate } from "react-icons/bs";
 import { AiFillSignature } from "react-icons/ai";
 import { GiInjustice } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
 
 const navLinks = [
   // {
@@ -50,6 +51,11 @@ const navLinks = [
     name: "Jurisdiction",
     icon: <GiInjustice className="text-2xl" />,
     path: "/dashboard/jurisdiction",
+  },
+  {
+    name: "Users",
+    icon: <FaUser className="text-2xl" />,
+    path: "/dashboard/users",
   },
 ];
 
