@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import React from "react";
 import { FaFileAlt, FaCog, FaPen } from "react-icons/fa";
 // import { RiOrganizationChart } from "react-icons/ri";
-import { BsTranslate } from "react-icons/bs";
+import { BsShieldFillCheck, BsTranslate } from "react-icons/bs";
 import { AiFillSignature } from "react-icons/ai";
 import { GiInjustice } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
@@ -56,6 +56,11 @@ const navLinks = [
     name: "Users",
     icon: <FaUser className="text-2xl" />,
     path: "/dashboard/users",
+  },
+  {
+    name: "Roles",
+    icon: <BsShieldFillCheck className="text-2xl" />,
+    path: "/dashboard/roles",
   },
 ];
 

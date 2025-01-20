@@ -9,7 +9,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["question", "jurisdictions", "users"],
+  tagTypes: ["question", "jurisdictions", "users", "roles"],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -90,11 +90,24 @@ export const api = createApi({
       query: (userId) => `/user/one/${userId}`,
     }),
     // roles
+    createRole: builder.mutation<void, { name: string }>({
+      query: (body) => ({
+        url: `/tenants/roles`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["roles"],
+    }),
     getAllRoles: builder.query<
       { id: string; name: string }[],
       { search: string }
     >({
       query: ({ search }) => `/roles/search?search=${search}`,
+      providesTags: ["roles"],
+    }),
+    getRoles: builder.query<any, { page: number; limit: number }>({
+      query: ({ page, limit }) => `/tenants/roles?page=${page}&limit=${limit}`,
+      providesTags: ["roles"],
     }),
     assignRoles: builder.mutation<void, { userId: string; roleIds: string[] }>({
       query: ({ userId, roleIds }) => ({
@@ -103,6 +116,33 @@ export const api = createApi({
         body: { roleIds },
       }),
       invalidatesTags: ["users"],
+    }),
+    deleteRole: builder.mutation<void, string>({
+      query: (roleId) => ({
+        url: `/tenants/roles/${roleId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["roles"],
+    }),
+    updateRole: builder.mutation<void, { id: string; name: string }>({
+      query: ({ id, name }) => ({
+        url: `/tenants/roles/${id}`,
+        method: "PATCH",
+        body: { name },
+      }),
+      invalidatesTags: ["roles"],
+    }),
+    updateRolePermissions: builder.mutation<void, { roleId: string; permissionIds: string[] }>({
+      query: ({ roleId, permissionIds }) => ({
+        url: `/roles/${roleId}/permissions`,
+        method: "POST",
+        body: { permissionIds },
+      }),
+      invalidatesTags: ["roles"],
+    }),
+    // permissions
+    getPermissions: builder.query<any[], void>({
+      query: () => "/permission/category",
     }),
     // summrization
     summarizeText: builder.mutation({
@@ -201,6 +241,13 @@ export const {
   useGetAllRolesQuery,
   useLazyGetAllRolesQuery,
   useAssignRolesMutation,
+  useCreateRoleMutation,
+  useGetRolesQuery,
+  useDeleteRoleMutation,
+  useUpdateRoleMutation,
+  useUpdateRolePermissionsMutation,
+  // permissions
+  useLazyGetPermissionsQuery,
   // summrization
   useSummarizeTextMutation,
   useSubmitDynamicFormMutation,

@@ -55,3 +55,26 @@ export type User = {
   userPermissions: Array<any>; // Adjust type if permissions have a specific structure
   userRole: Array<{ roleId: string }>;
 };
+
+export interface Role {
+  id: string;
+  name: string;
+  permissions: {
+    id: string;
+    name: string;
+  }[];
+}
+
+
+export interface Permission {
+  id: string;
+  name: string;
+}
+
+export interface PermissionCategory {
+  id: string;
+  name: string;
+  mainCategoryId: string;
+  mainCategoryName: string;
+  permissions: Permission[];
+}
