@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import {
   Button,
   Modal,
@@ -15,23 +15,18 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslateFileMutation } from "@/redux/services/api";
-import Markdown from "markdown-to-jsx";
+import { isFetchBaseQueryError } from "@/redux/store";
 
 // Update schema to allow PDF, .txt, and Word documents
 const schema = yup.object({
-  file: yup
-    .mixed<File>()
-    .required("File is required"),
+  file: yup.mixed<File>().required("File is required"),
   original_lang: yup
     .string()
-    .oneOf(
-      ["english", "arabic"] as const,
-      "Invalid original language selection"
-    )
+    .oneOf(["en", "ar"] as const, "Invalid original language selection")
     .required("Original language is required"),
   target_lang: yup
     .string()
-    .oneOf(["english", "arabic"] as const, "Invalid target language selection")
+    .oneOf(["en", "ar"] as const, "Invalid target language selection")
     .required("Target language is required"),
 });
 
@@ -39,7 +34,7 @@ type FileTranslationFormValues = yup.InferType<typeof schema>;
 
 export const TranslateFile = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const [streamedResponse, setStreamedResponse] = useState<string>("");
+  // const [streamedResponse, setStreamedResponse] = useState<string>("");
 
   const {
     handleSubmit,
@@ -50,16 +45,16 @@ export const TranslateFile = () => {
   } = useForm<FileTranslationFormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
-      original_lang: "english",
-      target_lang: "arabic",
+      original_lang: "en",
+      target_lang: "ar",
     },
   });
 
-  const [translate, { isLoading }] = useTranslateFileMutation();
+  const [translate, { data, isLoading, error }] = useTranslateFileMutation();
 
   const onSubmit = handleSubmit(async (data) => {
     // @ts-expect-error  -> error from the YUP resolver
-    const file = data.file?.[0]
+    const file = data.file?.[0];
     try {
       const formData = new FormData();
       formData.append("file", file as File);
@@ -67,30 +62,30 @@ export const TranslateFile = () => {
       formData.append("target_lang", data.target_lang);
 
       const response = await translate(formData).unwrap();
-      setStreamedResponse("");
+      // setStreamedResponse(response);
+      console.log(response);
 
-      // Process and stream the response
-      const text = response.translation;
-      const words = text.split(" ");
+      // // Process and stream the response
+      // const text = response.translation;
+      // const words = text.split(" ");
 
-      let wordIndex = 0;
+      // let wordIndex = 0;
 
-      const streamSummary = () => {
-        if (wordIndex < words.length) {
-          setStreamedResponse((prev) => prev + " " + words[wordIndex]);
-          wordIndex++;
-          setTimeout(streamSummary, 100);
-        }
-      };
+      // const streamSummary = () => {
+      //   if (wordIndex < words.length) {
+      //     setStreamedResponse((prev) => prev + " " + words[wordIndex]);
+      //     wordIndex++;
+      //     setTimeout(streamSummary, 100);
+      //   }
+      // };
 
+      // streamSummary();
       onClose();
-      streamSummary();
       reset();
     } catch (error) {
       console.error(error);
     }
   });
-
   return (
     <>
       <Button onClick={onOpen} color="primary">
@@ -138,18 +133,18 @@ export const TranslateFile = () => {
                     <Select
                       label="Select Original Language"
                       placeholder="Choose the original language"
-                      defaultSelectedKeys={["english"]}
+                      defaultSelectedKeys={["en"]}
                       onSelectionChange={(value) =>
                         setValue(
                           "original_lang",
-                          value.currentKey as "english" | "arabic"
+                          value.currentKey as "en" | "ar"
                         )
                       }
                     >
-                      <SelectItem key="english" value="english">
+                      <SelectItem key="en" value="ar">
                         English
                       </SelectItem>
-                      <SelectItem key="arabic" value="arabic">
+                      <SelectItem key="ar" value="ar">
                         Arabic
                       </SelectItem>
                     </Select>
@@ -168,18 +163,15 @@ export const TranslateFile = () => {
                     <Select
                       label="Select Target Language"
                       placeholder="Choose the target language"
-                      defaultSelectedKeys={["arabic"]}
+                      defaultSelectedKeys={["ar"]}
                       onSelectionChange={(value) =>
-                        setValue(
-                          "target_lang",
-                          value.currentKey as "english" | "arabic"
-                        )
+                        setValue("target_lang", value.currentKey as "en" | "ar")
                       }
                     >
-                      <SelectItem key="english" value="english">
+                      <SelectItem key="en" value="en">
                         English
                       </SelectItem>
-                      <SelectItem key="arabic" value="arabic">
+                      <SelectItem key="ar" value="ar">
                         Arabic
                       </SelectItem>
                     </Select>
@@ -191,6 +183,17 @@ export const TranslateFile = () => {
                   </div>
                 </form>
               </ModalBody>
+               {error && isFetchBaseQueryError(error) && (
+                        <div className="mt-4">
+                          <p className="text-red-500 text-sm">
+                            {error.data &&
+                            typeof error.data === "object" &&
+                            "message" in error.data
+                              ? (error.data as { message: string }).message
+                              : "An error occurred. Please try again."}
+                          </p>
+                        </div>
+                      )}
               <ModalFooter>
                 <Button
                   color="danger"
@@ -215,9 +218,13 @@ export const TranslateFile = () => {
           )}
         </ModalContent>
       </Modal>
-      <div className="mt-5 whitespace-pre-wrap">
-        <Markdown>{streamedResponse}</Markdown>
-      </div>
+      {data && (
+        <div
+          className="mt-5 whitespace-pre-wrap"
+          dir={data.target_lang === "ar" ? "rtl" : "ltr"}
+          dangerouslySetInnerHTML={{ __html: data.text }}
+        ></div>
+      )}
     </>
   );
 };

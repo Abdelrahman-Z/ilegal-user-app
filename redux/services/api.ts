@@ -132,7 +132,10 @@ export const api = createApi({
       }),
       invalidatesTags: ["roles"],
     }),
-    updateRolePermissions: builder.mutation<void, { roleId: string; permissionIds: string[] }>({
+    updateRolePermissions: builder.mutation<
+      void,
+      { roleId: string; permissionIds: string[] }
+    >({
       query: ({ roleId, permissionIds }) => ({
         url: `/roles/${roleId}/permissions`,
         method: "POST",
@@ -147,7 +150,7 @@ export const api = createApi({
     getAllPermissions: builder.query({
       query: ({ page, limit }) => ({
         url: `/permission`,
-        method: 'GET',
+        method: "GET",
         params: {
           page,
           limit,

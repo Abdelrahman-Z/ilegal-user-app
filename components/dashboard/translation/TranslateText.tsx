@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Modal,
@@ -15,21 +15,18 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslateMutation } from "@/redux/services/api";
-import Markdown from "markdown-to-jsx";
-import { formatObjectToMarkdown } from "@/utils";
+import { isFetchBaseQueryError } from "@/redux/store";
+
 
 const schema = yup.object({
-  text: yup.string().required("Text is required"),
+  htmlStrings: yup.string().required("Text is required"),
   original_lang: yup
     .string()
-    .oneOf(
-      ["english", "arabic"] as const,
-      "Invalid original language selection"
-    )
+    .oneOf(["en", "ar"] as const, "Invalid original language selection")
     .required("Original language is required"),
   target_lang: yup
     .string()
-    .oneOf(["english", "arabic"] as const, "Invalid target language selection")
+    .oneOf(["en", "ar"] as const, "Invalid target language selection")
     .required("Target language is required"),
 });
 
@@ -37,50 +34,54 @@ type TranslationFormValues = yup.InferType<typeof schema>;
 
 export const Static = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
+  // const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
 
   const {
     handleSubmit,
     formState: { errors },
     reset,
     register,
-    setValue
+    setValue,
   } = useForm<TranslationFormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
-      text: "",
-      original_lang: "english",
-      target_lang: "arabic",
+      htmlStrings: "",
+      original_lang: "en",
+      target_lang: "ar",
     },
   });
 
   // RTK Query mutation hook for translation
-  const [translate, { isLoading }] = useTranslateMutation();
+  const [translate, { data, error, isLoading }] = useTranslateMutation();
 
   const onSubmit = handleSubmit(async (data) => {
     try {
       const response = await translate(data).unwrap();
-      setStreamedResponse("");
-      const text = formatObjectToMarkdown(response);
+      console.log(response);
+      // console.log("Translated Text:", response); // Log the plain text response
+      // setStreamedResponse(response);
 
-      const words = text.split(" ");
+      // let wordIndex = 0;
+      // const words = response.split(" ");
+      // console.log(words)
+      // // Simulate a streaming effect
+      // const streamSummary = () => {
+      //   console.log(words.at(-1))
+      //   if (wordIndex < words.length) {
+      //     setStreamedResponse((prev) => prev + " " + words[wordIndex]);
+      //     wordIndex++;
+      //     setTimeout(streamSummary, 100); // Adjust delay as needed
+      //   }
+      // };
 
-      let wordIndex = 0;
-
-      const streamSummary = () => {
-        if (wordIndex < words.length) {
-          setStreamedResponse((prev) => prev + " " + words[wordIndex]);
-          wordIndex++;
-          setTimeout(streamSummary, 100); // Adjust delay as needed
-        }
-      };
+      // streamSummary();
       onClose();
-      streamSummary();
       reset();
     } catch (error) {
-      console.error(error);
+      console.error("Translation Error:", error);
     }
   });
+
   return (
     <>
       <Button onClick={onOpen} color="primary">
@@ -107,14 +108,14 @@ export const Static = () => {
                       Text
                     </label>
                     <Textarea
-                      {...register("text")}
+                      {...register("htmlStrings")}
                       placeholder="Type or paste your text here..."
-                    //   className="mt-1 block w-full px-3 py-2 border rounded-md"
+                      //   className="mt-1 block w-full px-3 py-2 border rounded-md"
                       rows={10}
                     />
-                    {errors.text && (
+                    {errors.htmlStrings && (
                       <p className="text-red-500 text-xs mt-1">
-                        {errors.text.message}
+                        {errors.htmlStrings.message}
                       </p>
                     )}
                   </div>
@@ -127,15 +128,18 @@ export const Static = () => {
                     <Select
                       label="Select Original Language"
                       placeholder="Choose the original language"
-                      defaultSelectedKeys={['english']}
+                      defaultSelectedKeys={["en"]}
                       onSelectionChange={(value) =>
-                        setValue("original_lang", value.currentKey as "english" | "arabic")
+                        setValue(
+                          "original_lang",
+                          value.currentKey as "en" | "ar"
+                        )
                       }
                     >
-                      <SelectItem key="english" value="english">
+                      <SelectItem key="en" value="en">
                         English
                       </SelectItem>
-                      <SelectItem key="arabic" value="arabic">
+                      <SelectItem key="ar" value="ar">
                         Arabic
                       </SelectItem>
                     </Select>
@@ -154,15 +158,15 @@ export const Static = () => {
                     <Select
                       label="Select Target Language"
                       placeholder="Choose the target language"
-                      defaultSelectedKeys={['arabic']}
+                      defaultSelectedKeys={["ar"]}
                       onSelectionChange={(value) =>
-                        setValue("target_lang", value.currentKey as "english" | "arabic")
+                        setValue("target_lang", value.currentKey as "en" | "ar")
                       }
                     >
-                      <SelectItem key="english" value="english">
+                      <SelectItem key="en" value="en">
                         English
                       </SelectItem>
-                      <SelectItem key="arabic" value="arabic">
+                      <SelectItem key="ar" value="ar">
                         Arabic
                       </SelectItem>
                     </Select>
@@ -174,6 +178,17 @@ export const Static = () => {
                   </div>
                 </form>
               </ModalBody>
+               {error && isFetchBaseQueryError(error) && (
+                        <div className="mt-4">
+                          <p className="text-red-500 text-sm">
+                            {error.data &&
+                            typeof error.data === "object" &&
+                            "message" in error.data
+                              ? (error.data as { message: string }).message
+                              : "An error occurred. Please try again."}
+                          </p>
+                        </div>
+                      )}
               <ModalFooter>
                 <Button
                   color="danger"
@@ -198,9 +213,13 @@ export const Static = () => {
           )}
         </ModalContent>
       </Modal>
-      <div className="mt-5 whitespace-pre-wrap">
-        <Markdown>{streamedResponse}</Markdown>
-      </div>
+      {data && (
+        <div
+          className="mt-5 whitespace-pre-wrap"
+          dir={data.target_lang === "ar" ? "rtl" : "ltr"}
+          dangerouslySetInnerHTML={{ __html: data.text }}
+        ></div>
+      )}
     </>
   );
 };
