@@ -39,7 +39,7 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ id, roleName }) => {
       </Button>
 
       {/* Confirmation Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onClose}>
+      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onClose}>
         <ModalContent>
           <ModalHeader>Confirm Deletion</ModalHeader>
           <ModalBody>

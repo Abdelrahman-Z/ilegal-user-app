@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSummarizeTextMutation } from "@/redux/services/api";
 import { formatObjectToMarkdown } from "@/utils";
+import { isFetchBaseQueryError } from "@/redux/store";
 
 const schema = yup.object().shape({
   text: yup
@@ -28,7 +29,7 @@ export const StaticComponent = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [summary, setSummary] = useState("");
 
-  const [summarizeText, { isLoading }] = useSummarizeTextMutation();
+  const [summarizeText, { isLoading , error }] = useSummarizeTextMutation();
 
   const {
     register,
@@ -51,19 +52,7 @@ export const StaticComponent = () => {
       }
 
       const text = formatObjectToMarkdown(response.Data);
-      console.log("Formatted Markdown:", text);
-
-      const words = text.split(" ");
-      let wordIndex = 0;
-
-      const streamSummary = () => {
-        if (wordIndex < words.length) {
-          setSummary((prev) => prev + " " + words[wordIndex]);
-          wordIndex++;
-          setTimeout(streamSummary, 100); // Adjust delay as needed
-        }
-      };
-      streamSummary();
+      setSummary(text);
       onClose();
       reset();
     } catch (error) {
@@ -79,7 +68,12 @@ export const StaticComponent = () => {
       </Button>
 
       {/* Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
+      <Modal
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="5xl"
+      >
         <ModalContent>
           {(onClose) => (
             <>
@@ -99,6 +93,17 @@ export const StaticComponent = () => {
                   )}
                 </form>
               </ModalBody>
+              {error && isFetchBaseQueryError(error) && (
+                <div className="mt-4">
+                  <p className="text-red-500 text-sm">
+                    {error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
+                      ? (error.data as { message: string }).message
+                      : "An error occurred. Please try again."}
+                  </p>
+                </div>
+              )}
               <ModalFooter>
                 <Button
                   color="danger"

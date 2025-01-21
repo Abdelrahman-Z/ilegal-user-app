@@ -55,7 +55,7 @@ export function AddJurisdiction() {
       <Button color="primary" onPress={onOpen}>
         Create Jurisdiction
       </Button>
-      <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
+      <Modal scrollBehavior="inside" isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <form onSubmit={onSubmit}>

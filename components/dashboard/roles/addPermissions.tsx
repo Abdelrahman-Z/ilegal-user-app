@@ -17,6 +17,7 @@ import {
 } from "@/redux/services/api";
 import { LuPlus } from "react-icons/lu";
 import { Permission, PermissionCategory } from "@/types";
+import { isFetchBaseQueryError } from "@/redux/store";
 
 interface AddPermissionsProps {
   roleId: string; // Role ID
@@ -29,7 +30,9 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
-  const [allPermissions, setAllPermissions] = useState<PermissionCategory[]>([]);
+  const [allPermissions, setAllPermissions] = useState<PermissionCategory[]>(
+    []
+  );
   const [searchValue, setSearchValue] = useState<string>("");
 
   // Lazy fetch all available permissions
@@ -69,7 +72,7 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
     .filter((category) => category.permissions.length > 0);
 
   // Save selected permissions
-  const [updateRolePermissions, { isLoading: updateLoading }] =
+  const [updateRolePermissions, { isLoading: updateLoading , error }] =
     useUpdateRolePermissionsMutation();
   const handleSave = async () => {
     try {
@@ -133,7 +136,17 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
               </CheckboxGroup>
             )}
           </ModalBody>
-
+          {error && isFetchBaseQueryError(error) && (
+            <div className="mt-4">
+              <p className="text-red-500 text-sm">
+                {error.data &&
+                typeof error.data === "object" &&
+                "message" in error.data
+                  ? (error.data as { message: string }).message
+                  : "An error occurred. Please try again."}
+              </p>
+            </div>
+          )}
           <ModalFooter>
             <Button color="danger" variant="flat" onPress={onClose}>
               Cancel

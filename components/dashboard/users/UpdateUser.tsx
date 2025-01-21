@@ -83,7 +83,7 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
       </Button>
 
       {/* Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onClose}>
+      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onClose}>
         <ModalContent>
           <form onSubmit={onSubmit} encType="multipart/form-data">
             <ModalHeader>Update User</ModalHeader>

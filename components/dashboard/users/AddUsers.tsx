@@ -80,7 +80,7 @@ export function AddUser() {
       <Button color="primary" onPress={onOpen}>
         Add User
       </Button>
-      <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
+      <Modal scrollBehavior="inside" isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <form onSubmit={onSubmit}>

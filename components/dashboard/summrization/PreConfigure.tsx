@@ -20,6 +20,7 @@ import {
 } from "@/redux/services/api";
 import { formatObjectToMarkdown } from "@/utils";
 import Markdown from "markdown-to-jsx";
+import { isFetchBaseQueryError } from "@/redux/store";
 
 // Schema with yup
 const schema = yup.object({
@@ -66,7 +67,7 @@ export function PreConfigure() {
     name: "questions",
   });
 
-  const [submitDynamicForm, { isLoading }] = useSubmitDynamicFormMutation();
+  const [submitDynamicForm, { isLoading , error }] = useSubmitDynamicFormMutation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFile(e.target.files?.[0] || null);
@@ -91,19 +92,8 @@ export function PreConfigure() {
       // Stream the response from the array
       // console.log(formatObjectToPlainText(result.Data))
       const text = formatObjectToMarkdown(result.Data);
-      const words = text.split(" ");
-
-      let wordIndex = 0;
-
-      const streamSummary = () => {
-        if (wordIndex < words.length) {
-          setStreamedResponse((prev) => prev + " " + words[wordIndex]);
-          wordIndex++;
-          setTimeout(streamSummary, 100); // Adjust delay as needed
-        }
-      };
+      setStreamedResponse(text);
       onClose();
-      streamSummary();
       reset();
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -115,7 +105,7 @@ export function PreConfigure() {
       <Button color="primary" onClick={onOpen}>
         Open Form
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal scrollBehavior="inside" isOpen={isOpen} onClose={onClose}>
         <ModalContent>
           {(onClose) => (
             <form id="dynamicForm" onSubmit={onSubmit}>
@@ -198,6 +188,17 @@ export function PreConfigure() {
                   Add Question
                 </Button>
               </ModalBody>
+              {error && isFetchBaseQueryError(error) && (
+                <div className="mt-4">
+                  <p className="text-red-500 text-sm">
+                    {error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
+                      ? (error.data as { message: string }).message
+                      : "An error occurred. Please try again."}
+                  </p>
+                </div>
+              )}
               <ModalFooter>
                 <Button
                   color="danger"

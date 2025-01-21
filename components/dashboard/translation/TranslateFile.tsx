@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import {
   Button,
   Modal,
@@ -62,24 +62,7 @@ export const TranslateFile = () => {
       formData.append("target_lang", data.target_lang);
 
       const response = await translate(formData).unwrap();
-      // setStreamedResponse(response);
-      console.log(response);
-
-      // // Process and stream the response
-      // const text = response.translation;
-      // const words = text.split(" ");
-
-      // let wordIndex = 0;
-
-      // const streamSummary = () => {
-      //   if (wordIndex < words.length) {
-      //     setStreamedResponse((prev) => prev + " " + words[wordIndex]);
-      //     wordIndex++;
-      //     setTimeout(streamSummary, 100);
-      //   }
-      // };
-
-      // streamSummary();
+      console.log(response)
       onClose();
       reset();
     } catch (error) {
@@ -92,7 +75,12 @@ export const TranslateFile = () => {
         Open File Translation Form
       </Button>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
+      <Modal
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="3xl"
+      >
         <ModalContent>
           {(onClose) => (
             <>
@@ -183,17 +171,17 @@ export const TranslateFile = () => {
                   </div>
                 </form>
               </ModalBody>
-               {error && isFetchBaseQueryError(error) && (
-                        <div className="mt-4">
-                          <p className="text-red-500 text-sm">
-                            {error.data &&
-                            typeof error.data === "object" &&
-                            "message" in error.data
-                              ? (error.data as { message: string }).message
-                              : "An error occurred. Please try again."}
-                          </p>
-                        </div>
-                      )}
+              {error && isFetchBaseQueryError(error) && (
+                <div className="mt-4">
+                  <p className="text-red-500 text-sm">
+                    {error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
+                      ? (error.data as { message: string }).message
+                      : "An error occurred. Please try again."}
+                  </p>
+                </div>
+              )}
               <ModalFooter>
                 <Button
                   color="danger"

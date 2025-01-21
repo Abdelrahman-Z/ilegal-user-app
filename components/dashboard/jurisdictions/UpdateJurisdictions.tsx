@@ -57,7 +57,7 @@ export const UpdateJurisdiction: React.FC<UpdateJurisdictionModalProps> = ({
       <Button color="primary" onPress={onOpen}>
         <LuClipboardPen />
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onClose}>
+      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onClose}>
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
             <ModalHeader>Update Jurisdiction</ModalHeader>

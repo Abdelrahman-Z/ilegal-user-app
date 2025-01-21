@@ -89,7 +89,7 @@ export const Static = () => {
       </Button>
 
       {/* Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
+      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
         <ModalContent>
           {(onClose) => (
             <>

@@ -14,6 +14,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useSubmitDynamicFormMutation } from "@/redux/services/api";
 import { formatObjectToMarkdown } from "@/utils";
 import Markdown from "markdown-to-jsx";
+import { isFetchBaseQueryError } from "@/redux/store";
 
 export const DynamicComponent = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
@@ -32,7 +33,8 @@ export const DynamicComponent = () => {
     name: "questions",
   });
 
-  const [submitDynamicForm, { isLoading }] = useSubmitDynamicFormMutation();
+  const [submitDynamicForm, { isLoading, error }] =
+    useSubmitDynamicFormMutation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFile(e.target.files?.[0] || null);
@@ -57,24 +59,14 @@ export const DynamicComponent = () => {
 
     try {
       const result = await submitDynamicForm(formData).unwrap();
-      setStreamedResponse('')
+      setStreamedResponse("");
 
       // Stream the response from the array
       // console.log(formatObjectToPlainText(result.Data))
       const text = formatObjectToMarkdown(result.Data);
-      const words = text.split(" ");
+      setStreamedResponse(text);
 
-      let wordIndex = 0;
-
-      const streamSummary = () => {
-        if (wordIndex < words.length) {
-          setStreamedResponse((prev) => prev + " " + words[wordIndex]);
-          wordIndex++;
-          setTimeout(streamSummary, 100); // Adjust delay as needed
-        }
-      };
       onClose();
-      streamSummary();
       reset();
     } catch (error) {
       console.error("Error submitting data:", error);
@@ -89,7 +81,11 @@ export const DynamicComponent = () => {
       </Button>
 
       {/* Modal */}
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+      >
         <ModalContent>
           {(onClose) => (
             <>
@@ -140,6 +136,17 @@ export const DynamicComponent = () => {
                   </div>
                 </form>
               </ModalBody>
+              {error && isFetchBaseQueryError(error) && (
+                <div className="mt-4">
+                  <p className="text-red-500 text-sm">
+                    {error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
+                      ? (error.data as { message: string }).message
+                      : "An error occurred. Please try again."}
+                  </p>
+                </div>
+              )}
               <ModalFooter>
                 <Button
                   color="danger"

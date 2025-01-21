@@ -85,7 +85,7 @@ export const AddQuestion = () => {
       <Button onClick={onOpen} color="primary">
         Add Question
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
+      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onOpenChange} size="5xl">
         <ModalContent>
           {(onClose) => (
             <form id="questionForm" onSubmit={onSubmit}>
