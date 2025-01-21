@@ -74,17 +74,17 @@ const navLinks = [
 const Sidebar = () => {
   const { locale } = useParams();
   return (
-    <aside className="w-60 h-full py-4 space-y-8 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue px-10">
+    <aside className="w-60 h-full space-y-1 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue px-10">
       <div>
         <Image
           src="/images/logo.svg"
           alt="logo"
-          className="w-32 h-32"
+          className="w-32 h-20"
           width={32}
           height={32}
         />
       </div>
-      <nav className="flex flex-col items-start justify-start space-y-10 w-full ">
+      <nav className="flex flex-col items-start justify-start w-full overflow-y-auto gap-5 scrollbar-default">
         {navLinks.map((link, index) => (
           <Button
             key={index}
