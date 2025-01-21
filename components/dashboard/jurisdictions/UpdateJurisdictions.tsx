@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useUpdateJurisdictionMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { LuClipboardPen } from "react-icons/lu";
 
 interface UpdateJurisdictionModalProps {
   id: string;
@@ -54,7 +55,7 @@ export const UpdateJurisdiction: React.FC<UpdateJurisdictionModalProps> = ({
   return (
     <>
       <Button color="primary" onPress={onOpen}>
-        Update
+        <LuClipboardPen />
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onClose}>
         <ModalContent>

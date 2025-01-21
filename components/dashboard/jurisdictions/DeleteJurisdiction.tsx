@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import { useDeleteJurisdictionMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { MdDelete } from "react-icons/md";
 
 interface DeleteJurisdictionModalProps {
   id: string;
@@ -20,21 +21,22 @@ const DeleteJurisdictionModal: React.FC<DeleteJurisdictionModalProps> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [deleteJurisdiction, { isLoading , error}] = useDeleteJurisdictionMutation();
+  const [deleteJurisdiction, { isLoading, error }] =
+    useDeleteJurisdictionMutation();
 
   const handleDelete = async () => {
     try {
       await deleteJurisdiction(id).unwrap();
       onClose();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
   return (
     <>
       <Button color="danger" onPress={onOpen}>
-        Delete
+        <MdDelete />
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onClose}>
         <ModalContent>
