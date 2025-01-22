@@ -61,7 +61,13 @@ export const UpdateRoleModal: React.FC<UpdateRoleModalProps> = ({
       </Button>
 
       {/* Modal */}
-      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onClose}>
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onClose}
+      >
         <ModalContent>
           <form onSubmit={onSubmit}>
             <ModalHeader>Update Role</ModalHeader>

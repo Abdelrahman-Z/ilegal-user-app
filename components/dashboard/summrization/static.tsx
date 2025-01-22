@@ -29,7 +29,7 @@ export const StaticComponent = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [summary, setSummary] = useState("");
 
-  const [summarizeText, { isLoading , error }] = useSummarizeTextMutation();
+  const [summarizeText, { isLoading, error }] = useSummarizeTextMutation();
 
   const {
     register,
@@ -69,6 +69,8 @@ export const StaticComponent = () => {
 
       {/* Modal */}
       <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
         scrollBehavior="inside"
         isOpen={isOpen}
         onOpenChange={onOpenChange}

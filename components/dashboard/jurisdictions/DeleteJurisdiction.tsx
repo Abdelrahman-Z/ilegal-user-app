@@ -38,7 +38,13 @@ const DeleteJurisdictionModal: React.FC<DeleteJurisdictionModalProps> = ({
       <Button color="danger" onPress={onOpen}>
         <MdDelete />
       </Button>
-      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onClose}>
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onClose}
+      >
         <ModalContent>
           <ModalHeader>Confirm Deletion</ModalHeader>
           <ModalBody>

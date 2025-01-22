@@ -39,7 +39,7 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
   currentPhone,
   src,
 }) => {
-    const [imageSrc, setImageSrc] = useState(src)
+  const [imageSrc, setImageSrc] = useState(src);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateUser, { isLoading, error }] = useUpdateUserMutation();
   const {
@@ -83,7 +83,13 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
       </Button>
 
       {/* Modal */}
-      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onClose}>
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onClose}
+      >
         <ModalContent>
           <form onSubmit={onSubmit} encType="multipart/form-data">
             <ModalHeader>Update User</ModalHeader>
@@ -127,13 +133,13 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
                   <Avatar src={imageSrc} />
                 </label>
                 <input
-                id="image"
-                type="file"
-                {...register("file", {
-                  onChange: (e) => {
-                    setImageSrc(URL.createObjectURL(e.target.files[0]));
-                  },
-                })}
+                  id="image"
+                  type="file"
+                  {...register("file", {
+                    onChange: (e) => {
+                      setImageSrc(URL.createObjectURL(e.target.files[0]));
+                    },
+                  })}
                   className="mt-1 hidden w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer"
                 />
                 {errors.file && (

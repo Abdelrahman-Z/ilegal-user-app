@@ -62,7 +62,7 @@ export const TranslateFile = () => {
       formData.append("target_lang", data.target_lang);
 
       const response = await translate(formData).unwrap();
-      console.log(response)
+      console.log(response);
       onClose();
       reset();
     } catch (error) {
@@ -76,6 +76,8 @@ export const TranslateFile = () => {
       </Button>
 
       <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
         scrollBehavior="inside"
         isOpen={isOpen}
         onOpenChange={onOpenChange}

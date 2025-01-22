@@ -122,7 +122,13 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
       </Button>
 
       {/* Modal */}
-      <Modal isOpen={isOpen} scrollBehavior="inside" onOpenChange={onClose}>
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        isOpen={isOpen}
+        scrollBehavior="inside"
+        onOpenChange={onClose}
+      >
         <ModalContent>
           <form onSubmit={onSubmit}>
             <ModalHeader>Assign Roles to User</ModalHeader>
@@ -130,7 +136,7 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
               {rolesError || userRolesError ? (
                 <p className="text-red-500">Failed to fetch data.</p>
               ) : rolesLoading || userRolesLoading ? (
-                <Spinner/>
+                <Spinner />
               ) : (
                 <>
                   {/* Search Input */}
@@ -167,17 +173,17 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
                   )}
                 </>
               )}
-               {saveError && isFetchBaseQueryError(saveError) && (
-                    <div className="mt-4">
-                      <p className="text-red-500 text-sm">
-                        {saveError.data &&
-                        typeof saveError.data === "object" &&
-                        "message" in saveError.data
-                          ? (saveError.data as { message: string }).message
-                          : "An error occurred. Please try again."}
-                      </p>
-                    </div>
-                  )}
+              {saveError && isFetchBaseQueryError(saveError) && (
+                <div className="mt-4">
+                  <p className="text-red-500 text-sm">
+                    {saveError.data &&
+                    typeof saveError.data === "object" &&
+                    "message" in saveError.data
+                      ? (saveError.data as { message: string }).message
+                      : "An error occurred. Please try again."}
+                  </p>
+                </div>
+              )}
             </ModalBody>
 
             <ModalFooter>

@@ -39,7 +39,13 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ id, userName }) => {
       </Button>
 
       {/* Confirmation Modal */}
-      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onClose}>
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onClose}
+      >
         <ModalContent>
           <ModalHeader>Confirm Deletion</ModalHeader>
           <ModalBody>

@@ -82,6 +82,8 @@ export const DynamicComponent = () => {
 
       {/* Modal */}
       <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
         scrollBehavior="inside"
         isOpen={isOpen}
         onOpenChange={onOpenChange}

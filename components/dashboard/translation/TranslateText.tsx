@@ -17,7 +17,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslateMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 
-
 const schema = yup.object({
   htmlStrings: yup.string().required("Text is required"),
   original_lang: yup
@@ -89,7 +88,14 @@ export const Static = () => {
       </Button>
 
       {/* Modal */}
-      <Modal scrollBehavior="inside" isOpen={isOpen} onOpenChange={onOpenChange} size="3xl">
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="3xl"
+      >
         <ModalContent>
           {(onClose) => (
             <>
@@ -178,17 +184,17 @@ export const Static = () => {
                   </div>
                 </form>
               </ModalBody>
-               {error && isFetchBaseQueryError(error) && (
-                        <div className="mt-4">
-                          <p className="text-red-500 text-sm">
-                            {error.data &&
-                            typeof error.data === "object" &&
-                            "message" in error.data
-                              ? (error.data as { message: string }).message
-                              : "An error occurred. Please try again."}
-                          </p>
-                        </div>
-                      )}
+              {error && isFetchBaseQueryError(error) && (
+                <div className="mt-4">
+                  <p className="text-red-500 text-sm">
+                    {error.data &&
+                    typeof error.data === "object" &&
+                    "message" in error.data
+                      ? (error.data as { message: string }).message
+                      : "An error occurred. Please try again."}
+                  </p>
+                </div>
+              )}
               <ModalFooter>
                 <Button
                   color="danger"

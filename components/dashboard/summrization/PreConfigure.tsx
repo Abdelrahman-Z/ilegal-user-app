@@ -67,7 +67,8 @@ export function PreConfigure() {
     name: "questions",
   });
 
-  const [submitDynamicForm, { isLoading , error }] = useSubmitDynamicFormMutation();
+  const [submitDynamicForm, { isLoading, error }] =
+    useSubmitDynamicFormMutation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFile(e.target.files?.[0] || null);
@@ -105,7 +106,13 @@ export function PreConfigure() {
       <Button color="primary" onClick={onOpen}>
         Open Form
       </Button>
-      <Modal scrollBehavior="inside" isOpen={isOpen} onClose={onClose}>
+      <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+        scrollBehavior="inside"
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <ModalContent>
           {(onClose) => (
             <form id="dynamicForm" onSubmit={onSubmit}>

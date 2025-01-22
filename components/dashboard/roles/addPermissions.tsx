@@ -72,7 +72,7 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
     .filter((category) => category.permissions.length > 0);
 
   // Save selected permissions
-  const [updateRolePermissions, { isLoading: updateLoading , error }] =
+  const [updateRolePermissions, { isLoading: updateLoading, error }] =
     useUpdateRolePermissionsMutation();
   const handleSave = async () => {
     try {
@@ -96,6 +96,8 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
 
       {/* Modal */}
       <Modal
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
         scrollBehavior="inside"
         size="5xl"
         isOpen={isOpen}
