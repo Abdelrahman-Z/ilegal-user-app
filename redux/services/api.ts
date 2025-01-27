@@ -9,7 +9,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["question", "jurisdictions", "users", "roles"],
+  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template'],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -232,6 +232,56 @@ export const api = createApi({
       }),
       invalidatesTags: ["jurisdictions"],
     }),
+    // templates
+    getTemplate: builder.query({
+      query: (id) => `/templates/${id}`,
+      providesTags: ['Template'],
+    }),
+
+    // Get all templates
+    getTemplates: builder.query({
+      query: () => '/templates',
+      providesTags: ['Template'],
+    }),
+
+    // Update template
+    updateTemplate: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/templates/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Template'],
+    }),
+
+    // Delete template
+    deleteTemplate: builder.mutation({
+      query: (id) => ({
+        url: `/templates/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Template'],
+    }),
+    addTemplate: builder.mutation({
+      query: (body) => ({
+        url: '/templates/tenants',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Template'],
+    }),
+    // preonfigured templates
+    getPreConfiguredTemplates: builder.query({
+      query: ({ page = 1, limit = 10, name = '' }) => ({
+        url: '/pre-configured-template/all',
+        params: {
+          page,
+          limit,
+          name,
+        },
+      }),
+    }),
+
     // Add other endpoints here
   }),
 });
@@ -276,4 +326,12 @@ export const {
   useGetJurisdictionsQuery,
   useUpdateJurisdictionMutation,
   useDeleteJurisdictionMutation,
+  // templates
+  useGetTemplateQuery,
+  useGetTemplatesQuery,
+  useUpdateTemplateMutation,
+  useDeleteTemplateMutation,
+  useAddTemplateMutation,
+  // preconfigured templates
+  useGetPreConfiguredTemplatesQuery,
 } = api;
