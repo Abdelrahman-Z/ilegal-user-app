@@ -14,7 +14,7 @@ export const ChatbotWidget = () => {
         if (window.ChatbotWidget) {
           // @ts-expect-error error
         window.ChatbotWidget.default({
-          rasaServerUrl: "https://ilegal-rasa.solutions/webhooks/rest/webhook",
+          rasaServerUrl: "https://ilegal-rasa.solutions/chat_widget",
           userId: "jitesh97",
           initialPayload: "/greet",
           metadata: {},
