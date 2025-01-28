@@ -3,11 +3,9 @@
 import { CreateTemplate } from "@/components/dashboard/templates/AddTemplate";
 import { PreConfiguredTemplates } from "@/components/dashboard/templates/PreConfiguredTemplates";
 import { Tab, Tabs } from "@nextui-org/react";
-import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function Page() {
-  const { locale } = useParams();
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mx-auto flex-grow">
       {/* Header */}
