@@ -1,5 +1,6 @@
 import Sidebar from "@/components/dashboard/Sidebar";
 import Navbar from "@/components/dashboard/Navbar";
+import { ChatbotWidget } from "@/components/dashboard/AIChatBot/ChatbotWidget";
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
         {/* Page Content */}
         <main className="p-4 overflow-auto flex-grow flex">{children}</main>
       </div>
+      <ChatbotWidget/>
     </div>
   );
 }
