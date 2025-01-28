@@ -84,10 +84,8 @@ export const CreateTemplate = () => {
         reviewedById: data.reviewedById,
       }).unwrap();
       console.log("Template created successfully!", response);
-      // router.push(`/en/dashboard/templates/${response.data.id}`);
-      window.location.href =  `${window.location.origin}/${locale}/dashboard/templates/${response.data.id}?pre=false`;;
-      // router.replace(`http://localhost:3000/en/dashboard/templates/${response.data.id}`);
-    } catch (err) {
+      router.push(`/${locale}/dashboard/templates/${response.data.id}?pre=false`);
+   } catch (err) {
       console.error("Failed to create template:", err);
     }
   };

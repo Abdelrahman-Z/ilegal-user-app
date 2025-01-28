@@ -9,6 +9,12 @@ import {
   Input,
   Button,
   Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
 } from "@nextui-org/react";
 import {
   useGetApprovedTemplatesQuery,
@@ -26,10 +32,8 @@ export const Approved = () => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const limit = 5;
     const [deleteId, setDeleteId] = useState("");
-  
-  const [isModalOpen, setIsModalOpen] = useState(false); 
-  const [deleteTemplate, {isLoading: isLoadingDelete, error:deletionError, isSuccess: isDeleted}] = useDeleteTemplateMutation(); 
-  
+    const [deleteTemplate, {isLoading: isLoadingDelete, error:deletionError, isSuccess: isDeleted}] = useDeleteTemplateMutation(); 
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
 
   // Debounce search term
   useEffect(() => {
@@ -73,22 +77,17 @@ useEffect(() => {
   const templates = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
   const handleDeleteClick = () => {
-    setIsModalOpen(true); // Open modal when delete button is clicked
+    setIsModalDeleteOpen(true); // Open modal when delete button is clicked
   };
 
    const handleConfirmDelete = async () => {
   try {
     await deleteTemplate(deleteId); // Delete the template
-    setIsModalOpen(false);
   } catch (error) {
     console.error("Error deleting template:", error);
   }
 };
 
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal if user cancels
-  };
   return (
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl">
       {/* Template Cards */}
@@ -148,28 +147,42 @@ useEffect(() => {
           onChange={(newPage) => setPage(newPage)}
         />
       </div>
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-            <h2 className="text-xl mb-4">Are you sure you want to delete?</h2>
-            <div className="flex justify-center gap-4">
-              <button 
-                onClick={handleConfirmDelete} 
-                className="bg-red-600 text-white px-4 py-2 rounded-md"
-                disabled={isLoadingDelete}
-              >
-                {isLoading ? 'Deleting...' : 'Yes, Delete'}
-              </button>
-              <button 
-                onClick={handleCloseModal} 
-                className="bg-gray-300 px-4 py-2 rounded-md"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* DELETE MODAL */}
+      <Modal
+      isOpen={isModalDeleteOpen}
+      onClose={() => setIsModalDeleteOpen(false)}
+      size="lg"
+      isDismissable={false}
+      className="fixed inset-0 z-[1050] flex items-center justify-center bg-black/50"
+
+    >
+      <ModalContent className="relative bg-white rounded-lg p-6 z-[1051]">
+      <ModalHeader>Delete Template</ModalHeader>
+      <ModalBody>
+        <p>Are you sure you want to delete this template?</p>
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          color="primary"
+          onPress={() => {
+            setIsModalDeleteOpen(false);
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          color="danger"
+          onPress={() => {
+            setIsModalDeleteOpen(false);
+            handleConfirmDelete();
+          }}
+        >
+          Delete
+        </Button>
+      </ModalFooter>
+      </ModalContent>
+    </Modal>
+
     </div>
   );
 };

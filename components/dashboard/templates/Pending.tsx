@@ -9,6 +9,13 @@ import {
   Input,
   Button,
   Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+ 
 } from "@nextui-org/react";
 import {
   useGetPendingTemplatesQuery,
@@ -28,7 +35,6 @@ export const Pending = () => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const limit = 5;
   const [rejectReason, setRejectReason] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState("");
   const [rejectId, setRejectId] = useState("");
   const [deleteTemplate, { isLoading: isLoadingDelete , isSuccess: isDeleted, error: deletionError}] =
@@ -36,6 +42,7 @@ export const Pending = () => {
   const [approveTemplate, {isSuccess: isApproved, error:approvalError}] = useApproveTemplateMutation();
   const [rejectTemplate, {isSuccess: isRejected, error: rejectionError}] = useRejectTemplateMutation();
   const [isModalRejectOpen, setIsModalRejectOpen] = useState(false);
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -99,13 +106,12 @@ useEffect(() => {
   const totalPages = data?.metadata?.totalPages || 1;
 
   const handleDeleteClick = () => {
-    setIsModalOpen(true);
+    setIsModalDeleteOpen(true);
   };
 
   const handleConfirmDelete = async () => {
     try {
       await deleteTemplate(deleteId);
-      setIsModalOpen(false);
     } catch (error) {
       console.error("Error deleting template:", error);
     }
@@ -113,13 +119,11 @@ useEffect(() => {
 
   const handleRejectTemplate = async (rejectId: string, rejectReason: string) => {
     try {
-      // Make sure you pass the correct body structure
       await rejectTemplate({
         id: rejectId,
-        body: { rejectReason } // Ensure body is correctly formatted
+        body: { rejectReason }
       });
   
-      // Optionally, handle after rejection (e.g., show a success message, refetch data, etc.)
     } catch (error) {
       console.error("Error rejecting template:", error);
     }
@@ -207,55 +211,82 @@ useEffect(() => {
         />
       </div>
       {/* DELETE MODAL */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-            <h2 className="text-xl mb-4">Are you sure you want to delete?</h2>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={handleConfirmDelete}
-                className="bg-red-600 text-white px-4 py-2 rounded-md"
-                disabled={isLoadingDelete}
-              >
-                {isLoading ? "Deleting..." : "Yes, Delete"}
-              </button>
-              <button
-                onClick={()=> setIsModalOpen(false)}
-                className="bg-gray-300 px-4 py-2 rounded-md"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+      isOpen={isModalDeleteOpen}
+      onClose={() => setIsModalDeleteOpen(false)}
+      size="lg"
+      isDismissable={false}
+      className="fixed inset-0 z-[1050] flex items-center justify-center bg-black/50"
+
+    >
+      <ModalContent className="relative bg-white rounded-lg p-6 z-[1051]">
+      <ModalHeader>Delete Template</ModalHeader>
+      <ModalBody>
+        <p>Are you sure you want to delete this template?</p>
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          color="primary"
+          onPress={() => {
+            setIsModalDeleteOpen(false);
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          color="danger"
+          onPress={() => {
+            setIsModalDeleteOpen(false);
+            handleConfirmDelete();
+          }}
+        >
+          Delete
+        </Button>
+      </ModalFooter>
+      </ModalContent>
+    </Modal>
 
       {/* REJECT MODAL */}
-      {isModalRejectOpen && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm">
-            <h2 className="text-xl mb-4">Reason of Rejection?</h2>
-            <Input placeholder="write the reason of rejection" onChange={(e)=> setRejectReason(e.target.value)} className="mb-4"/>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={() => {
-                  setIsModalRejectOpen(false);
-                  handleRejectTemplate(rejectId, rejectReason);
-                }}
-                className="bg-red-600 text-white px-4 py-2 rounded-md"
-              >
-                Confirm Rejection
-              </button>
-              <button
-                onClick={()=> setIsModalRejectOpen(false)}
-                className="bg-gray-300 px-4 py-2 rounded-md"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Modal
+      isOpen={isModalRejectOpen}
+      onClose={() => setIsModalRejectOpen(false)}
+      size="lg"
+      isDismissable={false}  
+      className="fixed inset-0 z-[1050] flex items-center justify-center bg-black/50"  
+      >
+        <ModalContent className="relative bg-white rounded-lg p-6 z-[1051]">
+      <ModalHeader>Reject Template</ModalHeader>
+      <ModalBody>
+        <Input
+          type="text"
+          className="h-fit"
+          placeholder="Enter rejection reason"
+          value={rejectReason}
+          onChange={(e) => setRejectReason(e.target.value)}
+        />
+      </ModalBody>
+      <ModalFooter>
+        <Button
+          color="primary"
+          onPress={() => {
+            setIsModalRejectOpen(false);
+            setRejectReason("");
+          }}
+        >
+          Cancel
+        </Button>
+        <Button
+          color="danger"
+          onPress={() => {
+            setIsModalRejectOpen(false);
+            handleRejectTemplate(rejectId, rejectReason);
+          }}
+        >
+          Reject
+        </Button>
+      </ModalFooter>
+      </ModalContent>
+    </Modal>
     </div>
   );
 };
