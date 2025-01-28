@@ -3,7 +3,6 @@
 import { CreateTemplate } from "@/components/dashboard/templates/AddTemplate";
 import { PreConfiguredTemplates } from "@/components/dashboard/templates/PreConfiguredTemplates";
 import { Tab, Tabs } from "@nextui-org/react";
-import { useParams } from "next/navigation";
 
 export default function Page() {
   return (
