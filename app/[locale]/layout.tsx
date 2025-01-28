@@ -1,6 +1,7 @@
 import { getMessages } from "next-intl/server";
 import "../globals.css";
 import Providers from "@/components/providers";
+import { Toaster } from "react-hot-toast";
 
 export default async function RootLayout({
   children,
@@ -20,6 +21,7 @@ export default async function RootLayout({
       <body className="antialiased">
         <Providers locale={locale} messages={messages}>
           {children}
+          <Toaster position="top-right" />
         </Providers>
       </body>
     </html>

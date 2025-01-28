@@ -76,8 +76,8 @@ export const PreConfiguredTemplates = () => {
               </CardHeader>
             </div>
 
-            <CardFooter className="flex justify-end">
-              <Link href={`${path}/${template.id}`}>View</Link>
+            <CardFooter className="flex justify-end items-center w-fit">
+              <Link href={`${path}/${template.id}?pre=true`} className=" bg-white p-2 rounded-xl">View</Link>
             </CardFooter>
           </Card>
         ))}
