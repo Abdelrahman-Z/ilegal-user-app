@@ -11,7 +11,8 @@ import {
 } from "@nextui-org/react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { FaTrashAlt } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
 
 interface DeleteTemplateProps {
     templateId: string;
@@ -52,13 +53,9 @@ export default function DeleteTemplate({ templateId }: DeleteTemplateProps) {
 
   return (
     <>
-      <Button
-      onPress={() => {onOpen();}}
-      isIconOnly
-    //   variant="light"
-      >
-        <FaTrashAlt className="text-2xl text-red-700" />
-      </Button>
+      <Button color="danger" isIconOnly onPress={onOpen} className="!p-0">
+              <MdDelete />
+            </Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}

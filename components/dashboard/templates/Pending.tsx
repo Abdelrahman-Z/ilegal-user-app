@@ -14,12 +14,12 @@ import {
   useApproveTemplateMutation,
 } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
-import { FaCheck } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { isFetchBaseQueryError } from "@/redux/store";
 import DeleteTemplate from "./DeleteTemplate";
 import RejectModal from "./RejectModal";
 import {Template} from './interfaceTemplate';
+import { MdCheck } from "react-icons/md";
 
 export const Pending = () => {
   const path = usePathname();
@@ -101,15 +101,9 @@ useEffect(() => {
 
             <CardFooter className="flex justify-end items-center w-fit gap-2">
               {/* APPROVE */}
-              <Button
-              onClick={() => approveTemplate(template.id)}
-              isIconOnly
-              // variant="light"
-              >
-                <FaCheck style={{ color: "green", fontSize: "24px" }} />
+              <Button isIconOnly color="success" onClick={() => approveTemplate(template.id)} className="!p-0">
+                      <MdCheck className="text-white" />
               </Button>
-
-              {/* REJECT */}
               <RejectModal templateId={template.id} />
 
               {/* VIEW */}
