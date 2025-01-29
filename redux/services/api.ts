@@ -308,6 +308,7 @@ export const api = createApi({
           limit,
         },
       }),
+      providesTags: ['Template'],
     }),
    
     // approved templates
@@ -320,6 +321,7 @@ export const api = createApi({
           // name,
         },
       }),
+      providesTags: ['Template'],
     }),
     // pending templates
     getPendingTemplates: builder.query({
@@ -331,7 +333,7 @@ export const api = createApi({
           // name,
         },
       }),
-      
+      providesTags: ['Template'],
     }),
     getRejectedTemplates: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
@@ -342,6 +344,7 @@ export const api = createApi({
           // name,
         },
       }),
+      providesTags: ['Template'],
     }),
     getReviewersTemplates: builder.query({
       query: () => ({

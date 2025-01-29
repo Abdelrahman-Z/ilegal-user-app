@@ -32,17 +32,19 @@ export const MyTemplates = () => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [deleteId, setDeleteId] = useState("");
   const limit = 5;
-  const [deleteTemplate, {isLoading: isLoadingDelete, error: deletionError, isSuccess:isDeleted}] = useDeleteTemplateMutation(); 
-    const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  const [deleteTemplate, {error: deletionError, isSuccess:isDeleted}] = useDeleteTemplateMutation(); 
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
+  
   // Debounce search term
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
     }, 500);
-    
     return () => clearTimeout(handler);
   }, [searchTerm]);
-  // Handle error toast
+
+
+  // Handle toasts error and success
  useEffect(() => {
   if (deletionError && isFetchBaseQueryError(deletionError)) {
     const errorMessage =
@@ -57,13 +59,14 @@ useEffect(() => {
   if (isDeleted) {
     toast.success("Template Deleted successfully!");
   }
-  
 }, [isDeleted]);
+
+  // Fetch all templates with pagination
   const { data, error, isLoading } = useGetAllTemplatesQuery({
     page,
     limit,
   });
-  
+
   useEffect(() => {
     setPage(1);
   }, [debouncedSearchTerm]);
@@ -82,7 +85,7 @@ useEffect(() => {
   
      const handleConfirmDelete = async () => {
     try {
-      await deleteTemplate(deleteId); // Delete the template
+      await deleteTemplate(deleteId);
     } catch (error) {
       console.error("Error deleting template:", error);
     }
@@ -126,8 +129,8 @@ useEffect(() => {
                 View
               </Link>
               <button onClick={()=> {
-                handleDeleteClick();
                 setDeleteId(template.id);
+                handleDeleteClick();
                 }}>
                 <FaTrashAlt className="text-2xl text-red-700" />
               </button>
