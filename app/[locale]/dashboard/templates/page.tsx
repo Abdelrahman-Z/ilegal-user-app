@@ -7,13 +7,10 @@ import { Pending } from "@/components/dashboard/templates/Pending";
 import { Approved } from "@/components/dashboard/templates/Approved";
 import { Rejected } from "@/components/dashboard/templates/Rejected";
 import { Tab, Tabs } from "@nextui-org/react";
-import Link from "next/link";
-import { useParams } from "next/navigation";
 
 export default function Page() {
-  const { locale } = useParams();
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mx-auto flex-grow h-fit">
+    <div className="bg-white shadow-md rounded-lg p-6 mx-auto flex-grow h-fit min-h-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">My Templates</h2>

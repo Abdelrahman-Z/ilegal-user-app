@@ -6,43 +6,28 @@ import {
   CardFooter,
   Image,
   Pagination,
-  Input,
-  Button,
   Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
- 
+  Button,
 } from "@nextui-org/react";
 import {
   useGetPendingTemplatesQuery,
-  useDeleteTemplateMutation,
   useApproveTemplateMutation,
-  useRejectTemplateMutation,
 } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
-import { FaCheck, FaTimes, FaTrashAlt } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { isFetchBaseQueryError } from "@/redux/store";
+import DeleteTemplate from "./DeleteTemplate";
+import RejectModal from "./RejectModal";
+import {Template} from './interfaceTemplate';
 
 export const Pending = () => {
   const path = usePathname();
   const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const limit = 5;
-  const [rejectReason, setRejectReason] = useState("");
-  const [deleteId, setDeleteId] = useState("");
-  const [rejectId, setRejectId] = useState("");
-  const [deleteTemplate, { isLoading: isLoadingDelete , isSuccess: isDeleted, error: deletionError}] =
-  useDeleteTemplateMutation();
   const [approveTemplate, {isSuccess: isApproved, error:approvalError}] = useApproveTemplateMutation();
-  const [rejectTemplate, {isSuccess: isRejected, error: rejectionError}] = useRejectTemplateMutation();
-  const [isModalRejectOpen, setIsModalRejectOpen] = useState(false);
-  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -59,13 +44,6 @@ export const Pending = () => {
   
  // Handle error toast
  useEffect(() => {
-  if (deletionError && isFetchBaseQueryError(deletionError)) {
-    const errorMessage =
-      deletionError.data && typeof deletionError.data === "object" && "message" in deletionError.data
-        ? (deletionError.data as { message: string }).message
-        : "An error occurred while deleting the template.";
-    toast.error(errorMessage);
-  }
   if (approvalError && isFetchBaseQueryError(approvalError)) {
     const errorMessage =
       approvalError.data && typeof approvalError.data === "object" && "message" in approvalError.data
@@ -73,27 +51,14 @@ export const Pending = () => {
         : "An error occurred while deleting the template.";
     toast.error(errorMessage);
   }
-  if (rejectionError && isFetchBaseQueryError(rejectionError)) {
-    const errorMessage =
-      rejectionError.data && typeof rejectionError.data === "object" && "message" in rejectionError.data
-        ? (rejectionError.data as { message: string }).message
-        : "An error occurred while deleting the template.";
-    toast.error(errorMessage);
-  }
-}, [deletionError, approvalError, rejectionError]);
+}, [ approvalError]);
 
 // Handle success toast
 useEffect(() => {
-  if (isDeleted) {
-    toast.success("Template Deleted successfully!");
-  }
   if (isApproved) {
     toast.success("Template Approved successfully!");
   }
-  if (isRejected) {
-    toast.success("Template Rejected successfully!");
-  }
-}, [isDeleted, isApproved, isRejected]);
+}, [isApproved]);
 
   useEffect(() => {
     setPage(1);
@@ -105,37 +70,11 @@ useEffect(() => {
   const templates = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
 
-  const handleDeleteClick = () => {
-    setIsModalDeleteOpen(true);
-  };
-
-  const handleConfirmDelete = async () => {
-    try {
-      await deleteTemplate(deleteId);
-    } catch (error) {
-      console.error("Error deleting template:", error);
-    }
-  };
-
-  const handleRejectTemplate = async (rejectId: string, rejectReason: string) => {
-    try {
-      await rejectTemplate({
-        id: rejectId,
-        body: { rejectReason }
-      });
-  
-    } catch (error) {
-      console.error("Error rejecting template:", error);
-    }
-  };
-
-
-
   return (
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl">
       {/* Template Cards */}
       <div className="gap-4 grid">
-        {templates.map((template: any) => (
+        {templates.map((template: Template) => (
           <Card
             key={template.id}
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
@@ -162,37 +101,27 @@ useEffect(() => {
 
             <CardFooter className="flex justify-end items-center w-fit gap-2">
               {/* APPROVE */}
-              <button className=" bg-white p-2 rounded-xl w-fit"
-              onClick={() => approveTemplate(template.id)}>
+              <Button
+              onClick={() => approveTemplate(template.id)}
+              isIconOnly
+              // variant="light"
+              >
                 <FaCheck style={{ color: "green", fontSize: "24px" }} />
-              </button>
+              </Button>
 
               {/* REJECT */}
-              <button className=" bg-white p-2 w-fit rounded-xl"
-              onClick={ ()=>{ 
-                setIsModalRejectOpen(true);
-                setRejectId(template.id)
-              }}>
-                <FaTimes style={{ color: "red", fontSize: "24px" }} />
-              </button>
+              <RejectModal templateId={template.id} />
 
               {/* VIEW */}
               <Link
-                href={`${path}/${template.id}?pre=false`}
+                href={`${path}/${template.id}`}
                 className=" bg-white p-2 rounded-xl"
               >
                 View
               </Link>
-
               {/* DELETE */}
-              <button
-                onClick={() => {
-                  handleDeleteClick();
-                  setDeleteId(template.id);
-                }}
-              >
-                <FaTrashAlt className="text-2xl text-red-700" />
-              </button>
+              <DeleteTemplate templateId={template.id} />
+        
             </CardFooter>
           </Card>
         ))}
@@ -210,83 +139,6 @@ useEffect(() => {
           onChange={(newPage) => setPage(newPage)}
         />
       </div>
-      {/* DELETE MODAL */}
-      <Modal
-      isOpen={isModalDeleteOpen}
-      onClose={() => setIsModalDeleteOpen(false)}
-      size="lg"
-      isDismissable={false}
-      className="fixed inset-0 z-[1050] flex items-center justify-center bg-black/50"
-
-    >
-      <ModalContent className="relative bg-white rounded-lg p-6 z-[1051]">
-      <ModalHeader>Delete Template</ModalHeader>
-      <ModalBody>
-        <p>Are you sure you want to delete this template?</p>
-      </ModalBody>
-      <ModalFooter>
-        <Button
-          color="primary"
-          onPress={() => {
-            setIsModalDeleteOpen(false);
-          }}
-        >
-          Cancel
-        </Button>
-        <Button
-          color="danger"
-          onPress={() => {
-            setIsModalDeleteOpen(false);
-            handleConfirmDelete();
-          }}
-        >
-          Delete
-        </Button>
-      </ModalFooter>
-      </ModalContent>
-    </Modal>
-
-      {/* REJECT MODAL */}
-      <Modal
-      isOpen={isModalRejectOpen}
-      onClose={() => setIsModalRejectOpen(false)}
-      size="lg"
-      isDismissable={false}  
-      className="fixed inset-0 z-[1050] flex items-center justify-center bg-black/50"  
-      >
-        <ModalContent className="relative bg-white rounded-lg p-6 z-[1051]">
-      <ModalHeader>Reject Template</ModalHeader>
-      <ModalBody>
-        <Input
-          type="text"
-          className="h-fit"
-          placeholder="Enter rejection reason"
-          value={rejectReason}
-          onChange={(e) => setRejectReason(e.target.value)}
-        />
-      </ModalBody>
-      <ModalFooter>
-        <Button
-          color="primary"
-          onPress={() => {
-            setIsModalRejectOpen(false);
-            setRejectReason("");
-          }}
-        >
-          Cancel
-        </Button>
-        <Button
-          color="danger"
-          onPress={() => {
-            setIsModalRejectOpen(false);
-            handleRejectTemplate(rejectId, rejectReason);
-          }}
-        >
-          Reject
-        </Button>
-      </ModalFooter>
-      </ModalContent>
-    </Modal>
     </div>
   );
 };

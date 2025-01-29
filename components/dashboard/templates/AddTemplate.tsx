@@ -84,7 +84,7 @@ export const CreateTemplate = () => {
         reviewedById: data.reviewedById,
       }).unwrap();
       console.log("Template created successfully!", response);
-      router.push(`/${locale}/dashboard/templates/${response.data.id}?pre=false`);
+      router.push(`/${locale}/dashboard/templates/${response.data.id}`);
    } catch (err) {
       console.error("Failed to create template:", err);
     }
@@ -158,7 +158,6 @@ export const CreateTemplate = () => {
                 )}
               </div>
 
-              {/* approvers */}
               {/* Reviewer Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -184,23 +183,6 @@ export const CreateTemplate = () => {
                   </p>
                 )}
               </div>
-              {/* Attachment URL */}
-              {/* <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Attachment URL
-                </label>
-                <Input
-                  type="text"
-                  {...register("attachmentUrl")}
-                  placeholder="Enter attachment URL"
-                  className={errors.attachmentUrl ? "border-red-500" : ""}
-                />
-                {errors.attachmentUrl && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {errors.attachmentUrl.message}
-                  </p>
-                )}
-              </div> */}
             </form>
           </ModalBody>
 
