@@ -8,18 +8,20 @@ import {
   Pagination,
   Link,
 } from "@nextui-org/react";
-import { useGetPreConfiguredTemplatesQuery } from "@/redux/services/api";
+import {
+  useGetApprovedTemplatesQuery,
+} from "@/redux/services/api";
 import { usePathname } from "next/navigation";
+import DeleteTemplate from "./DeleteTemplate";
+import {Template} from './interfaceTemplate';
 
-import { Template } from "@/types";
-
-export const PreConfiguredTemplates = () => {
+export const Approved = () => {
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const limit = 5;
-
+ 
   // Debounce search term
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -30,10 +32,9 @@ export const PreConfiguredTemplates = () => {
   }, [searchTerm]);
 
   // Fetch templates with pagination and search
-  const { data, error, isLoading } = useGetPreConfiguredTemplatesQuery({
+  const { data, error, isLoading } = useGetApprovedTemplatesQuery({
     page,
     limit,
-    name: debouncedSearchTerm || undefined,
   });
 
   // Reset to page 1 when search term changes
@@ -46,13 +47,13 @@ export const PreConfiguredTemplates = () => {
 
   const templates = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
+  
 
   return (
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl">
       {/* Template Cards */}
       <div className="gap-4 grid">
-
-        {templates.map((template:Template) => (
+        {templates.map((template : Template) => (
           <Card
             key={template.id}
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
@@ -77,8 +78,15 @@ export const PreConfiguredTemplates = () => {
               </CardHeader>
             </div>
 
-            <CardFooter className="flex justify-end items-center w-fit">
-              <Link href={`${path}/pre/${template.id}`} className=" bg-white p-2 rounded-xl">View</Link>
+            <CardFooter className="flex justify-end items-center w-fit gap-2">
+              <Link
+                href={`${path}/${template.id}`}
+                className=" bg-white p-2 rounded-xl"
+              >
+                View
+              </Link>
+              <DeleteTemplate templateId={template.id} />
+              
             </CardFooter>
           </Card>
         ))}

@@ -241,13 +241,13 @@ export const api = createApi({
     }),
     // templates
     getTemplate: builder.query({
-      query: (id) => `/templates/${id}`,
+      query: (id) => `/templates/one/${id}`,
       providesTags: ['Template'],
     }),
 
     // Get all templates
     getTemplates: builder.query({
-      query: () => '/templates',
+      query: () => '/templates/all',
       providesTags: ['Template'],
     }),
 
@@ -260,7 +260,21 @@ export const api = createApi({
       }),
       invalidatesTags: ['Template'],
     }),
-
+    approveTemplate: builder.mutation({
+      query: ( id ) => ({
+        url: `/templates/approve/${id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Template'],
+    }),
+    rejectTemplate: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/templates/reject/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Template'],
+    }),
     // Delete template
     deleteTemplate: builder.mutation({
       query: (id) => ({
@@ -288,8 +302,63 @@ export const api = createApi({
         },
       }),
     }),
+    getPreConfiguredOneTemplates: builder.query({
+      query: (id) => ({
+        url: `/pre-configured-template/one/${id}`,
+      }),
+    }),
+    getAllTemplates: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: '/templates/all',
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ['Template'],
+    }),
+   
+    // approved templates
+    getApprovedTemplates: builder.query({
+      query: ({ page = 1, limit = 10}) => ({
+        url: '/templates/approved',
+        params: {
+          page,
+          limit,
+          // name,
+        },
+      }),
+      providesTags: ['Template'],
+    }),
+    // pending templates
+    getPendingTemplates: builder.query({
+      query: ({ page = 1, limit = 10}) => ({
+        url: '/templates/pending',
+        params: {
+          page,
+          limit,
+          // name,
+        },
+      }),
+      providesTags: ['Template'],
+    }),
+    getRejectedTemplates: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: '/templates/rejected',
+        params: {
+          page,
+          limit,
+          // name,
+        },
+      }),
+      providesTags: ['Template'],
+    }),
+    getReviewersTemplates: builder.query({
+      query: () => ({
+        url: '/templates/reviewers',
+      }),
+    }),
 
-    // Add other endpoints here
   }),
 });
 
@@ -342,4 +411,12 @@ export const {
   useAddTemplateMutation,
   // preconfigured templates
   useGetPreConfiguredTemplatesQuery,
+  useGetPreConfiguredOneTemplatesQuery,
+  useGetApprovedTemplatesQuery,
+  useGetPendingTemplatesQuery,
+  useGetRejectedTemplatesQuery,
+  useGetAllTemplatesQuery,
+  useGetReviewersTemplatesQuery,
+  useApproveTemplateMutation,
+  useRejectTemplateMutation,
 } = api;

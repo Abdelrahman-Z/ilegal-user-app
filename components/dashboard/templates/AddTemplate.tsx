@@ -14,9 +14,9 @@ import {
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAddTemplateMutation } from "@/redux/services/api";
+import { useAddTemplateMutation, useGetReviewersTemplatesQuery } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 // Define the schema for form validation
@@ -34,8 +34,12 @@ type TemplateFormValues = yup.InferType<typeof schema>;
 
 export const CreateTemplate = () => {
   const router = useRouter();
+  const {locale} = useParams();
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
-  const [addTemplate, { isLoading, error, isSuccess }] = useAddTemplateMutation();
+  const [addTemplate, { isLoading, error, isSuccess }] =
+    useAddTemplateMutation();
+
+  const { data: reviewerData } = useGetReviewersTemplatesQuery({});
 
   const {
     register,
@@ -47,7 +51,7 @@ export const CreateTemplate = () => {
     resolver: yupResolver(schema),
     defaultValues: {
       language: "ENGLISH",
-      attachmentUrl: '<h1>write your template here</h1>'
+      attachmentUrl: "<h2>write your template</h2>",
     },
   });
 
@@ -55,9 +59,7 @@ export const CreateTemplate = () => {
   useEffect(() => {
     if (error && isFetchBaseQueryError(error)) {
       const errorMessage =
-        error.data &&
-        typeof error.data === "object" &&
-        "message" in error.data
+        error.data && typeof error.data === "object" && "message" in error.data
           ? (error.data as { message: string }).message
           : "An error occurred while creating the template.";
       toast.error(errorMessage);
@@ -82,8 +84,8 @@ export const CreateTemplate = () => {
         reviewedById: data.reviewedById,
       }).unwrap();
       console.log("Template created successfully!", response);
-      router.push(`/templates/${response.id}`);
-    } catch (err) {
+      router.push(`/${locale}/dashboard/templates/${response.data.id}`);
+   } catch (err) {
       console.error("Failed to create template:", err);
     }
   };
@@ -136,32 +138,10 @@ export const CreateTemplate = () => {
                   placeholder="Choose a language"
                   defaultSelectedKeys={["ENGLISH"]}
                   onSelectionChange={(value) =>
-                    setValue("language", value.currentKey as "ENGLISH" | "ARABIC")
-                  }
-                >
-                  <SelectItem key="ENGLISH" value="ENGLISH">
-                    English
-                  </SelectItem>
-                  <SelectItem key="ARABIC" value="ARABIC">
-                    Arabic
-                  </SelectItem>
-                </Select>
-                {errors.language && (
-                  <p className="text-red-500 text-xs mt-1">
-                    {errors.language.message}
-                  </p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Aprovers
-                </label>
-                <Select
-                  label="Select Template Language"
-                  placeholder="Choose a language"
-                  defaultSelectedKeys={["ENGLISH"]}
-                  onSelectionChange={(value) =>
-                    setValue("language", value.currentKey as "ENGLISH" | "ARABIC")
+                    setValue(
+                      "language",
+                      value.currentKey as "ENGLISH" | "ARABIC"
+                    )
                   }
                 >
                   <SelectItem key="ENGLISH" value="ENGLISH">
@@ -178,8 +158,31 @@ export const CreateTemplate = () => {
                 )}
               </div>
 
-              {/* Attachment URL */}
-        
+              {/* Reviewer Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Select Reviewer
+                </label>
+                <Select
+                  label="Select Reviewer"
+                  placeholder="Choose a Reviewer"
+                  onSelectionChange={(value) =>
+                    setValue("reviewedById", value.currentKey as string)
+                  }
+                >
+                  {reviewerData &&
+                    reviewerData.map((reviewer: { id: string; userName: string }) => (
+                      <SelectItem key={reviewer.id} value={reviewer.id}>
+                        {reviewer.userName}
+                      </SelectItem>
+                    ))}
+                </Select>
+                {errors.reviewedById && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.reviewedById.message}
+                  </p>
+                )}
+              </div>
             </form>
           </ModalBody>
 

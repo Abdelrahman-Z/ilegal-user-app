@@ -7,20 +7,28 @@ import {
   Image,
   Pagination,
   Link,
+  Button,
 } from "@nextui-org/react";
-import { useGetPreConfiguredTemplatesQuery } from "@/redux/services/api";
+import {
+  useGetPendingTemplatesQuery,
+  useApproveTemplateMutation,
+} from "@/redux/services/api";
 import { usePathname } from "next/navigation";
+import toast from "react-hot-toast";
+import { isFetchBaseQueryError } from "@/redux/store";
+import DeleteTemplate from "./DeleteTemplate";
+import RejectModal from "./RejectModal";
+import {Template} from './interfaceTemplate';
+import { MdCheck } from "react-icons/md";
 
-import { Template } from "@/types";
-
-export const PreConfiguredTemplates = () => {
+export const Pending = () => {
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const limit = 5;
+  const [approveTemplate, {isSuccess: isApproved, error:approvalError}] = useApproveTemplateMutation();
 
-  // Debounce search term
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
@@ -29,18 +37,33 @@ export const PreConfiguredTemplates = () => {
     return () => clearTimeout(handler);
   }, [searchTerm]);
 
-  // Fetch templates with pagination and search
-  const { data, error, isLoading } = useGetPreConfiguredTemplatesQuery({
+  const { data, error, isLoading } = useGetPendingTemplatesQuery({
     page,
     limit,
-    name: debouncedSearchTerm || undefined,
   });
+  
+ // Handle error toast
+ useEffect(() => {
+  if (approvalError && isFetchBaseQueryError(approvalError)) {
+    const errorMessage =
+      approvalError.data && typeof approvalError.data === "object" && "message" in approvalError.data
+        ? (approvalError.data as { message: string }).message
+        : "An error occurred while deleting the template.";
+    toast.error(errorMessage);
+  }
+}, [ approvalError]);
 
-  // Reset to page 1 when search term changes
+// Handle success toast
+useEffect(() => {
+  if (isApproved) {
+    toast.success("Template Approved successfully!");
+  }
+}, [isApproved]);
+
   useEffect(() => {
     setPage(1);
   }, [debouncedSearchTerm]);
-
+  
   if (isLoading) return <p>Loading templates...</p>;
   if (error) return <p>Error loading templates.</p>;
 
@@ -51,8 +74,7 @@ export const PreConfiguredTemplates = () => {
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl">
       {/* Template Cards */}
       <div className="gap-4 grid">
-
-        {templates.map((template:Template) => (
+        {templates.map((template: Template) => (
           <Card
             key={template.id}
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
@@ -77,8 +99,23 @@ export const PreConfiguredTemplates = () => {
               </CardHeader>
             </div>
 
-            <CardFooter className="flex justify-end items-center w-fit">
-              <Link href={`${path}/pre/${template.id}`} className=" bg-white p-2 rounded-xl">View</Link>
+            <CardFooter className="flex justify-end items-center w-fit gap-2">
+              {/* APPROVE */}
+              <Button isIconOnly color="success" onClick={() => approveTemplate(template.id)} className="!p-0">
+                      <MdCheck className="text-white" />
+              </Button>
+              <RejectModal templateId={template.id} />
+
+              {/* VIEW */}
+              <Link
+                href={`${path}/${template.id}`}
+                className=" bg-white p-2 rounded-xl"
+              >
+                View
+              </Link>
+              {/* DELETE */}
+              <DeleteTemplate templateId={template.id} />
+        
             </CardFooter>
           </Card>
         ))}
