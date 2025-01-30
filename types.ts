@@ -78,3 +78,10 @@ export interface PermissionCategory {
   mainCategoryName: string;
   permissions: Permission[];
 }
+
+export interface Template {
+  id: string;
+  name: string;
+  language: string;
+  imageUrl: string;
+}
