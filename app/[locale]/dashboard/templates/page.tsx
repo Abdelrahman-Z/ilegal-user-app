@@ -38,7 +38,7 @@ export default function Page() {
           </Tab>
 
           {/* My Templates */}
-          <Tab className="w-full flex-1" key="myTemplates" title="my Templates">
+          <Tab className="w-full flex-1" key="myTemplates" title="My Templates">
             <MyTemplates />
           </Tab>
 

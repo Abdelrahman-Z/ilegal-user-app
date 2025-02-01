@@ -9,7 +9,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template'],
+  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template', 'Document'],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -299,6 +299,25 @@ export const api = createApi({
       query: (id) => ({
         url: `/pre-configured-template/one/${id}`,
       }),
+      providesTags: ['Template'],
+    }),
+    usePreConfiguredTemplate: builder.mutation({
+      query: ( templateId ) => ({
+        url: `/pre-configured-template/use`,
+        method: 'POST',
+        body: {templateId},
+      }),
+      invalidatesTags: ['Template'],
+    }),
+    getUsedPreConfiguredTemplates: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: `/pre-configured-template/user/used`,
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ['Template'],
     }),
     getAllTemplates: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
@@ -351,7 +370,79 @@ export const api = createApi({
         url: '/templates/reviewers',
       }),
     }),
-
+    // DOCUMENTS
+    getAllDocumentsTenant: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: '/document/all/tenant',
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ['Document'],
+    }),
+    getPendingDocuments: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: '/document/pending',
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ['Document'],
+    }),
+    getApprovedDocuments: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: '/document/approved',
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ['Document'],
+    }),
+    createDocument: builder.mutation({
+      query: ( body ) => ({
+        url: `/document`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Document'],
+    }),
+    approveDocument: builder.mutation({
+      query: ( id ) => ({
+        url: `/document/approve/${id}`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['Document'],
+    }),
+    rejectDocument: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/document/reject/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Document'],
+    }),
+    deleteDocument: builder.mutation({
+      query: (id) => ({
+        url: `/document/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Document'],
+    }),
+    getDocument: builder.query({
+      query: (id) => `/document/one/${id}`,
+      providesTags: ['Document'],
+    }),
+    updateDocument: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/document/${id}`,
+        method: 'PATCH',
+        body,
+      }),
+      invalidatesTags: ['Document'],
+    }),
   }),
 });
 
@@ -401,9 +492,6 @@ export const {
   useUpdateTemplateMutation,
   useDeleteTemplateMutation,
   useAddTemplateMutation,
-  // preconfigured templates
-  useGetPreConfiguredTemplatesQuery,
-  useGetPreConfiguredOneTemplatesQuery,
   useGetApprovedTemplatesQuery,
   useGetPendingTemplatesQuery,
   useGetRejectedTemplatesQuery,
@@ -411,4 +499,19 @@ export const {
   useGetReviewersTemplatesQuery,
   useApproveTemplateMutation,
   useRejectTemplateMutation,
+  // preconfigured templates
+  useGetPreConfiguredTemplatesQuery,
+  useGetPreConfiguredOneTemplatesQuery,
+  useUsePreConfiguredTemplateMutation,
+  useGetUsedPreConfiguredTemplatesQuery,
+  // documents
+  useGetAllDocumentsTenantQuery,
+  useCreateDocumentMutation,
+  useGetApprovedDocumentsQuery,
+  useGetPendingDocumentsQuery,
+  useApproveDocumentMutation,
+  useRejectDocumentMutation,
+  useDeleteDocumentMutation,
+  useGetDocumentQuery,
+  useUpdateDocumentMutation,
 } = api;

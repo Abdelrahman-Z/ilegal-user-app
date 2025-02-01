@@ -8,17 +8,20 @@ import {
   Pagination,
   Link,
 } from "@nextui-org/react";
-import { useGetPreConfiguredTemplatesQuery } from "@/redux/services/api";
+import {
+  useGetApprovedDocumentsQuery,
+} from "@/redux/services/api";
 import { usePathname } from "next/navigation";
-import {Template} from '../../../types';
+import DeleteDocument from "./DeleteDocument";
+import {Document} from '../../../types';
 
-export const PreConfiguredTemplates = () => {
+export const Approved = () => {
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const limit = 5;
-
+ 
   // Debounce search term
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -29,10 +32,9 @@ export const PreConfiguredTemplates = () => {
   }, [searchTerm]);
 
   // Fetch templates with pagination and search
-  const { data, error, isLoading } = useGetPreConfiguredTemplatesQuery({
+  const { data, error, isLoading } = useGetApprovedDocumentsQuery({
     page,
     limit,
-    name: debouncedSearchTerm || undefined,
   });
 
   // Reset to page 1 when search term changes
@@ -40,43 +42,50 @@ export const PreConfiguredTemplates = () => {
     setPage(1);
   }, [debouncedSearchTerm]);
 
-  if (isLoading) return <p>Loading templates...</p>;
-  if (error) return <p>Error loading templates.</p>;
+  if (isLoading) return <p>Loading Documents...</p>;
+  if (error) return <p>Error loading Documents.</p>;
 
-  const templates = data?.data || [];
+  const documents = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
+  
 
   return (
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl">
-      {/* Template Cards */}
       <div className="gap-4 grid">
-        {templates.map((template: Template) => (
+        {documents.map((document : Document) => (
           <Card
-            key={template.id}
+            key={document.id}
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
           >
             <div className="flex items-center">
               <Image
                 removeWrapper
-                alt={`Template ${template.id}`}
+                alt={`document ${document.id}`}
                 className="w-10 h-10 object-cover rounded-full"
-                src={template.imageUrl || "https://via.placeholder.com/300"}
+                // src={document.imageUrl || "https://via.placeholder.com/300"}
               />
               <CardHeader className="flex-col !items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
-                  Template Name
+                  document Name
                 </p>
                 <h4 className="text-white font-medium text-small">
-                  {template.name}
+                  {document.name}
                 </h4>
                 <p className="text-tiny text-white/60">
-                  Language: {template.language}
+                  Language: {document.language}
                 </p>
               </CardHeader>
             </div>
 
-            <CardFooter className="flex justify-end items-center w-fit gap-4">
-              <Link href={`${path}/pre/${template.id}`} className=" bg-white p-2 rounded-xl">View</Link>
+            <CardFooter className="flex justify-end items-center w-fit gap-2">
+              <Link
+                href={`${path}/${document.id}`}
+                className=" bg-white p-2 rounded-xl"
+              >
+                View
+              </Link>
+              <DeleteDocument documentId={document.id} />
+              
             </CardFooter>
           </Card>
         ))}

@@ -13,7 +13,7 @@ import {
 } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
 import DeleteTemplate from "./DeleteTemplate";
-import {Template} from './interfaceTemplate';
+import {Template} from '../../../types';
 
 export const Rejected = () => {
   const path = usePathname();

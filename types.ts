@@ -78,3 +78,38 @@ export interface PermissionCategory {
   mainCategoryName: string;
   permissions: Permission[];
 }
+
+export interface Template{
+    id: string,
+    name: string,
+    imageUrl: string,
+    attachmentUrl?: string,
+    attachmentFileUrl?: string,
+    createdAt: Date,
+    updatedAt: Date,
+    tenantId: string,
+    language: string,
+}
+export interface DocumentMetadata {
+  id: string;
+  documentId: string;
+  sourceId: string;
+  content: string;
+  createdAt: string; 
+  updatedAt: string;
+}
+
+export interface Document {
+  id: string;
+  name: string;
+  jurisdictionId: string;
+  createdAt: string; 
+  updatedAt: string;
+  isSigned: boolean;
+  language: string;
+  ownerId: string;
+  tenantId: string;
+  templateId?: string | null;
+  preConfiguredTemplateId?: string | null;
+  DocumentMetadata: DocumentMetadata[]; 
+}
