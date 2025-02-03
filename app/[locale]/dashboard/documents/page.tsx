@@ -29,17 +29,17 @@ export default function Page() {
           aria-label="Dashboard Tabs"
         >
           {/* My Documents */}
-          <Tab className="w-full flex-1" key="myDocuments" title="My Documents">
+          <Tab className="w-full flex-1" key="myDocuments" title={t("myDocuments")}>
             <MyDocuments />
           </Tab>
 
           {/* Approved Documents*/}
-          <Tab className="w-full flex-1" key="Approved" title="Approved">
+          <Tab className="w-full flex-1" key="Approved" title={t("approved")}>
             <Approved />
           </Tab>
 
           {/* Pending Documents*/}
-          <Tab className="w-full flex-1" key="pinding" title="Pending">
+          <Tab className="w-full flex-1" key="pinding" title={t("pending")}>
             <Pending />
           </Tab>
         </Tabs>

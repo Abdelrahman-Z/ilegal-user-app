@@ -7,13 +7,15 @@ import { Pending } from "@/components/dashboard/templates/Pending";
 import { Approved } from "@/components/dashboard/templates/Approved";
 import { Rejected } from "@/components/dashboard/templates/Rejected";
 import { Tab, Tabs } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 
 export default function Page() {
+  const t = useTranslations("templates");
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mx-auto flex-grow h-fit min-h-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800">My Templates</h2>
+        <h2 className="text-2xl font-semibold text-gray-800">{t("title")}</h2>
         <div className="flex gap-4">
           <CreateTemplate />
         </div>
@@ -32,28 +34,28 @@ export default function Page() {
           <Tab
             key="preConfigure"
             className="w-full flex-1"
-            title="preConfigure"
+            title={t("preConfigure")}
           >
             <PreConfiguredTemplates />
           </Tab>
 
           {/* My Templates */}
-          <Tab className="w-full flex-1" key="myTemplates" title="My Templates">
+          <Tab className="w-full flex-1" key="myTemplates" title={t("myTemplates")}>
             <MyTemplates />
           </Tab>
 
           {/* Approved Templates*/}
-          <Tab className="w-full flex-1" key="Approved" title="Approved">
+          <Tab className="w-full flex-1" key="Approved" title={t("approved")}>
             <Approved />
           </Tab>
 
           {/* Pending Templates*/}
-          <Tab className="w-full flex-1" key="pinding" title="Pending">
+          <Tab className="w-full flex-1" key="pinding" title={t("pending")}>
             <Pending />
           </Tab>
 
           {/* Rejected Templates*/}
-          <Tab className="w-full flex-1" key="rejected" title="Rejected">
+          <Tab className="w-full flex-1" key="rejected" title={t("rejected")}>
             <Rejected />
           </Tab>
         </Tabs>

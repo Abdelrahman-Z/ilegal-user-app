@@ -12,6 +12,7 @@ import {
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 
 interface DeleteTemplateProps {
@@ -19,7 +20,7 @@ interface DeleteTemplateProps {
   }
 
 export default function DeleteTemplate({ templateId }: DeleteTemplateProps) {
-
+  const t = useTranslations("delete");
   const [deleteTemplate, { error: deletionError, isSuccess: isDeleted }] =
     useDeleteTemplateMutation();
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -63,9 +64,9 @@ export default function DeleteTemplate({ templateId }: DeleteTemplateProps) {
         isDismissable={false}
       >
         <ModalContent>
-          <ModalHeader>Delete Template</ModalHeader>
+          <ModalHeader>{t("title")}</ModalHeader>
           <ModalBody>
-            <p>Are you sure you want to delete this template?</p>
+            <p>{t("paragraph")}</p>
           </ModalBody>
           <ModalFooter>
             <Button
@@ -74,7 +75,7 @@ export default function DeleteTemplate({ templateId }: DeleteTemplateProps) {
                 onClose();
               }}
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               color="danger"
@@ -83,7 +84,7 @@ export default function DeleteTemplate({ templateId }: DeleteTemplateProps) {
                 handleConfirmDelete();
               }}
             >
-              Delete
+              {t("delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

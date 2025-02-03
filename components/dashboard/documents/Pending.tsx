@@ -20,8 +20,10 @@ import DeleteDocument from "./DeleteDocument";
 import RejectModal from "./RejectModal";
 import {Document} from '../../../types';
 import { MdCheck } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 export const Pending = () => {
+  const t = useTranslations("pending");
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
@@ -64,8 +66,8 @@ useEffect(() => {
     setPage(1);
   }, [debouncedSearchTerm]);
   
-  if (isLoading) return <p>Loading Documents...</p>;
-  if (error) return <p>Error loading Documents.</p>;
+  if (isLoading) return <p>{t("loading")}</p>;
+  if (error) return <p>{t("error")}</p>;
 
   const documents = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
@@ -87,13 +89,13 @@ useEffect(() => {
               />
               <CardHeader className="flex-col !items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
-                  Document Name
+                {t("name")}
                 </p>
                 <h4 className="text-white font-medium text-small">
                   {document.name}
                 </h4>
                 <p className="text-tiny text-white/60">
-                  Language: {document.language}
+                {t("language")}: {document.language}
                 </p>
               </CardHeader>
             </div>
@@ -110,7 +112,7 @@ useEffect(() => {
                 href={`${path}/${document.id}`}
                 className=" bg-white p-2 rounded-xl"
               >
-                View
+                {t("view")}
               </Link>
               {/* DELETE */}
               <DeleteDocument documentId={document.id} />

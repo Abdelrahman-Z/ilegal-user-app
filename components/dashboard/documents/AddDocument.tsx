@@ -25,6 +25,8 @@ import { isFetchBaseQueryError } from "@/redux/store";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Document } from "../../../types";
+import { useTranslations } from "next-intl";
+
 
 // Define the schema for form validation
 const schema = yup.object({
@@ -41,6 +43,7 @@ const schema = yup.object({
 type TemplateFormValues = yup.InferType<typeof schema>;
 
 export const CreateDocument = () => {
+  const t = useTranslations("addDocument");
   const router = useRouter();
   const { locale } = useParams();
   const [isPreConfigured, setIsPreConfigured] = useState<boolean>(false);
@@ -113,7 +116,7 @@ export const CreateDocument = () => {
   return (
     <>
       <Button onPress={onOpen} color="primary">
-        Create New Document
+        {t("buttonName")}
       </Button>
 
       <Modal
@@ -123,7 +126,7 @@ export const CreateDocument = () => {
         isDismissable={false}
       >
         <ModalContent>
-          <ModalHeader>Create New Document</ModalHeader>
+          <ModalHeader>{t("buttonName")}</ModalHeader>
           <ModalBody>
             <form
               id="createTemplateForm"
@@ -133,12 +136,12 @@ export const CreateDocument = () => {
               {/* Document Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Document Name
+                {t("document.name")}
                 </label>
                 <Input
                   type="text"
                   {...register("name")}
-                  placeholder="Enter document name"
+                  placeholder={t("document.placeHolder")}
                   className={errors.name ? "border-red-500" : ""}
                 />
                 {errors.name && (
@@ -151,11 +154,11 @@ export const CreateDocument = () => {
               {/* Jurisdiction Name Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Jurisdiction Name
+                {t("jurisdiction.name")}
                 </label>
                 <Select
-                  label="Select Jurisdiction Name"
-                  placeholder="Choose a Jurisdiction"
+                  label={t("jurisdiction.label")}
+                  placeholder={t("jurisdiction.placeHolder")}
                   onSelectionChange={(value) =>
                     setValue("jurisdicationId", value.currentKey as string)
                   }
@@ -178,11 +181,11 @@ export const CreateDocument = () => {
               {/* Template Name Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Template Name
+                {t("template.name")}
                 </label>
                 <Select
-                  label="Select Template Name"
-                  placeholder="Choose a Template"
+                  label={t("template.label")}
+                  placeholder={t("template.placeHolder")}
                   onSelectionChange={(value) => {
                     const selectedId = value.currentKey as string;
                     const foundInPreTemplates = pretemplatesData?.data.some(
@@ -219,11 +222,11 @@ export const CreateDocument = () => {
               {/* Language Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Language
+                {t("language.name")}
                 </label>
                 <Select
-                  label="Select Template Language"
-                  placeholder="Choose a language"
+                  label={t("language.label")}
+                  placeholder={t("language.placeHolder")}
                   defaultSelectedKeys={["ENGLISH"]}
                   onSelectionChange={(value) =>
                     setValue(
@@ -233,10 +236,10 @@ export const CreateDocument = () => {
                   }
                 >
                   <SelectItem key="ENGLISH" value="ENGLISH">
-                    English
+                  {t("language.english")}
                   </SelectItem>
                   <SelectItem key="ARABIC" value="ARABIC">
-                    Arabic
+                  {t("language.arabic")}
                   </SelectItem>
                 </Select>
                 {errors.language && (
@@ -249,11 +252,11 @@ export const CreateDocument = () => {
               {/* Reviewer Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Select Reviewer
+                {t("selectReviewer.name")}
                 </label>
                 <Select
-                  label="Select Reviewer"
-                  placeholder="Choose a Reviewer"
+                  label={t("selectReviewer.label")}
+                  placeholder={t("selectReviewer.placeHolder")}
                   onSelectionChange={(value) =>
                     setValue("reviewedById", value.currentKey as string)
                   }
@@ -285,7 +288,7 @@ export const CreateDocument = () => {
                 reset();
               }}
             >
-              Cancel
+              {t("buttons.cancel")}
             </Button>
             <Button
               color="primary"
@@ -294,7 +297,7 @@ export const CreateDocument = () => {
               isLoading={isLoading}
               autoFocus
             >
-              Create Document
+              {t("buttons.create")}
             </Button>
           </ModalFooter>
         </ModalContent>

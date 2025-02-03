@@ -12,6 +12,7 @@ import {
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 
 interface DeleteDocumentProps {
@@ -19,6 +20,7 @@ interface DeleteDocumentProps {
   }
 
 export default function DeleteDocument({ documentId }: DeleteDocumentProps) {
+  const t = useTranslations("deleteDocument");
 
   const [deleteDocument, { error: deletionError, isSuccess: isDeleted }] =
     useDeleteDocumentMutation();
@@ -63,9 +65,9 @@ export default function DeleteDocument({ documentId }: DeleteDocumentProps) {
         isDismissable={false}
       >
         <ModalContent>
-          <ModalHeader>Delete Document</ModalHeader>
+          <ModalHeader>{t("title")}</ModalHeader>
           <ModalBody>
-            <p>Are you sure you want to delete this document?</p>
+            <p>{t("paragraph")}</p>
           </ModalBody>
           <ModalFooter>
             <Button
@@ -74,7 +76,7 @@ export default function DeleteDocument({ documentId }: DeleteDocumentProps) {
                 onClose();
               }}
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               color="danger"
@@ -83,7 +85,7 @@ export default function DeleteDocument({ documentId }: DeleteDocumentProps) {
                 handleConfirmDelete();
               }}
             >
-              Delete
+              {t("delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

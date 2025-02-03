@@ -11,8 +11,12 @@ import {
 import toast from "react-hot-toast";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { DecoupledEditor } from "ckeditor5";
+import { useTranslations } from "next-intl";
+
 
 const Page = () => {
+  const t = useTranslations("templates");
+
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editorContent, setEditorContent] = useState<string>("");
@@ -58,11 +62,11 @@ const Page = () => {
   }, [templateUpdated]);
   
   if (!id) {
-    return <div>Error: Invalid or missing UUID.</div>;
+    return <div>{t("error1")}</div>;
   }
   
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading template: {JSON.stringify(error)}</div>;
+  if (isLoading) return <div>{t("loading")}</div>;
+  if (error) return <div>{t("error2")}: {JSON.stringify(error)}</div>;
   
   return (
     <div className="bg-white shadow-lg rounded-lg mx-auto p-6 min-h-full h-fit w-full">
@@ -77,7 +81,7 @@ const Page = () => {
               className="bg-gradient-to-r from-deepRed to-brightRed  text-white py-2 px-4 rounded-lg shadow"
               onClick={handleEdit}
             >
-              Edit Template
+              {t("edit")}
             </Button>
           </div>
           <div className="h-1 bg-gradient-to-r from-deepBlue to-lightBlue rounded-lg mb-6"></div>
@@ -97,13 +101,13 @@ const Page = () => {
               className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
               onClick={handleSave}
             >
-              Save
+              {t("save")}
             </Button>
             <Button
               className="ml-2 bg-gray-400 text-white py-2 px-4 rounded-lg shadow"
               onClick={() => setIsEditing(false)}
             >
-              Cancel
+              {t("cancel")}
             </Button>
           </div>
         </div>
