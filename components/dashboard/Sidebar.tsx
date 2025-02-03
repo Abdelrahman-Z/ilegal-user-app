@@ -12,6 +12,7 @@ import { GiInjustice } from "react-icons/gi";
 import { FaUser } from "react-icons/fa";
 import { HiOutlineKey } from "react-icons/hi2";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const navLinks = [
   // {
@@ -73,6 +74,7 @@ const navLinks = [
 
 const Sidebar = () => {
   const { locale } = useParams();
+  const t = useTranslations("sideBar");
   return (
     <aside className="w-60 h-full space-y-1 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue px-10">
       <div>
@@ -93,7 +95,7 @@ const Sidebar = () => {
             as={Link}
             href={`/${locale}${link.path}`}
           >
-            {link.name}
+            {t(link.name)}
           </Button>
         ))}
       </nav>

@@ -10,8 +10,10 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 const Navbar = () => {
+  const t = useTranslations("navBar");
   const signOut = () => {
     // Implement sign out logic here
     removeToken("token");
@@ -21,7 +23,7 @@ const Navbar = () => {
   return (
     <div className="bg-deepBlue text-white shadow-md p-4 flex items-center justify-between">
       {/* Greeting */}
-      <h1 className="text-lg font-semibold">Good Morning, Name</h1>
+      <h1 className="text-lg font-semibold">{t("title")}</h1>
 
       {/* Search and Notification */}
       <div className="flex items-center space-x-4">
@@ -46,7 +48,7 @@ const Navbar = () => {
             <span className="text-gray-500">zoey@example.com</span>
           </DropdownItem> */}
             <DropdownItem key="signout" color="danger" onClick={signOut}>
-              Sign Out
+            {t("signOut")}
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

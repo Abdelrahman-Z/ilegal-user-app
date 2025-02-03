@@ -5,13 +5,15 @@ import { MyDocuments } from "@/components/dashboard/documents/MyDocuments";
 import { Pending } from "@/components/dashboard/documents/Pending";
 import { Approved } from "@/components/dashboard/documents/Approved";
 import { Tab, Tabs } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 
 export default function Page() {
+    const t = useTranslations("document");
   return (
     <div className="bg-white shadow-md rounded-lg p-6 mx-auto flex-grow h-fit min-h-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-800">My Documents</h2>
+        <h2 className="text-2xl font-semibold text-gray-800">{t("name")}</h2>
         <div className="flex gap-4">
           <CreateDocument />
         </div>
@@ -40,13 +42,11 @@ export default function Page() {
           <Tab className="w-full flex-1" key="pinding" title="Pending">
             <Pending />
           </Tab>
-
         </Tabs>
       </div>
     </div>
   );
 }
-
 
 // "use client";
 
