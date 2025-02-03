@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Modal,
@@ -14,7 +14,10 @@ import {
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useTranslateFileMutation } from "@/redux/services/api";
+import {
+  useTranslateFileMutation,
+  useTranslateWordFileMutation,
+} from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 
 // Update schema to allow PDF, .txt, and Word documents
@@ -33,8 +36,8 @@ const schema = yup.object({
 type FileTranslationFormValues = yup.InferType<typeof schema>;
 
 export const TranslateFile = () => {
+  const [finaleData, setfinaleData] = useState()
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  // const [streamedResponse, setStreamedResponse] = useState<string>("");
 
   const {
     handleSubmit,
@@ -50,23 +53,41 @@ export const TranslateFile = () => {
     },
   });
 
-  const [translate, { data, isLoading, error }] = useTranslateFileMutation();
+  const [translate, { isLoading, error }] = useTranslateFileMutation();
+  // add the translateword endpoint
+  const [
+    translateWord,
+    { isLoading: wordIsLoading, error: wordError },
+  ] = useTranslateWordFileMutation();
 
   const onSubmit = handleSubmit(async (data) => {
-    // @ts-expect-error  -> error from the YUP resolver
-    const file = data.file?.[0];
-    try {
-      const formData = new FormData();
-      formData.append("file", file as File);
-      formData.append("original_lang", data.original_lang);
-      formData.append("target_lang", data.target_lang);
+    // @ts-expect-error error
+    const file: File = data.file?.[0];
 
-      const response = await translate(formData).unwrap();
-      console.log(response);
+    // Determine file extension
+    const fileExtension = file.name.split(".").pop()?.toLowerCase();
+
+    // Create form data
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("original_lang", data.original_lang);
+    formData.append("target_lang", data.target_lang);
+
+    try {
+      let response;
+
+      // Call the appropriate API endpoint based on the file type
+      if (fileExtension === "doc" || fileExtension === "docx") {
+        response = await translateWord(formData).unwrap();
+      } else {
+        response = await translate(formData).unwrap();
+      }
+      setfinaleData(response)
+
       onClose();
       reset();
     } catch (error) {
-      console.error(error);
+      console.error("Error translating file:", error);
     }
   });
   return (
@@ -184,6 +205,17 @@ export const TranslateFile = () => {
                   </p>
                 </div>
               )}
+              {wordError && isFetchBaseQueryError(wordError) && (
+                <div className="mt-4">
+                  <p className="text-red-500 text-sm">
+                    {wordError.data &&
+                    typeof wordError.data === "object" &&
+                    "message" in wordError.data
+                      ? (wordError.data as { message: string }).message
+                      : "An error occurred. Please try again."}
+                  </p>
+                </div>
+              )}
               <ModalFooter>
                 <Button
                   color="danger"
@@ -192,6 +224,7 @@ export const TranslateFile = () => {
                     onClose();
                     reset();
                   }}
+                  isDisabled={isLoading || wordIsLoading}
                 >
                   Close
                 </Button>
@@ -199,7 +232,7 @@ export const TranslateFile = () => {
                   type="submit"
                   color="primary"
                   form="translationForm"
-                  isLoading={isLoading}
+                  isLoading={isLoading || wordIsLoading}
                 >
                   Submit
                 </Button>
@@ -208,11 +241,13 @@ export const TranslateFile = () => {
           )}
         </ModalContent>
       </Modal>
-      {data && (
+      {finaleData && (
         <div
           className="mt-5 whitespace-pre-wrap"
-          dir={data.target_lang === "ar" ? "rtl" : "ltr"}
-          dangerouslySetInnerHTML={{ __html: data.text }}
+          // @ts-expect-error error
+          dir={finaleData.target_lang === "ar" ? "rtl" : "ltr"}
+          // @ts-expect-error error
+          dangerouslySetInnerHTML={{ __html: finaleData.text }}
         ></div>
       )}
     </>

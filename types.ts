@@ -85,6 +85,7 @@ export interface Template{
     imageUrl: string,
     attachmentUrl?: string,
     attachmentFileUrl?: string,
+    language: string;
     createdAt: Date,
     updatedAt: Date,
     tenantId: string,
@@ -113,3 +114,4 @@ export interface Document {
   preConfiguredTemplateId?: string | null;
   DocumentMetadata: DocumentMetadata[]; 
 }
+

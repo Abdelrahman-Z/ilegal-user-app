@@ -10,7 +10,9 @@ import {
 } from "@nextui-org/react";
 import { useGetPreConfiguredTemplatesQuery } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
-import {Template} from '../../../types';
+
+
+import { Template } from "@/types";
 
 export const PreConfiguredTemplates = () => {
   const path = usePathname();
@@ -50,7 +52,8 @@ export const PreConfiguredTemplates = () => {
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl">
       {/* Template Cards */}
       <div className="gap-4 grid">
-        {templates.map((template: Template) => (
+
+        {templates.map((template:Template) => (
           <Card
             key={template.id}
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"

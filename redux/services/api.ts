@@ -187,6 +187,13 @@ export const api = createApi({
         body: data,
       }),
     }),
+    translateWordFile: builder.mutation({
+      query: (data) => ({
+        url: "/translate/word",
+        method: "POST",
+        body: data,
+      }),
+    }),
     // questions
     createQuestion: builder.mutation({
       query: (data) => ({
@@ -478,6 +485,7 @@ export const {
   // translation
   useTranslateMutation,
   useTranslateFileMutation,
+  useTranslateWordFileMutation,
   //questions
   useCreateQuestionMutation,
   useGetQuestionsQuery,
