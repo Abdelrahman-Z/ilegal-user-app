@@ -46,7 +46,7 @@ export const DeleteToken: React.FC<DeleteTokenProps> = ({ id , name }) => {
         <ModalContent>
           <ModalHeader>Confirm Deletion</ModalHeader>
           <ModalBody>
-            <p>Are you sure you want to delete this token?</p>
+            <p>Are you sure you want to delete this {name} token?</p>
             {error && isFetchBaseQueryError(error) && (
               <p className="text-red-500 text-sm">
                 {error.data &&
