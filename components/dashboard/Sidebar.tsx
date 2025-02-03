@@ -4,8 +4,7 @@ import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
-import { FaFileAlt, FaCog, FaPen } from "react-icons/fa";
-// import { RiOrganizationChart } from "react-icons/ri";
+import { FaFileAlt, FaCog, FaPen, FaCoins } from "react-icons/fa";
 import { BsShieldFillCheck, BsTranslate } from "react-icons/bs";
 import { AiFillSignature } from "react-icons/ai";
 import { GiInjustice } from "react-icons/gi";
@@ -28,6 +27,11 @@ const navLinks = [
     name: "Documents",
     icon: <FaFileAlt className="text-2xl" />,
     path: "/dashboard/documents",
+  },
+  {
+    name: "Tokens",
+    icon: <FaCoins className="text-xl" />,
+    path: "/dashboard/tokens",
   },
   {
     name: "Templates",
