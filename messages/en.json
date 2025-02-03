@@ -121,5 +121,108 @@
         }
       }
     }
+  },
+  "team":{
+    "hero":{
+      "title":"Our Team",
+      "description":"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+    },
+    "overview": {
+      "title1": "Service With A Smile",
+      "title2": "Meet Our People",
+      "paragraph1": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "paragraph2": "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+    },
+    "partners": {
+      "title": "The Partners",
+      "items": {
+        "item-1": {
+          "name": "Lorem Ipsum",
+          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+        },
+        "item-2": {
+          "name": "Lorem Ipsum",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        "item-3": {
+          "name": "Lorem Ipsum",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        }
+      }
+    },
+    "attorneys": {
+      "title": "Attorneys",
+      "items": {
+        "item-1": {
+          "name": "Lorem Ipsum",
+          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+        },
+        "item-2": {
+          "name": "Lorem Ipsum",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        "item-3": {
+          "name": "Lorem Ipsum",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        }
+      }
+    },
+    "client":{
+      "title1": "WHAT PEOPLE SAY ABOUT US",
+      "title2": "Client Testimonials",
+      "paragraph1": "t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "name":"Name",
+      "paragraph2":"it has survived"
+    }
+  },
+  "pricing":{
+    "hero":{
+      "title1":"Choose Your",
+      "title2":"Pricing Plan"
+    },
+    "basic":{
+      "title":"Basic Plan",
+      "description":"A basic plan suitable for small businesses and individuals starting out.",
+      "price":"$9.99",
+      "button":"Continue"
+    },
+    "premium":{
+      "title":"Premium Plan",
+      "description":"A premium plan for established businesses that require advanced features.",
+      "price":"$19.99",
+      "button":"Continue"
+    }
+  },
+  "contactUs":{
+    "hero":{
+      "title":"Contact Us",
+      "description1":"Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "description2":"Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    },
+    "form":{
+      "title":"Contact Form",
+      "name":"Name",
+      "email":"Email",
+      "message":"Message",
+      "button":"Send"
+    }
+  },
+  "sideBar":{
+    "Documents":"Documents",
+    "Templates":"Templates",
+    "Summarization":"Summarization",
+    "Translation":"Translation",
+    "Sign Document":"Sign Document",
+    "Jurisdiction":"Jurisdiction",
+    "Users":"Users",
+    "Roles":"Roles",
+    "Permissions":"Permissions"
+  },
+  "navBar":{
+    "title":"Good Morning, Name",
+    "signOut":"Sign Out"
+  },
+  "document":{
+    "name":"My Documents"
   }
 }
