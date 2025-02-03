@@ -16,7 +16,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   useCreateDocumentMutation,
-  useGetAllTemplatesQuery,
+  useGetApprovedTemplatesQuery,
   useGetJurisdictionsQuery,
   useGetPreConfiguredTemplatesQuery,
   useGetReviewersTemplatesQuery,
@@ -52,7 +52,7 @@ export const CreateDocument = () => {
     page: 1,
     limit: 10,
   });
-  const { data: templatesData } = useGetAllTemplatesQuery({});
+  const { data: templatesData } = useGetApprovedTemplatesQuery({});
   const { data: pretemplatesData } = useGetPreConfiguredTemplatesQuery({});
 
   const [createDocument, { isLoading, error, isSuccess }] =
