@@ -9,13 +9,13 @@ import {
   Link,
 } from "@nextui-org/react";
 import {
-  useGetAllTemplatesQuery,
+  useGetAllDocumentsTenantQuery,
 } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
-import DeleteTemplate from "./DeleteTemplate";
-import {Template} from '../../../types';
+import DeleteDocument from "./DeleteDocument";
+import {Document} from '../../../types';
 
-export const MyTemplates = () => {
+export const MyDocuments = () => {
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
@@ -31,8 +31,8 @@ export const MyTemplates = () => {
   }, [searchTerm]);
 
 
-  // Fetch all templates with pagination
-  const { data, error, isLoading } = useGetAllTemplatesQuery({
+  // Fetch all documents with pagination
+  const { data, error, isLoading } = useGetAllDocumentsTenantQuery({
     page,
     limit,
   });
@@ -41,38 +41,38 @@ export const MyTemplates = () => {
     setPage(1);
   }, [debouncedSearchTerm]);
   
-  if (isLoading) return <p>Loading templates...</p>;
-  if (error) return <p>Error loading templates.</p>;
+  if (isLoading) return <p>Loading documents...</p>;
+  if (error) return <p>Error loading documents.</p>;
   
-  const templates = data?.data || [];
+  const documents = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
 
 
   return (
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl h-fit">
-      {/* Template Cards */}
+      {/* Document Cards */}
       <div className="gap-4 grid">
-        {templates.map((template: Template) => (
+        {documents.map((document: Document) => (
           <Card
-            key={template.id}
+            key={document.id}
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
           >
             <div className="flex items-center">
               <Image
                 removeWrapper
-                alt={`Template ${template.id}`}
+                alt={`Document ${document.id}`}
                 className="w-10 h-10 object-cover rounded-full"
-                src={template.imageUrl || "https://via.placeholder.com/300"}
+                // src={document.imageUrl || "https://via.placeholder.com/300"}
               />
               <CardHeader className="flex-col !items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
-                  Template Name
+                  document Name
                 </p>
                 <h4 className="text-white font-medium text-small">
-                  {template.name}
+                  {document.name}
                 </h4>
                 <p className="text-tiny text-white/60">
-                  Language: {template.language}
+                  Language: {document.language}
                 </p>
               </CardHeader>
             </div>
@@ -80,53 +80,15 @@ export const MyTemplates = () => {
             <CardFooter className="flex justify-end items-center w-fit gap-2">
               
               <Link
-                href={`${path}/${template.id}`}
+                href={`${path}/${document.id}`}
                 className=" bg-white p-2 rounded-xl"
               >
                 View
               </Link>
-              <DeleteTemplate templateId={template.id} />
+              <DeleteDocument documentId={document.id} />
             </CardFooter>
           </Card>
         ))}
-
-
-      {/* {PreTemplates.map((template: Template) => (
-          <Card
-            key={template.id}
-            className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
-          >
-            <div className="flex items-center">
-              <Image
-                removeWrapper
-                alt={`Template ${template.id}`}
-                className="w-10 h-10 object-cover rounded-full"
-                src={template.imageUrl || "https://via.placeholder.com/300"}
-              />
-              <CardHeader className="flex-col !items-start">
-                <p className="text-tiny text-white/60 uppercase font-bold">
-                  Template Name
-                </p>
-                <h4 className="text-white font-medium text-small">
-                  {template.name}
-                </h4>
-                <p className="text-tiny text-white/60">
-                  Language: {template.language}
-                </p>
-              </CardHeader>
-            </div>
-
-            <CardFooter className="flex justify-end items-center w-fit gap-2">
-              <Link
-                href={`${path}/${template.id}`}
-                className=" bg-white p-2 rounded-xl"
-              >
-                View
-              </Link>
-              <DeleteTemplate templateId={template.id} />
-            </CardFooter>
-          </Card>
-        ))} */}
       </div>
 
       {/* Pagination */}

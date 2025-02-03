@@ -11,6 +11,7 @@ import {
 import { useGetPreConfiguredTemplatesQuery } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
 
+
 import { Template } from "@/types";
 
 export const PreConfiguredTemplates = () => {
@@ -77,7 +78,7 @@ export const PreConfiguredTemplates = () => {
               </CardHeader>
             </div>
 
-            <CardFooter className="flex justify-end items-center w-fit">
+            <CardFooter className="flex justify-end items-center w-fit gap-4">
               <Link href={`${path}/pre/${template.id}`} className=" bg-white p-2 rounded-xl">View</Link>
             </CardFooter>
           </Card>

@@ -53,7 +53,7 @@ const Page = () => {
   
   useEffect(() => {
     if (templateUpdated) {
-      toast.success("Template Deleted successfully!");
+      toast.success("Template Updated successfully!");
     }
   }, [templateUpdated]);
   

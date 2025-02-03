@@ -10,15 +10,15 @@ import {
   Button,
 } from "@nextui-org/react";
 import {
-  useGetPendingTemplatesQuery,
-  useApproveTemplateMutation,
+  useGetPendingDocumentsQuery,
+  useApproveDocumentMutation,
 } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
 import toast from "react-hot-toast";
 import { isFetchBaseQueryError } from "@/redux/store";
-import DeleteTemplate from "./DeleteTemplate";
+import DeleteDocument from "./DeleteDocument";
 import RejectModal from "./RejectModal";
-import {Template} from '../../../types';
+import {Document} from '../../../types';
 import { MdCheck } from "react-icons/md";
 
 export const Pending = () => {
@@ -27,7 +27,7 @@ export const Pending = () => {
   const [searchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const limit = 5;
-  const [approveTemplate, {isSuccess: isApproved, error:approvalError}] = useApproveTemplateMutation();
+  const [approvedDocument, {isSuccess: isApproved, error:approvalError}] = useApproveDocumentMutation();
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -37,7 +37,7 @@ export const Pending = () => {
     return () => clearTimeout(handler);
   }, [searchTerm]);
 
-  const { data, error, isLoading } = useGetPendingTemplatesQuery({
+  const { data, error, isLoading } = useGetPendingDocumentsQuery({
     page,
     limit,
   });
@@ -64,57 +64,56 @@ useEffect(() => {
     setPage(1);
   }, [debouncedSearchTerm]);
   
-  if (isLoading) return <p>Loading templates...</p>;
-  if (error) return <p>Error loading templates.</p>;
+  if (isLoading) return <p>Loading Documents...</p>;
+  if (error) return <p>Error loading Documents.</p>;
 
-  const templates = data?.data || [];
+  const documents = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
 
   return (
     <div className="flex flex-col gap-5 w-full bg-white p-5 rounded-xl">
-      {/* Template Cards */}
       <div className="gap-4 grid">
-        {templates.map((template: Template) => (
+        {documents.map((document: Document) => (
           <Card
-            key={template.id}
+            key={document.id}
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
           >
             <div className="flex items-center">
               <Image
                 removeWrapper
-                alt={`Template ${template.id}`}
+                alt={`Document ${document.id}`}
                 className="w-10 h-10 object-cover rounded-full"
-                src={template.imageUrl || "https://via.placeholder.com/300"}
+                // src={document.imageUrl || "https://via.placeholder.com/300"}
               />
               <CardHeader className="flex-col !items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
-                  Template Name
+                  Document Name
                 </p>
                 <h4 className="text-white font-medium text-small">
-                  {template.name}
+                  {document.name}
                 </h4>
                 <p className="text-tiny text-white/60">
-                  Language: {template.language}
+                  Language: {document.language}
                 </p>
               </CardHeader>
             </div>
 
             <CardFooter className="flex justify-end items-center w-fit gap-2">
               {/* APPROVE */}
-              <Button isIconOnly color="success" onClick={() => approveTemplate(template.id)} className="!p-0">
+              <Button isIconOnly color="success" onClick={() => approvedDocument(document.id)} className="!p-0">
                       <MdCheck className="text-white" />
               </Button>
-              <RejectModal templateId={template.id} />
+              <RejectModal documentId={document.id} />
 
               {/* VIEW */}
               <Link
-                href={`${path}/${template.id}`}
+                href={`${path}/${document.id}`}
                 className=" bg-white p-2 rounded-xl"
               >
                 View
               </Link>
               {/* DELETE */}
-              <DeleteTemplate templateId={template.id} />
+              <DeleteDocument documentId={document.id} />
         
             </CardFooter>
           </Card>
@@ -136,3 +135,4 @@ useEffect(() => {
     </div>
   );
 };
+
