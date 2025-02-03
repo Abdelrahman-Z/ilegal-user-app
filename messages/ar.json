@@ -220,11 +220,124 @@
 },
 "navBar": {
     "title": "صباح الخير، الاسم",
-    "signOut": "تسجيل الخروج"
+    "signOut": "تسجيل الخروج",
+    "search": "بحث"
 },
 "document": {
-    "name": "مستنداتي"
+    "name": "مستنداتي",
+    "myDocuments": "مستنداتي",
+    "approved": "الموافقة",
+    "pending": "قيد الانتظار"
+},
+"addDocument": {
+    "buttonName": "إنشاء مستند جديد",
+    "document": {
+      "name": "اسم المستند",
+      "placeHolder": "أدخل اسم المستند"
+    },
+    "jurisdiction": {
+      "name": "اسم الولاية القضائية",
+      "label": "حدد اسم الولاية القضائية",
+      "placeHolder": "اختر ولاية قضائية"
+    },
+    "template": {
+      "name": "اسم القالب",
+      "label": "حدد اسم القالب",
+      "placeHolder": "اختر قالبًا"
+    },
+    "language": {
+      "name": "اللغة",
+      "label": "حدد لغة القالب",
+      "placeHolder": "اختر لغة",
+      "english": "الإنجليزية",
+      "arabic": "العربية"
+    },
+    "selectReviewer": {
+      "name": "اختيار المراجع",
+      "label": "حدد المراجع",
+      "placeHolder": "اختر مراجعًا"
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "create": "إنشاء مستند"
+    }
+},
+"myDocuments": {
+    "loading": "جاري تحميل المستندات...",
+    "error": "حدث خطأ أثناء تحميل المستندات.",
+    "name": "اسم المستند",
+    "language": "اللغة",
+    "view": "عرض"
+},
+"deleteDocument": {
+    "title": "حذف المستند",
+    "paragraph": "هل أنت متأكد أنك تريد حذف هذا المستند؟",
+    "cancel": "إلغاء",
+    "delete": "حذف"
+},
+"approved": {
+    "loading": "جاري تحميل المستندات...",
+    "error": "حدث خطأ أثناء تحميل المستندات.",
+    "name": "اسم المستند",
+    "language": "اللغة",
+    "view": "عرض"
+},
+"pending": {
+    "loading": "جاري تحميل المستندات...",
+    "error": "حدث خطأ أثناء تحميل المستندات.",
+    "name": "اسم المستند",
+    "language": "اللغة",
+    "view": "عرض"
+},
+"templates": {
+    "title": "قوالبي",
+    "preConfigure": "التكوين المسبق",
+    "myTemplates": "قوالبي",
+    "approved": "الموافقة",
+    "pending": "قيد الانتظار",
+    "rejected": "مرفوض",
+    "loading": "جارٍ التحميل...",
+    "error1": "خطأ: معرف UUID غير صالح أو مفقود.",
+    "error2": "خطأ في تحميل القالب:",
+    "edit": "تعديل القالب",
+    "save": "حفظ",
+    "cancel": "إلغاء"
+},
+"addTemplate": {
+    "buttonName": "إنشاء قالب جديد",
+    "template": {
+      "name": "اسم القالب",
+      "placeHolder": "أدخل اسم القالب"
+    },
+    "language": {
+      "name": "اللغة",
+      "label": "اختر لغة القالب",
+      "placeHolder": "اختر لغة",
+      "english": "الإنجليزية",
+      "arabic": "العربية"
+    },
+    "selectReviewer": {
+      "name": "اختيار المراجع",
+      "label": "اختر مراجعًا",
+      "placeHolder": "اختر مراجعًا"
+    },
+    "buttons": {
+      "cancel": "إلغاء",
+      "create": "إنشاء قالب"
+    }
+  },
+  "template": {
+    "loading": "جاري تحميل القوالب...",
+    "error": "خطأ في تحميل القوالب.",
+    "name": "اسم القالب",
+    "language": "اللغة",
+    "view": "عرض"
+},
+"delete": {
+    "title": "حذف القالب",
+    "paragraph": "هل أنت متأكد أنك تريد حذف هذا القالب؟",
+    "cancel": "إلغاء",
+    "delete": "حذف"
 }
-
 } 
 
