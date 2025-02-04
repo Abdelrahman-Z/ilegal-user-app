@@ -38,16 +38,16 @@ export async function middleware(request: NextRequest) {
     isAuthenticated &&
     (pathnameWithoutLocale === "/" || pathnameWithoutLocale === "/login")
   ) {
-    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
+    return NextResponse.redirect(new URL(`/${locale}/dashboard/templates`, request.url));
   }
 
   // Redirect authenticated users away from auth routes
-  if (isAuthenticated && pathnameWithoutLocale.startsWith("/auth")) {
-    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
+  if (isAuthenticated && !pathnameWithoutLocale.includes("/dashboard")) {
+    return NextResponse.redirect(new URL(`/${locale}/dashboard/templates`, request.url));
   }
 
   // Redirect unauthenticated users away from protected routes
-  if (!isAuthenticated && pathnameWithoutLocale.startsWith("/dashboard")) {
+  if (!isAuthenticated && pathnameWithoutLocale.includes("/dashboard")) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
