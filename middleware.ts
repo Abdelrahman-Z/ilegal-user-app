@@ -20,13 +20,11 @@ export async function middleware(request: NextRequest) {
   const locale = response.headers.get("x-middleware-request-locale") || "en";
 
   // Validate authentication
-  const isAuthenticated = token ? await validateToken(token) : false;
 
   // Debug logging
   console.log({
     pathname,
     pathnameWithoutLocale,
-    isAuthenticated,
     hasToken: !!token,
   });
 
@@ -37,7 +35,7 @@ export async function middleware(request: NextRequest) {
   // Authenticated users:
   // - Allow access to dashboard and public pages
   // - Redirect to dashboard if trying to access public pages
-  if (isAuthenticated) {
+  if (token) {
     if (isPublicPath) {
       return NextResponse.redirect(new URL(`/${locale}/dashboard/templates`, request.url));
     }
@@ -47,17 +45,14 @@ export async function middleware(request: NextRequest) {
   // Non-authenticated users:
   // - Allow access to public pages
   // - Redirect to login if trying to access dashboard
-  if (!isAuthenticated && isPublicPath) {
+  if (!token && isPublicPath) {
     return response;
   }
-  if (!isAuthenticated && isDashboardPath) {
+  if (!token && isDashboardPath) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
-  // If the token is invalid, delete it from the cookie
-  if (!isAuthenticated && token) {
-    response.cookies.delete("token");
-  }
+
 
   // Return the intl middleware response for all other cases
   return response;
