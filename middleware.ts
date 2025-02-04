@@ -48,19 +48,3 @@ export default async function middleware(req: NextRequest) {
   // Apply locale handling from next-intl
   return intlMiddleware(req);
 }
-
-export const config = {
-  matcher: [
-    "/", // Root
-    "/(en|ar)/:path*", // Localized routes
-    "/(en|ar)/dashboard/:path*", // Dashboard routes
-    "/(en|ar)/login", // Login page
-    "/(en|ar)/aboutUs", // Public routes
-    "/(en|ar)/contactUs",
-    "/(en|ar)/pricing",
-    "/(en|ar)/privacy-policy",
-    "/(en|ar)/services",
-    "/(en|ar)/team",
-    "/(en|ar)/terms-and-conditions",
-  ],
-};
