@@ -19,9 +19,9 @@ export async function middleware(request: NextRequest) {
   const response = await intlMiddleware(request);
   const locale = response.headers.get("x-middleware-request-locale") || "en";
 
-  let isAuthenticated = await validateToken(token!!);
-  if (!isAuthenticated) {
-    console.error("Token validation error:");
+  // Validate authentication
+  const isAuthenticated = token ? await validateToken(token) : false;
+  if (!isAuthenticated && token) {
     response.cookies.delete("token");
   }
 
@@ -33,21 +33,20 @@ export async function middleware(request: NextRequest) {
     hasToken: !!token,
   });
 
-  // Redirect authenticated users away from the root and login page
-  if (
-    isAuthenticated &&
-    (pathnameWithoutLocale === "/" || pathnameWithoutLocale === "/login")
-  ) {
+  // Define dashboard and public paths
+  const isDashboardPath = pathnameWithoutLocale.startsWith("/dashboard");
+  const isPublicPath = ["/", "/login"].includes(pathnameWithoutLocale) || 
+                      (!pathnameWithoutLocale.startsWith("/dashboard"));
+
+  // Authenticated users:
+  // - Redirect to dashboard if trying to access public pages
+  if (isAuthenticated && isPublicPath) {
     return NextResponse.redirect(new URL(`/${locale}/dashboard/templates`, request.url));
   }
 
-  // Redirect authenticated users away from auth routes
-  if (isAuthenticated && !pathnameWithoutLocale.includes("/dashboard")) {
-    return NextResponse.redirect(new URL(`/${locale}/dashboard/templates`, request.url));
-  }
-
-  // Redirect unauthenticated users away from protected routes
-  if (!isAuthenticated && pathnameWithoutLocale.includes("/dashboard")) {
+  // Non-authenticated users:
+  // - Redirect to login if trying to access dashboard
+  if (!isAuthenticated && isDashboardPath) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
