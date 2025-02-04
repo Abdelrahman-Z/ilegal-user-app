@@ -13,6 +13,7 @@ import { DecoupledEditor } from "ckeditor5";
 import { ViewDocument } from "@/components/dashboard/documents/ViewDocument";
 import { useForm, useFieldArray } from "react-hook-form";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 
 const schema = yup.object({
@@ -24,8 +25,7 @@ const schema = yup.object({
   )
 });
 
-type FormValues = yup.InferType<typeof schema>;
-
+type FormValues = yup.InferType<typeof schema>; 
 
 
 const Page = () => {
@@ -55,6 +55,7 @@ const Page = () => {
     reset,
     formState: { errors },
   } = useForm<FormValues>({
+    resolver: yupResolver(schema),
     defaultValues: {
       translations: [],
     },
@@ -153,37 +154,8 @@ const Page = () => {
           handleEdit={handleEdit}
         />
       ) : (
-        <div className="flex mb-4">
-          {fields.length > 0 && (
-            <form id="createTemplateForm" className="flex flex-col m-5" onSubmit={translate}>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Translate Tokens
-              </label>
-              <div className="justify-center flex flex-col">
-                {fields.map((field, index) => (
-                  <div key={field.id} className="items-center gap-2 mb-2">
-                    <label>{field.token}:</label>
-                    <Input
-                      type="text"
-                      {...control.register(`translations.${index}.value`, {
-                        required: "This field is required",
-                      })}
-                      placeholder={`Replace ${field.token}`}
-                      isInvalid={!!errors.translations?.[index]?.value}
-                      errorMessage={errors.translations?.[index]?.value?.message}
-                    />
-                  </div>
-                ))}
-                <Button
-                  type="submit"
-                  className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow"
-                >
-                  Translate
-                </Button>
-              </div>
-            </form>
-          )}
-            <div className="flex justify-center mt-4 gap-2">
+        <div className="mb-4">
+            <div className="flex justify-end mb-4 gap-2">
               <Button
                 className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
                 onClick={handleSave}
@@ -198,9 +170,44 @@ const Page = () => {
               </Button>
             </div>
 
-          <div className="flex flex-col">
+            <div className="flex">
+            <div className="w-1/3">
+
+          {fields.length > 0 && (
+            <form id="createTemplateForm" className="flex flex-col m-5" onSubmit={translate}>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Translate Tokens
+              </label>
+              <div className="items-end flex flex-col">
+                {fields.map((field, index) => (
+                  <div key={field.id} className=" gap-2 w-full">
+                    <label>{field.token}:</label>
+                    <Input
+                      type="text"
+                      {...control.register(`translations.${index}.value`, {
+                        required: "This field is required",
+                      })}
+                      placeholder={`Replace ${field.token}`}
+                      isInvalid={!!errors.translations?.[index]?.value}
+                      errorMessage={errors.translations?.[index]?.value?.message}
+                    />
+                  </div>
+                ))}
+                <Button
+                  type="submit"
+                  className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow mt-4"
+                >
+                  Translate
+                </Button>
+              </div>
+            </form>
+          )}
+          </div>
+
+          <div className="w-2/3">
             <Editor setEditor={setEditorInstance} data={documentData?.DocumentMetadata[0]?.content} />
           </div>
+        </div>
         </div>
       )}
     </div>

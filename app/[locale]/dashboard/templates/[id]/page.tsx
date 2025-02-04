@@ -64,14 +64,10 @@ const Page = () => {
             writer.insertText( `{{${selectedToken}}}`, position);
           }
         });
-        setValue("token", ""); 
       }
     };
   
   const handleSave = () => {
-    if(selectedToken){
-      handleAssign();
-    }
     if (editorInstance) {
       const updatedContent = editorInstance.getData();
       updateTemplate({
@@ -81,7 +77,6 @@ const Page = () => {
     }
     setIsEditing(false);
   };
-
 
   // Handle error toast
   useEffect(() => {
@@ -132,15 +127,33 @@ const Page = () => {
           </div>
         </div>
       ) : (
-        <div className="flex mb-4">
+        <div>
+            <div className="flex justify-end gap-2 mb-4">
+              <Button
+                className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
+                onClick={handleSave}
+              >
+                Save
+              </Button>
+              <Button
+                className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow"
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+            
+            <div className="flex">
+
+          <div className="w-1/3">
           <form
             id="createTemplateForm"
-            className="flex flex-col m-5"
+            className="m-5"
           >
             <label className="block text-sm font-medium text-gray-700 mb-3">
               Select Token
             </label>
-            <div className="flex items-center">
+            <div className="flex flex-col items-end">
               <Select
                 label="Select Token"
                 placeholder="Choose a Token"
@@ -161,27 +174,15 @@ const Page = () => {
                   )}
               </Select>
               <Button
-               className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow" 
+               className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow mt-4" 
               onClick={handleAssign}>assign</Button>
             </div>
-            <div className="flex justify-center mt-4 gap-2">
-              <Button
-                className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
-                onClick={handleSave}
-              >
-                Save
-              </Button>
-              <Button
-                className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancel
-              </Button>
-            </div>
           </form>
+          </div>
 
-          <div className="flex flex-col">
+          <div className="w-2/3">
             <Editor setEditor={setEditorInstance} data={editorContent} />
+          </div>
           </div>
         </div>
       )}
