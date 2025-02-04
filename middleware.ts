@@ -2,20 +2,41 @@ import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { validateToken } from "./utils";
 
+// Create the intl middleware
 const intlMiddleware = createMiddleware({
-  locales: ["en", "ar"], // Define supported locales
-  defaultLocale: "en", // Set default locale
+  locales: ["en", "ar"],
+  defaultLocale: "en",
 });
 
+// Define public routes that don't require authentication
+const publicRoutes = [
+  '/login',
+  '/aboutUs',
+  '/contactUs',
+  '/pricing',
+  '/privacy-policy',
+  '/services',
+  '/team',
+  '/terms-and-conditions',
+  '/'
+];
+
 export default async function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value; // Retrieve the auth token from cookies
+  const token = req.cookies.get("token")?.value;
+  const pathname = req.nextUrl.pathname;
+  
+  // Handle locale-stripped pathname for checking routes
+  const pathnameWithoutLocale = pathname.replace(/^\/(?:en|ar)/, '');
+  
+  // Determine route type
+  const isPublicRoute = publicRoutes.some(route => pathnameWithoutLocale === route);
+  const isDashboardRoute = pathnameWithoutLocale.startsWith('/dashboard');
+  const isLoginPage = pathnameWithoutLocale === '/login';
 
-  const url = req.nextUrl.clone(); // Clone URL to avoid mutations
-  const isDashboardRoute = url.pathname.includes(`/dashboard`);
-  const isLoginPage = url.pathname.includes(`/login`);
-  const isPublicRoute = !isDashboardRoute && !isLoginPage;
-
-  // Validate token with better error handling
+  // First, handle the locale using next-intl
+  const response = await intlMiddleware(req);
+  
+  // Validate token if exists
   let isLoggedIn = false;
   if (token) {
     try {
@@ -23,15 +44,15 @@ export default async function middleware(req: NextRequest) {
     } catch (error) {
       console.error("Token validation error:", error);
       // Clear invalid token
-      const response = NextResponse.redirect(new URL(`/${url.locale || "en"}/login`, req.url));
       response.cookies.delete("token");
-      return response;
+      isLoggedIn = false;
     }
   }
 
-  // Add debug logging
+  // Debug logging
   console.log({
-    path: url.pathname,
+    pathname,
+    pathnameWithoutLocale,
     isLoggedIn,
     isDashboardRoute,
     isLoginPage,
@@ -39,23 +60,21 @@ export default async function middleware(req: NextRequest) {
     hasToken: !!token
   });
 
-  // Redirect unauthenticated users trying to access the dashboard
+  const locale = response.headers.get('x-middleware-request-locale') || 'en';
+
+  // Handle redirects
   if (isDashboardRoute && !isLoggedIn) {
-    return NextResponse.redirect(new URL(`/${url.locale || "en"}/login`, req.url));
+    // Redirect to login if trying to access dashboard while not logged in
+    return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
   }
 
-  // Redirect authenticated users trying to access the login page
   if (isLoginPage && isLoggedIn) {
-    return NextResponse.redirect(new URL(`/${url.locale || "en"}/dashboard`, req.url));
+    // Redirect to dashboard if trying to access login while logged in
+    return NextResponse.redirect(new URL(`/${locale}/dashboard`, req.url));
   }
 
-  // Redirect authenticated users trying to access public routes
-  if (isPublicRoute && isLoggedIn) {
-    return NextResponse.redirect(new URL(`/${url.locale || "en"}/dashboard`, req.url));
-  }
-
-  // Apply locale handling from next-intl
-  return intlMiddleware(req);
+  // Return the intl middleware response
+  return response;
 }
 
 export const config = {
