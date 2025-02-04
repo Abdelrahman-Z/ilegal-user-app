@@ -46,7 +46,9 @@ export function AddToken() {
 
   return (
     <>
-      <Button color="primary" onPress={onOpen}>
+      <Button color="primary" onPress={onOpen}               
+      className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
+      >
         Create Token
       </Button>
       <Modal
