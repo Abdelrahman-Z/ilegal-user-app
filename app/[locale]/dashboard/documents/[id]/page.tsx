@@ -171,9 +171,9 @@ const Page = () => {
             </div>
 
             <div className="flex">
-            <div className="w-1/3">
 
           {fields.length > 0 && (
+            <div className="w-1/3">
             <form id="createTemplateForm" className="flex flex-col m-5" onSubmit={translate}>
               <label className="block text-sm font-medium text-gray-700 mb-3">
                 Translate Tokens
@@ -201,10 +201,10 @@ const Page = () => {
                 </Button>
               </div>
             </form>
-          )}
           </div>
+          )}
 
-          <div className="w-2/3">
+          <div className="w-full">
             <Editor setEditor={setEditorInstance} data={documentData?.DocumentMetadata[0]?.content} />
           </div>
         </div>
