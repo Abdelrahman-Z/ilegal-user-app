@@ -8,44 +8,25 @@ const intlMiddleware = createMiddleware({
   defaultLocale: "en",
 });
 
-// Define public routes that don't require authentication
-const publicRoutes = [
-  '/login',
-  '/aboutUs',
-  '/contactUs',
-  '/pricing',
-  '/privacy-policy',
-  '/services',
-  '/team',
-  '/terms-and-conditions',
-  '/'
-];
 
-export default async function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
-  const pathname = req.nextUrl.pathname;
+export async function middleware(request: NextRequest) {
+  const token = request.cookies.get('token')?.value;
+  const { pathname } = request.nextUrl;
   
-  // Handle locale-stripped pathname for checking routes
+  // Strip locale from pathname for checking routes
   const pathnameWithoutLocale = pathname.replace(/^\/(?:en|ar)/, '');
   
-  // Determine route type
-  const isPublicRoute = publicRoutes.some(route => pathnameWithoutLocale === route);
-  const isDashboardRoute = pathnameWithoutLocale.startsWith('/dashboard');
-  const isLoginPage = pathnameWithoutLocale === '/login';
+  // First, handle the locale
+  const response = await intlMiddleware(request);
+  const locale = response.headers.get('x-middleware-request-locale') || 'en';
 
-  // First, handle the locale using next-intl
-  const response = await intlMiddleware(req);
-  
-  // Validate token if exists
-  let isLoggedIn = false;
+  let isAuthenticated = false;
   if (token) {
     try {
-      isLoggedIn = await validateToken(token);
+      isAuthenticated = await validateToken(token);
     } catch (error) {
       console.error("Token validation error:", error);
-      // Clear invalid token
       response.cookies.delete("token");
-      isLoggedIn = false;
     }
   }
 
@@ -53,37 +34,34 @@ export default async function middleware(req: NextRequest) {
   console.log({
     pathname,
     pathnameWithoutLocale,
-    isLoggedIn,
-    isDashboardRoute,
-    isLoginPage,
-    isPublicRoute,
+    isAuthenticated,
     hasToken: !!token
   });
 
-  const locale = response.headers.get('x-middleware-request-locale') || 'en';
-
-  // Handle redirects
-  if (isDashboardRoute && !isLoggedIn) {
-    // Redirect to login if trying to access dashboard while not logged in
-    return NextResponse.redirect(new URL(`/${locale}/login`, req.url));
+  // Redirect authenticated users away from the root and login page
+  if (isAuthenticated && (pathnameWithoutLocale === '/' || pathnameWithoutLocale === '/login')) {
+    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
-  if (isLoginPage && isLoggedIn) {
-    // Redirect to dashboard if trying to access login while logged in
-    return NextResponse.redirect(new URL(`/${locale}/dashboard`, req.url));
+  // Redirect authenticated users away from auth routes
+  if (isAuthenticated && pathnameWithoutLocale.startsWith('/auth')) {
+    return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
-  // Return the intl middleware response
+  // Redirect unauthenticated users away from protected routes
+  if (!isAuthenticated && pathnameWithoutLocale.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+  }
+
+  // Return the intl middleware response for all other cases
   return response;
 }
 
 export const config = {
   matcher: [
-    // Match all paths except static files and api routes
-    // '/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$|.*\\.jpg$|.*\\.svg$).*)',
     // Match all locales
     '/(ar|en)/:path*',
     // Match root path
     '/'
-  ],
+  ]
 };
