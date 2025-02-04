@@ -8,26 +8,21 @@ const intlMiddleware = createMiddleware({
   defaultLocale: "en",
 });
 
-
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value;
+  const token = request.cookies.get("token")?.value;
   const { pathname } = request.nextUrl;
-  
+
   // Strip locale from pathname for checking routes
-  const pathnameWithoutLocale = pathname.replace(/^\/(?:en|ar)/, '');
-  
+  const pathnameWithoutLocale = pathname.replace(/^\/(?:en|ar)/, "");
+
   // First, handle the locale
   const response = await intlMiddleware(request);
-  const locale = response.headers.get('x-middleware-request-locale') || 'en';
+  const locale = response.headers.get("x-middleware-request-locale") || "en";
 
-  let isAuthenticated = false;
-  if (token) {
-    try {
-      isAuthenticated = await validateToken(token);
-    } catch (error) {
-      console.error("Token validation error:", error);
-      response.cookies.delete("token");
-    }
+  let isAuthenticated = await validateToken(token!!);
+  if (!isAuthenticated) {
+    console.error("Token validation error:");
+    response.cookies.delete("token");
   }
 
   // Debug logging
@@ -35,21 +30,24 @@ export async function middleware(request: NextRequest) {
     pathname,
     pathnameWithoutLocale,
     isAuthenticated,
-    hasToken: !!token
+    hasToken: !!token,
   });
 
   // Redirect authenticated users away from the root and login page
-  if (isAuthenticated && (pathnameWithoutLocale === '/' || pathnameWithoutLocale === '/login')) {
+  if (
+    isAuthenticated &&
+    (pathnameWithoutLocale === "/" || pathnameWithoutLocale === "/login")
+  ) {
     return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
   // Redirect authenticated users away from auth routes
-  if (isAuthenticated && pathnameWithoutLocale.startsWith('/auth')) {
+  if (isAuthenticated && pathnameWithoutLocale.startsWith("/auth")) {
     return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 
   // Redirect unauthenticated users away from protected routes
-  if (!isAuthenticated && pathnameWithoutLocale.startsWith('/dashboard')) {
+  if (!isAuthenticated && pathnameWithoutLocale.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
@@ -60,8 +58,8 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Match all locales
-    '/(ar|en)/:path*',
+    "/(ar|en)/:path*",
     // Match root path
-    '/'
-  ]
+    "/",
+  ],
 };
