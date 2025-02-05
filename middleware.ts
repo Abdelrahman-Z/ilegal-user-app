@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
-import { validateToken } from "./utils";
 
 // Create the intl middleware
 const intlMiddleware = createMiddleware({

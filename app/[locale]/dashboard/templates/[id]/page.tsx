@@ -25,7 +25,6 @@ type TokenFormValues = yup.InferType<typeof schema>;
 const Page = () => {
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [editorContent, setEditorContent] = useState<string>("");
   const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(
     null
   );
@@ -42,7 +41,6 @@ const Page = () => {
   console.log(tokendata);
 
   const handleEdit = () => {
-    setEditorContent(data.attachmentUrl || "");
     setIsEditing(true);
   };
 
@@ -181,7 +179,7 @@ const Page = () => {
           </div>
 
           <div className="w-2/3">
-            <Editor setEditor={setEditorInstance} data={editorContent} />
+            <Editor setEditor={setEditorInstance} data={data?.attachmentUrl} />
           </div>
           </div>
         </div>
