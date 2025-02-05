@@ -41,8 +41,8 @@ export const TranslationForm = ({ editorInstance }: TranslationFormProps) => {
 
   useEffect(() => {
     if (editorInstance) {
-      const content = editorInstance.getData();
-      const tokenMatches = content.match(/{{(.*?)}}/g);
+      const content = editorInstance?.getData();
+      const tokenMatches = content?.match(/{{(.*?)}}/g);
       if (tokenMatches) {
         const uniqueTokens = [...new Set(tokenMatches.map(t => t.replace(/{{|}}/g, "")))];
         const initialTranslations = uniqueTokens.map(token => ({
