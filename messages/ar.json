@@ -213,7 +213,7 @@
   "Summarization": "التلخيص",
   "Translation": "الترجمة",
   "Sign Document": "توقيع المستند",
-  "Jurisdiction": "الاختصاص",
+  "Jurisdiction": "السلطة القضائية",
   "Users": "المستخدمين",
   "Roles": "الأدوار",
   "Permissions": "الأذونات"
@@ -338,6 +338,205 @@
     "paragraph": "هل أنت متأكد أنك تريد حذف هذا القالب؟",
     "cancel": "إلغاء",
     "delete": "حذف"
+},
+"summarization": {
+    "name": "التلخيص",
+    "titles": {
+    "addQuestion": "إضافة سؤال",
+    "static": "ثابت",
+    "dynamic": "ديناميكي",
+    "preConfigure": "الإعداد المسبق"
+   },
+    "addQuestion": {
+      "button1": "إضافة سؤال",
+      "title": "إضافة نص للتلخيص",
+      "key": "المفتاح",
+      "value": "القيمة",
+      "public": "عام",
+      "button2": "إغلاق",
+      "button3": "إرسال",
+      "text": "اكتب أو الصق نصك هنا..."
+    },
+    "dynamic": {
+    "button1": "فتح النافذة الديناميكية",
+    "title": "تحميل ملف وإضافة أسئلة",
+    "delete": "حذف",
+    "addQuestion": "إضافة سؤال",
+    "button2": "إغلاق",
+    "button3": "إجراء",
+    "category": "الفئة",
+    "question": "السؤال"
+},
+"preConfigure": {
+  "button1": "افتح النموذج",
+  "title": "إرسال النموذج",
+  "upload": "رفع الملف",
+  "question": "مفتاح السؤال",
+  "remove": "إزالة",
+  "addQuestion": "إضافة سؤال",
+  "button2": "إغلاق",
+  "button3": "إرسال",
+  "key": "حدد مفتاحًا"
+},
+"static": {
+  "button1": "فتح منطقة النص",
+  "title": "أضف نصًا للتلخيص",
+  "button2": "إغلاق",
+  "button3": "إرسال",
+  "text": "اكتب أو الصق نصك هنا..."
 }
-} 
+},
+"translation": {
+  "name": "الترجمة",
+  "titles": {
+    "text": "ترجمة النص",
+    "file": "ترجمة الملف"
+  },
+  "file": {
+  "button1": "فتح نموذج ترجمة الملف",
+  "title": "ترجمة الملف",
+  "upload": "رفع الملف",
+  "original": "اللغة الأصلية",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "target": "اللغة المستهدفة",
+  "button2": "إغلاق",
+  "button3": "إرسال",
+  "label1": "اختر اللغة الأصلية",
+  "label2": "اختر اللغة المستهدفة"
+},
+"text": {
+  "button1": "فتح نموذج الترجمة",
+  "title": "ترجمة النص",
+  "text": "النص",
+  "original": "اللغة الأصلية",
+  "english": "الإنجليزية",
+  "arabic": "العربية",
+  "target": "اللغة المستهدفة",
+  "button2": "إغلاق",
+  "button3": "إرسال",
+  "label1": "اختر اللغة الأصلية",
+  "label2": "اختر اللغة المستهدفة",
+  "textPlaceholder": "اكتب أو الصق نصك هنا..."
+}
+},
+"jurisdictions": {
+  "name": "السلطة القضائية",
+  "addJurisdictions": {
+  "button1": "إنشاء السلطة القضائية",
+  "title": "إنشاء السلطة القضائية",
+  "button2": "إغلاق",
+  "button3": "إرسال",
+  "label": "اسم السلطة القضائية",
+  "placeHolder": "أدخل اسم السلطة القضائية"
+},
+"allJurisdictions": {
+  "name": "الاسم",
+  "reference": "رابط المرجع",
+  "image": "رابط الصورة",
+  "actions": "الإجراءات"
+},
+"deleteJurisdictions": {
+  "title": "تأكيد الحذف",
+  "paragraph": "هل أنت متأكد أنك تريد حذف هذه السلطة القضائية؟",
+  "button1": "إلغاء",
+  "button2": "حذف"
+},
+"updateJurisdictions": {
+  "title": "تحديث السلطة القضائية",
+  "label": "اسم السلطة القضائية",
+  "button1": "إلغاء",
+  "button2": "تحديث"
+}
+},
+"users": {
+  "name": "المستخدمين",
+  "addRole": {
+  "title": "تعيين الأدوار للمستخدم",
+  "button1": "إلغاء",
+  "button2": "حفظ",
+  "label": "الأدوار المتاحة",
+  "placeHolder": "ابحث عن الأدوار..."
+},
+"addUsers": {
+  "title": "إضافة مستخدم",
+  "userName": "اسم المستخدم",
+  "email": "البريد الإلكتروني",
+  "phoneNumber": "رقم الهاتف",
+  "password": "كلمة المرور",
+  "upload": "رفع الملف",
+  "button1": "إغلاق",
+  "button2": "إرسال"
+},
+"allUsers": {
+  "userName": "اسم المستخدم",
+  "email": "البريد الإلكتروني",
+  "phone": "الهاتف",
+  "status": "الحالة",
+  "avatar": "الصورة الشخصية",
+  "actions": "الإجراءات"
+},
+"deleteUsers": {
+  "title": "تأكيد الحذف",
+  "paragraph1": "هل أنت متأكد أنك تريد حذف المستخدم",
+  "paragraph2": "? لا يمكن التراجع عن هذا الإجراء.",
+  "button1": "إلغاء",
+  "button2": "حذف"
+},
+"updateUsers": {
+  "title": "تحديث المستخدم",
+  "label1": "اسم المستخدم",
+  "placeHolder1": "أدخل اسم المستخدم",
+  "label2": "رقم الهاتف",
+  "placeHolder2": "أدخل رقم الهاتف",
+  "button1": "إلغاء",
+  "button2": "تحديث"
+}
+},
+"permissions": {
+  "name": "الأذونات",
+  "allPermissions": {
+  "name": "اسم الإذن",
+  "category": "الفئة",
+  "mainCategory": "الفئة الرئيسية"
+}
+},
+"roles": {
+  "name": "الأدوار",
+  "addPermissions": {
+  "title": "إدارة الأذونات",
+  "label1": "البحث عن الأذونات",
+  "placeHolder": "ابحث عن الأذونات...",
+  "loading": "جاري تحميل الأذونات...",
+  "label2": "الأذونات المتاحة",
+  "button1": "إلغاء",
+  "button2": "حفظ"
+},
+"addRole": {
+  "title": "إضافة دور",
+  "label": "اسم الدور",
+  "placeHolder": "أدخل اسم الدور",
+  "button1": "إغلاق",
+  "button2": "إرسال"
+},
+"allRoles": {
+  "name": "اسم الدور",
+  "actions": "الإجراءات"
+},
+"deleteRole": {
+  "title": "تأكيد الحذف",
+  "paragraph1": "هل أنت متأكد أنك تريد حذف الدور ",
+  "paragraph2": "؟ هذه العملية لا يمكن التراجع عنها.",
+  "button1": "إلغاء",
+  "button2": "حذف"
+},
+"updateRole": {
+  "title": "تحديث الدور",
+  "label": "اسم الدور",
+  "placeHolder": "أدخل اسم الدور",
+  "button1": "إلغاء",
+  "button2": "تحديث"
+}
+}
+}
 

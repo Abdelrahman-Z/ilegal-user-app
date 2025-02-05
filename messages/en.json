@@ -348,6 +348,209 @@
     "title":"Reject Template",
     "cancel":"Cancel",
     "reject":"Reject"
+  },
+  "summarization":{
+    "name":"Summarization",
+    "titles":{
+      "addQuestion":"Add Question",
+      "static":"Static",
+      "dynamic":"Dynamic",
+      "preConfigure":"PreConfigure"
+    },
+    "addQuestion":{
+      "button1":"Add Question",
+      "title":"Add Text to Summarize",
+      "key":"Key",
+      "value":"Value",
+      "public":"Public",
+      "button2":"Close",
+      "button3":"Submit",
+      "text":"Type or paste your text here..."
+    },
+    "dynamic":{
+      "button1":"Open Dynamic Modal",
+      "title":"Upload File and Add Questions",
+      "delete":"Delete",
+      "addQuestion":"Add Question",
+      "button2":"Close",
+      "button3":"Action",
+      "category":"Category",
+      "question":"Question"
+    },
+    "preConfigure":{
+      "button1":"Open Form",
+      "title":"Submit Form",
+      "upload":"File Upload",
+      "question":"Question Key",
+      "remove":"Remove",
+      "addQuestion":"Add Question",
+      "button2":"Close",
+      "button3":"Submit",
+      "key":"Select a key"
+    },
+    "static":{
+      "button1":"Open Text Area",
+      "title":"Add Text to Summarize",
+      "button2":"Close",
+      "button3":"Submit",
+      "text":"Type or paste your text here..."
+    }
+  },
+
+  "translation":{
+    "name":"Translation",
+    "titles":{
+      "text":"Translate Text",
+      "file":"Translate File"
+    },
+    "file":{
+      "button1":"Open File Translation Form",
+      "title":"Translate File",
+      "upload":"File Upload",
+      "original":"Original Language",
+      "english":"English",
+      "arabic":"Arabic",
+      "target":"Target Language",
+      "button2":"Close",
+      "button3":"Submit",
+      "label1":"Select Original Language",
+      "label2":"Select Target Language"
+    },
+    "text":{
+      "button1":"Open Translation Form",
+      "title":"Translate Text",
+      "text":"Text",
+      "original":"Original Language",
+      "english":"English",
+      "arabic":"Arabic",
+      "target":"Target Language",
+      "button2":"Close",
+      "button3":"Submit",
+      "label1":"Select Original Language",
+      "label2":"Select Target Language",
+      "textPlaceholder":"Type or paste your text here..."
+    }
+  },
+  "jurisdictions":{
+    "name":"Jurisdictions",
+    "addJurisdictions":{
+      "button1":"Create Jurisdiction",
+      "title":"Create Jurisdiction",
+      "button2":"Close",
+      "button3":"Submit",
+      "label":"Jurisdiction Name",
+      "placeHolder":"Enter jurisdiction name"
+    },
+    "allJurisdictions":{
+      "name":"Name",
+      "reference":"Reference URL",
+      "image":"Image URL",
+      "actions":"Actions"
+    },
+    "deleteJurisdictions":{
+      "title":"Confirm Deletion",
+      "paragraph":"Are you sure you want to delete this jurisdiction?",
+      "button1":"Cancel",
+      "button2":"Delete"
+    },
+    "updateJurisdictions":{
+      "title":"Update Jurisdiction",
+      "label":"Jurisdiction Name",
+      "button1":"Cancel",
+      "button2":"Update"
+    }
+  },
+  
+  "users":{
+    "name":"Users",
+    "addRole":{
+      "title":"Assign Roles to User",
+      "button1":"Cancel",
+      "button2":"Save",
+      "label":"Available Roles",
+      "placeHolder":"Search roles..."
+    },
+    "addUsers":{
+      "title":"Add User",
+      "userName":"Username",
+      "email":"Email",
+      "phoneNumber":"Phone Number",
+      "password":"Password",
+      "upload":"Upload File",
+      "button1":"Close",
+      "button2":"Submit"
+    },
+    "allUsers":{
+      "userName":"User Name",
+      "email":"Email",
+      "phone":"Phone",
+      "status":"Status",
+      "avatar":"Avatar",
+      "actions":"Actions"
+    },
+    "deleteUsers":{
+      "title":"Confirm Deletion",
+      "paragraph1":"Are you sure you want to delete the user",
+      "paragraph2":"? This action cannot be undone.",
+      "button1":"Cancel",
+      "button2":"Delete"
+    },
+    "updateUsers":{
+      "title":"Update User",
+      "label1":"Username",
+      "placeHolder1":"Enter username",
+      "label2":"Phone Number",
+      "placeHolder2":"Enter phone number",
+      "button1":"Cancel",
+      "button2":"Update"
+    }
+  },
+  "permissions":{
+    "name":"Permissions",
+    "allPermissions":{
+      "name":"Permission Name",
+      "category":"Category",
+      "mainCategory":"Main Category"
+    }
+  },
+
+  "roles":{
+    "name":"Roles",
+    "addPermissions":{
+      "title":"Manage Permissions",
+      "label1":"Search Permissions",
+      "placeHolder":"Search permissions...",
+      "loading":"Loading permissions...",
+      "label2":"Available Permissions",
+      "button1":"Cancel",
+      "button2":"Save"
+    },
+    "addRole":{
+      "title":"Add Role",
+      "label":"Role Name",
+      "placeHolder":"Enter role name",
+      "button1":"Close",
+      "button2":"Submit"
+    },
+    "allRoles":{
+      "name":"Role Name",
+      "actions":"Actions"
+    },
+    "deleteRole":{
+      "title":"Confirm Deletion",
+      "paragraph1":"Are you sure you want to delete the role ",
+      "paragraph2":"? This action cannot be undone.",
+      "button1":"Cancel",
+      "button2":"Delete"
+    },
+    "updateRole":{
+      "title":"Update Role",
+      "label":"Role Name",
+      "placeHolder":"Enter role name",
+      "button1":"Cancel",
+      "button2":"Update"
+    }
+
   }
   
 }
