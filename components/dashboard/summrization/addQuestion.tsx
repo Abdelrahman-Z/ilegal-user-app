@@ -27,6 +27,8 @@ import {
   useGetQuestionsQuery,
 } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
+
 
 // Validation schema using Yup
 const schema = yup.object().shape({
@@ -36,6 +38,7 @@ const schema = yup.object().shape({
 });
 
 export const AddQuestion = () => {
+  const t = useTranslations("summarization");
   const [page, setPage] = React.useState(1); // Track the current page
   const rowsPerPage = 10; // Number of rows per page
 
@@ -83,7 +86,7 @@ export const AddQuestion = () => {
   return (
     <div className="flex-1">
       <Button onClick={onOpen} color="primary">
-        Add Question
+        {t("addQuestion.button1")}
       </Button>
       <Modal
         isDismissable={false}
@@ -97,7 +100,7 @@ export const AddQuestion = () => {
           {(onClose) => (
             <form id="questionForm" onSubmit={onSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                <h4>Add Text to Summarize</h4>
+                <h4>{t("addQuestion.title")}</h4>
               </ModalHeader>
               <ModalBody>
                 {error && isFetchBaseQueryError(error) && (
@@ -113,7 +116,7 @@ export const AddQuestion = () => {
                 )}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700">
-                    Key
+                  {t("addQuestion.key")}
                   </label>
                   <Input
                     type="text"
@@ -128,10 +131,10 @@ export const AddQuestion = () => {
 
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700">
-                    Value
+                  {t("addQuestion.value")}
                   </label>
                   <Textarea
-                    placeholder="Type or paste your text here..."
+                    placeholder={t("addQuestion.text")}
                     fullWidth
                     rows={5}
                     {...register("value")}
@@ -146,7 +149,7 @@ export const AddQuestion = () => {
                     isSelected={isPublic}
                     onValueChange={(checked) => setValue("public", checked)}
                   >
-                    Public
+                    {t("addQuestion.public")}
                   </Checkbox>
                 </div>
               </ModalBody>
@@ -159,7 +162,7 @@ export const AddQuestion = () => {
                     reset();
                   }}
                 >
-                  Close
+                  {t("addQuestion.button2")}
                 </Button>
                 <Button
                   type="submit"
@@ -167,7 +170,7 @@ export const AddQuestion = () => {
                   form="questionForm"
                   isLoading={isLoading}
                 >
-                  Submit
+                  {t("addQuestion.button3")}
                 </Button>
               </ModalFooter>
             </form>
@@ -194,9 +197,9 @@ export const AddQuestion = () => {
           }
         >
           <TableHeader>
-            <TableColumn key="key">Key</TableColumn>
-            <TableColumn key="value">Value</TableColumn>
-            <TableColumn key="public">Public</TableColumn>
+            <TableColumn key="key">{t("addQuestion.key")}</TableColumn>
+            <TableColumn key="value">{t("addQuestion.value")}</TableColumn>
+            <TableColumn key="public">{t("addQuestion.public")}</TableColumn>
           </TableHeader>
           <TableBody
             items={data?.data ?? []} // Render rows using fetched data

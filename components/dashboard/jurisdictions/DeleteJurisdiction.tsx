@@ -11,6 +11,7 @@ import {
 import { useDeleteJurisdictionMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { MdDelete } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 interface DeleteJurisdictionModalProps {
   id: string;
@@ -32,7 +33,7 @@ const DeleteJurisdictionModal: React.FC<DeleteJurisdictionModalProps> = ({
       console.error(error);
     }
   };
-
+  const t = useTranslations("jurisdictions");
   return (
     <>
       <Button color="danger" onPress={onOpen}>
@@ -46,9 +47,9 @@ const DeleteJurisdictionModal: React.FC<DeleteJurisdictionModalProps> = ({
         onOpenChange={onClose}
       >
         <ModalContent>
-          <ModalHeader>Confirm Deletion</ModalHeader>
+          <ModalHeader>{t("deleteJurisdictions.title")}</ModalHeader>
           <ModalBody>
-            <p>Are you sure you want to delete this jurisdiction?</p>
+            <p>{t("deleteJurisdictions.paragraph")}</p>
           </ModalBody>
           {error && isFetchBaseQueryError(error) && (
             <div className="mt-4">
@@ -63,14 +64,14 @@ const DeleteJurisdictionModal: React.FC<DeleteJurisdictionModalProps> = ({
           )}
           <ModalFooter>
             <Button color="danger" variant="flat" onPress={onClose}>
-              Cancel
+            {t("deleteJurisdictions.button1")}
             </Button>
             <Button
               color="primary"
               onPress={handleDelete}
               isLoading={isLoading}
             >
-              Delete
+              {t("deleteJurisdictions.button2")}
             </Button>
           </ModalFooter>
         </ModalContent>

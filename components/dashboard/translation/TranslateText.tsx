@@ -16,6 +16,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslateMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
+
 
 const schema = yup.object({
   htmlStrings: yup.string().required("Text is required"),
@@ -32,6 +34,7 @@ const schema = yup.object({
 type TranslationFormValues = yup.InferType<typeof schema>;
 
 export const Static = () => {
+  const t = useTranslations("translation");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   // const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
 
@@ -84,7 +87,7 @@ export const Static = () => {
   return (
     <>
       <Button onClick={onOpen} color="primary">
-        Open Translation Form
+      {t("text.button1")}
       </Button>
 
       {/* Modal */}
@@ -100,7 +103,7 @@ export const Static = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                <h4>Translate Text</h4>
+                <h4>{t("text.title")}</h4>
               </ModalHeader>
               <ModalBody>
                 <form
@@ -111,11 +114,11 @@ export const Static = () => {
                   {/* Textarea for text */}
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
-                      Text
+                    {t("text.text")}
                     </label>
                     <Textarea
                       {...register("htmlStrings")}
-                      placeholder="Type or paste your text here..."
+                      placeholder={t("text.textPlaceholder")}
                       //   className="mt-1 block w-full px-3 py-2 border rounded-md"
                       rows={10}
                     />
@@ -129,10 +132,10 @@ export const Static = () => {
                   {/* Original Language Selection */}
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
-                      Original Language
+                    {t("text.original")}
                     </label>
                     <Select
-                      label="Select Original Language"
+                      label={t("text.label1")}
                       placeholder="Choose the original language"
                       defaultSelectedKeys={["en"]}
                       onSelectionChange={(value) =>
@@ -143,10 +146,10 @@ export const Static = () => {
                       }
                     >
                       <SelectItem key="en" value="en">
-                        English
+                      {t("text.english")}
                       </SelectItem>
                       <SelectItem key="ar" value="ar">
-                        Arabic
+                      {t("text.arabic")}
                       </SelectItem>
                     </Select>
                     {errors.original_lang && (
@@ -159,10 +162,10 @@ export const Static = () => {
                   {/* Target Language Selection */}
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
-                      Target Language
+                    {t("text.target")}
                     </label>
                     <Select
-                      label="Select Target Language"
+                      label={t("text.label2")}
                       placeholder="Choose the target language"
                       defaultSelectedKeys={["ar"]}
                       onSelectionChange={(value) =>
@@ -170,10 +173,10 @@ export const Static = () => {
                       }
                     >
                       <SelectItem key="en" value="en">
-                        English
+                      {t("text.english")}
                       </SelectItem>
                       <SelectItem key="ar" value="ar">
-                        Arabic
+                      {t("text.arabic")}
                       </SelectItem>
                     </Select>
                     {errors.target_lang && (
@@ -204,7 +207,7 @@ export const Static = () => {
                     reset();
                   }}
                 >
-                  Close
+                  {t("text.button2")}
                 </Button>
                 <Button
                   type="submit"
@@ -212,7 +215,7 @@ export const Static = () => {
                   form="translationForm"
                   isLoading={isLoading}
                 >
-                  Submit
+                  {t("text.button3")}
                 </Button>
               </ModalFooter>
             </>

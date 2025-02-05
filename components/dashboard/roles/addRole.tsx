@@ -15,6 +15,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCreateRoleMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
+
 
 // Validation schema using Yup
 const schema = yup
@@ -24,6 +26,7 @@ const schema = yup
   .required();
 
 export function AddRole() {
+  const t = useTranslations("roles");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const {
     register,
@@ -52,7 +55,7 @@ export function AddRole() {
   return (
     <>
       <Button color="primary" onPress={onOpen}>
-        Add Role
+        {t("addRole.title")}
       </Button>
       <Modal
         isDismissable={false}
@@ -66,15 +69,15 @@ export function AddRole() {
           {(onClose) => (
             <form onSubmit={onSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add Role
+              {t("addRole.title")}
               </ModalHeader>
               <ModalBody>
                 <div className="flex flex-col gap-2">
                   {/* Role Name Field */}
                   <Input
                     {...register("name")}
-                    label="Role Name"
-                    placeholder="Enter role name"
+                    label={t("addRole.label")}
+                    placeholder={t("addRole.placeHolder")}
                     variant="bordered"
                     isInvalid={!!errors.name}
                   />
@@ -98,10 +101,10 @@ export function AddRole() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
+                {t("addRole.button1")}
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>
-                  Submit
+                {t("addRole.button2")}
                 </Button>
               </ModalFooter>
             </form>

@@ -30,7 +30,7 @@ const Navbar = () => {
         <Input
           endContent={<FaSearch className="text-gray-500" />}
           type="text"
-          placeholder="Search"
+          placeholder={t("search")}
         />
         <FaBell className="text-white text-2xl cursor-pointer hover:text-gray-200" />
         <Dropdown placement="bottom-end">

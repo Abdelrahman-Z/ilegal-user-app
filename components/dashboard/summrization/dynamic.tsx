@@ -15,8 +15,10 @@ import { useSubmitDynamicFormMutation } from "@/redux/services/api";
 import { formatObjectToMarkdown } from "@/utils";
 import Markdown from "markdown-to-jsx";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 export const DynamicComponent = () => {
+  const t = useTranslations("summarization");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const [file, setFile] = useState<File | null>(null);
@@ -77,7 +79,7 @@ export const DynamicComponent = () => {
     <div>
       {/* Button to open modal */}
       <Button onClick={onOpen} color="primary">
-        Open Dynamic Modal
+      {t("dynamic.button1")}
       </Button>
 
       {/* Modal */}
@@ -92,7 +94,7 @@ export const DynamicComponent = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                <h4>Upload File and Add Questions</h4>
+                <h4>{t("dynamic.title")}</h4>
               </ModalHeader>
               <ModalBody>
                 <form id="dynamicForm" onSubmit={onSubmit}>
@@ -111,11 +113,11 @@ export const DynamicComponent = () => {
                         className="mb-3 flex flex-col gap-3 items-center"
                       >
                         <Input
-                          placeholder="Category"
+                          placeholder={t("dynamic.category")}
                           {...register(`questions.${index}.category`)}
                         />
                         <Textarea
-                          placeholder="Question"
+                          placeholder={t("dynamic.question")}
                           rows={2}
                           {...register(`questions.${index}.question`)}
                         />
@@ -124,7 +126,7 @@ export const DynamicComponent = () => {
                           className="w-full"
                           onClick={() => remove(index)}
                         >
-                          Delete
+                          {t("dynamic.delete")}
                         </Button>
                       </div>
                     ))}
@@ -133,7 +135,7 @@ export const DynamicComponent = () => {
                       color="primary"
                       onClick={() => append({ category: "", question: "" })}
                     >
-                      Add Question
+                     {t("dynamic.addQuestion")}
                     </Button>
                   </div>
                 </form>
@@ -158,7 +160,7 @@ export const DynamicComponent = () => {
                     reset();
                   }}
                 >
-                  Close
+                  {t("dynamic.button2")}
                 </Button>
                 <Button
                   type="submit"
@@ -166,7 +168,7 @@ export const DynamicComponent = () => {
                   form="dynamicForm"
                   color="primary"
                 >
-                  Action
+                  {t("dynamic.button3")}
                 </Button>
               </ModalFooter>
             </>

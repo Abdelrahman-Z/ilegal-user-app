@@ -17,6 +17,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSummarizeTextMutation } from "@/redux/services/api";
 import { formatObjectToMarkdown } from "@/utils";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 const schema = yup.object().shape({
   text: yup
@@ -26,6 +27,7 @@ const schema = yup.object().shape({
 });
 
 export const StaticComponent = () => {
+  const t = useTranslations("summarization");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [summary, setSummary] = useState("");
 
@@ -64,7 +66,7 @@ export const StaticComponent = () => {
     <div className="flex-1">
       {/* Button to open modal */}
       <Button onClick={onOpen} color="primary">
-        Open Text Area
+      {t("static.button1")}
       </Button>
 
       {/* Modal */}
@@ -80,12 +82,12 @@ export const StaticComponent = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                <h4>Add Text to Summarize</h4>
+                <h4>{t("static.title")}</h4>
               </ModalHeader>
               <ModalBody>
                 <form id="textForm" onSubmit={onSubmit}>
                   <Textarea
-                    placeholder="Type or paste your text here..."
+                    placeholder={t("static.text")}
                     fullWidth
                     rows={20}
                     {...register("text")}
@@ -115,7 +117,7 @@ export const StaticComponent = () => {
                     reset();
                   }}
                 >
-                  Close
+                  {t("static.button2")}
                 </Button>
                 {/* Button with `form` attribute */}
                 <Button
@@ -124,7 +126,7 @@ export const StaticComponent = () => {
                   form="textForm"
                   isLoading={isLoading}
                 >
-                  Submit
+                  {t("static.button3")}
                 </Button>
               </ModalFooter>
             </>

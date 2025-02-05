@@ -21,6 +21,8 @@ import {
 import { formatObjectToMarkdown } from "@/utils";
 import Markdown from "markdown-to-jsx";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
+
 
 // Schema with yup
 const schema = yup.object({
@@ -39,6 +41,7 @@ const schema = yup.object({
 type FormData = yup.InferType<typeof schema>;
 
 export function PreConfigure() {
+  const t = useTranslations("summarization");
   const [file, setFile] = useState<File | null>(null);
 
   const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
@@ -104,7 +107,7 @@ export function PreConfigure() {
   return (
     <>
       <Button color="primary" onClick={onOpen}>
-        Open Form
+        {t("preConfigure.button1")}
       </Button>
       <Modal
         isDismissable={false}
@@ -116,12 +119,12 @@ export function PreConfigure() {
         <ModalContent>
           {(onClose) => (
             <form id="dynamicForm" onSubmit={onSubmit}>
-              <ModalHeader>Submit Form</ModalHeader>
+              <ModalHeader>{t("preConfigure.title")}</ModalHeader>
               <ModalBody>
                 {/* File Input */}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-gray-700">
-                    File Upload
+                  {t("preConfigure.upload")}
                   </label>
                   <Input
                     {...register("file")}
@@ -142,12 +145,12 @@ export function PreConfigure() {
                     <div className="flex gap-4">
                       <div className="w-full">
                         <label className="block text-sm font-medium text-gray-700">
-                          Question Key
+                        {t("preConfigure.question")}
                         </label>
                         <Select
                           items={data?.data || []}
                           aria-label="key"
-                          placeholder="Select a key"
+                          placeholder={t("preConfigure.key")}
                           onSelectionChange={(key) => {
                             const selectedItem = data?.data.find(
                               (item) => item.id === key.currentKey
@@ -180,7 +183,7 @@ export function PreConfigure() {
                         onClick={() => remove(index)}
                         className="self-end"
                       >
-                        Remove
+                        {t("preConfigure.remove")}
                       </Button>
                     </div>
                   </div>
@@ -192,7 +195,7 @@ export function PreConfigure() {
                   onClick={() => append({ key: "", value: "" })}
                   className="mt-4"
                 >
-                  Add Question
+                  {t("preConfigure.addQuestion")}
                 </Button>
               </ModalBody>
               {error && isFetchBaseQueryError(error) && (
@@ -214,7 +217,7 @@ export function PreConfigure() {
                     onClose();
                   }}
                 >
-                  Close
+                  {t("preConfigure.button2")}
                 </Button>
                 <Button
                   type="submit"
@@ -222,7 +225,7 @@ export function PreConfigure() {
                   form="dynamicForm"
                   isLoading={isLoading}
                 >
-                  Submit
+                  {t("preConfigure.button3")}
                 </Button>
               </ModalFooter>
             </form>

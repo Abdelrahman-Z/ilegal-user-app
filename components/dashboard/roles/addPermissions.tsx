@@ -18,6 +18,7 @@ import {
 import { LuPlus } from "react-icons/lu";
 import { Permission, PermissionCategory } from "@/types";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 interface AddPermissionsProps {
   roleId: string; // Role ID
@@ -86,6 +87,7 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
       console.error("Failed to update permissions:", error);
     }
   };
+  const t = useTranslations("roles");
 
   return (
     <>
@@ -104,22 +106,22 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
         onOpenChange={onClose}
       >
         <ModalContent>
-          <ModalHeader>Manage Permissions</ModalHeader>
+          <ModalHeader>{t("addPermissions.title")}</ModalHeader>
           <ModalBody>
             {/* Search Input */}
             <Input
-              label="Search Permissions"
-              placeholder="Search permissions..."
+              label={t("addPermissions.label1")}
+              placeholder={t("addPermissions.placeHolder")}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               className="mb-4"
             />
 
             {permissionsLoading ? (
-              <p>Loading permissions...</p>
+              <p>{t("addPermissions.loading")}</p>
             ) : (
               <CheckboxGroup
-                label="Available Permissions"
+                label={t("addPermissions.label2")}
                 value={selectedPermissions}
                 onValueChange={setSelectedPermissions}
               >
@@ -151,14 +153,14 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
           )}
           <ModalFooter>
             <Button color="danger" variant="flat" onPress={onClose}>
-              Cancel
+            {t("addPermissions.button1")}
             </Button>
             <Button
               color="primary"
               onPress={handleSave}
               isLoading={updateLoading}
             >
-              Save
+              {t("addPermissions.button2")}
             </Button>
           </ModalFooter>
         </ModalContent>

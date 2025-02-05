@@ -16,8 +16,11 @@ import { Role } from "@/types";
 import DeleteRoleModal from "./deleteRole";
 import UpdateRoleModal from "./updateRole";
 import { AddPermissions } from "./addPermissions";
+import { useTranslations } from "next-intl";
+
 
 export function AllRoles() {
+  const t = useTranslations("roles");
   const [page, setPage] = React.useState(1);
   const limit = 10;
 
@@ -65,8 +68,8 @@ export function AllRoles() {
       }
     >
       <TableHeader>
-        <TableColumn key="name">Role Name</TableColumn>
-        <TableColumn key="actions">Actions</TableColumn>
+        <TableColumn key="name">{t("allRoles.name")}</TableColumn>
+        <TableColumn key="actions">{t("allRoles.actions")}</TableColumn>
       </TableHeader>
       <TableBody
         items={roles}

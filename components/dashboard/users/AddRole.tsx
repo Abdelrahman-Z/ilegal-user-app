@@ -22,6 +22,8 @@ import {
 } from "@/redux/services/api";
 import { LuPlus } from "react-icons/lu";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
+
 
 interface AddRoleProps {
   userId: string; // User ID
@@ -37,6 +39,7 @@ const schema = yup.object({
 });
 
 export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
+  const t = useTranslations("users");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [searchValue, setSearchValue] = useState(""); // Search input value
   const [debouncedSearchValue, setDebouncedSearchValue] = useState(""); // Debounced value
@@ -131,7 +134,7 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
       >
         <ModalContent>
           <form onSubmit={onSubmit}>
-            <ModalHeader>Assign Roles to User</ModalHeader>
+            <ModalHeader>{t("addRole.title")}</ModalHeader>
             <ModalBody>
               {rolesError || userRolesError ? (
                 <p className="text-red-500">Failed to fetch data.</p>
@@ -141,7 +144,7 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
                 <>
                   {/* Search Input */}
                   <Input
-                    placeholder="Search roles..."
+                    placeholder={t("addRole.placeHolder")}
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     className="mb-4"
@@ -156,7 +159,7 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
                         {...field}
                         value={field.value}
                         onValueChange={(selected) => field.onChange(selected)}
-                        label="Available Roles"
+                        label={t("addRole.label")}
                       >
                         {roles.map((role) => (
                           <Checkbox key={role.id} value={role.id}>
@@ -188,10 +191,10 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
 
             <ModalFooter>
               <Button color="danger" variant="flat" onPress={onClose}>
-                Cancel
+              {t("addRole.button1")}
               </Button>
               <Button color="primary" type="submit" isLoading={saving}>
-                Save
+              {t("addRole.button2")}
               </Button>
             </ModalFooter>
           </form>

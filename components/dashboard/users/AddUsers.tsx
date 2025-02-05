@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCreateUserMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 // Validation schema using Yup
 const schema = yup
@@ -37,6 +38,7 @@ const schema = yup
   .required();
 
 export function AddUser() {
+  const t = useTranslations("users");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const {
     register,
@@ -78,7 +80,7 @@ export function AddUser() {
   return (
     <>
       <Button color="primary" onPress={onOpen}>
-        Add User
+        {t("addUsers.title")}
       </Button>
       <Modal
         isDismissable={false}
@@ -92,14 +94,14 @@ export function AddUser() {
           {(onClose) => (
             <form onSubmit={onSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Add User
+              {t("addUsers.title")}
               </ModalHeader>
               <ModalBody>
                 <div className="flex flex-col gap-2">
                   {/* Username Field */}
                   <Input
                     {...register("userName")}
-                    label="Username"
+                    label= {t("addUsers.userName")}
                     variant="bordered"
                     isInvalid={!!errors.userName}
                   />
@@ -112,7 +114,7 @@ export function AddUser() {
                   {/* Email Field */}
                   <Input
                     {...register("email")}
-                    label="Email"
+                    label= {t("addUsers.email")}
                     variant="bordered"
                     isInvalid={!!errors.email}
                   />
@@ -125,7 +127,7 @@ export function AddUser() {
                   {/* Phone Number Field */}
                   <Input
                     {...register("phone")}
-                    label="Phone Number"
+                    label= {t("addUsers.phoneNumber")}
                     variant="bordered"
                     isInvalid={!!errors.phone}
                   />
@@ -139,7 +141,7 @@ export function AddUser() {
                   <Input
                     {...register("password")}
                     type="password"
-                    label="Password"
+                    label= {t("addUsers.password")}
                     variant="bordered"
                     isInvalid={!!errors.password}
                   />
@@ -152,7 +154,7 @@ export function AddUser() {
                   {/* File Upload Field */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700">
-                      Upload File
+                    {t("addUsers.upload")}
                     </label>
                     <input
                       type="file"
@@ -182,10 +184,10 @@ export function AddUser() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
+                {t("addUsers.button1")}
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>
-                  Submit
+                {t("addUsers.button2")}
                 </Button>
               </ModalFooter>
             </form>
