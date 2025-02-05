@@ -5,12 +5,16 @@ import { useGetDocumentQuery } from "@/redux/services/api";
 import { ViewDocument } from "@/components/dashboard/documents/ViewDocument";
 import { DocumentEditor } from "@/components/dashboard/documents/DocumentEditor";
 import { TranslationForm } from "@/components/dashboard/documents/TranslationForm";
+import { TextTranslator } from "@/components/dashboard/documents/TextTranslator";
 import { DecoupledEditor } from "ckeditor5";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 
 const Page = () => {
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(null);
+  const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(
+    null
+  );
 
   const {
     data: documentData,
@@ -36,9 +40,31 @@ const Page = () => {
         />
       ) : (
         <div className="flex">
-          <TranslationForm
-            editorInstance={editorInstance}
-          />
+          <div className="w-1/3">
+            <Accordion>
+              <AccordionItem
+                key="1"
+                aria-label="Token Translation"
+                title="Token Translation"
+                className="px-2"
+              >
+                <TranslationForm editorInstance={editorInstance} />
+              </AccordionItem>
+
+              <AccordionItem
+                key="2"
+                aria-label="Text Translation"
+                title="Text Translation"
+                className="px-2"
+              >
+                <TextTranslator
+                  documentId={id as string}
+                  editorInstance={editorInstance}
+                  defaultLanguage={documentData?.language}
+                />
+              </AccordionItem>
+            </Accordion>
+          </div>
           <DocumentEditor
             editorInstance={editorInstance}
             documentId={id as string}

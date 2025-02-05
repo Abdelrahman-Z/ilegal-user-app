@@ -70,7 +70,7 @@ export const TranslationForm = ({ editorInstance }: TranslationFormProps) => {
     }
   });
 
-  if (fields.length === 0) return null;
+  if (fields.length === 0) return <p>There Is No Tokens To Add</p>;
 
   return (
     <div className="w-1/3">
