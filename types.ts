@@ -120,3 +120,9 @@ export interface Token {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface SignDocuments {
+  id: string;
+  signName: string;
+  documentSignImageUrl: string;
+}

@@ -9,7 +9,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template', 'Document', 'tokens'],
+  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template', 'Document', 'tokens', 'signDocuments'],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -483,6 +483,51 @@ export const api = createApi({
       }),
       invalidatesTags: ["tokens"],
     }),
+
+    // Sign Documents endpoints
+    createSignDocument: builder.mutation({
+      query: (body) => ({
+        url: "/signature",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["signDocuments"],
+    }),
+
+    getSignDocuments: builder.query({
+      query: ({page, limit}) => ({
+        url: `/signature?page=${page}&limit=${limit}`,
+      }),
+      providesTags: ["signDocuments"],
+    }),
+
+    updateSignDocument: builder.mutation({
+      query: ({ id, name }) => ({
+        url: `/signature/${id}`,
+        method: "PATCH",
+        body: { signName: name },
+      }),
+      invalidatesTags: ["signDocuments"],
+    }),
+
+    deleteSignDocument: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/signature/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["signDocuments"],
+    }),
+
+    // S3 endpoints
+    createS3: builder.mutation({
+      query: (body) => ({
+        url: "/s3/upload?folderName=image",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["signDocuments"],
+    }),
+
   }),
 });
 
@@ -560,4 +605,11 @@ export const {
   useGetTokensQuery,
   useUpdateTokenMutation,
   useDeleteTokenMutation,
+  // sign documents
+  useCreateSignDocumentMutation,
+  useGetSignDocumentsQuery,
+  useUpdateSignDocumentMutation,
+  useDeleteSignDocumentMutation,
+  // s3
+  useCreateS3Mutation
 } = api;
