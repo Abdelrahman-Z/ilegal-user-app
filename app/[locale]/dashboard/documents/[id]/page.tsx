@@ -58,7 +58,6 @@ const Page = () => {
                 className="px-2"
               >
                 <TextTranslator
-                  documentId={id as string}
                   editorInstance={editorInstance}
                   defaultLanguage={documentData?.language}
                 />

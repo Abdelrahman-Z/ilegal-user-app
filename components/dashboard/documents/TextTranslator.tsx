@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 interface TextTranslatorProps {
   editorInstance: DecoupledEditor | null;
   defaultLanguage?: string;
-  documentId : string
 }
 
 const languages = [
@@ -19,7 +18,6 @@ const languages = [
 export const TextTranslator = ({
   editorInstance,
   defaultLanguage, // Default to English if not specified
-  documentId
 }: TextTranslatorProps) => {
   const [targetLanguage, setTargetLanguage] = useState("");
   const [translate, { isLoading }] = useTranslateMutation();
@@ -62,10 +60,6 @@ export const TextTranslator = ({
           }
         }
         toast.success("Text translated successfully!");
-        await updateDocument({
-          id: documentId,
-          body: { language: targetLanguage === "ar" ? "ARABIC" : "ENGLISH" },
-        });
       }
     } catch (error) {
       console.error("Translation error:", error);
