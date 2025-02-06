@@ -1,7 +1,7 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { DecoupledEditor } from "ckeditor5";
 import { useState } from "react";
-import { useTranslateMutation, useUpdateDocumentMutation } from "@/redux/services/api";
+import { useTranslateMutation } from "@/redux/services/api";
 import toast from "react-hot-toast";
 
 interface TextTranslatorProps {
@@ -21,9 +21,7 @@ export const TextTranslator = ({
 }: TextTranslatorProps) => {
   const [targetLanguage, setTargetLanguage] = useState("");
   const [translate, { isLoading }] = useTranslateMutation();
-  const [
-    updateDocument,
-  ] = useUpdateDocumentMutation();
+
 
   const handleTranslate = async () => {
     if (!editorInstance || !targetLanguage) {
