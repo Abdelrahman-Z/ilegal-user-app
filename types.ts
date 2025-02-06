@@ -114,3 +114,9 @@ export interface Document {
   DocumentMetadata: DocumentMetadata[]; 
 }
 
+export interface Token {
+  id: string;
+  keyWord: string;
+  createdAt: string;
+  updatedAt: string;
+}

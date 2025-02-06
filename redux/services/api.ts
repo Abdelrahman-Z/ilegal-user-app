@@ -9,7 +9,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template', 'Document'],
+  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template', 'Document', 'tokens'],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -450,6 +450,39 @@ export const api = createApi({
       }),
       invalidatesTags: ['Document'],
     }),
+    // Token endpoints
+    createToken: builder.mutation({
+      query: (body) => ({
+        url: "/keyword",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["tokens"],
+    }),
+
+    getTokens: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: `/keyword/tenant?page=${page}&limit=${limit}`,
+      }),
+      providesTags: ["tokens"],
+    }),
+
+    updateToken: builder.mutation({
+      query: ({ id, keyword }) => ({
+        url: `/keyword/${id}`,
+        method: "PATCH",
+        body: { name: keyword },
+      }),
+      invalidatesTags: ["tokens"],
+    }),
+
+    deleteToken: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/keyword/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["tokens"],
+    }),
   }),
 });
 
@@ -522,4 +555,9 @@ export const {
   useDeleteDocumentMutation,
   useGetDocumentQuery,
   useUpdateDocumentMutation,
+  // Token endpoints
+  useCreateTokenMutation,
+  useGetTokensQuery,
+  useUpdateTokenMutation,
+  useDeleteTokenMutation,
 } = api;

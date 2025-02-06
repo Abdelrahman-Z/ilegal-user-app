@@ -1,36 +1,70 @@
 "use client";
-import { Button } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Editor } from "../../../../../components/dashboard/editor/Editor";
+import { Editor } from "@/components/dashboard/editor/Editor";
 
 import {
   useGetTemplateQuery,
+  useGetTokensQuery,
   useUpdateTemplateMutation,
 } from "@/redux/services/api";
 import toast from "react-hot-toast";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { DecoupledEditor } from "ckeditor5";
 import { useTranslations } from "next-intl";
-
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+const schema = yup.object({
+  token: yup.string().required("Token is required"),
+});
+type TokenFormValues = yup.InferType<typeof schema>;
 
 const Page = () => {
   const t = useTranslations("templates");
 
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-  const [editorContent, setEditorContent] = useState<string>("");
-  const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(null);
+  const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(
+    null
+  );
   const [
     updateTemplate,
     { isSuccess: templateUpdated, error: UpdateTemplateError },
   ] = useUpdateTemplateMutation();
   const { data, error, isLoading } = useGetTemplateQuery(id?.toString());
-  
+
+  const { data: tokendata } = useGetTokensQuery({
+    page: 1,
+    limit: 10,
+  });
+  console.log(tokendata);
+
   const handleEdit = () => {
-    setEditorContent(data.attachmentUrl || "");
     setIsEditing(true);
   };
+
+  const {
+    setValue,
+    watch,
+  } = useForm<TokenFormValues>({
+    resolver: yupResolver(schema),
+  });
+
+  const selectedToken = watch("token"); // Get the selected token
+  
+    const handleAssign = () => {
+      if (editorInstance) {
+        editorInstance.model.change((writer) => {
+          const position =
+            editorInstance.model.document.selection.getFirstPosition();
+          if (position) {
+            writer.insertText( `{{${selectedToken}}}`, position);
+          }
+        });
+      }
+    };
   
   const handleSave = () => {
     if (editorInstance) {
@@ -42,25 +76,23 @@ const Page = () => {
     }
     setIsEditing(false);
   };
+
   // Handle error toast
   useEffect(() => {
     if (UpdateTemplateError && isFetchBaseQueryError(UpdateTemplateError)) {
       const errorMessage =
-      UpdateTemplateError.data &&
+        UpdateTemplateError.data &&
         typeof UpdateTemplateError.data === "object" &&
         "message" in UpdateTemplateError.data
           ? (UpdateTemplateError.data as { message: string }).message
           : "An error occurred while deleting the template.";
       toast.error(errorMessage);
     }
-  }, [UpdateTemplateError]);
-  
-  useEffect(() => {
     if (templateUpdated) {
       toast.success("Template Updated successfully!");
     }
-  }, [templateUpdated]);
-  
+  }, [UpdateTemplateError, templateUpdated]);
+
   if (!id) {
     return <div>{t("error1")}</div>;
   }
@@ -68,6 +100,7 @@ const Page = () => {
   if (isLoading) return <div>{t("loading")}</div>;
   if (error) return <div>{t("error2")}: {JSON.stringify(error)}</div>;
   
+
   return (
     <div className="bg-white shadow-lg rounded-lg mx-auto p-6 min-h-full h-fit w-full">
       {!isEditing ? (
@@ -95,7 +128,6 @@ const Page = () => {
         </div>
       ) : (
         <div>
-          <Editor setEditor={setEditorInstance} data={editorContent} />
           <div className="flex justify-end mt-4">
             <Button
               className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
@@ -109,6 +141,47 @@ const Page = () => {
             >
               {t("cancel")}
             </Button>
+            
+            <div className="flex">
+
+          <div className="w-1/3">
+          <form
+            id="createTemplateForm"
+            className="m-5"
+          >
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              Select Token
+            </label>
+            <div className="flex flex-col items-end">
+              <Select
+                label="Select Token"
+                placeholder="Choose a Token"
+                onSelectionChange={(value) => {
+                  const selected = tokendata?.data.find((token: { id: string | undefined; }) => token.id === value.currentKey);
+                  if (selected) {
+                    setValue("token", selected.keyWord);
+                  }
+                }}
+              >
+                {tokendata &&
+                  tokendata.data.map(
+                    (token: { id: string; keyWord: string }) => (
+                      <SelectItem key={token.id} value={token.keyWord}>
+                        {token.keyWord}
+                      </SelectItem>
+                    )
+                  )}
+              </Select>
+              <Button
+               className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow mt-4" 
+              onClick={handleAssign}>assign</Button>
+            </div>
+          </form>
+          </div>
+
+          <div className="w-2/3">
+            <Editor setEditor={setEditorInstance} data={data?.attachmentUrl} />
+          </div>
           </div>
         </div>
       )}

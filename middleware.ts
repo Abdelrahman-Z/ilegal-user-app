@@ -1,66 +1,67 @@
 import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
-import { validateToken } from "./utils";
 
+// Create the intl middleware
 const intlMiddleware = createMiddleware({
-  locales: ["en", "ar"], // Define supported locales
-  defaultLocale: "en", // Set default locale
+  locales: ["en", "ar"],
+  defaultLocale: "en",
 });
 
-export default async function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value; // Retrieve the auth token from cookies
+export async function middleware(request: NextRequest) {
+  const token = request.cookies.get("token")?.value;
+  const { pathname } = request.nextUrl;
 
-  const url = req.nextUrl
-  const isDashboardRoute = url.pathname.includes(`/dashboard`);
-  const isLoginPage = url.pathname.includes(`/login`);
-  const isPublicRoute = !isDashboardRoute && !isLoginPage;
+  // Strip locale from pathname for checking routes
+  const pathnameWithoutLocale = pathname.replace(/^\/(?:en|ar)/, "");
 
-  // Validate token
-  let isLoggedIn = false;
+  // First, handle the locale
+  const response = await intlMiddleware(request);
+  const locale = response.headers.get("x-middleware-request-locale") || "en";
+
+  // Validate authentication
+
+  // Debug logging
+  console.log({
+    pathname,
+    pathnameWithoutLocale,
+    hasToken: !!token,
+  });
+
+  // Define dashboard and public paths
+  const isDashboardPath = pathnameWithoutLocale.startsWith("/dashboard");
+  const isPublicPath = ["/", "/login"].includes(pathnameWithoutLocale);
+
+  // Authenticated users:
+  // - Allow access to dashboard and public pages
+  // - Redirect to dashboard if trying to access public pages
   if (token) {
-    try {
-      isLoggedIn = await validateToken(token);
-    } catch (error) {
-      isLoggedIn = false;
+    if (isPublicPath) {
+      return NextResponse.redirect(new URL(`/${locale}/dashboard/templates`, request.url));
     }
+    return response;
   }
 
-  console.log("isLoggedIn:", isLoggedIn, "Path:", url.pathname);
-
-  // Redirect unauthenticated users trying to access the dashboard
-  if (isDashboardRoute && !isLoggedIn) {
-    url.pathname = `/${url.locale || "en"}/login`;
-    return NextResponse.redirect(url);
+  // Non-authenticated users:
+  // - Allow access to public pages
+  // - Redirect to login if trying to access dashboard
+  if (!token && isPublicPath) {
+    return response;
+  }
+  if (!token && isDashboardPath) {
+    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
-  // Redirect authenticated users trying to access the login page
-  if (isLoginPage && isLoggedIn) {
-    url.pathname = `/${url.locale || "en"}/dashboard`;
-    return NextResponse.redirect(url);
-  }
 
-  // Redirect authenticated users trying to access public routes
-  if (isPublicRoute && isLoggedIn) {
-    url.pathname = `/${url.locale || "en"}/dashboard`;
-    return NextResponse.redirect(url);
-  }
 
-  // Apply locale handling from next-intl
-  return intlMiddleware(req);
+  // Return the intl middleware response for all other cases
+  return response;
 }
 
 export const config = {
   matcher: [
-    "/", // Root
-    "/(en|ar)/:path*", // Localized routes
-    "/(en|ar)/dashboard/:path*", // Dashboard routes
-    "/(en|ar)/login", // Login page
-    "/(en|ar)/aboutUs", // Public routes
-    "/(en|ar)/contactUs",
-    "/(en|ar)/pricing",
-    "/(en|ar)/privacy-policy",
-    "/(en|ar)/services",
-    "/(en|ar)/team",
-    "/(en|ar)/terms-and-conditions",
+    // Match all locales
+    "/(ar|en)/:path*",
+    // Match root path
+    "/",
   ],
 };
