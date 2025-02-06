@@ -73,11 +73,8 @@ export const TranslationForm = ({ editorInstance }: TranslationFormProps) => {
   if (fields.length === 0) return <p>There Is No Tokens To Add</p>;
 
   return (
-    <div className="w-1/3">
-      <form id="createTemplateForm" className="flex flex-col m-5" onSubmit={translate}>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
-          Translate Tokens
-        </label>
+    <>
+      <form id="createTemplateForm" className="flex flex-col" onSubmit={translate}>
         <div className="items-end flex flex-col">
           {fields.map((field, index) => (
             <div key={field.id} className="gap-2 w-full">
@@ -94,6 +91,7 @@ export const TranslationForm = ({ editorInstance }: TranslationFormProps) => {
             </div>
           ))}
           <Button
+            color="primary"
             type="submit"
             className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow mt-4"
           >
@@ -101,6 +99,6 @@ export const TranslationForm = ({ editorInstance }: TranslationFormProps) => {
           </Button>
         </div>
       </form>
-    </div>
+    </>
   );
 }; 

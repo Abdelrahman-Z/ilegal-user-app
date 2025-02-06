@@ -59,7 +59,6 @@ const Page = () => {
               >
                 <TextTranslator
                   editorInstance={editorInstance}
-                  defaultLanguage={documentData?.language}
                 />
               </AccordionItem>
             </Accordion>
