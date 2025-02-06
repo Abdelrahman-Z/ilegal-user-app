@@ -388,6 +388,11 @@ export const api = createApi({
       }),
       providesTags: ['Document'],
     }),
+    getReviewersDocuments: builder.query({
+      query: () => ({
+        url: '/document/reviewers',
+      }),
+    }),
     getPendingDocuments: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
         url: '/document/pending',
@@ -600,6 +605,7 @@ export const {
   useDeleteDocumentMutation,
   useGetDocumentQuery,
   useUpdateDocumentMutation,
+  useGetReviewersDocumentsQuery,
   // Token endpoints
   useCreateTokenMutation,
   useGetTokensQuery,
