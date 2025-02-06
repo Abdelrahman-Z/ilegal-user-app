@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import {
   Modal,
   ModalContent,
@@ -36,7 +35,7 @@ export const UpdateSignDocument: React.FC<UpdateSignDocumentModalProps> = ({
   currentimg
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [updateSignature, { isLoading, error, isSuccess }] =
+  const [updateSignature, { isLoading}] =
     useUpdateSignDocumentMutation();
   const [createS3, { isLoading: loadings3 }] = useCreateS3Mutation();
 
@@ -59,6 +58,7 @@ export const UpdateSignDocument: React.FC<UpdateSignDocumentModalProps> = ({
         name: data.name,
         imageUrl: data.imageUrl || " ",
       }).unwrap();
+      toast.success("Signature Updated successfully!");
       reset();
       onClose();
     } catch (error) {
@@ -81,23 +81,15 @@ export const UpdateSignDocument: React.FC<UpdateSignDocumentModalProps> = ({
         });
     } catch (error) {
       console.error("Image upload failed", error);
+      if (error && isFetchBaseQueryError(error)) {
+        const errorMessage =
+          error.data && typeof error.data === "object" && "message" in error.data
+            ? (error.data as { message: string }).message
+            : "An error occurred while updating this signature.";
+        toast.error(errorMessage);
+      }
     }
   };
-
- //toast
- useEffect(() => {
-  if (error && isFetchBaseQueryError(error)) {
-    const errorMessage =
-      error.data && typeof error.data === "object" && "message" in error.data
-        ? (error.data as { message: string }).message
-        : "An error occurred while updating this signature.";
-    toast.error(errorMessage);
-  }
-  if (isSuccess) {
-    toast.success("Signature Updated successfully!");
-    onClose();
-  }
-}, [error, isSuccess, onClose]);
 
   return (
     <>

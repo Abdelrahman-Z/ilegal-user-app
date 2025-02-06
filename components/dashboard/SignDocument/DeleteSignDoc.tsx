@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import {
   Modal,
   ModalContent,
@@ -22,32 +21,25 @@ const DeleteSignDocumentModal: React.FC<DeleteSignDocumentModalProps> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [deleteSignDocument, { isLoading, error, isSuccess }] =
+  const [deleteSignDocument, { isLoading, error }] =
     useDeleteSignDocumentMutation();
 
   const handleDelete = async () => {
     try {
       await deleteSignDocument(id).unwrap();
+      toast.success("Signature Deleted successfully!");
       onClose();
     } catch (error) {
       console.error(error);
+      if (error && isFetchBaseQueryError(error)) {
+        const errorMessage =
+          error.data && typeof error.data === "object" && "message" in error.data
+            ? (error.data as { message: string }).message
+            : "An error occurred while deleting this signature.";
+        toast.error(errorMessage);
+      }
     }
   };
-
-   //toast
-   useEffect(() => {
-    if (error && isFetchBaseQueryError(error)) {
-      const errorMessage =
-        error.data && typeof error.data === "object" && "message" in error.data
-          ? (error.data as { message: string }).message
-          : "An error occurred while deleting this signature.";
-      toast.error(errorMessage);
-    }
-    if (isSuccess) {
-      toast.success("Signature Deleted successfully!");
-      onClose();
-    }
-  }, [error, isSuccess, onClose]);
 
   return (
     <>

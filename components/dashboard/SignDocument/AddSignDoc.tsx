@@ -18,7 +18,6 @@ import {
   useCreateS3Mutation,
 } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
@@ -43,7 +42,7 @@ export function AddSignDocument() {
     resolver: yupResolver(schema),
   });
 
-  const [createSignature, { isLoading, error, isSuccess }] =
+  const [createSignature, { isLoading}] =
     useCreateSignDocumentMutation();
 
   const [createS3, { isLoading: loadings3 }] = useCreateS3Mutation();
@@ -54,6 +53,7 @@ export function AddSignDocument() {
         documentSignImageUrl: data.image,
         signName: data.name,
       }).unwrap();
+      toast.success("Signature Created successfully!");
       reset();
       onClose();
     } catch (e) {
@@ -76,24 +76,15 @@ export function AddSignDocument() {
         });
     } catch (error) {
       console.error("Image upload failed", error);
+      if (error && isFetchBaseQueryError(error)) {
+        const errorMessage =
+          error.data && typeof error.data === "object" && "message" in error.data
+            ? (error.data as { message: string }).message
+            : "An error occurred while creating this signature.";
+        toast.error(errorMessage);
+      }
     }
   };
-
-  //toast
-  useEffect(() => {
-    if (error && isFetchBaseQueryError(error)) {
-      const errorMessage =
-        error.data && typeof error.data === "object" && "message" in error.data
-          ? (error.data as { message: string }).message
-          : "An error occurred while creating this signature.";
-      toast.error(errorMessage);
-    }
-    if (isSuccess) {
-      toast.success("Signature Created successfully!");
-      reset();
-      onClose();
-    }
-  }, [error, isSuccess, onClose]);
 
   return (
     <>
