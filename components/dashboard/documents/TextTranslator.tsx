@@ -1,6 +1,5 @@
 import { Button, Select, SelectItem } from "@nextui-org/react";
 import { DecoupledEditor } from "ckeditor5";
-import { useState } from "react";
 import { useTranslateMutation } from "@/redux/services/api";
 import toast from "react-hot-toast";
 import { useForm, Controller } from "react-hook-form";
