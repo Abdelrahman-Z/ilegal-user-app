@@ -47,8 +47,6 @@ const Page = () => {
     isLoading: documentLoading,
   } = useGetDocumentQuery(id);
 
-  // Define form type
-
   const {
     control,
     handleSubmit,
@@ -129,9 +127,13 @@ const Page = () => {
   const handleSave = () => {
     if (editorInstance) {
       const updatedContent = editorInstance.getData();
+      if (!updatedContent.trim()) {
+        toast.error("The document is empty. Please add some content before saving.");
+        return;
+      }
       updateDocument({
         id: documentData.id,
-        body: { content: updatedContent },
+        body: { content: updatedContent},
       });
     }
     setIsEditing(false);

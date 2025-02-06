@@ -37,7 +37,7 @@ export default function Page() {
             key="Approved"
             title="Approved Documents"
           >
-            <Approved />
+            <Approved pageName="sign-document"/>
           </Tab>
         </Tabs>
       </div>

@@ -15,7 +15,11 @@ import { usePathname } from "next/navigation";
 import DeleteDocument from "./DeleteDocument";
 import {Document} from '../../../types';
 
-export const Approved = () => {
+interface pageName{
+  pageName : string;
+}
+
+export const Approved = ({pageName}: pageName) => {
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
@@ -79,7 +83,7 @@ export const Approved = () => {
 
             <CardFooter className="flex justify-end items-center w-fit gap-2">
               <Link
-                href={`${path}/${document.id}`}
+                href={`/${path.split('/')[1]}/dashboard/${pageName}/${document.id}`}
                 className=" bg-white p-2 rounded-xl"
               >
                 View
