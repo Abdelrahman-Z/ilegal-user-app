@@ -107,7 +107,7 @@ export function PreConfigure() {
   return (
     <>
       <Button color="primary" onClick={onOpen}>
-        {t("preConfigure.button1")}
+        {t("preConfigure.openForm")}
       </Button>
       <Modal
         isDismissable={false}
@@ -217,7 +217,7 @@ export function PreConfigure() {
                     onClose();
                   }}
                 >
-                  {t("preConfigure.button2")}
+                  {t("preConfigure.close")}
                 </Button>
                 <Button
                   type="submit"
@@ -225,7 +225,7 @@ export function PreConfigure() {
                   form="dynamicForm"
                   isLoading={isLoading}
                 >
-                  {t("preConfigure.button3")}
+                  {t("preConfigure.submit")}
                 </Button>
               </ModalFooter>
             </form>

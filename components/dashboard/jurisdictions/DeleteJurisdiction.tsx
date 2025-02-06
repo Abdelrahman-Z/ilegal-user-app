@@ -64,14 +64,14 @@ const DeleteJurisdictionModal: React.FC<DeleteJurisdictionModalProps> = ({
           )}
           <ModalFooter>
             <Button color="danger" variant="flat" onPress={onClose}>
-            {t("deleteJurisdictions.button1")}
+            {t("deleteJurisdictions.cancel")}
             </Button>
             <Button
               color="primary"
               onPress={handleDelete}
               isLoading={isLoading}
             >
-              {t("deleteJurisdictions.button2")}
+              {t("deleteJurisdictions.delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

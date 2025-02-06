@@ -108,11 +108,11 @@ export const UpdateRoleModal: React.FC<UpdateRoleModalProps> = ({
             <ModalFooter>
               {/* Cancel Button */}
               <Button color="danger" variant="flat" onPress={onClose}>
-              {t("updateRole.button1")}
+              {t("updateRole.cancel")}
               </Button>
               {/* Update Button */}
               <Button color="primary" type="submit" isLoading={isLoading}>
-              {t("updateRole.button2")}
+              {t("updateRole.update")}
               </Button>
             </ModalFooter>
           </form>

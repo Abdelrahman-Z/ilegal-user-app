@@ -72,7 +72,7 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ id, roleName }) => {
           <ModalFooter>
             {/* Cancel Button */}
             <Button color="danger" variant="flat" onPress={onClose}>
-            {t("deleteRole.button1")}
+            {t("deleteRole.cancel")}
             </Button>
             {/* Confirm Delete Button */}
             <Button
@@ -80,7 +80,7 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ id, roleName }) => {
               onPress={handleDelete}
               isLoading={isLoading}
             >
-              {t("deleteRole.button2")}
+              {t("deleteRole.delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

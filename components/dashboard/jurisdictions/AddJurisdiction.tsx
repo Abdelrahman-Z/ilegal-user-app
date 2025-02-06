@@ -55,7 +55,7 @@ export function AddJurisdiction() {
   return (
     <>
       <Button color="primary" onPress={onOpen}>
-        {t("addJurisdictions.button1")}
+        {t("addJurisdictions.create")}
       </Button>
       <Modal
         isDismissable={false}
@@ -101,10 +101,10 @@ export function AddJurisdiction() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                {t("addJurisdictions.button2")}
+                {t("addJurisdictions.close")}
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>
-                {t("addJurisdictions.button3")}
+                {t("addJurisdictions.submit")}
                 </Button>
               </ModalFooter>
             </form>

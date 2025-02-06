@@ -66,7 +66,7 @@ export const StaticComponent = () => {
     <div className="flex-1">
       {/* Button to open modal */}
       <Button onClick={onOpen} color="primary">
-      {t("static.button1")}
+      {t("static.openText")}
       </Button>
 
       {/* Modal */}
@@ -117,7 +117,7 @@ export const StaticComponent = () => {
                     reset();
                   }}
                 >
-                  {t("static.button2")}
+                  {t("static.close")}
                 </Button>
                 {/* Button with `form` attribute */}
                 <Button
@@ -126,7 +126,7 @@ export const StaticComponent = () => {
                   form="textForm"
                   isLoading={isLoading}
                 >
-                  {t("static.button3")}
+                  {t("static.submit")}
                 </Button>
               </ModalFooter>
             </>

@@ -191,10 +191,10 @@ export const AddRole: React.FC<AddRoleProps> = ({ userId }) => {
 
             <ModalFooter>
               <Button color="danger" variant="flat" onPress={onClose}>
-              {t("addRole.button1")}
+              {t("addRole.cancel")}
               </Button>
               <Button color="primary" type="submit" isLoading={saving}>
-              {t("addRole.button2")}
+              {t("addRole.save")}
               </Button>
             </ModalFooter>
           </form>

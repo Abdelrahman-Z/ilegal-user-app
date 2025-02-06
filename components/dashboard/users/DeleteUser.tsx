@@ -72,7 +72,7 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ id, userName }) => {
           <ModalFooter>
             {/* Cancel Button */}
             <Button color="danger" variant="flat" onPress={onClose}>
-            {t("deleteUsers.button1")}
+            {t("deleteUsers.cancel")}
             </Button>
             {/* Confirm Delete Button */}
             <Button
@@ -80,7 +80,7 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ id, userName }) => {
               onPress={handleDelete}
               isLoading={isLoading}
             >
-             {t("deleteUsers.button2")}
+             {t("deleteUsers.delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

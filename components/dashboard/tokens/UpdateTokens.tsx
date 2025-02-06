@@ -16,6 +16,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useUpdateTokenMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { LuClipboardPen } from "react-icons/lu";
+import { useTranslations } from "next-intl";
+
 
 const schema = yup.object({
   keyword: yup.string().required("Keyword is required"),
@@ -59,6 +61,7 @@ export const UpdateToken: React.FC<UpdateTokenProps> = ({
       console.error(error);
     }
   };
+  const t = useTranslations("tokens")
 
   return (
     <>
@@ -77,13 +80,13 @@ export const UpdateToken: React.FC<UpdateTokenProps> = ({
       >
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalHeader>Update Token</ModalHeader>
+            <ModalHeader>{t("updateTokens.title")}</ModalHeader>
             <ModalBody>
               <div className="flex flex-col gap-4">
                 <Input
                   {...register("keyword")}
-                  label="Keyword"
-                  placeholder="Enter keyword"
+                  label={t("updateTokens.label")}
+                  placeholder={t("updateTokens.placeHolder")}
                   variant="bordered"
                   isInvalid={!!errors.keyword}
                   errorMessage={errors.keyword?.message}
@@ -98,10 +101,10 @@ export const UpdateToken: React.FC<UpdateTokenProps> = ({
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="flat" onPress={onClose}>
-                Cancel
+              {t("updateTokens.cancel")}
               </Button>
               <Button color="primary" type="submit" isLoading={isLoading}>
-                Update
+              {t("updateTokens.update")}
               </Button>
             </ModalFooter>
           </form>

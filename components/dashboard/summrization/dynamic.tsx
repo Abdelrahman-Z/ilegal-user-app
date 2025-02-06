@@ -79,7 +79,7 @@ export const DynamicComponent = () => {
     <div>
       {/* Button to open modal */}
       <Button onClick={onOpen} color="primary">
-      {t("dynamic.button1")}
+      {t("dynamic.openModel")}
       </Button>
 
       {/* Modal */}
@@ -160,7 +160,7 @@ export const DynamicComponent = () => {
                     reset();
                   }}
                 >
-                  {t("dynamic.button2")}
+                  {t("dynamic.close")}
                 </Button>
                 <Button
                   type="submit"
@@ -168,7 +168,7 @@ export const DynamicComponent = () => {
                   form="dynamicForm"
                   color="primary"
                 >
-                  {t("dynamic.button3")}
+                  {t("dynamic.action")}
                 </Button>
               </ModalFooter>
             </>

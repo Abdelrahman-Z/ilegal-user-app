@@ -86,7 +86,7 @@ export const AddQuestion = () => {
   return (
     <div className="flex-1">
       <Button onClick={onOpen} color="primary">
-        {t("addQuestion.button1")}
+        {t("addQuestion.addQuestion")}
       </Button>
       <Modal
         isDismissable={false}
@@ -162,7 +162,7 @@ export const AddQuestion = () => {
                     reset();
                   }}
                 >
-                  {t("addQuestion.button2")}
+                  {t("addQuestion.close")}
                 </Button>
                 <Button
                   type="submit"
@@ -170,7 +170,7 @@ export const AddQuestion = () => {
                   form="questionForm"
                   isLoading={isLoading}
                 >
-                  {t("addQuestion.button3")}
+                  {t("addQuestion.submit")}
                 </Button>
               </ModalFooter>
             </form>

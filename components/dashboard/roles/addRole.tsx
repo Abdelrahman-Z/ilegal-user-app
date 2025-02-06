@@ -101,10 +101,10 @@ export function AddRole() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                {t("addRole.button1")}
+                {t("addRole.close")}
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>
-                {t("addRole.button2")}
+                {t("addRole.submit")}
                 </Button>
               </ModalFooter>
             </form>

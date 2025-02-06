@@ -95,7 +95,7 @@ export const TranslateFile = () => {
   return (
     <>
       <Button onClick={onOpen} color="primary">
-        {t("file.button1")}
+        {t("file.openFile")}
       </Button>
 
       <Modal
@@ -228,7 +228,7 @@ export const TranslateFile = () => {
                   }}
                   isDisabled={isLoading || wordIsLoading}
                 >
-                  {t("file.button2")}
+                  {t("file.close")}
                 </Button>
                 <Button
                   type="submit"
@@ -236,7 +236,7 @@ export const TranslateFile = () => {
                   form="translationForm"
                   isLoading={isLoading || wordIsLoading}
                 >
-                  {t("file.button3")}
+                  {t("file.submit")}
                 </Button>
               </ModalFooter>
             </>

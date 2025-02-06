@@ -169,11 +169,11 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
             <ModalFooter>
               {/* Cancel Button */}
               <Button color="danger" variant="flat" onPress={onClose}>
-              {t("updateUsers.button1")}
+              {t("updateUsers.cancel")}
               </Button>
               {/* Update Button */}
               <Button color="primary" type="submit" isLoading={isLoading}>
-              {t("updateUsers.button2")}
+              {t("updateUsers.update")}
               </Button>
             </ModalFooter>
           </form>

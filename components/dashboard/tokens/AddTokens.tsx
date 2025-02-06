@@ -14,6 +14,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCreateTokenMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
+
 
 const schema = yup
   .object({
@@ -22,6 +24,7 @@ const schema = yup
   .required();
 
 export function AddToken() {
+  const t = useTranslations("tokens");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const {
     register,
@@ -49,7 +52,7 @@ export function AddToken() {
       <Button color="primary" onPress={onOpen}               
       className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
       >
-        Create Token
+        {t("addTokens.create")}
       </Button>
       <Modal
         isDismissable={false}
@@ -63,14 +66,14 @@ export function AddToken() {
           {(onClose) => (
             <form onSubmit={onSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Create Token
+              {t("addTokens.create")}
               </ModalHeader>
               <ModalBody>
                 <div className="flex flex-col gap-4">
                   <Input
                     {...register("name")}
-                    label="Token Name"
-                    placeholder="Enter token name"
+                    label={t("addTokens.label")}
+                    placeholder={t("addTokens.placeHolder")}
                     variant="bordered"
                     isInvalid={!!errors.name}
                     errorMessage={errors.name?.message}
@@ -90,10 +93,10 @@ export function AddToken() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
+                {t("addTokens.close")}
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>
-                  Submit
+                {t("addTokens.submit")}
                 </Button>
               </ModalFooter>
             </form>

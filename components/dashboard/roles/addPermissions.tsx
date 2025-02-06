@@ -153,14 +153,14 @@ export const AddPermissions: React.FC<AddPermissionsProps> = ({
           )}
           <ModalFooter>
             <Button color="danger" variant="flat" onPress={onClose}>
-            {t("addPermissions.button1")}
+            {t("addPermissions.cancel")}
             </Button>
             <Button
               color="primary"
               onPress={handleSave}
               isLoading={updateLoading}
             >
-              {t("addPermissions.button2")}
+              {t("addPermissions.save")}
             </Button>
           </ModalFooter>
         </ModalContent>

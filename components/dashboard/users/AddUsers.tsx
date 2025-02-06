@@ -184,10 +184,10 @@ export function AddUser() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                {t("addUsers.button1")}
+                {t("addUsers.close")}
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>
-                {t("addUsers.button2")}
+                {t("addUsers.submit")}
                 </Button>
               </ModalFooter>
             </form>

@@ -92,10 +92,10 @@ export const UpdateJurisdiction: React.FC<UpdateJurisdictionModalProps> = ({
             )}
             <ModalFooter>
               <Button color="danger" variant="flat" onPress={onClose}>
-              {t("updateJurisdictions.button1")}
+              {t("updateJurisdictions.cancel")}
               </Button>
               <Button color="primary" type="submit" isLoading={isLoading}>
-              {t("updateJurisdictions.button2")}
+              {t("updateJurisdictions.update")}
               </Button>
             </ModalFooter>
           </form>

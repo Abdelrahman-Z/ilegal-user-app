@@ -87,7 +87,7 @@ export const Static = () => {
   return (
     <>
       <Button onClick={onOpen} color="primary">
-      {t("text.button1")}
+      {t("text.openForm")}
       </Button>
 
       {/* Modal */}
@@ -207,7 +207,7 @@ export const Static = () => {
                     reset();
                   }}
                 >
-                  {t("text.button2")}
+                  {t("text.close")}
                 </Button>
                 <Button
                   type="submit"
@@ -215,7 +215,7 @@ export const Static = () => {
                   form="translationForm"
                   isLoading={isLoading}
                 >
-                  {t("text.button3")}
+                  {t("text.submit")}
                 </Button>
               </ModalFooter>
             </>
