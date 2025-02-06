@@ -6,7 +6,7 @@ import { Button, cn } from "@nextui-org/react";
 import React from "react";
 import { useTranslations } from "next-intl"; 
 
-const page = () => {
+const Page = () => {
   const t = useTranslations("pricing");
 
   const plans = [
@@ -69,4 +69,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

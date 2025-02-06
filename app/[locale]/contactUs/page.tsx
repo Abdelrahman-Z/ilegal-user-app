@@ -6,7 +6,7 @@ import React from "react";
 import { useTranslations } from "next-intl";
 
 
-const page = () => {
+const Page = () => {
   const t = useTranslations("contactUs")
   return (
     <div
@@ -108,4 +108,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
