@@ -159,7 +159,7 @@ useEffect(() => {
                 </Button>
                 <Button color="primary" 
                 type="submit" 
-                disabled={loadings3} 
+                isDisabled={loadings3} 
                 isLoading={isLoading} 
                 >
                   Submit

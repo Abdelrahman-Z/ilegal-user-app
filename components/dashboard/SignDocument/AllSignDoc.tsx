@@ -22,11 +22,10 @@ export function AllSignDocuments() {
   const [page, setPage] = React.useState(1);
 
   const { data, isLoading, isError, error } = useGetSignDocumentsQuery({
-    page : 1,
+    page ,
     limit : 10
   });
-  const totalPages = data?.metaData?.totalPages || 0;
-
+  const totalPages = data && data.metadata?.totalPages;
   if (isError) {
     return (
       <>
