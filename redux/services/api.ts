@@ -507,10 +507,10 @@ export const api = createApi({
     }),
 
     updateSignDocument: builder.mutation({
-      query: ({ id, name }) => ({
+      query: ({ id, name, imageUrl }) => ({
         url: `/signature/${id}`,
         method: "PATCH",
-        body: { signName: name },
+        body: { signName: name, documentSignImageUrl: imageUrl },
       }),
       invalidatesTags: ["signDocuments"],
     }),

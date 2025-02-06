@@ -78,11 +78,11 @@ export function AllSignDocuments() {
             <TableCell>{item?.signName}</TableCell>
             <TableCell>
               <Image src={item?.documentSignImageUrl} alt={item?.signName} 
-                      className="max-w-40 max-h-32"/>
+                      className="max-w-20 max-h-20"/>
             </TableCell>
             <TableCell>
               <div className="flex items-center gap-2">
-                <UpdateSignDocument id={item?.id} currentName={item?.signName} />
+                <UpdateSignDocument id={item?.id} currentName={item?.signName} currentimg={item?.documentSignImageUrl} />
                 <DeleteSignDocumentModal id={item?.id} />
               </div>
             </TableCell>
