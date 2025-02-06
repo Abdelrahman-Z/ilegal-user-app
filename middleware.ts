@@ -35,13 +35,13 @@ export default async function middleware(req: NextRequest) {
 
   // Redirect authenticated users trying to access the login page
   if (isLoginPage && isLoggedIn) {
-    url.pathname = `/${url.locale || "en"}/dashboard`;
+    url.pathname = `/${url.locale || "en"}/dashboard/documents`;
     return NextResponse.redirect(url);
   }
 
   // Redirect authenticated users trying to access public routes
   if (isPublicRoute && isLoggedIn) {
-    url.pathname = `/${url.locale || "en"}/dashboard`;
+    url.pathname = `/${url.locale || "en"}/dashboard/documents`;
     return NextResponse.redirect(url);
   }
 
