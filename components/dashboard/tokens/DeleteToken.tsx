@@ -12,6 +12,8 @@ import {
 import { useDeleteTokenMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { MdDelete } from "react-icons/md";
+import { useTranslations } from "next-intl";
+
 
 interface DeleteTokenProps {
   id: string;
@@ -30,7 +32,7 @@ export const DeleteToken: React.FC<DeleteTokenProps> = ({ id , name }) => {
       console.error(error);
     }
   };
-
+  const t = useTranslations("tokens")
   return (
     <>
       <Button color="danger" onPress={onOpen}>
@@ -44,9 +46,9 @@ export const DeleteToken: React.FC<DeleteTokenProps> = ({ id , name }) => {
         onOpenChange={onClose}
       >
         <ModalContent>
-          <ModalHeader>Confirm Deletion</ModalHeader>
+          <ModalHeader>{t("deleteToken.title")}</ModalHeader>
           <ModalBody>
-            <p>Are you sure you want to delete this {name} token?</p>
+            <p>{t("deleteToken.paragraph1")} {name} {t("deleteToken.paragraph2")}</p>
             {error && isFetchBaseQueryError(error) && (
               <p className="text-red-500 text-sm">
                 {error.data &&
@@ -59,14 +61,14 @@ export const DeleteToken: React.FC<DeleteTokenProps> = ({ id , name }) => {
           </ModalBody>
           <ModalFooter>
             <Button color="danger" variant="flat" onPress={onClose}>
-              Cancel
+            {t("deleteToken.cancel")}
             </Button>
             <Button
               color="primary"
               onPress={handleDelete}
               isLoading={isLoading}
             >
-              Delete
+              {t("deleteToken.delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

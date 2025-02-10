@@ -20,8 +20,11 @@ import DeleteTemplate from "./DeleteTemplate";
 import RejectModal from "./RejectModal";
 import {Template} from '../../../types';
 import { MdCheck } from "react-icons/md";
+import { useTranslations } from "next-intl";
+
 
 export const Pending = () => {
+  const t = useTranslations("template");
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
@@ -64,8 +67,8 @@ useEffect(() => {
     setPage(1);
   }, [debouncedSearchTerm]);
   
-  if (isLoading) return <p>Loading templates...</p>;
-  if (error) return <p>Error loading templates.</p>;
+  if (isLoading) return <p>{t("loading")}</p>;
+  if (error) return <p>{t("error")}</p>;
 
   const templates = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
@@ -88,13 +91,13 @@ useEffect(() => {
               />
               <CardHeader className="flex-col !items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
-                  Template Name
+                {t("name")}
                 </p>
                 <h4 className="text-white font-medium text-small">
                   {template.name}
                 </h4>
                 <p className="text-tiny text-white/60">
-                  Language: {template.language}
+                {t("language")}: {template.language}
                 </p>
               </CardHeader>
             </div>
@@ -111,7 +114,7 @@ useEffect(() => {
                 href={`${path}/${template.id}`}
                 className=" bg-white p-2 rounded-xl"
               >
-                View
+               {t("view")}
               </Link>
               {/* DELETE */}
               <DeleteTemplate templateId={template.id} />

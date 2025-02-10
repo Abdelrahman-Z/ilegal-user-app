@@ -16,6 +16,7 @@ import { LuX } from "react-icons/lu";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 
 interface RejectTemplateProps {
@@ -31,6 +32,7 @@ const schema = yup.object().shape({
 type FormData = yup.InferType<typeof schema>;
 
 export default function RejectModal({ templateId }: RejectTemplateProps) {
+  const t = useTranslations("rejectTemplate");
   const [rejectReason, setRejectReason] = useState("");
    const [rejectTemplate, {isSuccess: isRejected, error: rejectionError}] = useRejectTemplateMutation();
     const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -86,7 +88,7 @@ const {
       >
         <ModalContent>
         <form className="space-y-4" onSubmit={handleSubmit(handleRejectTemplate)}>
-          <ModalHeader>Reject Template</ModalHeader>
+          <ModalHeader>{t("title")}</ModalHeader>
           <ModalBody>
         <Input
         {...register("input")}
@@ -110,13 +112,13 @@ const {
                 onClose();
               }}
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               color="danger"
               type="submit"
             >
-              Reject
+              {t("reject")}
             </Button>
           </ModalFooter>
           </form>

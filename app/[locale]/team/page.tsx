@@ -1,6 +1,8 @@
+"use client"
 import Footer from "@/components/commercial-app/Footer";
 import HeroCard from "@/components/commercial-app/HeroCard";
 import SectionTitle from "@/components/commercial-app/SectionTitle";
+import { useTranslations } from "next-intl";
 
 const partners = [
   {
@@ -24,13 +26,12 @@ const partners = [
 ];
 
 export default function Home() {
+const t = useTranslations("team")
   return (
     <>
       <HeroCard
-        heroDescription="Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s."
-        heroTitle="Our Team"
+        heroDescription={t("hero.description")}
+        heroTitle={t("hero.title")}
         imagePath="'/images/landing6.svg'"
       />
       <div className="bg-gray-50 py-12 px-8 flex flex-col items-center sm:flex-row gap-6">
@@ -43,10 +44,10 @@ export default function Home() {
             {/* Text Content */}
             <div className="text-deepBlue">
               <p className=" text-sm uppercase tracking-wide">
-                Service With A Smile
+                {t("overview.title1")}
               </p>
               <h2 className="text-2xl font-bold">
-                Meet Our People
+                {t("overview.title2")}
               </h2>
             </div>
           </div>
@@ -55,19 +56,16 @@ export default function Home() {
         {/* Main Content */}
         <div className="sm:w-2/3 text-gray-700 space-y-4">
           <p>
-            Lorem Ipsum has been the industrys standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
+          {t("overview.paragraph1")}
           </p>
           <p>
-            It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged.
+          {t("overview.paragraph2")}
           </p>
         </div>
       </div>
       <div className="bg-gray-50 py-12 px-8">
         {/* Header */}
-        <SectionTitle title="The Partners" titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto my-20" />
+        <SectionTitle title={t("partners.title")} titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto my-20" />
 
         {/* Partners Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -95,7 +93,7 @@ export default function Home() {
       </div>
       <div className="bg-gray-50 py-12 px-8">
         {/* Header */}
-        <SectionTitle title="Attorneys" titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto my-20" />
+        <SectionTitle title={t("attorneys.title")} titleStyle="text-deepBlue" dotStyle="bg-deepBlue" lineStyle="bg-deepBlue" className="mx-auto my-20" />
 
         {/* Partners Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -132,10 +130,10 @@ export default function Home() {
           {/* Text */}
           <div className="text-deepBlue">
             <p className="text-sm uppercase tracking-wide">
-              What People Say About Us
+              {t("client.title1")}
             </p>
             <h2 className="text-2xl font-bold mt-2">
-              Client Testimonials
+              {t("client.title2")}
             </h2>
           </div>
         </div>
@@ -154,13 +152,12 @@ export default function Home() {
         {/* Right Section: Text */}
         <div className="sm:w-1/3 text-gray-700 space-y-4 text-center sm:text-left">
           <p>
-            It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged.
+            {t("client.paragraph1")}
           </p>
           <p>
-            <strong>Name</strong>
+            <strong>{t("client.name")}</strong>
           </p>
-          <p>It has survived</p>
+          <p>{t("client.paragraph2")}</p>
         </div>
       </div>
       <Footer  className="bg-gradient-to-r from-deepBlue to-lightBlue"/>

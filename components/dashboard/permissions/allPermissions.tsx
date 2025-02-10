@@ -12,8 +12,11 @@ import {
 } from "@nextui-org/react";
 import { useGetAllPermissionsQuery } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
+
 
 export function AllPermissions() {
+  const t = useTranslations("permissions");
   const [page, setPage] = React.useState(1);
   const limit = 10;
 
@@ -68,9 +71,9 @@ export function AllPermissions() {
       }
     >
       <TableHeader>
-        <TableColumn key="name">Permission Name</TableColumn>
-        <TableColumn key="category">Category</TableColumn>
-        <TableColumn key="mainCategory">Main Category</TableColumn>
+        <TableColumn key="name">{t("allPermissions.name")}</TableColumn>
+        <TableColumn key="category">{t("allPermissions.category")}</TableColumn>
+        <TableColumn key="mainCategory">{t("allPermissions.mainCategory")}</TableColumn>
       </TableHeader>
       <TableBody
         items={permissions}

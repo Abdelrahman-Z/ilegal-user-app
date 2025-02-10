@@ -18,6 +18,8 @@ import { useAddTemplateMutation, useGetReviewersTemplatesQuery } from "@/redux/s
 import { isFetchBaseQueryError } from "@/redux/store";
 import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
+
 
 // Define the schema for form validation
 const schema = yup.object({
@@ -33,6 +35,7 @@ const schema = yup.object({
 type TemplateFormValues = yup.InferType<typeof schema>;
 
 export const CreateTemplate = () => {
+  const t = useTranslations("addTemplate");
   const router = useRouter();
   const {locale} = useParams();
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
@@ -93,7 +96,7 @@ export const CreateTemplate = () => {
   return (
     <>
       <Button onPress={onOpen} color="primary">
-        Create New Template
+      {t("buttonName")}
       </Button>
 
       <Modal
@@ -103,7 +106,7 @@ export const CreateTemplate = () => {
         isDismissable={false}
       >
         <ModalContent>
-          <ModalHeader>Create New Template</ModalHeader>
+          <ModalHeader>{t("buttonName")}</ModalHeader>
           <ModalBody>
             <form
               id="createTemplateForm"
@@ -113,12 +116,12 @@ export const CreateTemplate = () => {
               {/* Template Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Template Name
+                {t("template.name")}
                 </label>
                 <Input
                   type="text"
                   {...register("name")}
-                  placeholder="Enter template name"
+                  placeholder={t("template.placeHolder")}
                   className={errors.name ? "border-red-500" : ""}
                 />
                 {errors.name && (
@@ -131,11 +134,11 @@ export const CreateTemplate = () => {
               {/* Language Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Language
+                {t("language.name")}
                 </label>
                 <Select
-                  label="Select Template Language"
-                  placeholder="Choose a language"
+                  label={t("language.label")}
+                  placeholder={t("language.placeHolder")}
                   defaultSelectedKeys={["ENGLISH"]}
                   onSelectionChange={(value) =>
                     setValue(
@@ -145,10 +148,10 @@ export const CreateTemplate = () => {
                   }
                 >
                   <SelectItem key="ENGLISH" value="ENGLISH">
-                    English
+                  {t("language.english")}
                   </SelectItem>
                   <SelectItem key="ARABIC" value="ARABIC">
-                    Arabic
+                  {t("language.arabic")}
                   </SelectItem>
                 </Select>
                 {errors.language && (
@@ -161,11 +164,11 @@ export const CreateTemplate = () => {
               {/* Reviewer Selection */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Select Reviewer
+                {t("selectReviewer.name")}
                 </label>
                 <Select
-                  label="Select Reviewer"
-                  placeholder="Choose a Reviewer"
+                  label={t("selectReviewer.label")}
+                  placeholder={t("selectReviewer.placeHolder")}
                   onSelectionChange={(value) =>
                     setValue("reviewedById", value.currentKey as string)
                   }
@@ -195,7 +198,7 @@ export const CreateTemplate = () => {
                 reset();
               }}
             >
-              Cancel
+              {t("buttons.cancel")}
             </Button>
             <Button
               color="primary"
@@ -204,7 +207,7 @@ export const CreateTemplate = () => {
               isLoading={isLoading}
               autoFocus
             >
-              Create Template
+              {t("buttons.create")}
             </Button>
           </ModalFooter>
         </ModalContent>

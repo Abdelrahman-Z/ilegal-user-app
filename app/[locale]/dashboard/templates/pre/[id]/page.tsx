@@ -2,18 +2,22 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import { useGetPreConfiguredOneTemplatesQuery } from "@/redux/services/api";
+import { useTranslations } from "next-intl";
+
 
 const Page = () => {
+    const t = useTranslations("templates");
+  
   const { id } = useParams();
   const { data, error, isLoading } = useGetPreConfiguredOneTemplatesQuery(id?.toString() ?? "");
 
   if (!id) {
-    return <div>Error: Invalid or missing UUID.</div>;
+    return <div>{t("error1")}</div>;
   }
 
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading template: {JSON.stringify(error)}</div>;
+  if (isLoading) return <div>{t("loading")}</div>;
+  if (error) return <div> {t("error2")} {JSON.stringify(error)}</div>;
 
   return (
     <div className="bg-white shadow-lg rounded-lg mx-auto p-6 min-h-full h-fit w-full">

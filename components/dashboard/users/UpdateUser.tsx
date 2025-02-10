@@ -16,6 +16,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useUpdateUserMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { LuClipboardPen } from "react-icons/lu";
+import { useTranslations } from "next-intl";
+
 
 interface UpdateUserModalProps {
   id: string; // User ID
@@ -74,6 +76,7 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
       console.error("Error updating user:", err);
     }
   });
+  const t = useTranslations("users");
 
   return (
     <>
@@ -92,7 +95,7 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
       >
         <ModalContent>
           <form onSubmit={onSubmit} encType="multipart/form-data">
-            <ModalHeader>Update User</ModalHeader>
+            <ModalHeader>{t("updateUsers.title")}</ModalHeader>
             <ModalBody>
               {/* Username Input */}
               <Controller
@@ -101,8 +104,8 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
                 render={({ field }) => (
                   <Input
                     {...field}
-                    label="Username"
-                    placeholder="Enter username"
+                    label={t("updateUsers.label1")}
+                    placeholder={t("updateUsers.placeHolder1")}
                     variant="bordered"
                     isInvalid={!!errors.userName}
                     errorMessage={errors.userName?.message}
@@ -116,8 +119,8 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
                 render={({ field }) => (
                   <Input
                     {...field}
-                    label="Phone Number"
-                    placeholder="Enter phone number"
+                    label={t("updateUsers.label2")}
+                    placeholder={t("updateUsers.placeHolder2")}
                     variant="bordered"
                     isInvalid={!!errors.phone}
                     errorMessage={errors.phone?.message}
@@ -166,11 +169,11 @@ export const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
             <ModalFooter>
               {/* Cancel Button */}
               <Button color="danger" variant="flat" onPress={onClose}>
-                Cancel
+              {t("updateUsers.cancel")}
               </Button>
               {/* Update Button */}
               <Button color="primary" type="submit" isLoading={isLoading}>
-                Update
+              {t("updateUsers.update")}
               </Button>
             </ModalFooter>
           </form>

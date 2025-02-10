@@ -14,8 +14,10 @@ import {
 import { usePathname } from "next/navigation";
 import DeleteDocument from "./DeleteDocument";
 import {Document} from '../../../types';
+import { useTranslations } from "next-intl";
 
 export const MyDocuments = () => {
+  const t = useTranslations("myDocuments");
   const path = usePathname();
   const [page, setPage] = useState(1);
   const [searchTerm] = useState("");
@@ -41,8 +43,8 @@ export const MyDocuments = () => {
     setPage(1);
   }, [debouncedSearchTerm]);
   
-  if (isLoading) return <p>Loading documents...</p>;
-  if (error) return <p>Error loading documents.</p>;
+  if (isLoading) return <p>{t("loading")}</p>;
+  if (error) return <p>{t("error")}</p>;
   
   const documents = data?.data || [];
   const totalPages = data?.metadata?.totalPages || 1;
@@ -66,13 +68,13 @@ export const MyDocuments = () => {
               />
               <CardHeader className="flex-col !items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
-                  document Name
+                {t("name")}
                 </p>
                 <h4 className="text-white font-medium text-small">
                   {document.name}
                 </h4>
                 <p className="text-tiny text-white/60">
-                  Language: {document.language}
+                {t("language")}: {document.language}
                 </p>
               </CardHeader>
             </div>
@@ -83,7 +85,7 @@ export const MyDocuments = () => {
                 href={`${path}/${document.id}`}
                 className=" bg-white p-2 rounded-xl"
               >
-                View
+                {t("view")}
               </Link>
               <DeleteDocument documentId={document.id} />
             </CardFooter>

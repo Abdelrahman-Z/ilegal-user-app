@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCreateJurisdictionMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 // Validation schema using Yup
 const schema = yup
@@ -23,6 +24,7 @@ const schema = yup
   .required();
 
 export function AddJurisdiction() {
+  const t = useTranslations("jurisdictions");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const {
     register,
@@ -53,7 +55,7 @@ export function AddJurisdiction() {
   return (
     <>
       <Button color="primary" onPress={onOpen}>
-        Create Jurisdiction
+        {t("addJurisdictions.create")}
       </Button>
       <Modal
         isDismissable={false}
@@ -67,14 +69,14 @@ export function AddJurisdiction() {
           {(onClose) => (
             <form onSubmit={onSubmit}>
               <ModalHeader className="flex flex-col gap-1">
-                Create Jurisdiction
+              {t("addJurisdictions.title")}
               </ModalHeader>
               <ModalBody>
                 <div>
                   <Input
                     {...register("name")}
-                    label="Jurisdiction Name"
-                    placeholder="Enter jurisdiction name"
+                    label={t("addJurisdictions.label")}
+                    placeholder={t("addJurisdictions.placeHolder")}
                     variant="bordered"
                     isInvalid={!!errors.name}
                   />
@@ -99,10 +101,10 @@ export function AddJurisdiction() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
+                {t("addJurisdictions.close")}
                 </Button>
                 <Button color="primary" type="submit" isLoading={isLoading}>
-                  Submit
+                {t("addJurisdictions.submit")}
                 </Button>
               </ModalFooter>
             </form>

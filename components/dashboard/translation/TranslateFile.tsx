@@ -19,6 +19,7 @@ import {
   useTranslateWordFileMutation,
 } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 // Update schema to allow PDF, .txt, and Word documents
 const schema = yup.object({
@@ -36,6 +37,7 @@ const schema = yup.object({
 type FileTranslationFormValues = yup.InferType<typeof schema>;
 
 export const TranslateFile = () => {
+  const t = useTranslations("translation");
   const [finaleData, setfinaleData] = useState()
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
@@ -93,7 +95,7 @@ export const TranslateFile = () => {
   return (
     <>
       <Button onClick={onOpen} color="primary">
-        Open File Translation Form
+        {t("file.openFile")}
       </Button>
 
       <Modal
@@ -108,7 +110,7 @@ export const TranslateFile = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                <h4>Translate File</h4>
+                <h4> {t("file.title")}</h4>
               </ModalHeader>
               <ModalBody>
                 <form
@@ -119,7 +121,7 @@ export const TranslateFile = () => {
                   {/* File Upload */}
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
-                      File Upload
+                    {t("file.upload")}
                     </label>
                     <Input
                       type="file"
@@ -139,10 +141,10 @@ export const TranslateFile = () => {
                   {/* Original Language Selection */}
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
-                      Original Language
+                    {t("file.original")}
                     </label>
                     <Select
-                      label="Select Original Language"
+                      label={t("file.label1")}
                       placeholder="Choose the original language"
                       defaultSelectedKeys={["en"]}
                       onSelectionChange={(value) =>
@@ -153,10 +155,10 @@ export const TranslateFile = () => {
                       }
                     >
                       <SelectItem key="en" value="ar">
-                        English
+                      {t("file.english")}
                       </SelectItem>
                       <SelectItem key="ar" value="ar">
-                        Arabic
+                      {t("file.arabic")}
                       </SelectItem>
                     </Select>
                     {errors.original_lang && (
@@ -169,10 +171,10 @@ export const TranslateFile = () => {
                   {/* Target Language Selection */}
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
-                      Target Language
+                    {t("file.target")}
                     </label>
                     <Select
-                      label="Select Target Language"
+                      label={t("file.label2")}
                       placeholder="Choose the target language"
                       defaultSelectedKeys={["ar"]}
                       onSelectionChange={(value) =>
@@ -180,10 +182,10 @@ export const TranslateFile = () => {
                       }
                     >
                       <SelectItem key="en" value="en">
-                        English
+                      {t("file.english")}
                       </SelectItem>
                       <SelectItem key="ar" value="ar">
-                        Arabic
+                      {t("file.arabic")}
                       </SelectItem>
                     </Select>
                     {errors.target_lang && (
@@ -226,7 +228,7 @@ export const TranslateFile = () => {
                   }}
                   isDisabled={isLoading || wordIsLoading}
                 >
-                  Close
+                  {t("file.close")}
                 </Button>
                 <Button
                   type="submit"
@@ -234,7 +236,7 @@ export const TranslateFile = () => {
                   form="translationForm"
                   isLoading={isLoading || wordIsLoading}
                 >
-                  Submit
+                  {t("file.submit")}
                 </Button>
               </ModalFooter>
             </>

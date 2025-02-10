@@ -18,8 +18,10 @@ import ToggleUserStatus from "./ToggleUsers";
 import DeleteUserModal from "./DeleteUser";
 import { UpdateUserModal } from "./UpdateUser";
 import { AddRole } from "./AddRole";
+import { useTranslations } from "next-intl";
 
 export function AllUsers() {
+  const t = useTranslations("users");
   const [page, setPage] = React.useState(1);
   const limit = 10;
 
@@ -68,12 +70,12 @@ export function AllUsers() {
         }
       >
         <TableHeader>
-          <TableColumn key="userName">User Name</TableColumn>
-          <TableColumn key="email">Email</TableColumn>
-          <TableColumn key="phone">Phone</TableColumn>
-          <TableColumn key="isActive">Status</TableColumn>
-          <TableColumn key="imageUrl">Avatar</TableColumn>
-          <TableColumn key="actions">Actions</TableColumn>
+          <TableColumn key="userName">{t("allUsers.userName")}</TableColumn>
+          <TableColumn key="email">{t("allUsers.email")}</TableColumn>
+          <TableColumn key="phone">{t("allUsers.phone")}</TableColumn>
+          <TableColumn key="isActive">{t("allUsers.status")}</TableColumn>
+          <TableColumn key="imageUrl">{t("allUsers.avatar")}</TableColumn>
+          <TableColumn key="actions">{t("allUsers.actions")}</TableColumn>
         </TableHeader>
         <TableBody
           items={users}

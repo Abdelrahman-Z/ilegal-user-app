@@ -14,8 +14,11 @@ import { useGetJurisdictionsQuery } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { UpdateJurisdiction } from "./UpdateJurisdictions";
 import DeleteJurisdictionModal from "./DeleteJurisdiction";
+import { useTranslations } from "next-intl";
+
 
 export function AllJurisdictions() {
+  const t = useTranslations("jurisdictions");
   const [page, setPage] = React.useState(1);
 
   // Fetch jurisdictions data using RTK Query
@@ -63,10 +66,10 @@ export function AllJurisdictions() {
       }
     >
       <TableHeader>
-        <TableColumn key="name">Name</TableColumn>
-        <TableColumn key="referenceUrl">Reference URL</TableColumn>
-        <TableColumn key="imageUrl">Image URL</TableColumn>
-        <TableColumn key="actions">Actions</TableColumn>
+        <TableColumn key="name">{t("allJurisdictions.name")}</TableColumn>
+        <TableColumn key="referenceUrl">{t("allJurisdictions.reference")}</TableColumn>
+        <TableColumn key="imageUrl">{t("allJurisdictions.image")}</TableColumn>
+        <TableColumn key="actions">{t("allJurisdictions.actions")}</TableColumn>
       </TableHeader>
       <TableBody
         items={data?.data ?? []}

@@ -15,6 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useUpdateJurisdictionMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { LuClipboardPen } from "react-icons/lu";
+import { useTranslations } from "next-intl";
 
 interface UpdateJurisdictionModalProps {
   id: string;
@@ -51,6 +52,7 @@ export const UpdateJurisdiction: React.FC<UpdateJurisdictionModalProps> = ({
       console.error(error);
     }
   };
+  const t = useTranslations("jurisdictions");
 
   return (
     <>
@@ -66,11 +68,11 @@ export const UpdateJurisdiction: React.FC<UpdateJurisdictionModalProps> = ({
       >
         <ModalContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <ModalHeader>Update Jurisdiction</ModalHeader>
+            <ModalHeader>{t("updateJurisdictions.title")}</ModalHeader>
             <ModalBody>
               <Input
                 {...register("name")}
-                label="Jurisdiction Name"
+                label={t("updateJurisdictions.label")}
                 placeholder="Enter new jurisdiction name"
                 variant="bordered"
                 isInvalid={!!errors.name}
@@ -90,10 +92,10 @@ export const UpdateJurisdiction: React.FC<UpdateJurisdictionModalProps> = ({
             )}
             <ModalFooter>
               <Button color="danger" variant="flat" onPress={onClose}>
-                Cancel
+              {t("updateJurisdictions.cancel")}
               </Button>
               <Button color="primary" type="submit" isLoading={isLoading}>
-                Update
+              {t("updateJurisdictions.update")}
               </Button>
             </ModalFooter>
           </form>

@@ -11,6 +11,7 @@ import {
 import { useDeleteRoleMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { MdDelete } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 interface DeleteRoleModalProps {
   id: string; // Role ID
@@ -30,6 +31,7 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ id, roleName }) => {
       console.error("Failed to delete role:", error);
     }
   };
+  const t = useTranslations("roles");
 
   return (
     <>
@@ -47,11 +49,10 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ id, roleName }) => {
         onOpenChange={onClose}
       >
         <ModalContent>
-          <ModalHeader>Confirm Deletion</ModalHeader>
+          <ModalHeader>{t("deleteRole.title")}</ModalHeader>
           <ModalBody>
             <p>
-              Are you sure you want to delete the role <b>{roleName}</b>? This
-              action cannot be undone.
+            {t("deleteRole.paragraph1")} <b>{roleName}</b>{t("deleteRole.paragraph2")}
             </p>
           </ModalBody>
 
@@ -71,7 +72,7 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ id, roleName }) => {
           <ModalFooter>
             {/* Cancel Button */}
             <Button color="danger" variant="flat" onPress={onClose}>
-              Cancel
+            {t("deleteRole.cancel")}
             </Button>
             {/* Confirm Delete Button */}
             <Button
@@ -79,7 +80,7 @@ const DeleteRoleModal: React.FC<DeleteRoleModalProps> = ({ id, roleName }) => {
               onPress={handleDelete}
               isLoading={isLoading}
             >
-              Delete
+              {t("deleteRole.delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

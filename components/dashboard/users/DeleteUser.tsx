@@ -11,6 +11,7 @@ import {
 import { useDeleteUserMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { MdDelete } from "react-icons/md";
+import { useTranslations } from "next-intl";
 
 interface DeleteUserModalProps {
   id: string;
@@ -30,6 +31,7 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ id, userName }) => {
       console.error("Failed to delete user:", error);
     }
   };
+  const t = useTranslations("users");
 
   return (
     <>
@@ -47,11 +49,10 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ id, userName }) => {
         onOpenChange={onClose}
       >
         <ModalContent>
-          <ModalHeader>Confirm Deletion</ModalHeader>
+          <ModalHeader>{t("deleteUsers.title")}</ModalHeader>
           <ModalBody>
             <p>
-              Are you sure you want to delete the user <b>{userName}</b>? This
-              action cannot be undone.
+            {t("deleteUsers.paragraph1")}<b>{userName}</b>{t("deleteUsers.paragraph2")}
             </p>
           </ModalBody>
 
@@ -71,7 +72,7 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ id, userName }) => {
           <ModalFooter>
             {/* Cancel Button */}
             <Button color="danger" variant="flat" onPress={onClose}>
-              Cancel
+            {t("deleteUsers.cancel")}
             </Button>
             {/* Confirm Delete Button */}
             <Button
@@ -79,7 +80,7 @@ const DeleteUserModal: React.FC<DeleteUserModalProps> = ({ id, userName }) => {
               onPress={handleDelete}
               isLoading={isLoading}
             >
-              Delete
+             {t("deleteUsers.delete")}
             </Button>
           </ModalFooter>
         </ModalContent>

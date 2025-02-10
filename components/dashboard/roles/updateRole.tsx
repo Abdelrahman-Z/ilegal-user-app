@@ -15,6 +15,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useUpdateRoleMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { LuClipboardPen } from "react-icons/lu";
+import { useTranslations } from "next-intl";
+
 
 interface UpdateRoleModalProps {
   id: string; // Role ID
@@ -52,6 +54,7 @@ export const UpdateRoleModal: React.FC<UpdateRoleModalProps> = ({
       console.error("Error updating role:", err);
     }
   });
+  const t = useTranslations("roles");
 
   return (
     <>
@@ -70,7 +73,7 @@ export const UpdateRoleModal: React.FC<UpdateRoleModalProps> = ({
       >
         <ModalContent>
           <form onSubmit={onSubmit}>
-            <ModalHeader>Update Role</ModalHeader>
+            <ModalHeader>{t("updateRole.title")}</ModalHeader>
             <ModalBody>
               {/* Role Name Input */}
               <Controller
@@ -79,8 +82,8 @@ export const UpdateRoleModal: React.FC<UpdateRoleModalProps> = ({
                 render={({ field }) => (
                   <Input
                     {...field}
-                    label="Role Name"
-                    placeholder="Enter role name"
+                    label={t("updateRole.label")}
+                    placeholder={t("updateRole.placeHolder")}
                     variant="bordered"
                     isInvalid={!!errors.roleName}
                     errorMessage={errors.roleName?.message}
@@ -105,11 +108,11 @@ export const UpdateRoleModal: React.FC<UpdateRoleModalProps> = ({
             <ModalFooter>
               {/* Cancel Button */}
               <Button color="danger" variant="flat" onPress={onClose}>
-                Cancel
+              {t("updateRole.cancel")}
               </Button>
               {/* Update Button */}
               <Button color="primary" type="submit" isLoading={isLoading}>
-                Update
+              {t("updateRole.update")}
               </Button>
             </ModalFooter>
           </form>

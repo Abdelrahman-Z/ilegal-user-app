@@ -3,8 +3,11 @@ import Footer from "@/components/commercial-app/Footer";
 import Header from "@/components/commercial-app/Navbar";
 import { Button, cn, Input } from "@nextui-org/react";
 import React from "react";
+import { useTranslations } from "next-intl";
 
-const page = () => {
+
+const Page = () => {
+  const t = useTranslations("contactUs")
   return (
     <div
       className={cn(
@@ -16,16 +19,12 @@ const page = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-8 max-w-5xl w-full mx-auto">
         {/* Left Content */}
         <div className="text-white space-y-6">
-          <h2 className="text-3xl font-bold">Contact Us</h2>
+          <h2 className="text-3xl font-bold">{t("hero.title")}</h2>
           <p>
-            Lorem Ipsum has been the industrys standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
+          {t("hero.description1")}
           </p>
           <p>
-            Lorem Ipsum has been the industrys standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
+          {t("hero.description2")}
           </p>
           <div className="flex space-x-4">
             {/* Social Media Icons */}
@@ -44,13 +43,13 @@ const page = () => {
         {/* Contact Form */}
         <div className="bg-white rounded-lg shadow-lg p-8 w-full">
           <h2 className="text-2xl font-bold mb-6 text-center text-deepBlue">
-            Contact Form
+          {t("form.title")}
           </h2>
           <form className="space-y-4">
             {/* Name Input */}
             <div>
               <Input
-                label="Name"
+                label={t("form.name")}
                 type="text"
                 id="name"
                 name="name"
@@ -65,7 +64,7 @@ const page = () => {
             {/* Email Input */}
             <div>
               <Input
-                label="Email"
+                label={t("form.email")}
                 type="email"
                 id="email"
                 name="email"
@@ -80,7 +79,7 @@ const page = () => {
             {/* Message Input */}
             <div>
               <Input
-                label="Message"
+                label={t("form.message")}
                 type="text"
                 id="message"
                 name="message"
@@ -98,7 +97,7 @@ const page = () => {
                 type="submit"
                 className="w-full bg-deepBlue text-white font-semibold py-2 px-4 rounded-md hover:bg-gray-200 transition"
               >
-                Send
+                {t("form.button")}
               </Button>
             </div>
           </form>
@@ -109,4 +108,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

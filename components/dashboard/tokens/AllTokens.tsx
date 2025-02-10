@@ -15,8 +15,10 @@ import { isFetchBaseQueryError } from "@/redux/store";
 import { UpdateToken } from "./UpdateTokens";
 import { DeleteToken } from "./DeleteToken";
 import { Token } from "@/types";
+import { useTranslations } from "next-intl";
 
 export function AllTokens() {
+  const t = useTranslations("tokens");
   const [page, setPage] = React.useState(1);
   const { data, isLoading, isError, error } = useGetTokensQuery({
     page,
@@ -62,8 +64,8 @@ export function AllTokens() {
       }
     >
       <TableHeader>
-        <TableColumn key="name">Name</TableColumn>
-        <TableColumn key="actions">Actions</TableColumn>
+        <TableColumn key="name">{t("allTokens.name")}</TableColumn>
+        <TableColumn key="actions">{t("allTokens.actions")}</TableColumn>
       </TableHeader>
       <TableBody
         items={data?.data ?? []}
