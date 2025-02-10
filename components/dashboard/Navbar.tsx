@@ -1,5 +1,5 @@
 'use client'
-import { removeToken } from "@/utils";
+import {  removeToken } from "@/utils";
 import {
   Avatar,
   Dropdown,
@@ -11,15 +11,23 @@ import {
 import React from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import { useParams, usePathname } from "next/navigation";
 
 const Navbar = () => {
   const t = useTranslations("navBar");
+  const {locale} = useParams()
+  const path = usePathname()
   const signOut = () => {
-    // Implement sign out logic here
     removeToken("token");
-    // Redirect to the login page
     window.location.reload();
   };
+
+  const switchLanguage = () => {
+    const newLocale = locale === 'en' ? 'ar' : 'en'; // Determine the new locale
+    const currentPath = path.split('/').slice(2).join('/'); // Get the path without the locale
+    window.location.href = `/${newLocale}/${currentPath}`; // Adjust the path as necessary
+  };
+
   return (
     <div className="bg-deepBlue text-white shadow-md p-4 flex items-center justify-between">
       {/* Greeting */}
@@ -47,6 +55,9 @@ const Navbar = () => {
             <span className="font-semibold">Signed in as</span>
             <span className="text-gray-500">zoey@example.com</span>
           </DropdownItem> */}
+            <DropdownItem key="switch-lang" onClick={switchLanguage}>
+              {locale === 'en' ? 'العربية' : 'English'}
+            </DropdownItem>
             <DropdownItem key="signout" color="danger" onClick={signOut}>
             {t("signOut")}
             </DropdownItem>

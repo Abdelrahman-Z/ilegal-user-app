@@ -11,7 +11,7 @@ import {
   NavbarItem,
   Link,
 } from "@nextui-org/react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 const Header = () => {
   const { locale } = useParams();
@@ -25,6 +25,14 @@ const Header = () => {
     { name: t("team"), link: `/${locale}/team` },
     { name: t("pricing"), link: `/${locale}/pricing` },
   ];
+
+  const path = usePathname();
+
+  const switchLanguage = () => {
+    const newLocale = locale === "en" ? "ar" : "en"; // Determine the new locale
+    const currentPath = path.split("/").slice(2).join("/"); // Get the path without the locale
+    window.location.href = `/${newLocale}/${currentPath}`; // Adjust the path as necessary
+  };
 
   return (
     <Navbar
@@ -60,7 +68,10 @@ const Header = () => {
       <NavbarContent justify="end" className="hidden sm:flex">
         {menuItems.map((item, index) => (
           <NavbarItem key={index}>
-            <Link href={item.link} className="text-white hover:text-fuschia_maked">
+            <Link
+              href={item.link}
+              className="text-white hover:text-fuschia_maked"
+            >
               {item.name}
             </Link>
           </NavbarItem>
@@ -72,6 +83,13 @@ const Header = () => {
             className="bg-gradient-to-r from-deepBlue to-lightBlue text-white hover:bg-gray-800"
           >
             {t("getInTouch")}
+          </Button>
+          <Button
+            as={Link}
+            onPress={switchLanguage}
+            className="bg-gradient-to-r from-deepBlue to-lightBlue text-white hover:bg-gray-800"
+          >
+            {locale === "en" ? "العربية" : "English"}
           </Button>
         </NavbarItem>
       </NavbarContent>
@@ -90,6 +108,13 @@ const Header = () => {
             </Link>
           </NavbarMenuItem>
         ))}
+        <Button
+          as={Link}
+          onPress={switchLanguage}
+          className="bg-gradient-to-r from-deepBlue to-lightBlue text-white hover:bg-gray-800"
+        >
+          {locale === "en" ? "العربية" : "English"}
+        </Button>
         <Button
           as={Link}
           href={`/${locale}/contactUs`}
