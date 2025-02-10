@@ -93,7 +93,7 @@ const Page = () => {
   };
 
   // Modified handleSave
-  const handleSave = () => {
+  const handleSave = async () => {
     if (editorInstance) {
       const updatedContent = editorInstance.getData();
       if (!updatedContent.trim()) {
