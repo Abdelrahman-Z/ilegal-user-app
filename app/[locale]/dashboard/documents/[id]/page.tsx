@@ -1,32 +1,13 @@
 "use client";
-import { Button, Input } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { Editor } from "@/components/dashboard/editor/Editor";
-import {
-  useGetDocumentQuery,
-  useUpdateDocumentMutation,
-} from "@/redux/services/api";
-import toast from "react-hot-toast";
-import { isFetchBaseQueryError } from "@/redux/store";
-import { DecoupledEditor } from "ckeditor5";
+import { useGetDocumentQuery } from "@/redux/services/api";
 import { ViewDocument } from "@/components/dashboard/documents/ViewDocument";
-import { useForm, useFieldArray } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-
-const schema = yup.object({
-  translations: yup.array().of(
-    yup.object({
-      token: yup.string().required(),
-      value: yup.string().required()
-    })
-  )
-});
-
-type FormValues = yup.InferType<typeof schema>; 
-
+import { DocumentEditor } from "@/components/dashboard/documents/DocumentEditor";
+import { TranslationForm } from "@/components/dashboard/documents/TranslationForm";
+import { TextTranslator } from "@/components/dashboard/documents/TextTranslator";
+import { DecoupledEditor } from "ckeditor5";
+import { Accordion, AccordionItem } from "@nextui-org/react";
 
 const Page = () => {
   const { id } = useParams();
@@ -34,12 +15,6 @@ const Page = () => {
   const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(
     null
   );
-
-
-  const [
-    updateDocument,
-    { isSuccess: DocumentUpdated, error: UpdateDocumentError },
-  ] = useUpdateDocumentMutation();
 
   const {
     data: documentData,
@@ -75,12 +50,6 @@ const Page = () => {
       toast.error(errorMessage);
     }
   }, [UpdateDocumentError]);
-
-  useEffect(() => {
-    if (DocumentUpdated) {
-      toast.success("Document Updated successfully!");
-    }
-  }, [DocumentUpdated]);
 
   // Update the useEffect that handles tokens
   useEffect(() => {
@@ -131,13 +100,16 @@ const Page = () => {
         toast.error("The document is empty. Please add some content before saving.");
         return;
       }
-      updateDocument({
+      await updateDocument({
         id: documentData.id,
         body: { content: updatedContent},
       });
+      toast.success("Document Updated successfully!");
+
     }
     setIsEditing(false);
   };
+
 
   if (!id) {
     return <div>Error: Invalid or missing UUID.</div>;
@@ -153,66 +125,44 @@ const Page = () => {
           documentData={documentData}
           documentLoading={documentLoading}
           documentError={documentError}
-          handleEdit={handleEdit}
+          handleEdit={() => setIsEditing(true)}
         />
       ) : (
-        <div className="mb-4">
-            <div className="flex justify-end mb-4 gap-2">
-              <Button
-                className="bg-gradient-to-r from-deepBlue to-lightBlue text-white py-2 px-4 rounded-lg shadow"
-                onClick={handleSave}
+        <div className="flex">
+          <div className="w-1/3">
+            <Accordion>
+              <AccordionItem
+                key="1"
+                aria-label="Token Translation"
+                title="Token Translation"
+                className="px-2"
               >
-                Save
-              </Button>
-              <Button
-                className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow"
-                onClick={() => setIsEditing(false)}
+                <TranslationForm editorInstance={editorInstance} />
+              </AccordionItem>
+
+              <AccordionItem
+                key="2"
+                aria-label="Text Translation"
+                title="Text Translation"
+                className="px-2"
               >
-                Cancel
-              </Button>
-            </div>
-
-            <div className="flex">
-
-          {fields.length > 0 && (
-            <div className="w-1/3">
-            <form id="createTemplateForm" className="flex flex-col m-5" onSubmit={translate}>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Translate Tokens
-              </label>
-              <div className="items-end flex flex-col">
-                {fields.map((field, index) => (
-                  <div key={field.id} className=" gap-2 w-full">
-                    <label>{field.token}:</label>
-                    <Input
-                      type="text"
-                      {...control.register(`translations.${index}.value`, {
-                        required: "This field is required",
-                      })}
-                      placeholder={`Replace ${field.token}`}
-                      isInvalid={!!errors.translations?.[index]?.value}
-                      errorMessage={errors.translations?.[index]?.value?.message}
-                    />
-                  </div>
-                ))}
-                <Button
-                  type="submit"
-                  className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow mt-4"
-                >
-                  Translate
-                </Button>
-              </div>
-            </form>
+                <TextTranslator
+                  editorInstance={editorInstance}
+                />
+              </AccordionItem>
+            </Accordion>
           </div>
-          )}
-
-          <div className="w-full">
-            <Editor setEditor={setEditorInstance} data={documentData?.DocumentMetadata[0]?.content} />
-          </div>
-        </div>
+          <DocumentEditor
+            editorInstance={editorInstance}
+            documentId={id as string}
+            setEditorInstance={setEditorInstance}
+            documentContent={documentData?.DocumentMetadata[0]?.content}
+            onEditingChange={setIsEditing}
+          />
         </div>
       )}
     </div>
   );
 };
+
 export default Page;
