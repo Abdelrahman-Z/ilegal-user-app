@@ -17,7 +17,7 @@ import {Document} from '../../../types';
 import { useTranslations } from "next-intl";
 
 
-export const Approved = () => {
+export const Approved = ({pageName} : {pageName:string}) => {
   const t = useTranslations("approved");
   const path = usePathname();
   const [page, setPage] = useState(1);
