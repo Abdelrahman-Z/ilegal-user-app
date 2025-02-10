@@ -23,7 +23,7 @@ export const DocumentEditor = ({
 }: DocumentEditorProps) => {
   const [
     updateDocument,
-    { isSuccess: documentUpdated, error: updateDocumentError },
+    { error: updateDocumentError },
   ] = useUpdateDocumentMutation();
 
   useEffect(() => {
@@ -38,11 +38,7 @@ export const DocumentEditor = ({
     }
   }, [updateDocumentError]);
 
-  useEffect(() => {
-    if (documentUpdated) {
-      toast.success("Document Updated successfully!");
-    }
-  }, [documentUpdated]);
+
 
   const handleSave = async () => {
     if (editorInstance) {
@@ -51,6 +47,7 @@ export const DocumentEditor = ({
         id: documentId,
         body: { content: updatedContent },
       });
+      toast.success('Document Updated Successfuly')
       onEditingChange(false);
     }
   };

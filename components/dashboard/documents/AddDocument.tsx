@@ -19,7 +19,7 @@ import {
   useGetApprovedTemplatesQuery,
   useGetJurisdictionsQuery,
   useGetPreConfiguredTemplatesQuery,
-  useGetReviewersTemplatesQuery,
+  useGetReviewersDocumentsQuery,
 } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { useParams, useRouter } from "next/navigation";
@@ -49,8 +49,8 @@ export const CreateDocument = () => {
   const [isPreConfigured, setIsPreConfigured] = useState<boolean>(false);
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 
+  const { data: reviewerData } = useGetReviewersDocumentsQuery({});
 
-  const { data: reviewerData } = useGetReviewersTemplatesQuery({});
   const { data: jurisdictionData } = useGetJurisdictionsQuery({
     page: 1,
     limit: 10,
