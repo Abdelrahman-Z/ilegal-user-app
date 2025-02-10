@@ -38,7 +38,7 @@ const Page = () => {
 
   const [
     updateDocument,
-    { isSuccess: DocumentUpdated, error: UpdateDocumentError },
+    { error: UpdateDocumentError },
   ] = useUpdateDocumentMutation();
 
   const {
@@ -75,12 +75,6 @@ const Page = () => {
       toast.error(errorMessage);
     }
   }, [UpdateDocumentError]);
-
-  useEffect(() => {
-    if (DocumentUpdated) {
-      toast.success("Document Updated successfully!");
-    }
-  }, [DocumentUpdated]);
 
   // Update the useEffect that handles tokens
   useEffect(() => {
@@ -124,17 +118,18 @@ const Page = () => {
   };
 
   // Modified handleSave
-  const handleSave = () => {
+  const handleSave = async () => {
     if (editorInstance) {
       const updatedContent = editorInstance.getData();
       if (!updatedContent.trim()) {
         toast.error("The document is empty. Please add some content before saving.");
         return;
       }
-      updateDocument({
+      await updateDocument({
         id: documentData.id,
         body: { content: updatedContent},
       });
+      toast.success("Document Updated successfully!");
     }
     setIsEditing(false);
   };
