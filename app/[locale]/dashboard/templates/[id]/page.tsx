@@ -68,9 +68,13 @@ const Page = () => {
   const handleSave = () => {
     if (editorInstance) {
       const updatedContent = editorInstance.getData();
+      if (!updatedContent.trim()) {
+        toast.error("The template is empty. Please add some content before saving.");
+        return;
+      }
       updateTemplate({
         id: data.id.toString(),
-        body: { attachmentUrl: updatedContent },
+        body: { attachmentUrl: updatedContent},
       });
     }
     setIsEditing(false);
