@@ -35,7 +35,7 @@ export default function Page() {
 
           {/* Approved Documents*/}
           <Tab className="w-full flex-1" key="Approved" title={t("approved")}>
-            <Approved />
+            <Approved pageName="documents" />
           </Tab>
 
           {/* Pending Documents*/}
