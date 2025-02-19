@@ -12,18 +12,9 @@ import { FaUser } from "react-icons/fa";
 import { HiOutlineKey } from "react-icons/hi2";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { MdOutlineDocumentScanner } from "react-icons/md";
 
 const navLinks = [
-  // {
-  //   name: "Home",
-  //   icon: <FaHome className="text-2xl" />,
-  //   path: "/dashboard",
-  // },
-  // {
-  //   name: "Tenants",
-  //   icon: <RiOrganizationChart className="text-2xl" />,
-  //   path: "/dashboard/tenants",
-  // },
   {
     name: "Documents",
     icon: <FaFileAlt className="text-2xl" />,
@@ -73,6 +64,11 @@ const navLinks = [
     name: "Permissions",
     icon: <HiOutlineKey className="text-2xl" />,
     path: "/dashboard/permissions",
+  },
+  {
+    name: "ValidatedDocuments",
+    icon: <MdOutlineDocumentScanner className="text-2xl" />,
+    path: "/dashboard/validatedDocuments",
   },
 ];
 

@@ -217,7 +217,8 @@
     "Jurisdiction":"Jurisdiction",
     "Users":"Users",
     "Roles":"Roles",
-    "Permissions":"Permissions"
+    "Permissions":"Permissions",
+    "ValidatedDocuments":"Validated Document"
   },
   "navBar":{
     "title":"Good Morning, Name",
@@ -580,6 +581,32 @@
       "cancel":"Cancel",
       "update":"Update"
     }
+  },
+  "validatedDocuments": {
+    "name": "Validated Documents",
+    "addValidatedDocument": {
+      "title": "Add Validated Document",
+      "label": "Document Name",
+      "placeHolder": "Enter validated document name",
+      "close": "Close",
+      "submit": "Submit"
+    },
+    "allValidatedDocuments": {
+      "name": "Document Name",
+      "actions": "Actions"
+    },
+    "deleteValidatedDocument": {
+      "title": "Confirm Deletion",
+      "paragraph1": "Are you sure you want to delete this validated document?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "updateValidatedDocument": {
+      "title": "Update Validated Document",
+      "label": "Document Name",
+      "placeHolder": "Enter validated document name",
+      "cancel": "Cancel",
+      "update": "Update"
+    }
   }
-  
 }

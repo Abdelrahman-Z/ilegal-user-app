@@ -217,7 +217,8 @@
   "Jurisdiction": "السلطة القضائية",
   "Users": "المستخدمين",
   "Roles": "الأدوار",
-  "Permissions": "الأذونات"
+  "Permissions": "الأذونات",
+  "ValidatedDocuments": "المستندات المعتمدة"
 },
 "navBar": {
     "title": "صباح الخير، الاسم",
@@ -566,5 +567,33 @@
   "cancel": "إلغاء",
   "update": "تحديث"
 }
+},
+"validatedDocuments": {
+  "name": "المستندات المعتمدة",
+  "addValidatedDocument": {
+    "title": "إضافة مستند معتمد",
+    "label": "اسم المستند",
+    "placeHolder": "أدخل اسم المستند المعتمد",
+    "close": "إغلاق",
+    "submit": "إرسال"
+  },
+  "allValidatedDocuments": {
+    "name": "اسم المستند",
+    "actions": "الإجراءات"
+  },
+  "deleteValidatedDocument": {
+    "title": "تأكيد الحذف",
+    "paragraph1": "هل أنت متأكد أنك تريد حذف هذا المستند المعتمد؟",
+    "cancel": "إلغاء",
+    "delete": "حذف"
+  },
+  "updateValidatedDocument": {
+    "title": "تحديث المستند المعتمد",
+    "label": "اسم المستند",
+    "placeHolder": "أدخل اسم المستند المعتمد",
+    "cancel": "إلغاء",
+    "update": "تحديث"
+  }
 }
+
 }

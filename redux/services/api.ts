@@ -9,7 +9,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["question", "jurisdictions", "users", "roles" , 'Template', 'Document', 'tokens', 'signDocuments'],
+  tagTypes: [
+    "question",
+    "jurisdictions",
+    "users",
+    "roles",
+    "Template",
+    "Document",
+    "tokens",
+    "signDocuments",
+  ],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     prepareHeaders: (headers) => {
@@ -242,59 +251,59 @@ export const api = createApi({
     // templates
     getTemplate: builder.query({
       query: (id) => `/templates/one/${id}`,
-      providesTags: ['Template'],
+      providesTags: ["Template"],
     }),
 
     // Get all templates
     getTemplates: builder.query({
-      query: () => '/templates/all',
-      providesTags: ['Template'],
+      query: () => "/templates/all",
+      providesTags: ["Template"],
     }),
 
     // Update template
     updateTemplate: builder.mutation({
       query: ({ id, body }) => ({
         url: `/templates/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         body,
       }),
-      invalidatesTags: ['Template'],
+      invalidatesTags: ["Template"],
     }),
     approveTemplate: builder.mutation({
-      query: ( id ) => ({
+      query: (id) => ({
         url: `/templates/approve/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
       }),
-      invalidatesTags: ['Template'],
+      invalidatesTags: ["Template"],
     }),
     rejectTemplate: builder.mutation({
       query: ({ id, body }) => ({
         url: `/templates/reject/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         body,
       }),
-      invalidatesTags: ['Template'],
+      invalidatesTags: ["Template"],
     }),
     // Delete template
     deleteTemplate: builder.mutation({
       query: (id) => ({
         url: `/templates/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Template'],
+      invalidatesTags: ["Template"],
     }),
     addTemplate: builder.mutation({
       query: (body) => ({
-        url: '/templates/tenants',
-        method: 'POST',
+        url: "/templates/tenants",
+        method: "POST",
         body,
       }),
-      invalidatesTags: ['Template'],
+      invalidatesTags: ["Template"],
     }),
     // preonfigured templates
     getPreConfiguredTemplates: builder.query({
-      query: ({ page = 1, limit = 10, name = '' }) => ({
-        url: '/pre-configured-template/all',
+      query: ({ page = 1, limit = 10, name = "" }) => ({
+        url: "/pre-configured-template/all",
         params: {
           page,
           limit,
@@ -306,15 +315,15 @@ export const api = createApi({
       query: (id) => ({
         url: `/pre-configured-template/one/${id}`,
       }),
-      providesTags: ['Template'],
+      providesTags: ["Template"],
     }),
     usePreConfiguredTemplate: builder.mutation({
-      query: ( templateId ) => ({
+      query: (templateId) => ({
         url: `/pre-configured-template/use`,
-        method: 'POST',
-        body: {templateId},
+        method: "POST",
+        body: { templateId },
       }),
-      invalidatesTags: ['Template'],
+      invalidatesTags: ["Template"],
     }),
     getUsedPreConfiguredTemplates: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
@@ -324,136 +333,136 @@ export const api = createApi({
           limit,
         },
       }),
-      providesTags: ['Template'],
+      providesTags: ["Template"],
     }),
     getAllTemplates: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
-        url: '/templates/all',
+        url: "/templates/all",
         params: {
           page,
           limit,
         },
       }),
-      providesTags: ['Template'],
+      providesTags: ["Template"],
     }),
-   
+
     // approved templates
     getApprovedTemplates: builder.query({
-      query: ({ page = 1, limit = 10}) => ({
-        url: '/templates/approved',
+      query: ({ page = 1, limit = 10 }) => ({
+        url: "/templates/approved",
         params: {
           page,
           limit,
           // name,
         },
       }),
-      providesTags: ['Template'],
+      providesTags: ["Template"],
     }),
     // pending templates
     getPendingTemplates: builder.query({
-      query: ({ page = 1, limit = 10}) => ({
-        url: '/templates/pending',
+      query: ({ page = 1, limit = 10 }) => ({
+        url: "/templates/pending",
         params: {
           page,
           limit,
           // name,
         },
       }),
-      providesTags: ['Template'],
+      providesTags: ["Template"],
     }),
     getRejectedTemplates: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
-        url: '/templates/rejected',
+        url: "/templates/rejected",
         params: {
           page,
           limit,
           // name,
         },
       }),
-      providesTags: ['Template'],
+      providesTags: ["Template"],
     }),
     getReviewersTemplates: builder.query({
       query: () => ({
-        url: '/templates/reviewers',
+        url: "/templates/reviewers",
       }),
     }),
     // DOCUMENTS
     getAllDocumentsTenant: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
-        url: '/document/all/tenant',
+        url: "/document/all/tenant",
         params: {
           page,
           limit,
         },
       }),
-      providesTags: ['Document'],
+      providesTags: ["Document"],
     }),
     getReviewersDocuments: builder.query({
       query: () => ({
-        url: '/document/reviewers',
+        url: "/document/reviewers",
       }),
     }),
     getPendingDocuments: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
-        url: '/document/pending',
+        url: "/document/pending",
         params: {
           page,
           limit,
         },
       }),
-      providesTags: ['Document'],
+      providesTags: ["Document"],
     }),
     getApprovedDocuments: builder.query({
       query: ({ page = 1, limit = 10 }) => ({
-        url: '/document/approved',
+        url: "/document/approved",
         params: {
           page,
           limit,
         },
       }),
-      providesTags: ['Document'],
+      providesTags: ["Document"],
     }),
     createDocument: builder.mutation({
-      query: ( body ) => ({
+      query: (body) => ({
         url: `/document`,
-        method: 'POST',
+        method: "POST",
         body,
       }),
-      invalidatesTags: ['Document'],
+      invalidatesTags: ["Document"],
     }),
     approveDocument: builder.mutation({
-      query: ( id ) => ({
+      query: (id) => ({
         url: `/document/approve/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
       }),
-      invalidatesTags: ['Document'],
+      invalidatesTags: ["Document"],
     }),
     rejectDocument: builder.mutation({
       query: ({ id, body }) => ({
         url: `/document/reject/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         body,
       }),
-      invalidatesTags: ['Document'],
+      invalidatesTags: ["Document"],
     }),
     deleteDocument: builder.mutation({
       query: (id) => ({
         url: `/document/${id}`,
-        method: 'DELETE',
+        method: "DELETE",
       }),
-      invalidatesTags: ['Document'],
+      invalidatesTags: ["Document"],
     }),
     getDocument: builder.query({
       query: (id) => `/document/one/${id}`,
-      providesTags: ['Document'],
+      providesTags: ["Document"],
     }),
     updateDocument: builder.mutation({
       query: ({ id, body }) => ({
         url: `/document/${id}`,
-        method: 'PATCH',
+        method: "PATCH",
         body,
       }),
-      invalidatesTags: ['Document'],
+      invalidatesTags: ["Document"],
     }),
     // Token endpoints
     createToken: builder.mutation({
@@ -500,7 +509,7 @@ export const api = createApi({
     }),
 
     getSignDocuments: builder.query({
-      query: ({page, limit}) => ({
+      query: ({ page, limit }) => ({
         url: `/signature?page=${page}&limit=${limit}`,
       }),
       providesTags: ["signDocuments"],
@@ -532,7 +541,14 @@ export const api = createApi({
       }),
       invalidatesTags: ["signDocuments"],
     }),
-
+    // docuemnt validate
+    createDocumentTransfer: builder.mutation({
+      query: (body) => ({
+        url: "/document-validate/send-otp",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -617,5 +633,7 @@ export const {
   useUpdateSignDocumentMutation,
   useDeleteSignDocumentMutation,
   // s3
-  useCreateS3Mutation
+  useCreateS3Mutation,
+  // document validate
+  useCreateDocumentTransferMutation
 } = api;
