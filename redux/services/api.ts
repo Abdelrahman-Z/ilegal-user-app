@@ -560,6 +560,7 @@ export const api = createApi({
       query: ({ id, otp }) => ({
         url: `/document-validate/convert/${id}/${otp}`, // Append OTP as query param
         method: "GET",
+        responseHandler: (response) => response.blob(), // Handle file as binary
       }),
     }),
   }),
