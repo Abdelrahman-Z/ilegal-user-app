@@ -3,7 +3,10 @@ import { usePreviewDocumentQuery } from "@/redux/services/api";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
+import SignaturePad from "react-signature-canvas";
 import { PDFDocument } from "pdf-lib";
+import { isFetchBaseQueryError } from "@/redux/store";
+import toast from "react-hot-toast";
 
 const Page = () => {
   const { id } = useParams();
@@ -12,7 +15,7 @@ const Page = () => {
 
   const { data, error, isLoading } = usePreviewDocumentQuery({ id, otp });
 
-  const [pdfUrl, setPdfUrl] = useState<string>('');
+  const [pdfUrl, setPdfUrl] = useState<string>("");
   const signatureRef = useRef<SignatureCanvas>(null);
 
   useEffect(() => {
@@ -26,13 +29,15 @@ const Page = () => {
 
   const handleSaveSignature = async () => {
     if (signatureRef.current && pdfUrl) {
-      const signatureDataUrl = signatureRef.current.getTrimmedCanvas().toDataURL("image/png");
-      const pdfBytes = await fetch(pdfUrl).then(res => res.arrayBuffer());
+      const signatureDataUrl = signatureRef.current
+        .getTrimmedCanvas()
+        .toDataURL("image/png");
+      const pdfBytes = await fetch(pdfUrl).then((res) => res.arrayBuffer());
       const pdfDoc = await PDFDocument.load(pdfBytes);
       const pngImage = await pdfDoc.embedPng(signatureDataUrl);
       const page = pdfDoc.getPage(0);
       const { width, height } = page.getSize();
-      
+
       page.drawImage(pngImage, {
         x: width / 2 - 50,
         y: height / 2 - 50,
@@ -48,7 +53,13 @@ const Page = () => {
   };
 
   if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error: {error.message}</div>;
+  if (error && isFetchBaseQueryError(error)) {
+    const errorMessage =
+      error.data && typeof error.data === "object" && "message" in error.data
+        ? (error.data as { message: string }).message
+        : "An error occurred. Please try again.";
+    toast.error(errorMessage);
+  }
 
   return (
     <div className="bg-[#333333] flex items-start h-screen">
@@ -62,12 +73,17 @@ const Page = () => {
 
       <div className="ml-5">
         <h2 className="text-white">Sign Here:</h2>
-        <SignatureCanvas
+        {/* @ts-expect-error type error */}
+        <SignaturePad
           ref={signatureRef}
-          penColor="black"
-          canvasProps={{ width: 300, height: 200, className: "signature-canvas" }}
+          canvasProps={{ className: "sigCanvas" }}
         />
-        <button onClick={handleSaveSignature} className="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Save Signature</button>
+        <button
+          onClick={handleSaveSignature}
+          className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Save Signature
+        </button>
       </div>
     </div>
   );
