@@ -549,6 +549,13 @@ export const api = createApi({
         body,
       }),
     }),
+    validateOtpForDocument: builder.mutation({
+      query: (body) => ({
+        url: "/document-validate/verify-otp",
+        method: "PATCH",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -635,5 +642,6 @@ export const {
   // s3
   useCreateS3Mutation,
   // document validate
-  useCreateDocumentTransferMutation
+  useCreateDocumentTransferMutation,
+  useValidateOtpForDocumentMutation
 } = api;
