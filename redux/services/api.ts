@@ -556,6 +556,12 @@ export const api = createApi({
         body,
       }),
     }),
+    previewDocument: builder.query({
+      query: ({ id, otp }) => ({
+        url: `/document-validate/convert/${id}/${otp}`, // Append OTP as query param
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -643,5 +649,6 @@ export const {
   useCreateS3Mutation,
   // document validate
   useCreateDocumentTransferMutation,
-  useValidateOtpForDocumentMutation
+  useValidateOtpForDocumentMutation,
+  usePreviewDocumentQuery,
 } = api;
