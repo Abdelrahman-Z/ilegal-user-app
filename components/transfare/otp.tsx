@@ -37,7 +37,7 @@ export const Otp = () => {
       try {
         const response = await verifyOtp({ otp: data.otp }).unwrap();
         toast.success("OTP verified successfully.");
-        router.push(`/transfare/${response.documentId}`)
+        router.push(`/transfare/${response.documentId}?otp=${data.otp}`)
       } catch (err) {
         console.error("OTP verification failed:", err); // Handle OTP verification error
       }
