@@ -422,6 +422,16 @@ export const api = createApi({
       }),
       providesTags: ["Document"],
     }),
+    getRejectedDocuments: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: "/document/rejected",
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ["Document"],
+    }),
     createDocument: builder.mutation({
       query: (body) => ({
         url: `/document`,
@@ -651,6 +661,7 @@ export const {
   useGetDocumentQuery,
   useUpdateDocumentMutation,
   useGetReviewersDocumentsQuery,
+  useGetRejectedDocumentsQuery,
   // Token endpoints
   useCreateTokenMutation,
   useGetTokensQuery,

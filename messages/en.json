@@ -229,7 +229,8 @@
     "name": "My Documents",
     "myDocuments": "My Documents",
     "approved": "Approved",
-    "pending": "Pending"
+    "pending": "Pending",
+    "rejected": "Rejected"
   },
   "addDocument": {
     "buttonName": "Create New Document",
@@ -285,6 +286,13 @@
     "view": "View"
   },
   "pending": {
+    "loading": "Loading documents...",
+    "error": "Error loading documents.",
+    "name": "document Name",
+    "language": "Language",
+    "view": "View"
+  },
+  "rejected": {
     "loading": "Loading documents...",
     "error": "Error loading documents.",
     "name": "document Name",

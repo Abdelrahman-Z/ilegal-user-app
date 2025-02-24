@@ -6,6 +6,7 @@ import { Pending } from "@/components/dashboard/documents/Pending";
 import { Approved } from "@/components/dashboard/documents/Approved";
 import { Tab, Tabs } from "@heroui/react";
 import { useTranslations } from "next-intl";
+import { Rejected } from "@/components/dashboard/documents/Rejected";
 
 export default function Page() {
     const t = useTranslations("document");
@@ -41,6 +42,9 @@ export default function Page() {
           {/* Pending Documents*/}
           <Tab className="w-full flex-1" key="pinding" title={t("pending")}>
             <Pending />
+          </Tab>
+          <Tab className="w-full flex-1" key="rejected" title={t("rejected")}>
+            <Rejected />
           </Tab>
         </Tabs>
       </div>
