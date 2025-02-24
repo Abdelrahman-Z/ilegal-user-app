@@ -4,7 +4,7 @@ import { CreateDocument } from "@/components/dashboard/documents/AddDocument";
 import { MyDocuments } from "@/components/dashboard/documents/MyDocuments";
 import { Pending } from "@/components/dashboard/documents/Pending";
 import { Approved } from "@/components/dashboard/documents/Approved";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 export default function Page() {

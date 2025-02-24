@@ -1,7 +1,7 @@
 "use client";
 
 import store from "@/redux/store";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import React, { ReactNode } from "react";
 import { Provider } from "react-redux";
@@ -19,11 +19,11 @@ const Providers: React.FC<ProvidersProps> = ({
 }) => {
   return (
     <Provider store={store}>
-      <NextUIProvider>
+      <HeroUIProvider>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
-      </NextUIProvider>
+      </HeroUIProvider>
     </Provider>
   );
 };

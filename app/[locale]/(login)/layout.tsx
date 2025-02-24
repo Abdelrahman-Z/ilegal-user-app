@@ -1,7 +1,7 @@
 "use client";
 import Footer from "@/components/commercial-app/Footer";
 import Header from "@/components/commercial-app/Navbar";
-import { cn } from "@nextui-org/react";
+import { cn } from "@heroui/react";
 import React from "react";
 
 const page = ({ children }: { children: React.ReactNode }) => {

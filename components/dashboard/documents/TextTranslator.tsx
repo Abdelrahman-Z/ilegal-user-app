@@ -1,4 +1,4 @@
-import { Button, Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@heroui/react";
 import { DecoupledEditor } from "ckeditor5";
 import { useTranslateMutation } from "@/redux/services/api";
 import toast from "react-hot-toast";
@@ -103,7 +103,7 @@ export const TextTranslator = ({ editorInstance }: TextTranslatorProps) => {
             className="max-w-xs"
           >
             {languages.map((lang) => (
-              <SelectItem key={lang.value} value={lang.value}>
+              <SelectItem key={lang.value} textValue={lang.value}>
                 {lang.label}
               </SelectItem>
             ))}
@@ -122,7 +122,7 @@ export const TextTranslator = ({ editorInstance }: TextTranslatorProps) => {
             className="max-w-xs"
           >
             {languages.map((lang) => (
-              <SelectItem key={lang.value} value={lang.value}>
+              <SelectItem key={lang.value} textValue={lang.value}>
                 {lang.label}
               </SelectItem>
             ))}

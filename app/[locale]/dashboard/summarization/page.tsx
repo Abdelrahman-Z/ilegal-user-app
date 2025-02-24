@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Tabs, Tab } from "@nextui-org/react";
+import { Tabs, Tab } from "@heroui/react";
 import { StaticComponent } from "@/components/dashboard/summrization/static";
 import { DynamicComponent } from "@/components/dashboard/summrization/dynamic";
 import { AddQuestion } from "@/components/dashboard/summrization/addQuestion";

@@ -10,7 +10,7 @@ import {
   ModalFooter,
   useDisclosure,
   ModalContent,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

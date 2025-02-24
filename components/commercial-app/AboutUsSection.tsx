@@ -1,6 +1,6 @@
 import React from "react";
 import SectionTitle from "./SectionTitle";
-import { Button, Divider } from "@nextui-org/react";
+import { Button, Divider } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 const AboutUsSection = () => {

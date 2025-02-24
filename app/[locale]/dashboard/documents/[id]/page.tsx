@@ -7,7 +7,7 @@ import { DocumentEditor } from "@/components/dashboard/documents/DocumentEditor"
 import { TranslationForm } from "@/components/dashboard/documents/TranslationForm";
 import { TextTranslator } from "@/components/dashboard/documents/TextTranslator";
 import { DecoupledEditor } from "ckeditor5";
-import { Accordion, AccordionItem } from "@nextui-org/react";
+import { Accordion, AccordionItem } from "@heroui/react";
 
 const Page = () => {
   const { id } = useParams();

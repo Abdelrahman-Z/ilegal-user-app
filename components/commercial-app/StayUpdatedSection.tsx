@@ -1,6 +1,6 @@
 import React from "react";
 import SectionTitle from "./SectionTitle";
-import { Button, Divider, Input } from "@nextui-org/react";
+import { Button, Divider, Input } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 const StayUpdatedSection = () => {

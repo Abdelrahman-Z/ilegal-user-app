@@ -7,8 +7,8 @@ import {
   ModalFooter,
   Button,
   Input,
-} from "@nextui-org/react";
-import { useDisclosure } from "@nextui-org/react";
+} from "@heroui/react";
+import { useDisclosure } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

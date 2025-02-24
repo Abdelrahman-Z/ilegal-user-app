@@ -1,5 +1,5 @@
 "use client";
-import { Button, Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Editor } from "@/components/dashboard/editor/Editor";
@@ -141,7 +141,7 @@ const Page = () => {
                       onSelectionChange={(value) => field.onChange(value.currentKey)}
                     >
                       {signDocuments?.data.map((sig: { id: string; signName: string }) => (
-                        <SelectItem key={sig.id} value={sig.id}>
+                        <SelectItem key={sig.id} textValue={sig.id}>
                           {sig.signName}
                         </SelectItem>
                       ))}

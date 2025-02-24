@@ -2,7 +2,7 @@
 
 import React from "react";
 import Header from "./Navbar";
-import { Button, cn } from "@nextui-org/react";
+import { Button, cn } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";

@@ -10,7 +10,7 @@ import {
   Select,
   SelectItem,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";

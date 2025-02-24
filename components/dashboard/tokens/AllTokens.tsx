@@ -9,7 +9,7 @@ import {
   TableCell,
   Pagination,
   Spinner,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useGetTokensQuery } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { UpdateToken } from "./UpdateTokens";

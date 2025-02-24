@@ -10,7 +10,7 @@ import {
   useDisclosure,
   Select,
   SelectItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -147,10 +147,10 @@ export const CreateTemplate = () => {
                     )
                   }
                 >
-                  <SelectItem key="ENGLISH" value="ENGLISH">
+                  <SelectItem key="ENGLISH" textValue="ENGLISH">
                   {t("language.english")}
                   </SelectItem>
-                  <SelectItem key="ARABIC" value="ARABIC">
+                  <SelectItem key="ARABIC" textValue="ARABIC">
                   {t("language.arabic")}
                   </SelectItem>
                 </Select>
@@ -175,7 +175,7 @@ export const CreateTemplate = () => {
                 >
                   {reviewerData &&
                     reviewerData.map((reviewer: { id: string; userName: string }) => (
-                      <SelectItem key={reviewer.id} value={reviewer.id}>
+                      <SelectItem key={reviewer.id} textValue={reviewer.id}>
                         {reviewer.userName}
                       </SelectItem>
                     ))}

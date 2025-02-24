@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import OTPInput from "react-otp-input";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useParams, useRouter } from "next/navigation"; // Import Next.js router
 import { useVerifyOtpMutation } from "@/redux/services/api"; // Import your OTP verification mutation hook
 import { isFetchBaseQueryError } from "@/redux/store";

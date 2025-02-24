@@ -2,7 +2,7 @@
 import { useValidateOtpForDocumentMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";

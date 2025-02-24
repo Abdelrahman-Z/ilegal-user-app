@@ -1,4 +1,4 @@
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { Editor } from "@/components/dashboard/editor/Editor";
 import { DecoupledEditor } from "ckeditor5";
 import { useUpdateDocumentMutation } from "@/redux/services/api";

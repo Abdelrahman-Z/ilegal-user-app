@@ -2,7 +2,7 @@
 
 import { TranslateFile } from "@/components/dashboard/translation/TranslateFile";
 import { Static } from "@/components/dashboard/translation/TranslateText";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import React from "react";
 import { useTranslations } from "next-intl";
 

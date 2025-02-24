@@ -7,7 +7,7 @@ import {
   Image,
   Pagination,
   Link,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import {
   useGetAllTemplatesQuery,
 } from "@/redux/services/api";

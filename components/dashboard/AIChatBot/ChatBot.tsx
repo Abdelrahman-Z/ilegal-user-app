@@ -5,7 +5,7 @@ import {
   ModalBody,
   Button,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 export function ChatBot() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

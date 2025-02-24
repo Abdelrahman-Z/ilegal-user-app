@@ -2,7 +2,7 @@
 
 import Footer from "@/components/commercial-app/Footer";
 import Header from "@/components/commercial-app/Navbar";
-import { Button, cn } from "@nextui-org/react";
+import { Button, cn } from "@heroui/react";
 import React from "react";
 import { useTranslations } from "next-intl"; 
 

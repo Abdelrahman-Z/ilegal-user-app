@@ -10,7 +10,7 @@ import {
   Pagination,
   Spinner,
   Avatar,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useGetUsersQuery } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { User } from "@/types";

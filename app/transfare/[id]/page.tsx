@@ -6,7 +6,7 @@ import SignatureCanvas from "react-signature-canvas";
 import { PDFDocument } from "pdf-lib";
 import { isFetchBaseQueryError } from "@/redux/store";
 import toast from "react-hot-toast";
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@heroui/react";
 
 const Page = () => {
   const { id } = useParams();
@@ -30,8 +30,6 @@ const Page = () => {
       reader.onload = async () => {
         if (reader.result instanceof ArrayBuffer) {
           setPdfBytes(reader.result);
-          
-          // Get page count
           try {
             const pdfDoc = await PDFDocument.load(reader.result);
             setPageCount(pdfDoc.getPageCount());
@@ -116,7 +114,7 @@ const Page = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Spinner color="default" label="please wait ...Dont Refresh Your Page" labelColor="foreground" />
+        <Spinner color="default" label="please wait ...Dont Refresh Your Page" labelColor="primary" />
       </div>
     );
   }

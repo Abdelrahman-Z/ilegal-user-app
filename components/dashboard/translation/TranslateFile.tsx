@@ -10,7 +10,7 @@ import {
   SelectItem,
   useDisclosure,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -154,10 +154,10 @@ export const TranslateFile = () => {
                         )
                       }
                     >
-                      <SelectItem key="en" value="ar">
+                      <SelectItem key="en" textValue="ar">
                       {t("file.english")}
                       </SelectItem>
-                      <SelectItem key="ar" value="ar">
+                      <SelectItem key="ar" textValue="ar">
                       {t("file.arabic")}
                       </SelectItem>
                     </Select>
@@ -181,10 +181,10 @@ export const TranslateFile = () => {
                         setValue("target_lang", value.currentKey as "en" | "ar")
                       }
                     >
-                      <SelectItem key="en" value="en">
+                      <SelectItem key="en" textValue="en">
                       {t("file.english")}
                       </SelectItem>
-                      <SelectItem key="ar" value="ar">
+                      <SelectItem key="ar" textValue="ar">
                       {t("file.arabic")}
                       </SelectItem>
                     </Select>

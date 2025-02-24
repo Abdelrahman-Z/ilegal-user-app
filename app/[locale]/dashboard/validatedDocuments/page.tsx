@@ -1,7 +1,7 @@
 "use client";
 
 import { AddValidatedDocument } from "@/components/dashboard/validatedDocuments/AddValidatedDocument";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 export default function Page() {

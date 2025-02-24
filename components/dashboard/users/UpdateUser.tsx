@@ -9,7 +9,7 @@ import {
   Input,
   useDisclosure,
   Avatar,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

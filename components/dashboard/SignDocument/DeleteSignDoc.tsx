@@ -6,7 +6,7 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useDeleteSignDocumentMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { MdDelete } from "react-icons/md";

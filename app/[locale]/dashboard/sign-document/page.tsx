@@ -3,7 +3,7 @@
 import { Approved } from "@/components/dashboard/documents/Approved";
 import { AddSignDocument } from "@/components/dashboard/SignDocument/AddSignDoc";
 import { AllSignDocuments } from "@/components/dashboard/SignDocument/AllSignDoc";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 
 export default function Page() {
   return (

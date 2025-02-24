@@ -7,7 +7,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Input,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import React from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
 import { useTranslations } from "next-intl";

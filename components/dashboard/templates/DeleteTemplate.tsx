@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";

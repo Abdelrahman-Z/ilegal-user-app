@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "@nextui-org/react";
+import { Switch } from "@heroui/react";
 import { usePatchUserStatusMutation } from "@/redux/services/api";
 
 const ToggleUserStatus = ({ userId, isActive }: { userId: string; isActive: boolean }) => {

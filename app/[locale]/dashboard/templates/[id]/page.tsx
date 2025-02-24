@@ -1,5 +1,5 @@
 "use client";
-import { Button, Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Editor } from "@/components/dashboard/editor/Editor";
@@ -158,7 +158,7 @@ const Page = () => {
                   >
                     {tokendata?.data.map(
                       (token: { id: string; keyWord: string }) => (
-                        <SelectItem key={token.id} value={token.keyWord}>
+                        <SelectItem key={token.id} textValue={token.keyWord}>
                           {token.keyWord}
                         </SelectItem>
                       )

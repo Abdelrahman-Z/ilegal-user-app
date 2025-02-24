@@ -7,7 +7,7 @@ import {
   Image,
   Pagination,
   Link,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useGetPreConfiguredTemplatesQuery } from "@/redux/services/api";
 import { usePathname } from "next/navigation";
 import { Template } from "@/types";

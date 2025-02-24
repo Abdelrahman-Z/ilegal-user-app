@@ -10,7 +10,7 @@ import {
   Checkbox,
   Input,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import {
   useLazyGetPermissionsQuery,
   useUpdateRolePermissionsMutation,

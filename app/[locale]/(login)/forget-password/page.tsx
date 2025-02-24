@@ -3,7 +3,7 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Input, Button } from "@nextui-org/react";
+import { Input, Button } from "@heroui/react";
 import { useForgetPasswordMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import {  useParams, useRouter } from "next/navigation";

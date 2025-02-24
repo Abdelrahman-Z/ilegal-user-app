@@ -10,7 +10,7 @@ import {
   SelectItem,
   Textarea,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -145,10 +145,10 @@ export const Static = () => {
                         )
                       }
                     >
-                      <SelectItem key="en" value="en">
+                      <SelectItem key="en" textValue="en">
                       {t("text.english")}
                       </SelectItem>
-                      <SelectItem key="ar" value="ar">
+                      <SelectItem key="ar" textValue="ar">
                       {t("text.arabic")}
                       </SelectItem>
                     </Select>
@@ -172,10 +172,10 @@ export const Static = () => {
                         setValue("target_lang", value.currentKey as "en" | "ar")
                       }
                     >
-                      <SelectItem key="en" value="en">
+                      <SelectItem key="en" textValue="en">
                       {t("text.english")}
                       </SelectItem>
-                      <SelectItem key="ar" value="ar">
+                      <SelectItem key="ar" textValue="ar">
                       {t("text.arabic")}
                       </SelectItem>
                     </Select>

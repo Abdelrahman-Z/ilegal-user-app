@@ -6,7 +6,7 @@ import { MyTemplates } from "@/components/dashboard/templates/MyTemplates";
 import { Pending } from "@/components/dashboard/templates/Pending";
 import { Approved } from "@/components/dashboard/templates/Approved";
 import { Rejected } from "@/components/dashboard/templates/Rejected";
-import { Tab, Tabs } from "@nextui-org/react";
+import { Tab, Tabs } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 export default function Page() {

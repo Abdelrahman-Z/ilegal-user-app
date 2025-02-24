@@ -9,7 +9,7 @@ import {
   ModalFooter,
   useDisclosure,
   ModalContent,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSubmitDynamicFormMutation } from "@/redux/services/api";
 import { formatObjectToMarkdown } from "@/utils";

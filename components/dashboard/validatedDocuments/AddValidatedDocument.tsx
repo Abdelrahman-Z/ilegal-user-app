@@ -13,7 +13,7 @@ import {
   Select,
   SelectItem,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useCreateDocumentTransferMutation, useGetApprovedDocumentsQuery } from "@/redux/services/api"; // Assuming this hook exists
 import { Document } from "@/types";
 import toast from "react-hot-toast";
@@ -117,7 +117,7 @@ export const AddValidatedDocument = () => {
                   }
                 >
                   {approvedDocuments?.data?.map((doc: Document) => (
-                    <SelectItem key={doc.id} value={doc.id}>
+                    <SelectItem key={doc.id} textValue={doc.id}>
                       {doc.name}
                     </SelectItem>
                   )) || []}

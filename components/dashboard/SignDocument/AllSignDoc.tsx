@@ -10,7 +10,7 @@ import {
   Pagination,
   Spinner,
   Image
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useGetSignDocumentsQuery } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { UpdateSignDocument } from "./UpdateSignDoc";

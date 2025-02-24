@@ -8,7 +8,7 @@ import {
   Pagination,
   Link,
   Button,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import {
   useGetPendingDocumentsQuery,
   useApproveDocumentMutation,

@@ -10,7 +10,7 @@ import {
   useDisclosure,
   Select,
   SelectItem,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -165,7 +165,7 @@ export const CreateDocument = () => {
                 >
                   {jurisdictionData?.data?.map(
                     (jurisdiction: { id: string; name: string }) => (
-                      <SelectItem key={jurisdiction.id} value={jurisdiction.id}>
+                      <SelectItem key={jurisdiction.id} textValue={jurisdiction.id}>
                         {jurisdiction.name}
                       </SelectItem>
                     )
@@ -197,7 +197,7 @@ export const CreateDocument = () => {
                 >
                   {templatesData?.data.map(
                     (template: { id: string; name: string }) => (
-                      <SelectItem key={template.id} value={template.id}>
+                      <SelectItem key={template.id} textValue={template.id}>
                         {template.name}
                       </SelectItem>
                     )
@@ -205,7 +205,7 @@ export const CreateDocument = () => {
 
                   {pretemplatesData?.data.map(
                     (pretemplate: { id: string; name: string }) => (
-                      <SelectItem key={pretemplate.id} value={pretemplate.id}>
+                      <SelectItem key={pretemplate.id} textValue={pretemplate.id}>
                         {pretemplate.name}
                       </SelectItem>
                     )
@@ -235,10 +235,10 @@ export const CreateDocument = () => {
                     )
                   }
                 >
-                  <SelectItem key="ENGLISH" value="ENGLISH">
+                  <SelectItem key="ENGLISH" textValue="ENGLISH">
                   {t("language.english")}
                   </SelectItem>
-                  <SelectItem key="ARABIC" value="ARABIC">
+                  <SelectItem key="ARABIC" textValue="ARABIC">
                   {t("language.arabic")}
                   </SelectItem>
                 </Select>
@@ -264,7 +264,7 @@ export const CreateDocument = () => {
                   {reviewerData &&
                     reviewerData.map(
                       (reviewer: { id: string; userName: string }) => (
-                        <SelectItem key={reviewer.id} value={reviewer.id}>
+                        <SelectItem key={reviewer.id} textValue={reviewer.id}>
                           {reviewer.userName}
                         </SelectItem>
                       )
