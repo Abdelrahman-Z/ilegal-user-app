@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardHeader,
@@ -7,13 +7,10 @@ import {
   Image,
   Pagination,
   Link,
-  Button,
   Spinner,
 } from "@heroui/react";
 import { useGetRejectedDocumentsQuery } from "@/redux/services/api"; // New hook for rejected documents
 import { usePathname } from "next/navigation";
-import toast from "react-hot-toast";
-import { isFetchBaseQueryError } from "@/redux/store";
 import { Document } from '../../../types';
 import { useTranslations } from "next-intl";
 import DeleteDocument from "./DeleteDocument";
