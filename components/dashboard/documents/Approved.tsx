@@ -7,6 +7,7 @@ import {
   Image,
   Pagination,
   Link,
+  Spinner,
 } from "@heroui/react";
 import {
   useGetApprovedDocumentsQuery,
@@ -45,7 +46,11 @@ export const Approved = ({pageName} : {pageName:string}) => {
     setPage(1);
   }, [debouncedSearchTerm]);
 
-  if (isLoading) return <p>{t("loading")}</p>;
+  if (isLoading) return (
+    <div className="flex items-center justify-center h-full w-full bg-white ">
+      <Spinner size="lg" label={t('loading')} color="primary"/>
+    </div>
+  );;
   if (error) return <p>{t("error")}</p>;
 
   const documents = data?.data || [];

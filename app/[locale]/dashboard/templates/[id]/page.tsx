@@ -1,5 +1,5 @@
 "use client";
-import { Button, Select, SelectItem } from "@heroui/react";
+import { Button, Select, SelectItem, Spinner } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Editor } from "@/components/dashboard/editor/Editor";
@@ -94,7 +94,11 @@ const Page = () => {
     return <div>{t("error1")}</div>;
   }
 
-  if (isLoading) return <div>{t("loading")}</div>;
+  if (isLoading)  return (
+    <div className="flex items-center justify-center h-full w-full bg-white ">
+      <Spinner size="lg" label={t('loading')} color="primary"/>
+    </div>
+  );;
   if (error) return <div>{t("error2")}: {JSON.stringify(error)}</div>;
 
   return (

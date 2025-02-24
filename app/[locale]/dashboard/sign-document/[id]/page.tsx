@@ -1,5 +1,5 @@
 "use client";
-import { Button, Select, SelectItem } from "@heroui/react";
+import { Button, Select, SelectItem, Spinner } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Editor } from "@/components/dashboard/editor/Editor";
@@ -15,6 +15,7 @@ import { ViewDocument } from "@/components/dashboard/documents/ViewDocument";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, Controller } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 // **Yup Validation Schema**
 const schema = yup.object().shape({
@@ -25,6 +26,8 @@ const schema = yup.object().shape({
 type FormValues = yup.InferType<typeof schema>;
 
 const Page = () => {
+  const t = useTranslations("templates");
+
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(true);
   const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(null);
@@ -106,7 +109,11 @@ const Page = () => {
   };
 
   if (!id) return <div>Error: Invalid or missing UUID.</div>;
-  if (documentLoading) return <div>Loading...</div>;
+  if (documentLoading) return (
+    <div className="flex items-center justify-center h-full w-full bg-white ">
+      <Spinner size="lg" label={t('loading')} color="primary"/>
+    </div>
+  );;
   if (documentError) return <div>Error loading Document: {JSON.stringify(documentError)}</div>;
 
   return (

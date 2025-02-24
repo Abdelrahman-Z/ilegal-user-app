@@ -7,9 +7,12 @@ import { DocumentEditor } from "@/components/dashboard/documents/DocumentEditor"
 import { TranslationForm } from "@/components/dashboard/documents/TranslationForm";
 import { TextTranslator } from "@/components/dashboard/documents/TextTranslator";
 import { DecoupledEditor } from "ckeditor5";
-import { Accordion, AccordionItem } from "@heroui/react";
+import { Accordion, AccordionItem, Spinner } from "@heroui/react";
+import { useTranslations } from "next-intl";
 
 const Page = () => {
+  const t = useTranslations("templates");
+
   const { id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editorInstance, setEditorInstance] = useState<DecoupledEditor | null>(
@@ -25,7 +28,11 @@ const Page = () => {
   if (!id) {
     return <div>Error: Invalid or missing UUID.</div>;
   }
-  if (documentLoading) return <div>Loading...</div>;
+  if (documentLoading) return (
+    <div className="flex items-center justify-center h-full w-full bg-white ">
+      <Spinner size="lg" label={t('loading')} color="primary"/>
+    </div>
+  );
   if (documentError)
     return <div>Error loading Document: {JSON.stringify(documentError)}</div>;
 

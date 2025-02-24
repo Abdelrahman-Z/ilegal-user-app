@@ -3,6 +3,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useGetPreConfiguredOneTemplatesQuery } from "@/redux/services/api";
 import { useTranslations } from "next-intl";
+import { Spinner } from "@heroui/react";
 
 
 const Page = () => {
@@ -16,7 +17,11 @@ const Page = () => {
   }
 
 
-  if (isLoading) return <div>{t("loading")}</div>;
+  if (isLoading) return (
+    <div className="flex items-center justify-center h-full w-full bg-white ">
+      <Spinner size="lg" label={t('loading')} color="primary"/>
+    </div>
+  );;
   if (error) return <div> {t("error2")} {JSON.stringify(error)}</div>;
 
   return (

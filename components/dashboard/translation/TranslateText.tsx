@@ -60,23 +60,7 @@ export const Static = () => {
     try {
       const response = await translate(data).unwrap();
       console.log(response);
-      // console.log("Translated Text:", response); // Log the plain text response
-      // setStreamedResponse(response);
 
-      // let wordIndex = 0;
-      // const words = response.split(" ");
-      // console.log(words)
-      // // Simulate a streaming effect
-      // const streamSummary = () => {
-      //   console.log(words.at(-1))
-      //   if (wordIndex < words.length) {
-      //     setStreamedResponse((prev) => prev + " " + words[wordIndex]);
-      //     wordIndex++;
-      //     setTimeout(streamSummary, 100); // Adjust delay as needed
-      //   }
-      // };
-
-      // streamSummary();
       onClose();
       reset();
     } catch (error) {
