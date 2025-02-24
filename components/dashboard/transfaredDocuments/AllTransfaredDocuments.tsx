@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
   Card,
   CardHeader,
-  CardFooter,
   Pagination,
   Button,
   Spinner,

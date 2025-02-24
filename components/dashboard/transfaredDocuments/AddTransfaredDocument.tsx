@@ -49,6 +49,7 @@ export const AddValidatedDocument = () => {
       reset();
       onClose();
     } catch (error) {
+      console.log(error);
       toast.error(t("error")); // Using translation for error message
     }
   });

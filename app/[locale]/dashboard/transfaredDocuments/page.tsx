@@ -2,7 +2,6 @@
 
 import { AddValidatedDocument } from "@/components/dashboard/transfaredDocuments/AddTransfaredDocument";
 import { AllTransfaredDocuments } from "@/components/dashboard/transfaredDocuments/AllTransfaredDocuments";
-import { Tab, Tabs } from "@heroui/react";
 import { useTranslations } from "next-intl";
 
 export default function Page() {
