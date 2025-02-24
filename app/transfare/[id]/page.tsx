@@ -6,6 +6,7 @@ import SignatureCanvas from "react-signature-canvas";
 import { PDFDocument } from "pdf-lib";
 import { isFetchBaseQueryError } from "@/redux/store";
 import toast from "react-hot-toast";
+import { Spinner } from "@nextui-org/react";
 
 const Page = () => {
   const { id } = useParams();
@@ -112,7 +113,13 @@ const Page = () => {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner color="default" label="please wait ...Dont Refresh Your Page" labelColor="foreground" />
+      </div>
+    );
+  }
   
   if (error && isFetchBaseQueryError(error)) {
     const errorMessage =
