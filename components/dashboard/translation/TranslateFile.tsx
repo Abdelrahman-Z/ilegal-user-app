@@ -154,10 +154,10 @@ export const TranslateFile = () => {
                         )
                       }
                     >
-                      <SelectItem key="en" textValue="ar">
+                      <SelectItem key="en">
                       {t("file.english")}
                       </SelectItem>
-                      <SelectItem key="ar" textValue="ar">
+                      <SelectItem key="ar">
                       {t("file.arabic")}
                       </SelectItem>
                     </Select>
@@ -181,10 +181,10 @@ export const TranslateFile = () => {
                         setValue("target_lang", value.currentKey as "en" | "ar")
                       }
                     >
-                      <SelectItem key="en" textValue="en">
+                      <SelectItem key="en">
                       {t("file.english")}
                       </SelectItem>
-                      <SelectItem key="ar" textValue="ar">
+                      <SelectItem key="ar">
                       {t("file.arabic")}
                       </SelectItem>
                     </Select>

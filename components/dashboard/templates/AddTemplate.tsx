@@ -147,10 +147,10 @@ export const CreateTemplate = () => {
                     )
                   }
                 >
-                  <SelectItem key="ENGLISH" textValue="ENGLISH">
+                  <SelectItem key="ENGLISH">
                   {t("language.english")}
                   </SelectItem>
-                  <SelectItem key="ARABIC" textValue="ARABIC">
+                  <SelectItem key="ARABIC">
                   {t("language.arabic")}
                   </SelectItem>
                 </Select>
@@ -175,7 +175,7 @@ export const CreateTemplate = () => {
                 >
                   {reviewerData &&
                     reviewerData.map((reviewer: { id: string; userName: string }) => (
-                      <SelectItem key={reviewer.id} textValue={reviewer.id}>
+                      <SelectItem key={reviewer.id}>
                         {reviewer.userName}
                       </SelectItem>
                     ))}

@@ -117,7 +117,7 @@ export const AddValidatedDocument = () => {
                   }
                 >
                   {approvedDocuments?.data?.map((doc: Document) => (
-                    <SelectItem key={doc.id} textValue={doc.id}>
+                    <SelectItem key={doc.id}>
                       {doc.name}
                     </SelectItem>
                   )) || []}

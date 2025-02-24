@@ -148,7 +148,7 @@ const Page = () => {
                       onSelectionChange={(value) => field.onChange(value.currentKey)}
                     >
                       {signDocuments?.data.map((sig: { id: string; signName: string }) => (
-                        <SelectItem key={sig.id} textValue={sig.id}>
+                        <SelectItem key={sig.id}>
                           {sig.signName}
                         </SelectItem>
                       ))}

@@ -162,7 +162,7 @@ const Page = () => {
                   >
                     {tokendata?.data.map(
                       (token: { id: string; keyWord: string }) => (
-                        <SelectItem key={token.id} textValue={token.keyWord}>
+                        <SelectItem key={token.id}>
                           {token.keyWord}
                         </SelectItem>
                       )

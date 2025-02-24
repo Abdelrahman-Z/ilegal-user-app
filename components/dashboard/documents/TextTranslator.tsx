@@ -103,7 +103,7 @@ export const TextTranslator = ({ editorInstance }: TextTranslatorProps) => {
             className="max-w-xs"
           >
             {languages.map((lang) => (
-              <SelectItem key={lang.value} textValue={lang.value}>
+              <SelectItem key={lang.value}>
                 {lang.label}
               </SelectItem>
             ))}
@@ -122,7 +122,7 @@ export const TextTranslator = ({ editorInstance }: TextTranslatorProps) => {
             className="max-w-xs"
           >
             {languages.map((lang) => (
-              <SelectItem key={lang.value} textValue={lang.value}>
+              <SelectItem key={lang.value}>
                 {lang.label}
               </SelectItem>
             ))}
