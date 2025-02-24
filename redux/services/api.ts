@@ -575,6 +575,9 @@ export const api = createApi({
         body,
       }),
     }),
+    getAllTransferredDocuments: builder.query({
+      query: ({ page, limit }) => `/document/transferred?page=${page}&limit=${limit}`,
+    }),
   }),
 });
 
@@ -665,4 +668,5 @@ export const {
   useValidateOtpForDocumentMutation,
   usePreviewDocumentQuery,
   useDocumentTransfareToTenantMutation,
+  useGetAllTransferredDocumentsQuery,
 } = api;

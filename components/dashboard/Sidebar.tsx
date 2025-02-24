@@ -66,9 +66,9 @@ const navLinks = [
     path: "/dashboard/permissions",
   },
   {
-    name: "ValidatedDocuments",
+    name: "transfaredDocuments",
     icon: <MdOutlineDocumentScanner className="text-2xl" />,
-    path: "/dashboard/validatedDocuments",
+    path: "/dashboard/transfaredDocuments",
   },
 ];
 

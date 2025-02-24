@@ -122,10 +122,10 @@
       }
     }
   },
-  "team":{
-    "hero":{
-      "title":"Our Team",
-      "description":"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+  "team": {
+    "hero": {
+      "title": "Our Team",
+      "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
     },
     "overview": {
       "title1": "Service With A Smile",
@@ -167,432 +167,436 @@
         }
       }
     },
-    "client":{
+    "client": {
       "title1": "WHAT PEOPLE SAY ABOUT US",
       "title2": "Client Testimonials",
       "paragraph1": "t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      "name":"Name",
-      "paragraph2":"it has survived"
+      "name": "Name",
+      "paragraph2": "it has survived"
     }
   },
-  "pricing":{
-    "hero":{
-      "title1":"Choose Your",
-      "title2":"Pricing Plan"
+  "pricing": {
+    "hero": {
+      "title1": "Choose Your",
+      "title2": "Pricing Plan"
     },
-    "basic":{
-      "title":"Basic Plan",
-      "description":"A basic plan suitable for small businesses and individuals starting out.",
-      "price":"$9.99",
-      "button":"Continue"
+    "basic": {
+      "title": "Basic Plan",
+      "description": "A basic plan suitable for small businesses and individuals starting out.",
+      "price": "$9.99",
+      "button": "Continue"
     },
-    "premium":{
-      "title":"Premium Plan",
-      "description":"A premium plan for established businesses that require advanced features.",
-      "price":"$19.99",
-      "button":"Continue"
+    "premium": {
+      "title": "Premium Plan",
+      "description": "A premium plan for established businesses that require advanced features.",
+      "price": "$19.99",
+      "button": "Continue"
     }
   },
-  "contactUs":{
-    "hero":{
-      "title":"Contact Us",
-      "description1":"Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "description2":"Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+  "contactUs": {
+    "hero": {
+      "title": "Contact Us",
+      "description1": "Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "description2": "Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
     },
-    "form":{
-      "title":"Contact Form",
-      "name":"Name",
-      "email":"Email",
-      "message":"Message",
-      "button":"Send"
+    "form": {
+      "title": "Contact Form",
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "button": "Send"
     }
   },
-  "sideBar":{
-    "Documents":"Documents",
-    "Tokens":"Tokens",
-    "Templates":"Templates",
-    "Summarization":"Summarization",
-    "Translation":"Translation",
-    "Sign Document":"Sign Document",
-    "Jurisdiction":"Jurisdiction",
-    "Users":"Users",
-    "Roles":"Roles",
-    "Permissions":"Permissions",
-    "ValidatedDocuments":"Validated Document"
+  "sideBar": {
+    "Documents": "Documents",
+    "Tokens": "Tokens",
+    "Templates": "Templates",
+    "Summarization": "Summarization",
+    "Translation": "Translation",
+    "Sign Document": "Sign Document",
+    "Jurisdiction": "Jurisdiction",
+    "Users": "Users",
+    "Roles": "Roles",
+    "Permissions": "Permissions",
+    "transfaredDocuments": "Transfare Document"
   },
-  "navBar":{
-    "title":"Good Morning, Name",
-    "signOut":"Sign Out",
-    "search":"Search"
+  "navBar": {
+    "title": "Good Morning, Name",
+    "signOut": "Sign Out",
+    "search": "Search"
   },
-  "document":{
-    "name":"My Documents",
-    "myDocuments":"My Documents",
-    "approved":"Approved",
-    "pending":"Pending"
+  "document": {
+    "name": "My Documents",
+    "myDocuments": "My Documents",
+    "approved": "Approved",
+    "pending": "Pending"
   },
-  "addDocument":{
-    "buttonName":"Create New Document",
-    "document":{
-      "name":"Document Name",
-      "placeHolder":"Enter document name"
+  "addDocument": {
+    "buttonName": "Create New Document",
+    "document": {
+      "name": "Document Name",
+      "placeHolder": "Enter document name"
     },
-    "jurisdiction":{
-      "name":"Jurisdiction Name",
-      "label":"Select Jurisdiction Name",
-      "placeHolder":"Choose a Jurisdiction"
+    "jurisdiction": {
+      "name": "Jurisdiction Name",
+      "label": "Select Jurisdiction Name",
+      "placeHolder": "Choose a Jurisdiction"
     },
-    "template":{
-      "name":"Template Name",
-      "label":"Select Template Name",
-      "placeHolder":"Choose a Template"
+    "template": {
+      "name": "Template Name",
+      "label": "Select Template Name",
+      "placeHolder": "Choose a Template"
     },
-    "language":{
-      "name":"Language",
-      "label":"Select Template Language",
-      "placeHolder":"Choose a language",
-      "english":"English",
-      "arabic":"Arabic"
+    "language": {
+      "name": "Language",
+      "label": "Select Template Language",
+      "placeHolder": "Choose a language",
+      "english": "English",
+      "arabic": "Arabic"
     },
-    "selectReviewer":{
-      "name":"Select Reviewer",
-      "label":"Select Reviewer",
-      "placeHolder":"Choose a Reviewer"
+    "selectReviewer": {
+      "name": "Select Reviewer",
+      "label": "Select Reviewer",
+      "placeHolder": "Choose a Reviewer"
     },
-    "buttons":{
-      "cancel":"Cancel",
-      "create":"Create Document"
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create Document"
     }
   },
-  "myDocuments":{
-    "loading":"Loading documents...",
-    "error":"Error loading documents.",
-    "name":"document Name",
-    "language":"Language",
-    "view":"View"
+  "myDocuments": {
+    "loading": "Loading documents...",
+    "error": "Error loading documents.",
+    "name": "document Name",
+    "language": "Language",
+    "view": "View"
   },
-  "deleteDocument":{
-    "title":"Delete Document",
-    "paragraph":"Are you sure you want to delete this document?",
-    "cancel":"Cancel",
-    "delete":"Delete"
+  "deleteDocument": {
+    "title": "Delete Document",
+    "paragraph": "Are you sure you want to delete this document?",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
-  "approved":{
-    "loading":"Loading documents...",
-    "error":"Error loading documents.",
-    "name":"document Name",
-    "language":"Language",
-    "view":"View"
+  "approved": {
+    "loading": "Loading documents...",
+    "error": "Error loading documents.",
+    "name": "document Name",
+    "language": "Language",
+    "view": "View"
   },
-  "pending":{
-    "loading":"Loading documents...",
-    "error":"Error loading documents.",
-    "name":"document Name",
-    "language":"Language",
-    "view":"View"
+  "pending": {
+    "loading": "Loading documents...",
+    "error": "Error loading documents.",
+    "name": "document Name",
+    "language": "Language",
+    "view": "View"
   },
-  "templates":{
-    "title":"My Templates",
-    "preConfigure":"preConfigure",
-    "myTemplates":"My Templates",
-    "approved":"Approved",
-    "pending":"Pending",
-    "rejected":"Rejected",
-    "loading":"Loading...",
-    "error1":"Error: Invalid or missing UUID.",
-    "error2":"Error loading template:",
-    "edit":"Edit Template",
-    "save":"Save",
-    "cancel":"Cancel"
+  "templates": {
+    "title": "My Templates",
+    "preConfigure": "preConfigure",
+    "myTemplates": "My Templates",
+    "approved": "Approved",
+    "pending": "Pending",
+    "rejected": "Rejected",
+    "loading": "Loading...",
+    "error1": "Error: Invalid or missing UUID.",
+    "error2": "Error loading template:",
+    "edit": "Edit Template",
+    "save": "Save",
+    "cancel": "Cancel"
   },
-  "addTemplate":{
-    "buttonName":"Create New Template",
-    "template":{
-      "name":"Template Name",
-      "placeHolder":"Enter template name"
+  "addTemplate": {
+    "buttonName": "Create New Template",
+    "template": {
+      "name": "Template Name",
+      "placeHolder": "Enter template name"
     },
-    "language":{
-      "name":"Language",
-      "label":"Select Template Language",
-      "placeHolder":"Choose a language",
-      "english":"English",
-      "arabic":"Arabic"
+    "language": {
+      "name": "Language",
+      "label": "Select Template Language",
+      "placeHolder": "Choose a language",
+      "english": "English",
+      "arabic": "Arabic"
     },
-    "selectReviewer":{
-      "name":"Select Reviewer",
-      "label":"Select Reviewer",
-      "placeHolder":"Choose a Reviewer"
+    "selectReviewer": {
+      "name": "Select Reviewer",
+      "label": "Select Reviewer",
+      "placeHolder": "Choose a Reviewer"
     },
-    "buttons":{
-      "cancel":"Cancel",
-      "create":"Create Template"
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create Template"
     }
   },
-  "template":{
-    "loading":"Loading templates...",
-    "error":"Error loading templates.",
-    "name":"template Name",
-    "language":"Language",
-    "view":"View"
+  "template": {
+    "loading": "Loading templates...",
+    "error": "Error loading templates.",
+    "name": "template Name",
+    "language": "Language",
+    "view": "View"
   },
-  "delete":{
-    "title":"Delete Template",
-    "paragraph":"Are you sure you want to delete this template?",
-    "cancel":"Cancel",
-    "delete":"Delete"
+  "delete": {
+    "title": "Delete Template",
+    "paragraph": "Are you sure you want to delete this template?",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
-  "rejectDocument":{
-    "title":"Reject Document",
-    "cancel":"Cancel",
-    "reject":"Reject"
+  "rejectDocument": {
+    "title": "Reject Document",
+    "cancel": "Cancel",
+    "reject": "Reject"
   },
-  "rejectTemplate":{
-    "title":"Reject Template",
-    "cancel":"Cancel",
-    "reject":"Reject"
+  "rejectTemplate": {
+    "title": "Reject Template",
+    "cancel": "Cancel",
+    "reject": "Reject"
   },
-  "summarization":{
-    "name":"Summarization",
-    "titles":{
-      "addQuestion":"Add Question",
-      "static":"Static",
-      "dynamic":"Dynamic",
-      "preConfigure":"PreConfigure"
+  "summarization": {
+    "name": "Summarization",
+    "titles": {
+      "addQuestion": "Add Question",
+      "static": "Static",
+      "dynamic": "Dynamic",
+      "preConfigure": "PreConfigure"
     },
-    "addQuestion":{
-      "addQuestion":"Add Question",
-      "title":"Add Text to Summarize",
-      "key":"Key",
-      "value":"Value",
-      "public":"Public",
-      "close":"Close",
-      "submit":"Submit",
-      "text":"Type or paste your text here..."
+    "addQuestion": {
+      "addQuestion": "Add Question",
+      "title": "Add Text to Summarize",
+      "key": "Key",
+      "value": "Value",
+      "public": "Public",
+      "close": "Close",
+      "submit": "Submit",
+      "text": "Type or paste your text here..."
     },
-    "dynamic":{
-      "openModel":"Open Dynamic Modal",
-      "title":"Upload File and Add Questions",
-      "delete":"Delete",
-      "addQuestion":"Add Question",
-      "close":"Close",
-      "action":"Action",
-      "category":"Category",
-      "question":"Question"
+    "dynamic": {
+      "openModel": "Open Dynamic Modal",
+      "title": "Upload File and Add Questions",
+      "delete": "Delete",
+      "addQuestion": "Add Question",
+      "close": "Close",
+      "action": "Action",
+      "category": "Category",
+      "question": "Question"
     },
-    "preConfigure":{
-      "openForm":"Open Form",
-      "title":"Submit Form",
-      "upload":"File Upload",
-      "question":"Question Key",
-      "remove":"Remove",
-      "addQuestion":"Add Question",
-      "close":"Close",
-      "submit":"Submit",
-      "key":"Select a key"
+    "preConfigure": {
+      "openForm": "Open Form",
+      "title": "Submit Form",
+      "upload": "File Upload",
+      "question": "Question Key",
+      "remove": "Remove",
+      "addQuestion": "Add Question",
+      "close": "Close",
+      "submit": "Submit",
+      "key": "Select a key"
     },
-    "static":{
-      "openText":"Open Text Area",
-      "title":"Add Text to Summarize",
-      "close":"Close",
-      "submit":"Submit",
-      "text":"Type or paste your text here..."
-    }
-  },
-
-  "translation":{
-    "name":"Translation",
-    "titles":{
-      "text":"Translate Text",
-      "file":"Translate File"
-    },
-    "file":{
-      "openFile":"Open File Translation Form",
-      "title":"Translate File",
-      "upload":"File Upload",
-      "original":"Original Language",
-      "english":"English",
-      "arabic":"Arabic",
-      "target":"Target Language",
-      "close":"Close",
-      "submit":"Submit",
-      "label1":"Select Original Language",
-      "label2":"Select Target Language"
-    },
-    "text":{
-      "openForm":"Open Translation Form",
-      "title":"Translate Text",
-      "text":"Text",
-      "original":"Original Language",
-      "english":"English",
-      "arabic":"Arabic",
-      "target":"Target Language",
-      "close":"Close",
-      "submit":"Submit",
-      "label1":"Select Original Language",
-      "label2":"Select Target Language",
-      "textPlaceholder":"Type or paste your text here..."
-    }
-  },
-  "jurisdictions":{
-    "name":"Jurisdictions",
-    "addJurisdictions":{
-      "create":"Create Jurisdiction",
-      "title":"Create Jurisdiction",
-      "close":"Close",
-      "submit":"Submit",
-      "label":"Jurisdiction Name",
-      "placeHolder":"Enter jurisdiction name"
-    },
-    "allJurisdictions":{
-      "name":"Name",
-      "reference":"Reference URL",
-      "image":"Image URL",
-      "actions":"Actions"
-    },
-    "deleteJurisdictions":{
-      "title":"Confirm Deletion",
-      "paragraph":"Are you sure you want to delete this jurisdiction?",
-      "cancel":"Cancel",
-      "delete":"Delete"
-    },
-    "updateJurisdictions":{
-      "title":"Update Jurisdiction",
-      "label":"Jurisdiction Name",
-      "cancel":"Cancel",
-      "update":"Update"
-    }
-  },
-  
-  "users":{
-    "name":"Users",
-    "addRole":{
-      "title":"Assign Roles to User",
-      "cancel":"Cancel",
-      "save":"Save",
-      "label":"Available Roles",
-      "placeHolder":"Search roles..."
-    },
-    "addUsers":{
-      "title":"Add User",
-      "userName":"Username",
-      "email":"Email",
-      "phoneNumber":"Phone Number",
-      "password":"Password",
-      "upload":"Upload File",
-      "close":"Close",
-      "submit":"Submit"
-    },
-    "allUsers":{
-      "userName":"User Name",
-      "email":"Email",
-      "phone":"Phone",
-      "status":"Status",
-      "avatar":"Avatar",
-      "actions":"Actions"
-    },
-    "deleteUsers":{
-      "title":"Confirm Deletion",
-      "paragraph1":"Are you sure you want to delete the user",
-      "paragraph2":"? This action cannot be undone.",
-      "cancel":"Cancel",
-      "delete":"Delete"
-    },
-    "updateUsers":{
-      "title":"Update User",
-      "label1":"Username",
-      "placeHolder1":"Enter username",
-      "label2":"Phone Number",
-      "placeHolder2":"Enter phone number",
-      "cancel":"Cancel",
-      "update":"Update"
-    }
-  },
-  "permissions":{
-    "name":"Permissions",
-    "allPermissions":{
-      "name":"Permission Name",
-      "category":"Category",
-      "mainCategory":"Main Category"
+    "static": {
+      "openText": "Open Text Area",
+      "title": "Add Text to Summarize",
+      "close": "Close",
+      "submit": "Submit",
+      "text": "Type or paste your text here..."
     }
   },
 
-  "roles":{
-    "name":"Roles",
-    "addPermissions":{
-      "title":"Manage Permissions",
-      "label1":"Search Permissions",
-      "placeHolder":"Search permissions...",
-      "loading":"Loading permissions...",
-      "label2":"Available Permissions",
-      "cancel":"Cancel",
-      "save":"Save"
+  "translation": {
+    "name": "Translation",
+    "titles": {
+      "text": "Translate Text",
+      "file": "Translate File"
     },
-    "addRole":{
-      "title":"Add Role",
-      "label":"Role Name",
-      "placeHolder":"Enter role name",
-      "close":"Close",
-      "submit":"Submit"
+    "file": {
+      "openFile": "Open File Translation Form",
+      "title": "Translate File",
+      "upload": "File Upload",
+      "original": "Original Language",
+      "english": "English",
+      "arabic": "Arabic",
+      "target": "Target Language",
+      "close": "Close",
+      "submit": "Submit",
+      "label1": "Select Original Language",
+      "label2": "Select Target Language"
     },
-    "allRoles":{
-      "name":"Role Name",
-      "actions":"Actions"
-    },
-    "deleteRole":{
-      "title":"Confirm Deletion",
-      "paragraph1":"Are you sure you want to delete the role ",
-      "paragraph2":"? This action cannot be undone.",
-      "cancel":"Cancel",
-      "delete":"Delete"
-    },
-    "updateRole":{
-      "title":"Update Role",
-      "label":"Role Name",
-      "placeHolder":"Enter role name",
-      "cancel":"Cancel",
-      "update":"Update"
+    "text": {
+      "openForm": "Open Translation Form",
+      "title": "Translate Text",
+      "text": "Text",
+      "original": "Original Language",
+      "english": "English",
+      "arabic": "Arabic",
+      "target": "Target Language",
+      "close": "Close",
+      "submit": "Submit",
+      "label1": "Select Original Language",
+      "label2": "Select Target Language",
+      "textPlaceholder": "Type or paste your text here..."
     }
   },
-  
-  "tokens":{
-    "name":"Tokens",
-    "addTokens":{
-      "create":"Create Token",
-      "label":"Token Name",
-      "placeHolder":"Enter token name",
-      "close":"Close",
-      "submit":"Submit"
+  "jurisdictions": {
+    "name": "Jurisdictions",
+    "addJurisdictions": {
+      "create": "Create Jurisdiction",
+      "title": "Create Jurisdiction",
+      "close": "Close",
+      "submit": "Submit",
+      "label": "Jurisdiction Name",
+      "placeHolder": "Enter jurisdiction name"
     },
-    "allTokens":{
-      "name":"Name",
-      "actions":"Actions"
+    "allJurisdictions": {
+      "name": "Name",
+      "reference": "Reference URL",
+      "image": "Image URL",
+      "actions": "Actions"
     },
-    "deleteToken":{
-      "title":"Confirm Deletion",
-      "paragraph1":"Are you sure you want to delete this",
-      "paragraph2":"token?",
-      "cancel":"Cancel",
-      "delete":"Delete"
+    "deleteJurisdictions": {
+      "title": "Confirm Deletion",
+      "paragraph": "Are you sure you want to delete this jurisdiction?",
+      "cancel": "Cancel",
+      "delete": "Delete"
     },
-    "updateTokens":{
-      "title":"Update Token",
-      "label":"Keyword",
-      "placeHolder":"Enter keyword",
-      "cancel":"Cancel",
-      "update":"Update"
+    "updateJurisdictions": {
+      "title": "Update Jurisdiction",
+      "label": "Jurisdiction Name",
+      "cancel": "Cancel",
+      "update": "Update"
     }
   },
-  "validatedDocuments": {
-    "name": "Validated Documents",
-    "addValidatedDocument": {
-      "title": "Add Validated Document",
-      "label": "Document Name",
-      "placeHolder": "Enter validated document name",
+
+  "users": {
+    "name": "Users",
+    "addRole": {
+      "title": "Assign Roles to User",
+      "cancel": "Cancel",
+      "save": "Save",
+      "label": "Available Roles",
+      "placeHolder": "Search roles..."
+    },
+    "addUsers": {
+      "title": "Add User",
+      "userName": "Username",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "password": "Password",
+      "upload": "Upload File",
       "close": "Close",
       "submit": "Submit"
     },
+    "allUsers": {
+      "userName": "User Name",
+      "email": "Email",
+      "phone": "Phone",
+      "status": "Status",
+      "avatar": "Avatar",
+      "actions": "Actions"
+    },
+    "deleteUsers": {
+      "title": "Confirm Deletion",
+      "paragraph1": "Are you sure you want to delete the user",
+      "paragraph2": "? This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "updateUsers": {
+      "title": "Update User",
+      "label1": "Username",
+      "placeHolder1": "Enter username",
+      "label2": "Phone Number",
+      "placeHolder2": "Enter phone number",
+      "cancel": "Cancel",
+      "update": "Update"
+    }
+  },
+  "permissions": {
+    "name": "Permissions",
+    "allPermissions": {
+      "name": "Permission Name",
+      "category": "Category",
+      "mainCategory": "Main Category"
+    }
+  },
+
+  "roles": {
+    "name": "Roles",
+    "addPermissions": {
+      "title": "Manage Permissions",
+      "label1": "Search Permissions",
+      "placeHolder": "Search permissions...",
+      "loading": "Loading permissions...",
+      "label2": "Available Permissions",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "addRole": {
+      "title": "Add Role",
+      "label": "Role Name",
+      "placeHolder": "Enter role name",
+      "close": "Close",
+      "submit": "Submit"
+    },
+    "allRoles": {
+      "name": "Role Name",
+      "actions": "Actions"
+    },
+    "deleteRole": {
+      "title": "Confirm Deletion",
+      "paragraph1": "Are you sure you want to delete the role ",
+      "paragraph2": "? This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "updateRole": {
+      "title": "Update Role",
+      "label": "Role Name",
+      "placeHolder": "Enter role name",
+      "cancel": "Cancel",
+      "update": "Update"
+    }
+  },
+
+  "tokens": {
+    "name": "Tokens",
+    "addTokens": {
+      "create": "Create Token",
+      "label": "Token Name",
+      "placeHolder": "Enter token name",
+      "close": "Close",
+      "submit": "Submit"
+    },
+    "allTokens": {
+      "name": "Name",
+      "actions": "Actions"
+    },
+    "deleteToken": {
+      "title": "Confirm Deletion",
+      "paragraph1": "Are you sure you want to delete this",
+      "paragraph2": "token?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "updateTokens": {
+      "title": "Update Token",
+      "label": "Keyword",
+      "placeHolder": "Enter keyword",
+      "cancel": "Cancel",
+      "update": "Update"
+    }
+  },
+  "transfaredDocuments": {
+    "name": "Transfared Documents",
+    "addTransfareDocument": {
+      "title": "Add Transferred Document",
+      "label": "Document Name",
+      "placeHolder": "Enter transferred document name",
+      "emailLabel": "Email",
+      "emailPlaceHolder": "Enter your email",
+      "close": "Close",
+      "submit": "Submit",
+      "error": "An error occurred while adding the document.",
+      "success": "Document added successfully."
+    },
     "allValidatedDocuments": {
-      "name": "Document Name",
+      "name": "Transfared Documents",
       "actions": "Actions"
     },
     "deleteValidatedDocument": {
@@ -607,6 +611,12 @@
       "placeHolder": "Enter validated document name",
       "cancel": "Cancel",
       "update": "Update"
+    },
+    "allTransferredDocuments": {
+      "loading": "Loading...",
+      "error": "An error occurred.",
+      "view": "View",
+      "download": "Download"
     }
   }
 }

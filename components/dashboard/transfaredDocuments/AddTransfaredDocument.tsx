@@ -18,6 +18,7 @@ import { useCreateDocumentTransferMutation, useGetApprovedDocumentsQuery } from 
 import { Document } from "@/types";
 import toast from "react-hot-toast";
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl"; // Importing useTranslations
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -38,24 +39,26 @@ export const AddValidatedDocument = () => {
   });
 
   const { data: approvedDocuments } = useGetApprovedDocumentsQuery({}); // Fetch approved documents
-  const [createTransfer , { isLoading, error }] = useCreateDocumentTransferMutation()
-  const onSubmit = handleSubmit(async (data) => {
-    // Handle the submission logic here
-    console.log("Email:", data.email);
-    console.log("Selected Document:", data.documentId);
-    await createTransfer(data).unwrap()
-    toast.success('Transfare created succssefuly')
-    reset();
-    onClose();
-  });
+  const [createTransfer , { isLoading, error }] = useCreateDocumentTransferMutation();
+  const t = useTranslations("transfaredDocuments.addTransfareDocument"); // Using translations
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      await createTransfer(data).unwrap();
+      toast.success(t("success")); // Using translation for success message
+      reset();
+      onClose();
+    } catch (error) {
+      toast.error(t("error")); // Using translation for error message
+    }
+  });
 
   useEffect(() => {
     if (error && isFetchBaseQueryError(error)) {
       const errorMessage =
         error.data && typeof error.data === "object" && "message" in error.data
           ? (error.data as { message: string }).message
-          : "An error occurred while creating the document.";
+          : t("error"); // Using translation for error message
       toast.error(errorMessage);
     }
   }, [error]);
@@ -63,20 +66,17 @@ export const AddValidatedDocument = () => {
   return (
     <>
       <Button onPress={onOpen} color="primary">
-        Add Validated Document
+        {t("title")} {/* Using translation for button text */}
       </Button>
 
       <Modal isOpen={isOpen} onOpenChange={onClose}>
         <ModalContent>
-          <ModalHeader>Add Validated Document</ModalHeader>
+          <ModalHeader>{t("title")}</ModalHeader> {/* Using translation for modal header */}
           <ModalBody>
             <form id="validatedDocumentForm" onSubmit={onSubmit}>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-3"
-                >
-                  Email
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-3">
+                  {t("emailLabel")} {/* Using translation for email label */}
                 </label>
                 <Controller
                   name="email"
@@ -86,7 +86,7 @@ export const AddValidatedDocument = () => {
                       id="email"
                       type="email"
                       {...field}
-                      placeholder="Enter email"
+                      placeholder={t("emailPlaceHolder")} // Using translation for email placeholder
                       isInvalid={!!errors.email}
                     />
                   )}
@@ -100,15 +100,15 @@ export const AddValidatedDocument = () => {
                   htmlFor="selectedDocument"
                   className="block text-sm font-medium text-gray-700 mb-3"
                 >
-                  Select Approved Document
+                   {t("label")} {/* Using translation for select document label */}
                 </label>
                 <Select
-                  label={"Approved Documents"}
+                  label={t("label")} // Using translation for select label
                   onSelectionChange={(value) => {
                     const selectedValue = value.currentKey as string;
                     if (selectedValue) {
                       setValue("documentId", selectedValue);
-                      clearErrors("documentId")
+                      clearErrors("documentId");
                     }
                   }}
                   isInvalid={!!errors.documentId}
@@ -133,7 +133,7 @@ export const AddValidatedDocument = () => {
                   reset();
                 }}
               >
-                Cancel
+                {t("close")} {/* Using translation for cancel button */}
               </Button>
               <Button
                 type="submit"
@@ -141,7 +141,7 @@ export const AddValidatedDocument = () => {
                 form="validatedDocumentForm"
                 isLoading={isLoading}
               >
-                Submit
+                {t("submit")} {/* Using translation for submit button */}
               </Button>
             </ModalFooter>
           </ModalBody>

@@ -112,6 +112,7 @@ export interface Document {
   templateId?: string | null;
   preConfiguredTemplateId?: string | null;
   DocumentMetadata: DocumentMetadata[]; 
+  contentUrl: string
 }
 
 export interface Token {
