@@ -539,7 +539,6 @@ export const api = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["signDocuments"],
     }),
     // docuemnt validate
     createDocumentTransfer: builder.mutation({
@@ -560,7 +559,20 @@ export const api = createApi({
       query: ({ id, otp }) => ({
         url: `/document-validate/convert/${id}/${otp}`, // Append OTP as query param
         method: "GET",
-        responseHandler: (response) => response.blob(), // Handle file as binary
+        responseHandler: async (response) => {
+          const blob = await response.blob();
+          return blob;
+        },
+      }),
+      transformResponse: (response: Blob) => response,
+      merge: (currentCache, newItems) => newItems,
+      forceRefetch: ({ currentArg, previousArg }) => currentArg !== previousArg,
+    }),
+    documentTransfareToTenant: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/document/addUrl/${id}`,
+        method: "PATCH",
+        body,
       }),
     }),
   }),
@@ -652,4 +664,5 @@ export const {
   useCreateDocumentTransferMutation,
   useValidateOtpForDocumentMutation,
   usePreviewDocumentQuery,
+  useDocumentTransfareToTenantMutation,
 } = api;
