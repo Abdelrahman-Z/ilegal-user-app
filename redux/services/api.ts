@@ -59,6 +59,12 @@ export const api = createApi({
         body: data,
       }),
     }),
+    validateToken: builder.query({
+      query: () => ({
+        url: "/auth/validate-token", // Adjust the endpoint as necessary
+        method: "GET",
+      }),
+    }),
     // users
     createUser: builder.mutation({
       query: (user) => ({
@@ -95,7 +101,18 @@ export const api = createApi({
       }),
       invalidatesTags: ["users"],
     }),
-    getUserById: builder.query<{ userRole: { roleId: string }[] }, string>({
+    getUserById: builder.query<{
+        id: string;
+        userName: string;
+        email: string;
+        phone: string;
+        isActive: boolean;
+        imageUrl: string;
+        createdAt: string;
+        updatedAt: string;
+        userPremissions: any[];
+        userRole: { roleId: string }[];
+    }, string>({
       query: (userId) => `/user/one/${userId}`,
     }),
     // roles
@@ -597,6 +614,7 @@ export const {
   useForgetPasswordMutation,
   useVerifyOtpMutation,
   useResetPassordMutation,
+  useValidateTokenQuery,
   // users
   useCreateUserMutation,
   useGetUsersQuery,
