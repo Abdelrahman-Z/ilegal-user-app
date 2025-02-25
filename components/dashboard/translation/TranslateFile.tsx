@@ -38,7 +38,13 @@ type FileTranslationFormValues = yup.InferType<typeof schema>;
 
 export const TranslateFile = () => {
   const t = useTranslations("translation");
-  const [finaleData, setfinaleData] = useState()
+  const [finaleData, setfinaleData] = useState<{
+    text: string;
+    target_lang: string;
+  }>({
+    text: "",
+    target_lang: ""
+  });
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const {
@@ -94,9 +100,19 @@ export const TranslateFile = () => {
   });
   return (
     <>
-      <Button onClick={onOpen} color="primary">
-        {t("file.openFile")}
-      </Button>
+      <div className="flex justify-between">
+        <Button onClick={onOpen} color="primary">
+          {t("file.openFile")}
+        </Button>
+        {finaleData.text && (
+          <Button
+            onClick={() => navigator.clipboard.writeText(finaleData.text.replace(/<[^>]*>/g, ''))}
+            color="secondary"
+          >
+            Copy To Clipoard
+          </Button>
+        )}
+      </div>
 
       <Modal
         isDismissable={false}
@@ -125,7 +141,7 @@ export const TranslateFile = () => {
                     </label>
                     <Input
                       type="file"
-                      accept=".pdf" // Accept only specified file types
+                      accept=".pdf, .doc, .docx" // Accept PDF and Word files
                       {...register("file")}
                       className={`mt-1 block w-full ${
                         errors.file ? "border-red-500" : ""
@@ -246,9 +262,7 @@ export const TranslateFile = () => {
       {finaleData && (
         <div
           className="mt-5 whitespace-pre-wrap"
-          // @ts-expect-error error
           dir={finaleData.target_lang === "ar" ? "rtl" : "ltr"}
-          // @ts-expect-error error
           dangerouslySetInnerHTML={{ __html: finaleData.text }}
         ></div>
       )}

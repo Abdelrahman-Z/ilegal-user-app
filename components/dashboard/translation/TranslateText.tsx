@@ -70,9 +70,19 @@ export const Static = () => {
 
   return (
     <>
-      <Button onClick={onOpen} color="primary">
-      {t("text.openForm")}
-      </Button>
+      <div className="flex justify-between">
+        <Button onClick={onOpen} color="primary">
+          {t("text.openForm")}
+        </Button>
+        {data?.text && (
+          <Button
+            onClick={() => navigator.clipboard.writeText(data.text.replace(/<[^>]*>/g, ''))}
+            color="secondary"
+          >
+            {t("text.copyToClipboard")}
+          </Button>
+        )}
+      </div>
 
       {/* Modal */}
       <Modal

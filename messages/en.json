@@ -438,7 +438,8 @@
       "submit": "Submit",
       "label1": "Select Original Language",
       "label2": "Select Target Language",
-      "textPlaceholder": "Type or paste your text here..."
+      "textPlaceholder": "Type or paste your text here...",
+      "copyToClipboard": "Copy to Clipboard"
     }
   },
   "jurisdictions": {
