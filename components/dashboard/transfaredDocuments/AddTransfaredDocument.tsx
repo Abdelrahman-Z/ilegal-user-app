@@ -25,7 +25,7 @@ const schema = yup.object().shape({
   documentId: yup.string().required("Document selection is required"),
 });
 
-export const AddValidatedDocument = () => {
+export const AddTransfaredDocument = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     control,

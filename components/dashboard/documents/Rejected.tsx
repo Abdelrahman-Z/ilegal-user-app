@@ -4,7 +4,6 @@ import {
   Card,
   CardHeader,
   CardFooter,
-  Image,
   Pagination,
   Link,
   Spinner,
@@ -45,11 +44,6 @@ export const Rejected = () => {
             className="flex flex-row bg-gradient-to-r from-deepBlue to-lightBlue justify-between p-2"
           >
             <div className="flex items-center">
-              <Image
-                removeWrapper
-                alt={`Document ${document.id}`}
-                className="w-10 h-10 object-cover rounded-full"
-              />
               <CardHeader className="flex-col !items-start">
                 <p className="text-tiny text-white/60 uppercase font-bold">
                   {t("name")}

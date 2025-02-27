@@ -115,6 +115,21 @@ export interface Document {
   contentUrl: string
 }
 
+export interface ValidatedDocument {
+    id: string;
+    name: string;
+    language: string;
+    validationHash: string;
+    isValidated: boolean;
+    validatedBy: string;
+    validatedAt: string;
+    validatedByUser: {
+        username: string;
+        imageUrl: string;
+    };
+}
+
+
 export interface Token {
   id: string;
   keyWord: string;

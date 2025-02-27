@@ -230,7 +230,8 @@
     "myDocuments": "مستنداتي",
     "approved": "الموافقة",
     "pending": "قيد الانتظار",
-    "rejected": "مرفوض"
+    "rejected": "مرفوض",
+    "validated": "تم التحقق"
   },
   "addDocument": {
     "buttonName": "إنشاء مستند جديد",
@@ -278,6 +279,12 @@
     "cancel": "إلغاء",
     "delete": "حذف"
   },
+  "ValidateDocument": {
+    "title": "تحقق من المستند",
+    "paragraph": "هل أنت متأكد أنك تريد التحقق من هذا المستند؟",
+    "cancel": "إلغاء",
+    "Validate": "تحقق"
+  },
   "approved": {
     "loading": "جاري تحميل المستندات...",
     "error": "حدث خطأ أثناء تحميل المستندات.",
@@ -298,6 +305,15 @@
     "name": "اسم المستند",
     "language": "اللغة",
     "view": "عرض"
+  },
+  "validated": {
+    "loading": "جاري تحميل المستندات المعتمدة...",
+    "error": "حدث خطأ أثناء تحميل المستندات المعتمدة.",
+    "name": "اسم المستند",
+    "language": "اللغة",
+    "view": "عرض",
+    "validatedBy": "تم التحقق بواسطة",
+    "transactionHash": "معرف المعاملة"
   },
   "templates": {
     "title": "قوالبي",

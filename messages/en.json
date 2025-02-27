@@ -230,7 +230,8 @@
     "myDocuments": "My Documents",
     "approved": "Approved",
     "pending": "Pending",
-    "rejected": "Rejected"
+    "rejected": "Rejected",
+    "validated": "Validated"
   },
   "addDocument": {
     "buttonName": "Create New Document",
@@ -278,6 +279,13 @@
     "cancel": "Cancel",
     "delete": "Delete"
   },
+  "ValidateDocument": {
+    "title": "Validate Document",
+    "paragraph": "Are you sure you want to Validate this document?",
+    "cancel": "Cancel",
+    "Validate": "Validate"
+  },
+  
   "approved": {
     "loading": "Loading documents...",
     "error": "Error loading documents.",
@@ -298,6 +306,15 @@
     "name": "document Name",
     "language": "Language",
     "view": "View"
+  },
+  "validated": {
+    "loading": "Loading validated documents...",
+    "error": "Error loading validated documents.",
+    "name": "document Name",
+    "language": "Language",
+    "view": "View",
+    "validatedBy": "Validated By",
+    "transactionHash": "Transaction Hash"
   },
   "templates": {
     "title": "My Templates",

@@ -1,6 +1,6 @@
 "use client";
 
-import { AddValidatedDocument } from "@/components/dashboard/transfaredDocuments/AddTransfaredDocument";
+import { AddTransfaredDocument } from "@/components/dashboard/transfaredDocuments/AddTransfaredDocument";
 import { AllTransfaredDocuments } from "@/components/dashboard/transfaredDocuments/AllTransfaredDocuments";
 import { useTranslations } from "next-intl";
 
@@ -12,7 +12,7 @@ export default function Page() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-semibold text-gray-800">{t("name")}</h2>
         <div className="flex gap-4">
-          <AddValidatedDocument />
+          <AddTransfaredDocument />
         </div>
       </div>
 

@@ -449,6 +449,16 @@ export const api = createApi({
       }),
       providesTags: ["Document"],
     }),
+    getValidatedDocuments: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: "/document-validate",
+        params: {
+          page,
+          limit,
+        },
+      }),
+      providesTags: ["Document"],
+    }),
     createDocument: builder.mutation({
       query: (body) => ({
         url: `/document`,
@@ -461,6 +471,14 @@ export const api = createApi({
       query: (id) => ({
         url: `/document/approve/${id}`,
         method: "PATCH",
+      }),
+      invalidatesTags: ["Document"],
+    }),
+    validateDocument: builder.mutation({
+      query: (id) => ({
+        url: `/document-validate`,
+        method: "POST",
+        body: { documentId: id },
       }),
       invalidatesTags: ["Document"],
     }),
@@ -680,6 +698,8 @@ export const {
   useUpdateDocumentMutation,
   useGetReviewersDocumentsQuery,
   useGetRejectedDocumentsQuery,
+  useGetValidatedDocumentsQuery,
+  useValidateDocumentMutation,
   // Token endpoints
   useCreateTokenMutation,
   useGetTokensQuery,

@@ -1,12 +1,13 @@
 "use client";
 
 import { CreateDocument } from "@/components/dashboard/documents/AddDocument";
-import { MyDocuments } from "@/components/dashboard/documents/MyDocuments";
+// import { MyDocuments } from "@/components/dashboard/documents/MyDocuments";
 import { Pending } from "@/components/dashboard/documents/Pending";
 import { Approved } from "@/components/dashboard/documents/Approved";
 import { Tab, Tabs } from "@heroui/react";
 import { useTranslations } from "next-intl";
 import { Rejected } from "@/components/dashboard/documents/Rejected";
+import { Validated } from "@/components/dashboard/documents/ValidatedDocuments";
 
 export default function Page() {
     const t = useTranslations("document");
@@ -29,20 +30,19 @@ export default function Page() {
           defaultSelectedKey={"myDocuments"}
           aria-label="Dashboard Tabs"
         >
-          {/* My Documents */}
-          <Tab className="w-full flex-1" key="myDocuments" title={t("myDocuments")}>
-            <MyDocuments />
+          {/* Validated documents */}
+          <Tab className="w-full flex-1" key="validated" title={t("validated")}>
+            <Validated />
           </Tab>
-
           {/* Approved Documents*/}
           <Tab className="w-full flex-1" key="Approved" title={t("approved")}>
             <Approved pageName="documents" />
           </Tab>
-
           {/* Pending Documents*/}
           <Tab className="w-full flex-1" key="pinding" title={t("pending")}>
             <Pending />
           </Tab>
+          {/* rejected Documents*/}
           <Tab className="w-full flex-1" key="rejected" title={t("rejected")}>
             <Rejected />
           </Tab>
