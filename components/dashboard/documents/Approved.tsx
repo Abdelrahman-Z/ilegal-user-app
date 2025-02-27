@@ -86,7 +86,7 @@ export const Approved = ({pageName} : {pageName:string}) => {
               >
                {t("view")}
               </Link>
-              <ValidateDocument documentId={document.id}/>
+              {!document.isValidated && <ValidateDocument documentId={document.id} />}
               <DeleteDocument documentId={document.id} />
             </CardFooter>
           </Card>

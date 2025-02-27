@@ -106,6 +106,7 @@ export interface Document {
   createdAt: string; 
   updatedAt: string;
   isSigned: boolean;
+  isValidated: boolean;
   language: string;
   ownerId: string;
   tenantId: string;
