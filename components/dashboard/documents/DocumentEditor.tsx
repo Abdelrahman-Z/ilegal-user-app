@@ -42,13 +42,18 @@ export const DocumentEditor = ({
 
   const handleSave = async () => {
     if (editorInstance) {
-      const updatedContent = editorInstance?.getData();
-      await updateDocument({
-        id: documentId,
-        body: { content: updatedContent },
-      });
-      toast.success('Document Updated Successfuly')
-      onEditingChange(false);
+      try {
+        const updatedContent = editorInstance.getData();
+        await updateDocument({
+          id: documentId,
+          body: { content: updatedContent },
+        });
+        toast.success('Document Updated Successfully');
+        onEditingChange(false);
+      } catch (error) {
+        console.log(error)
+        toast.error('An error occurred while updating the document.');
+      }
     }
   };
 

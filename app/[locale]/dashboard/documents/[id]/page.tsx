@@ -44,6 +44,7 @@ const Page = () => {
           documentLoading={documentLoading}
           documentError={documentError}
           handleEdit={() => setIsEditing(true)}
+          isValidated={documentData.isValidated}
         />
       ) : (
         <div className="flex">
