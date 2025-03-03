@@ -1,5 +1,5 @@
 "use client";
-import Footer from "@/components/commercial-app/Footer";
+import Footer from "@/components/commercial-app/UI/Footer";
 import Header from "@/components/commercial-app/Navbar";
 import { Button, cn, Input } from "@heroui/react";
 import React from "react";

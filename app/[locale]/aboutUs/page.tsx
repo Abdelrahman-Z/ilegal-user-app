@@ -1,24 +1,23 @@
+'use client'
 
-import MoreAboutUS from "@/components/commercial-app/aboutUs/MoreAboutUS";
-import OverviewSection from "@/components/commercial-app/aboutUs/Overview";
-import Footer from "@/components/commercial-app/Footer";
-import HeroCard from "@/components/commercial-app/HeroCard";
-import { useTranslations } from "next-intl";
+import HeroSection from "@/components/commercial-app/aboutUs/HeroSection";
+import NavigationBar from "@/components/commercial-app/UI/Navbar";
+import TheMissionSection from "@/components/commercial-app/aboutUs/TheMissionSection";
+import OurValues from "@/components/commercial-app/aboutUs/OurValues";
+import UnderstandIlegal from "@/components/commercial-app/aboutUs/UnderstandIlegal";
+import OurTeam from "@/components/commercial-app/aboutUs/OurTeam";
+import Footer from "@/components/commercial-app/UI/Footer";
 
-export default function Home() {
-  const t = useTranslations("about.hero");
-
+export default function AboutUs() {
   return (
-    <>
-      <HeroCard
-        heroDescription={t("description")}
-        heroTitle={t("title")}
-        imagePath="'/images/landing2.svg'"
-      />
-      <OverviewSection />
-      <MoreAboutUS/>
-      <OverviewSection />
-      <Footer className="bg-gradient-to-r from-deepBlue to-lightBlue" />
-    </>
+    <div className="relative">
+      <NavigationBar />
+      <HeroSection />
+      <TheMissionSection />
+      <OurValues />
+      <UnderstandIlegal />
+      <OurTeam />
+      <Footer className=" bg-deepBlue"/>
+    </div>
   );
 }
