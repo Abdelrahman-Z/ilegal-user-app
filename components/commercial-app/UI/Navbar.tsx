@@ -26,7 +26,10 @@ export const NavigationBar = () => {
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-4 text-white" justify="end">
-        <Dropdown>
+        <Dropdown classNames={{
+          content: "bg-gradient-to-r from-deepBlue to-lightBlue text-white",
+          
+        }}>
           <NavbarItem>
             <DropdownTrigger>
               <Button
@@ -42,29 +45,30 @@ export const NavigationBar = () => {
           <DropdownMenu
             aria-label="Legal Works Solutions"
             itemClasses={{
-              base: "gap-4",
+              description: "text-white",
+              
             }}
           >
             <DropdownItem
               key="document_management"
               description="Secure storage and organization of legal documents"
-              className="text-white"
-            >
-              Document Management
+              href={`/${locale}/addOns`}
+              >
+              Add Ons
             </DropdownItem>
             <DropdownItem
               key="templates"
               description="Professional templates for legal documents"
-              className="text-white"
-            >
-              Legal Templates
+              href={`/${locale}/azzamAI`}
+              >
+              Azzam AI
             </DropdownItem>
             <DropdownItem
               key="contract_review"
               description="AI-powered contract analysis and review"
-              className="text-white"
+              href={`/${locale}/documentAutomation`}
             >
-              Contract Review
+              Document Automation
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
