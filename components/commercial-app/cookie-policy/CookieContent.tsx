@@ -38,10 +38,10 @@ const CookieContent: React.FC = () => {
               This data is used to help us improve our website and to help us understand what content and services are most important to our users. In addition, some companies that advertise on third parties, in which case, we cannot be held responsible for such without prior.
             </p>
             <p className="text-gray-700">
-              In addition, some companies that advertise on the "iLegalWorks" website may need programs that collect user information to determine how effective their advertisements are. Such advertisers, which are managed by third party to the privacy policy. Note: such user statistics via internal processes for the purpose of improving the quality of our data and measuring time.
+              In addition, some companies that advertise on the iLegalWorks website may need programs that collect user information to determine how effective their advertisements are. Such advertisers, which are managed by third party to the privacy policy. Note: such user statistics via internal processes for the purpose of improving the quality of our data and measuring time.
             </p>
             <p className="text-gray-700">
-              You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings (such as cookies, session settings, and app-specific programming) under "JavaScript" for the same purpose mentioned above.
+              You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings (such as cookies, session settings, and app-specific programming) under JavaScript for the same purpose mentioned above.
             </p>
           </section>
 
@@ -56,7 +56,7 @@ const CookieContent: React.FC = () => {
             </ul>
 
             <p className="text-gray-700">
-              We use First Session Cookies, which only exist for the duration of your visit and are deleted when you leave the website. Others are "Persistent Cookie", these stay on your device until they delete or expire.
+              We use First Session Cookies, which only exist for the duration of your visit and are deleted when you leave the website. Others are Persistent Cookie, these stay on your device until they delete or expire.
             </p>
 
             <h3 className="text-xl font-semibold text-gray-800 mt-6">Strictly necessary cookies</h3>

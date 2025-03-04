@@ -37,13 +37,13 @@ export const NewsSection = () => {
               {/* Terms Text */}
               <p className="text-xs text-gray-600">
                 By providing your email address, you agree to the{" "}
-                <a href="/privacy-policy" className="underline hover:text-gray-800">
+                <span className="underline hover:text-gray-800">
                   Privacy Policy
-                </a>
+                </span>
                 {" "}and{" "}
-                <a href="/terms" className="underline hover:text-gray-800">
+                <span className="underline hover:text-gray-800">
                   Terms and Conditions
-                </a>
+                </span>
                 .
               </p>
             </div>

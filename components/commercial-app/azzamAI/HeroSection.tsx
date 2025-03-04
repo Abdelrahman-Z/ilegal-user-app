@@ -1,7 +1,6 @@
 'use client'
 
 import Image from "next/image";
-import Link from "next/link";
 
 export const HeroSection = () => {
   return (
@@ -25,7 +24,7 @@ export const HeroSection = () => {
               AzzamAI® Bilingual Professional Assistant
             </h1>
             <p className="text-white text-lg">
-              Meet AzzamAI - Your round-the-clock AI Professional Assistant, combining vast jurisdiction centric legal knowledge with intelligent learning. Whether you're crafting contracts, analyzing documents or seeking legal insights, we're here to transform your professional work from complex to confident.
+              Meet AzzamAI - Your round-the-clock AI Professional Assistant, combining vast jurisdiction centric legal knowledge with intelligent learning. Whether youre crafting contracts, analyzing documents or seeking legal insights, were here to transform your professional work from complex to confident.
             </p>
         </div>
       </div>

@@ -1,6 +1,5 @@
 "use client";
 import Footer from "@/components/commercial-app/UI/Footer";
-import Header from "@/components/commercial-app/Navbar";
 import { Button, cn, Input } from "@heroui/react";
 import React from "react";
 import { useTranslations } from "next-intl";
@@ -15,7 +14,6 @@ const Page = () => {
       )}
       style={{ backgroundImage: `url(/images/landing7.svg)` }} // Set dynamic background image
     >
-      <Header />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-8 max-w-5xl w-full mx-auto">
         {/* Left Content */}
         <div className="text-white space-y-6">

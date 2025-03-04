@@ -41,7 +41,7 @@ export const OurValues = () => {
                 {/* Vertical Line */}
                 <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#FF4E78]" />
                 <p className="text-gray-700 leading-relaxed text-lg">
-                  Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                  Lorem ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                 </p>
               </div>
             </div>
@@ -75,7 +75,7 @@ export const OurValues = () => {
                 {/* Vertical Line */}
                 <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-[#FF4E78]" />
                 <p className="text-gray-700 leading-relaxed text-lg text-right">
-                  Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                  Lorem ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 </p>
               </div>
             </div>

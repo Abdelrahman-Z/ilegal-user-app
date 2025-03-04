@@ -37,7 +37,7 @@ const TermsContent: React.FC = () => {
               <p className="text-gray-700 leading-relaxed">
                 Content through iLegalWorks is available on any screen that can
                 connect to the internet; from Desktops and mobiles, to tablets and
-                TV's.
+                TVs.
               </p>
               <p className="text-gray-700 leading-relaxed">
                 iLegalWorks is designed to keep people well informed,
@@ -50,19 +50,19 @@ const TermsContent: React.FC = () => {
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Definitions</h2>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex">
-                  <span className="font-medium">"we" "us" "our" and "iLegalWorks":</span>
+                  <span className="font-medium">we us our and iLegalWorks:</span>
                   <span>all mean the iLegalWorks website www.ilegal.works owned by iLegal Technologies Limited.</span>
                 </li>
                 <li className="flex">
-                  <span className="font-medium">"You" and "your":</span>
+                  <span className="font-medium">You and your:</span>
                   <span>and all similar expressions refer to the user of the iLegalWorks website.</span>
                 </li>
                 <li className="flex">
-                  <span className="font-medium">"Service Provider":</span>
+                  <span className="font-medium">Service Provider:</span>
                   <span>any individual or institution legally authorized to upload content on the platform in the respective jurisdictions.</span>
                 </li>
                 <li className="flex">
-                  <span className="font-medium">"Service":</span>
+                  <span className="font-medium">Service:</span>
                   <span>A multi-language document automation platform offering services such as document creation, modification, signing, approval, and blockchain verification.</span>
                 </li>
               </ul>
@@ -101,8 +101,8 @@ const TermsContent: React.FC = () => {
                     <p>2.1.2 You will not gather, extract, download, reproduce and/or display or advertise on any other website, other online or off-line service or otherwise, any material on or from this website.</p>
                     <p>2.1.3 If you breach any of the clauses set out at 2.1 above, we may take such action as we deem appropriate, including denying you access to this website, bringing legal proceedings against you and disclosing such information to the appropriate legal and/or regulatory bodies.</p>
                   </div>
-                  <p>2.2 If you use "www.iLegal.works", you are responsible for maintaining the confidentiality of your Account and its password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your Account or password.</p>
-                  <p>2.3 "iLegalWorks" is intended for offering specific Services to adults above 18 years old, in the event minors are using the platform, they shall do so while supervised by their adult family members.</p>
+                  <p>2.2 If you use www.iLegal.works, you are responsible for maintaining the confidentiality of your Account and its password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your Account or password.</p>
+                  <p>2.3 iLegalWorks is intended for offering specific Services to adults above 18 years old, in the event minors are using the platform, they shall do so while supervised by their adult family members.</p>
                 </div>
               </div>
 
@@ -119,7 +119,7 @@ const TermsContent: React.FC = () => {
                     <p>3.4 The information you provide to us or post to your account is yours. We do not own this information, but you give us a right to use your information to enable us to provide you with access to relevant content.</p>
                     <p>3.5 We reserve the right to refuse or delete any information you provide, at our own discretion.</p>
                     <p>3.6 We reserve the right at any time to terminate or restrict or suspend access to account without prior notice.</p>
-                    <p>3.7 "We" reserve the right to refuse Service or access to the Website, terminate accounts, or cancel access at our sole discretion.</p>
+                    <p>3.7 We reserve the right to refuse Service or access to the Website, terminate accounts, or cancel access at our sole discretion.</p>
                     <p>3.8 You are only permitted to view the materials contained on iLegalWorks website for your own personal non-commercial use.</p>
                     <p>3.9 If you copy or download or publish or make available any content of your documents in breach of the terms and conditions, your right to use your access and content in your account will cease immediately.</p>
                   </div>
@@ -130,7 +130,7 @@ const TermsContent: React.FC = () => {
               <div className="space-y-4">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">4. Your Obligations</h2>
                 <div className="space-y-4 text-gray-700 pl-6">
-                  <p>4.1 "iLegalWorks" website is only for personal use and exclusive to the platform customer and agreement holders and is non-transferable to any third party.</p>
+                  <p>4.1 iLegalWorks website is only for personal use and exclusive to the platform customer and agreement holders and is non-transferable to any third party.</p>
                   <p>4.2 It is your responsibility to ensure that all information you supply to us or enter onto this website is complete and accurate.</p>
                   <p>4.3 You are required to share a valid email address in addition to a valid mobile number to receive information related to your access on to the platform.</p>
                   <p>4.4 You will need to answer a number of questions in order to provide you with the appropriate service.</p>

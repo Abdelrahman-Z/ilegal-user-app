@@ -23,7 +23,7 @@ const PrivacyContent: React.FC = () => {
         <div className="space-y-6">
           <section>
             <p className="text-gray-700">
-              We take data protection very seriously in compliance with the regulations of the United Arab Emirates ("UAE") and in the interest of the user, and it is important for us for you to understand how we use your personal data.
+              We take data protection very seriously in compliance with the regulations of the United Arab Emirates (UAE) and in the interest of the user, and it is important for us for you to understand how we use your personal data.
             </p>
             <p className="text-gray-700">
               This privacy policy details the purposes by which we process your personal data, with whom we share it, the rights you own with respect to that data and everything else we believe is important for to you to know.
@@ -42,9 +42,9 @@ const PrivacyContent: React.FC = () => {
           <section>
             <h2 className="text-2xl font-bold mb-4">1. Definitions</h2>
             <p className="text-gray-700">
-              "We" "US" " OUR" " iLegalWorks ": iLegalWorks website www.iLegal.works or iLegalWorks app. This website is operated by (iLegal Technologies Limited); additional details about iLegalWorks are provided in our website usage terms.
+              We US OUR iLegalWorks: iLegalWorks website www.iLegal.works or iLegalWorks app. This website is operated by (iLegal Technologies Limited); additional details about iLegalWorks are provided in our website usage terms.
               <br /><br />
-              "YOU""YOUR": A user to the website or the application.
+              YOU YOUR: A user to the website or the application.
             </p>
           </section>
 
@@ -62,7 +62,7 @@ const PrivacyContent: React.FC = () => {
               <br /><br />
               We make no representations or warranties regarding the accuracy, functionality or performance of any third-party software that may be used in connection with the website, or the services offered through this website.
               <br /><br />
-              The information on this website is provided on an 'as is' and 'as available' basis. All express or implied warranties of any kind are excluded to the fullest extent permitted by applicable law.
+              The information on this website is provided on an as is and as available basis. All express or implied warranties of any kind are excluded to the fullest extent permitted by applicable law.
             </p>
           </section>
 
@@ -147,7 +147,7 @@ const PrivacyContent: React.FC = () => {
           <section>
             <h2 className="text-2xl font-bold mb-4">12. Inquiries</h2>
             <p className="text-gray-700">
-              Any questions or comments about the website or privacy policy should be directed via email using the form on the page "Contact Us" on www.iLegal.works
+              Any questions or comments about the website or privacy policy should be directed via email using the form on the page Contact Us on www.iLegal.works
             </p>
           </section>
 
