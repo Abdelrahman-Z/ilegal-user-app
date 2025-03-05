@@ -5,13 +5,12 @@ import { Toaster } from "react-hot-toast";
 
 export default async function RootLayout({
   children,
+  params: { locale }
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
-  // Use headers to detect locale
-  const headers = new Headers();
-  const acceptLanguage = headers.get("accept-language") || "en";
-  const locale = acceptLanguage.split(",")[0] || "en"; // Default to English if not specified
+
 
   // Fetch translations for the detected locale
   const messages = await getMessages();
@@ -21,7 +20,7 @@ export default async function RootLayout({
       <body className="antialiased">
         <Providers locale={locale} messages={messages}>
           {children}
-          <Toaster position="top-right" />
+          <Toaster position="bottom-right" />
         </Providers>
       </body>
     </html>
