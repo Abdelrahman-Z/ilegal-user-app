@@ -1,29 +1,34 @@
 'use client'
 
 import { Button } from "@heroui/react";
-
-const tools = [
-  {
-    icon: "/images/ai-assistant-icon.svg",
-    title: "AzzamAI® Bilingual Professional Assistant",
-    description: "Q&A knowledge extraction and summarization based on local regulations in real time",
-    iconBgColor: "bg-[#E91E63]" // Pink background for AI assistant icon
-  },
-  {
-    icon: "/images/document-icon.svg",
-    title: "Document Automation",
-    description: "Creation, review, translation, e-signature, blockchain validation, & extraction by optical character recognition",
-    iconBgColor: "bg-[#E91E63]" // Pink background for document icon
-  }
-];
+import { useTranslations } from 'next-intl';
 
 export const ToolsSection = () => {
+  const t = useTranslations('home.toolsSection');
+
+  const tools = [
+    {
+      icon: "/images/ai-assistant-icon.svg",
+      title: t('tools.azzamAI.title'),
+      description: t('tools.azzamAI.description'),
+      alt: t('tools.azzamAI.alt'),
+      iconBgColor: "bg-[#E91E63]" // Pink background for AI assistant icon
+    },
+    {
+      icon: "/images/document-icon.svg",
+      title: t('tools.documentAutomation.title'),
+      description: t('tools.documentAutomation.description'),
+      alt: t('tools.documentAutomation.alt'),
+      iconBgColor: "bg-[#E91E63]" // Pink background for document icon
+    }
+  ];
+
   return (
     <div className="w-full bg-[#114B7E] py-24 px-4 md:px-8 lg:px-16">
       <div className="max-w-6xl mx-auto">
         {/* Title */}
         <h2 className="text-3xl font-semibold text-white text-center mb-20">
-          Tools
+          {t('title')}
         </h2>
 
         {/* Tools Stack */}
@@ -36,7 +41,7 @@ export const ToolsSection = () => {
                 <div className={`w-14 h-14 rounded-full ${tool.iconBgColor} flex items-center justify-center flex-shrink-0`}>
                   <img
                     src={tool.icon}
-                    alt={tool.title}
+                    alt={tool.alt}
                     className="w-8 h-8 object-contain"
                   />
                 </div>
@@ -54,7 +59,7 @@ export const ToolsSection = () => {
                     size="sm"
                     radius="none"
                   >
-                    Learn more...
+                    {t('learnMore')}
                   </Button>
                 </div>
               </div>

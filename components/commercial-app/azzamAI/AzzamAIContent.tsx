@@ -1,32 +1,30 @@
 'use client'
 
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 export default function AzzamAIContent() {
+  const t = useTranslations('AzzamAI.content');
 
   const features = [
     {
-      title: "Extraction",
+      key: 'extraction',
       icon: "📄",
-      description: "This tool allows you to extract information more efficiently from multiple or large documents and use it to create a detailed analysis, either based on pre-configured prompts or by way of an organization creating its own set of prompts. Simply upload scanned documents to AzzamAI and set up key types of information for the AzzamAI to look for.  The platform utilizes machine learning algorithms to extract the needed information and consolidate the extracted content accordingly in a new document. ",
       image: "/images/data-analytics.svg"
     },
     {
-      title: "Document Review",
+      key: 'documentReview',
       icon: "📝",
-      description: "This tool can help reduce the risk of errors in documents and ensure the content is accurate, consistent and compliant with an organization’s requirements. Initially, the platform provides a pre-set list of the most common questions relevant for that particular document type, but later, an organization can customize their own set of prompts for our AI to review and flag out the relevant outcome desired. The iLegal®Works© platform utilizes machine learning algorithms to scan uploaded documents and identify inconsistencies or anomalies in the text against your pre-set requirements.",
       image: "/images/document-review.svg"
     },
     {
-      title: "Bilingual Question and Answer",
+      key: 'bilingualQA',
       icon: "💬",
-      description: "This is an innovative tool designed to assist users in navigating complex regulations of specific jurisdictions (Jordan, Kingdom of Saudi Arabia, and United Arab Emirates). Leveraging state-of-the-art artificial intelligence, it provides concise answers to questions related to laws and regulations helping you to understand and clarify regulatory requirements without the need for extensive research. It has a user-friendly interface where you can type your questions and receive instant responses in both Arabic and English. Furthermore, you can rest assured of the confidentiality of the interactions, by maintaining the privacy of user queries and ensuring no sensitive data is stored, all while maintaining a track of where you left last.",
       image: "/images/bilingual-qa.svg"
     },
     {
-      title: "Summarization",
+      key: 'summarization',
       icon: "📊",
-      description: "This tool is useful if you need to quickly identify the core points of extensive content, primarily designed to help with documents of legal nature or similar. It is powered by This tool is useful if you need to quickly identify the core points of extensive content, primarily designed to help with documents of legal nature or similar. It is powered by artificial intelligence software utilizing cutting edge machine learning algorithms. It can condense lengthy documents into concise and clear bullet points of customizable length, while being considerate of the context, the format needed per document type (e.g., contracts, research papers, reports) and language need. Furthermore, interactive editing is possible, and data security is guaranteed with encryption.",
       image: "/images/summarization.svg"
     }
   ];
@@ -36,11 +34,13 @@ export default function AzzamAIContent() {
       {/* Features Section */}
       <section className="m-12 px-4 py-10 bg-deepBlue rounded-lg">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-16 text-white">Our AI-Powered Solutions</h2>
+          <h2 className="text-3xl font-bold text-center mb-16 text-white">
+            {t('mainTitle')}
+          </h2>
           
           <div className="space-y-20">
             {features.map((feature, index) => (
-              <div key={feature.title} className="mb-16 last:mb-0">
+              <div key={feature.key} className="mb-16 last:mb-0">
                 <div className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} 
                     items-start gap-8 md:gap-12`}>
                   {/* Content Side */}
@@ -48,11 +48,11 @@ export default function AzzamAIContent() {
                     <div className="flex items-center gap-3 mb-4">
                       <span className="text-2xl">{feature.icon}</span>
                       <h3 className="text-2xl font-semibold text-white">
-                        {feature.title}
+                        {t(`features.${feature.key}.title`)}
                       </h3>
                     </div>
                     <p className="text-gray-100 leading-relaxed">
-                      {feature.description}
+                      {t(`features.${feature.key}.description`)}
                     </p>
                   </div>
 
@@ -64,14 +64,13 @@ export default function AzzamAIContent() {
                     <div className="relative h-[300px] w-full rounded-lg overflow-hidden shadow-xl">
                       <Image
                         src={feature.image}
-                        alt={feature.title}
+                        alt={t(`features.${feature.key}.alt`)}
                         fill
                         className="object-cover"
                       />
                     </div>
                   </div>
                 </div>
-
               </div>
             ))}
           </div>

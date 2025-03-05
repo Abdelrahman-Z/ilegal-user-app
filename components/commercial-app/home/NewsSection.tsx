@@ -2,8 +2,11 @@
 
 import { Button, Input } from "@heroui/react";
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 export const NewsSection = () => {
+  const t = useTranslations('home.newsSection');
+
   return (
     <div className="w-full bg-white py-16 px-4 md:px-8 lg:px-16">
       <div className="max-w-6xl mx-auto">
@@ -11,8 +14,7 @@ export const NewsSection = () => {
           {/* Left side - Form */}
           <div className="flex flex-col gap-6">
             <h2 className="text-2xl font-semibold text-gray-900">
-              Sign up for updates on our services and<br />
-              our latest news.
+              {t('title')}
             </h2>
 
             {/* Email Form */}
@@ -20,7 +22,7 @@ export const NewsSection = () => {
               <div className="flex">
                 <Input
                   type="email"
-                  placeholder="Enter your email id..."
+                  placeholder={t('emailPlaceholder')}
                   className="flex-1 bg-[#F5F5F5] border-none text-gray-600 rounded-none h-12"
                   classNames={{
                     input: "bg-[#F5F5F5]",
@@ -30,21 +32,21 @@ export const NewsSection = () => {
                 <Button 
                   className="bg-[#114B7E] text-white px-8 min-w-[100px] rounded-none h-12"
                 >
-                  Send
+                  {t('sendButton')}
                 </Button>
               </div>
 
               {/* Terms Text */}
               <p className="text-xs text-gray-600">
-                By providing your email address, you agree to the{" "}
+                {t('terms.prefix')}{" "}
                 <span className="underline hover:text-gray-800">
-                  Privacy Policy
+                  {t('terms.privacyPolicy')}
                 </span>
-                {" "}and{" "}
+                {" "}{t('terms.and')}{" "}
                 <span className="underline hover:text-gray-800">
-                  Terms and Conditions
+                  {t('terms.termsConditions')}
                 </span>
-                .
+                {t('terms.suffix')}
               </p>
             </div>
           </div>
@@ -56,7 +58,7 @@ export const NewsSection = () => {
           <div className="relative h-[280px] w-full">
             <Image
               src="/images/phone-user.svg"
-              alt="Person using phone"
+              alt={t('imageAlt')}
               fill
               className="object-cover rounded-md"
               priority

@@ -14,21 +14,43 @@ import {
   Image,
 } from "@heroui/react";
 import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export const NavigationBar = () => {
   const params = useParams();
   const locale = params.locale as string;
+  const t = useTranslations('navbar');
+
+  const solutions = [
+    {
+      key: "addOns",
+      title: t('solutions.addOns'),
+      description: t('solutions.addOnsDesc'),
+      href: `/${locale}/addOns`
+    },
+    {
+      key: "azzamAI",
+      title: t('solutions.azzamAI'),
+      description: t('solutions.azzamAIDesc'),
+      href: `/${locale}/azzamAI`
+    },
+    {
+      key: "documentAutomation",
+      title: t('solutions.documentAutomation'),
+      description: t('solutions.documentAutomationDesc'),
+      href: `/${locale}/documentAutomation`
+    }
+  ];
 
   return (
     <Navbar isBordered className="text-white absolute inset-0 h-fit bg-transparent">
-      <NavbarBrand>
-        <Image src="/images/logo.svg" alt="Legal Works Logo"/> 
+      <NavbarBrand as={Link} href={`/${locale}`}>
+        <Image src="/images/logo.svg" alt={t('logoAlt')}/> 
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-4 text-white" justify="end">
         <Dropdown classNames={{
           content: "bg-gradient-to-r from-deepBlue to-lightBlue text-white",
-          
         }}>
           <NavbarItem>
             <DropdownTrigger>
@@ -38,64 +60,51 @@ export const NavigationBar = () => {
                 radius="sm"
                 variant="light"
               >
-                Our Solutions
+                {t('solutions.title')}
               </Button>
             </DropdownTrigger>
           </NavbarItem>
           <DropdownMenu
-            aria-label="Legal Works Solutions"
+            aria-label={t('solutions.ariaLabel')}
             itemClasses={{
               description: "text-white",
-              
             }}
           >
-            <DropdownItem
-              key="document_management"
-              description="Secure storage and organization of legal documents"
-              href={`/${locale}/addOns`}
+            {solutions.map((solution) => (
+              <DropdownItem
+                key={solution.key}
+                description={solution.description}
+                href={solution.href}
               >
-              Add Ons
-            </DropdownItem>
-            <DropdownItem
-              key="templates"
-              description="Professional templates for legal documents"
-              href={`/${locale}/azzamAI`}
-              >
-              Azzam AI
-            </DropdownItem>
-            <DropdownItem
-              key="contract_review"
-              description="AI-powered contract analysis and review"
-              href={`/${locale}/documentAutomation`}
-            >
-              Document Automation
-            </DropdownItem>
+                {solution.title}
+              </DropdownItem>
+            ))}
           </DropdownMenu>
         </Dropdown>
 
         <NavbarItem>
           <Link href={`/${locale}/aboutUs`} className="text-white">
-            About Us
+            {t('aboutUs')}
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link href={`/${locale}/pricing`} className="text-white">
-            Pricing
+            {t('pricing')}
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href={`/${locale}/contact`} className="text-white">
-            Contact Us
+          <Link href={`/${locale}/contactUs`} className="text-white">
+            {t('getInTouch')}
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link href={`/${locale}/news`} className="text-white">
-            News
+            {t('news')}
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} className="bg-deepBlue text-white" href={`/${locale}/login`} variant="flat">
-            Login/Signup
+            {t('loginSignup')}
           </Button>
         </NavbarItem>
       </NavbarContent>
