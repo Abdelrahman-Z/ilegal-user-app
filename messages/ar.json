@@ -546,6 +546,60 @@
       "button": "إرسال"
     }
   },
+  "login": {
+    "title": "تسجيل الدخول",
+    "emailLabel": "البريد الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "submitButton": "متابعة",
+    "loadingButton": "جاري تسجيل الدخول...",
+    "forgetPasswordText": "نسيت كلمة المرور؟",
+    "forgetPasswordLink": "إعادة تعيين كلمة المرور",
+    "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+    "validation": {
+      "Email is required": "البريد الإلكتروني مطلوب",
+      "Invalid email format": "صيغة البريد الإلكتروني غير صحيحة",
+      "Password is required": "كلمة المرور مطلوبة",
+      "Password must be at least 6 characters": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"
+    }
+  },
+  "forgetPassword": {
+    "title": "نسيت كلمة المرور",
+    "emailLabel": "البريد الإلكتروني",
+    "submitButton": "إرسال",
+    "loadingButton": "جاري الإرسال...",
+    "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+    "validation": {
+      "Email is required": "البريد الإلكتروني مطلوب",
+      "Invalid email format": "صيغة البريد الإلكتروني غير صحيحة"
+    }
+  },
+  "otp": {
+    "enterOtp": "أدخل رمز التحقق",
+    "verifyButton": "تحقق من الرمز",
+    "verifyingButton": "جاري التحقق...",
+    "noOtpReceived": "لم تستلم رمز التحقق؟",
+    "resendOtp": "إعادة إرسال الرمز",
+    "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+    "validation": {
+      "OTP is required": "رمز التحقق مطلوب",
+      "OTP must be 6 digits": "يجب أن يتكون رمز التحقق من 6 أرقام"
+    }
+  },
+  "resetPassword": {
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "updateButton": "تحديث",
+    "updatingButton": "جاري التحديث...",
+    "genericError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+    "validation": {
+      "Email is required": "البريد الإلكتروني مطلوب",
+      "Invalid email format": "صيغة البريد الإلكتروني غير صحيحة",
+      "Password is required": "كلمة المرور مطلوبة",
+      "Password must be at least 6 characters": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل"
+    }
+  },
   "sideBar": {
     "Documents": "المستندات",
     "Tokens": "رموز",

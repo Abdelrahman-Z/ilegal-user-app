@@ -7,6 +7,7 @@ import { Input, Button } from "@heroui/react";
 import { useParams, useRouter } from "next/navigation"; // Import Next.js router
 import { useResetPassordMutation } from "@/redux/services/api"; // Import the login mutation hook
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 // Define the validation schema using Yup
 const schema = yup.object().shape({
@@ -27,7 +28,8 @@ const schema = yup.object().shape({
 type FormData = yup.InferType<typeof schema>;
 
 export default function LoginForm() {
-    const {locale} = useParams()
+  const t = useTranslations('resetPassword'); // Add translations hook
+  const { locale } = useParams();
   const router = useRouter();
   const [resetPassword, { isLoading, error }] = useResetPassordMutation(); // Use login mutation hook
 
@@ -52,81 +54,81 @@ export default function LoginForm() {
   };
 
   return (
-      <div className="max-w-md w-full p-6 bg-gradient-to-b mx-auto from-lightBlue to-deepBlue shadow-md rounded-lg">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Email Field */}
-          <div className="mb-4">
-            <Input
-              {...register("email")}
-              id="email"
-              type="email"
-              label="Email"
-              placeholder="Enter your email"
-              color={errors.email ? "danger" : "default"}
-              fullWidth
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
-            )}
-          </div>
-
-          {/* Password Field */}
-          <div className="mb-4">
-            <Input
-              {...register("password")}
-              id="password"
-              type="password"
-              label="Password"
-              placeholder="Enter your password"
-              color={errors.password ? "danger" : "default"}
-              fullWidth
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            color="primary"
+    <div className="max-w-md w-full p-6 bg-gradient-to-b mx-auto from-lightBlue to-deepBlue shadow-md rounded-lg">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Email Field */}
+        <div className="mb-4">
+          <Input
+            {...register("email")}
+            id="email"
+            type="email"
+            label={t('emailLabel')}
+            placeholder={t('emailPlaceholder')}
+            color={errors.email ? "danger" : "default"}
             fullWidth
-            isDisabled={isLoading}
-            isLoading={isLoading}
-          >
-            {isLoading ? "Updating..." : "Update"}
-          </Button>
-        </form>
-
-        {/* API Error Message */}
-        {error && isFetchBaseQueryError(error) && (
-          <div className="mt-4">
-            <p className="text-red-500 text-sm">
-              {error.data &&
-              typeof error.data === "object" &&
-              "message" in error.data
-                ? (error.data as { message: string }).message
-                : "An error occurred. Please try again."}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">
+              {t(`validation.${errors.email.message}`)}
             </p>
-          </div>
-        )}
+          )}
+        </div>
 
-        {/* Link to Create Account */}
-        {/* <div className="mt-4 text-center">
-          <p className="text-gray-600">
-            Forget password?{" "}
-            <Link
-              href="/auth/forget-password"
-              className="text-blue-500 hover:underline"
-            >
-              Reset your password
-            </Link>
+        {/* Password Field */}
+        <div className="mb-4">
+          <Input
+            {...register("password")}
+            id="password"
+            type="password"
+            label={t('passwordLabel')}
+            placeholder={t('passwordPlaceholder')}
+            color={errors.password ? "danger" : "default"}
+            fullWidth
+          />
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-1">
+              {t(`validation.${errors.password.message}`)}
+            </p>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <Button
+          type="submit"
+          color="primary"
+          fullWidth
+          isDisabled={isLoading}
+          isLoading={isLoading}
+        >
+          {isLoading ? t('updatingButton') : t('updateButton')}
+        </Button>
+      </form>
+
+      {/* API Error Message */}
+      {error && isFetchBaseQueryError(error) && (
+        <div className="mt-4">
+          <p className="text-red-500 text-sm">
+            {error.data &&
+            typeof error.data === "object" &&
+            "message" in error.data
+              ? (error.data as { message: string }).message
+              : t('genericError')}
           </p>
-        </div> */}
-      </div>
+        </div>
+      )}
+
+      {/* Link to Create Account */}
+      {/* <div className="mt-4 text-center">
+        <p className="text-gray-600">
+          Forget password?{" "}
+          <Link
+            href="/auth/forget-password"
+            className="text-blue-500 hover:underline"
+          >
+            Reset your password
+          </Link>
+        </p>
+      </div> */}
+    </div>
   );
 }

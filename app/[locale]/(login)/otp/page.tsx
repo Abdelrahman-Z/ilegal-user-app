@@ -8,6 +8,7 @@ import { Button } from "@heroui/react";
 import { useParams, useRouter } from "next/navigation"; // Import Next.js router
 import { useVerifyOtpMutation } from "@/redux/services/api"; // Import your OTP verification mutation hook
 import { isFetchBaseQueryError } from "@/redux/store";
+import { useTranslations } from "next-intl";
 
 // Define the validation schema using Yup
 const schema = yup.object().shape({
@@ -21,6 +22,7 @@ const schema = yup.object().shape({
 type OTPFormData = yup.InferType<typeof schema>;
 
 export default function OTPVerificationForm() {
+  const t = useTranslations('otp'); // Add translations hook
   const router = useRouter();
   const [verifyOtp, { isLoading, error }] = useVerifyOtpMutation(); // Use the OTP verification mutation hook
   const {locale} = useParams()
@@ -50,7 +52,7 @@ export default function OTPVerificationForm() {
           {/* OTP Field */}
           <div className="mb-4">
             <label htmlFor="otp" className="block text-white mb-2">
-              Enter OTP
+              {t('enterOtp')}
             </label>
             <Controller
               name="otp"
@@ -85,7 +87,9 @@ export default function OTPVerificationForm() {
               )}
             />
             {errors.otp && (
-              <p className="text-red-500 text-sm mt-1">{errors.otp.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {t(`validation.${errors.otp.message}`)}
+              </p>
             )}
           </div>
 
@@ -97,7 +101,7 @@ export default function OTPVerificationForm() {
             isDisabled={isLoading}
             isLoading={isLoading}
           >
-            {isLoading ? "Verifying..." : "Verify OTP"}
+            {isLoading ? t('verifyingButton') : t('verifyButton')}
           </Button>
         </form>
 
@@ -109,7 +113,7 @@ export default function OTPVerificationForm() {
               typeof error.data === "object" &&
               "message" in error.data
                 ? (error.data as { message: string }).message
-                : "An error occurred. Please try again."}
+                : t('genericError')}
             </p>
           </div>
         )}

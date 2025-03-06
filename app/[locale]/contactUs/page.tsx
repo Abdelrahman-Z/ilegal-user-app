@@ -1,6 +1,7 @@
 "use client";
 import Footer from "@/components/commercial-app/UI/Footer";
-import { Button, cn, Input } from "@heroui/react";
+import Navbar from "@/components/commercial-app/UI/Navbar";
+import { Button, cn, Input, Textarea } from "@heroui/react";
 import React from "react";
 import { useTranslations } from "next-intl";
 
@@ -12,34 +13,12 @@ const Page = () => {
       className={cn(
         "min-h-screen bg-cover bg-center text-white w-full flex flex-col justify-between"
       )}
-      style={{ backgroundImage: `url(/images/landing7.svg)` }} // Set dynamic background image
+      style={{ backgroundImage: `url(/images/loginPages.svg)` }} // Set dynamic background image
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-8 max-w-5xl w-full mx-auto">
-        {/* Left Content */}
-        <div className="text-white space-y-6">
-          <h2 className="text-3xl font-bold">{t("hero.title")}</h2>
-          <p>
-          {t("hero.description1")}
-          </p>
-          <p>
-          {t("hero.description2")}
-          </p>
-          <div className="flex space-x-4">
-            {/* Social Media Icons */}
-            <a href="#" className="text-white hover:text-gray-300">
-              <i className="fab fa-facebook-f text-2xl"></i>
-            </a>
-            <a href="#" className="text-white hover:text-gray-300">
-              <i className="fab fa-twitter text-2xl"></i>
-            </a>
-            <a href="#" className="text-white hover:text-gray-300">
-              <i className="fab fa-instagram text-2xl"></i>
-            </a>
-          </div>
-        </div>
-
-        {/* Contact Form */}
-        <div className="bg-white rounded-lg shadow-lg p-8 w-full">
+      <Navbar />
+      <div/>
+      <div className="flex justify-center items-center">
+        <div className="bg-white rounded-lg shadow-lg p-8 w-1/3">
           <h2 className="text-2xl font-bold mb-6 text-center text-deepBlue">
           {t("form.title")}
           </h2>
@@ -65,7 +44,7 @@ const Page = () => {
                 label={t("form.email")}
                 type="email"
                 id="email"
-                name="email"
+                name="email" 
                 variant="underlined"
                 classNames={{
                   label: "text-deepBlue",
@@ -76,7 +55,7 @@ const Page = () => {
             </div>
             {/* Message Input */}
             <div>
-              <Input
+              <Textarea
                 label={t("form.message")}
                 type="text"
                 id="message"

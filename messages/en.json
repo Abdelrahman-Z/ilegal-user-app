@@ -509,6 +509,60 @@
       "button": "Continue"
     }
   },
+  "login": {
+    "title": "Sign in Form",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "submitButton": "Continue",
+    "loadingButton": "Logging in...",
+    "forgetPasswordText": "Forget password?",
+    "forgetPasswordLink": "Reset your password",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "Email is required": "Email is required",
+      "Invalid email format": "Invalid email format",
+      "Password is required": "Password is required",
+      "Password must be at least 6 characters": "Password must be at least 6 characters"
+    }
+  },
+  "forgetPassword": {
+    "title": "Forget Password",
+    "emailLabel": "Email",
+    "submitButton": "Submit",
+    "loadingButton": "Sending...",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "Email is required": "Email is required",
+      "Invalid email format": "Invalid email format"
+    }
+  },
+  "otp": {
+    "enterOtp": "Enter OTP",
+    "verifyButton": "Verify OTP",
+    "verifyingButton": "Verifying...",
+    "noOtpReceived": "Didn't receive the OTP?",
+    "resendOtp": "Resend OTP",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "OTP is required": "OTP is required",
+      "OTP must be 6 digits": "OTP must be 6 digits"
+    }
+  },
+  "resetPassword": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "updateButton": "Update",
+    "updatingButton": "Updating...",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "Email is required": "Email is required",
+      "Invalid email format": "Invalid email format",
+      "Password is required": "Password is required",
+      "Password must be at least 6 characters": "Password must be at least 6 characters"
+    }
+  },
   "contactUs": {
     "hero": {
       "title": "Contact Us",
