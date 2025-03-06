@@ -13,11 +13,13 @@ import {
   DropdownMenu,
   Image,
 } from "@heroui/react";
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 
 export const NavigationBar = () => {
   const params = useParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const locale = params.locale as string;
   const t = useTranslations('navbar');
 
@@ -41,6 +43,14 @@ export const NavigationBar = () => {
       href: `/${locale}/documentAutomation`
     }
   ];
+
+  // Language switcher handler
+  const handleLanguageChange = () => {
+    const newLocale = locale === 'en' ? 'ar' : 'en';
+    const currentPath = pathname;
+    const newPath = currentPath.replace(`/${locale}`, `/${newLocale}`);
+    router.push(newPath);
+  };
 
   return (
     <Navbar isBordered className="text-white absolute inset-0 h-fit bg-transparent">
@@ -105,6 +115,18 @@ export const NavigationBar = () => {
         <NavbarItem>
           <Button as={Link} className="bg-deepBlue text-white" href={`/${locale}/login`} variant="flat">
             {t('loginSignup')}
+          </Button>
+        </NavbarItem>
+        
+        {/* Language Switcher Button */}
+        <NavbarItem>
+          <Button
+            onClick={handleLanguageChange}
+            className="bg-transparent border-1 border-white text-white"
+            variant="bordered"
+            size="sm"
+          >
+            {locale === 'en' ? 'العربية' : 'English'}
           </Button>
         </NavbarItem>
       </NavbarContent>
