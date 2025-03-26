@@ -22,10 +22,6 @@ const Footer = ({ className }: FooterProps) => {
         className
       )}
     >
-      {/* Top Disclaimer */}
-      <div className="sm:ml-20 text-center sm:text-left py-4 border-b border-gray-300">
-        {t("disclaimer")}
-      </div>
 
       {/* Footer Content */}
       <div className="flex flex-col sm:flex-row justify-between items-center py-6 px-8">
