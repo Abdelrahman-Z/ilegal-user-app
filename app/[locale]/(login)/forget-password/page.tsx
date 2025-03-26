@@ -6,7 +6,8 @@ import * as yup from "yup";
 import { Input, Button } from "@heroui/react";
 import { useForgetPasswordMutation } from "@/redux/services/api";
 import { isFetchBaseQueryError } from "@/redux/store";
-import {  useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 // Define the validation schema using Yup
 const schema = yup.object().shape({
@@ -20,6 +21,7 @@ const schema = yup.object().shape({
 type FormData = yup.InferType<typeof schema>;
 
 export default function ForgetPasswordForm() {
+  const t = useTranslations('forgetPassword'); // Add translations hook
   const [forgetPassword, { isLoading, error }] = useForgetPasswordMutation(); // Use forget password mutation hook
   const { locale } = useParams();
   const router = useRouter()
@@ -44,7 +46,7 @@ export default function ForgetPasswordForm() {
   return (
     <div className="flex items-center justify-center">
       <div className="bg-gradient-to-b from-deepBlue to-lightBlue text-white rounded-lg shadow-lg p-8 w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Forget Password</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">{t('title')}</h2>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           {/* Email Field */}
           <div>
@@ -52,7 +54,7 @@ export default function ForgetPasswordForm() {
               {...register("email")}
               id="email"
               type="email"
-              label="Email"
+              label={t('emailLabel')}
               color={errors.email ? "danger" : "default"}
               variant="underlined"
               classNames={{
@@ -62,7 +64,7 @@ export default function ForgetPasswordForm() {
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
+                {t(`validation.${errors.email.message}`)}
               </p>
             )}
           </div>
@@ -75,7 +77,7 @@ export default function ForgetPasswordForm() {
               isDisabled={isLoading}
               isLoading={isLoading}
             >
-              {isLoading ? "Sending..." : "Submit"}
+              {isLoading ? t('loadingButton') : t('submitButton')}
             </Button>
           </div>
         </form>
@@ -88,7 +90,7 @@ export default function ForgetPasswordForm() {
               typeof error.data === "object" &&
               "message" in error.data
                 ? (error.data as { message: string }).message
-                : "An error occurred. Please try again."}
+                : t('genericError')}
             </p>
           </div>
         )}

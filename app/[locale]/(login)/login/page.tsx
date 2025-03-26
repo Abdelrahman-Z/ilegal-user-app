@@ -9,6 +9,7 @@ import { useLoginMutation } from "@/redux/services/api";
 import { setToken } from "@/utils";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 // Define the validation schema using Yup
 const schema = yup.object().shape({
@@ -27,6 +28,7 @@ type FormData = yup.InferType<typeof schema>;
 
 export default function LoginForm() {
   const { locale } = useParams(); // Use locale hook
+  const t = useTranslations('login'); // Add translations hook
   const [login, { isLoading, error }] = useLoginMutation(); // Use login mutation hook
 
   const {
@@ -52,7 +54,7 @@ export default function LoginForm() {
   return (
     <div className="flex items-center justify-center">
       <div className="bg-gradient-to-b from-deepBlue to-lightBlue text-white rounded-lg shadow-lg p-8 w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign in Form</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">{t('title')}</h2>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           {/* Email Field */}
           <div>
@@ -60,7 +62,7 @@ export default function LoginForm() {
               {...register("email")}
               id="email"
               type="email"
-              label="Email"
+              label={t('emailLabel')}
               color={errors.email ? "danger" : "default"}
               variant="underlined"
               classNames={{
@@ -71,7 +73,7 @@ export default function LoginForm() {
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
+                {t(`validation.${errors.email.message}`)}
               </p>
             )}
           </div>
@@ -82,7 +84,7 @@ export default function LoginForm() {
               {...register("password")}
               id="password"
               type="password"
-              label="Password"
+              label={t('passwordLabel')}
               color={errors.password ? "danger" : "default"}
               variant="underlined"
               classNames={{
@@ -93,7 +95,7 @@ export default function LoginForm() {
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
+                {t(`validation.${errors.password.message}`)}
               </p>
             )}
           </div>
@@ -106,7 +108,7 @@ export default function LoginForm() {
               isDisabled={isLoading}
               isLoading={isLoading}
             >
-              {isLoading ? "Logging in..." : "Continue"}
+              {isLoading ? t('loadingButton') : t('submitButton')}
             </Button>
           </div>
         </form>
@@ -119,7 +121,7 @@ export default function LoginForm() {
               typeof error.data === "object" &&
               "message" in error.data
                 ? (error.data as { message: string }).message
-                : "An error occurred. Please try again."}
+                : t('genericError')}
             </p>
           </div>
         )}
@@ -127,12 +129,12 @@ export default function LoginForm() {
         {/* Link to Create Account */}
         <div className="mt-4 text-center">
           <p className="text-white">
-            Forget password?{" "}
+            {t('forgetPasswordText')}{" "}
             <Link
               href={`/${locale}/forget-password`}
               className="text-fuschia_maked hover:underline"
             >
-              Reset your password
+              {t('forgetPasswordLink')}
             </Link>
           </p>
         </div>

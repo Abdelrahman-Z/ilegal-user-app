@@ -5,7 +5,20 @@
     "services": "Services",
     "team": "Team",
     "pricing": "Pricing",
-    "getInTouch": "Get In Touch"
+    "getInTouch": "Contact Us",
+    "news": "News",
+    "loginSignup": "Login/Signup",
+    "logoAlt": "Legal Works Logo",
+    "solutions": {
+      "title": "Our Solutions",
+      "ariaLabel": "Legal Works Solutions",
+      "addOns": "Add Ons",
+      "addOnsDesc": "Secure storage and organization of legal documents",
+      "azzamAI": "Azzam AI",
+      "azzamAIDesc": "Professional templates for legal documents",
+      "documentAutomation": "Document Automation",
+      "documentAutomationDesc": "AI-powered contract analysis and review"
+    }
   },
   "footer": {
     "disclaimer": "*Powered by iLegal Solutions Limited, a regulated legal consultancy firm based in the RAKDAO, UAE, holding license number 07010134.",
@@ -18,161 +31,464 @@
   "home": {
     "hero": {
       "title": "Build Your Own Digital Organization",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      "loginButton": "Log in"
+      "description": "Empowering organizations in the Middle East to efficiently streamline complex documentation and navigate local regulations"    
     },
-    "aboutUs": {
-      "title": "About Us",
-      "description1": "iLegal® Solutions® is an innovative one-stop-shop platform for document management.",
-      "description2": "iLegal® Solutions® is a digital platform that automates document creation, review, translation, validation, and extraction and can be customized to an organization's specific requirements.",
-      "learnMore": "Learn more..."
-    },
-    "services": {
-      "title": "Our Services",
+    "featuresSection": {
+      "title": "Features",
+      "features": {
+        "workflow": {
+          "title": "Streamline Your Workflow",
+          "description": "with the convenience of our all-in-one document automation platform."
+        },
+        "bilingual": {
+          "title": "Benefit from Arabic and English",
+          "description": "with relevant bi-lingual support."
+        },
+        "security": {
+          "title": "Ensure Security",
+          "description": "of your documents with the power of private blockchain technology."
+        },
+        "insights": {
+          "title": "Access Insights Based on Local Regulations",
+          "description": "in real time, through our professional bilingual AI enabled assistant (QazamAI™)."
+        }
+      },
       "learnMore": "Learn more...",
-      "items": {
-        "documentCreation": {
-          "title": "Document Creation",
-          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      "imageAlt": "Law Books"
+    },
+    "toolsSection": {
+      "title": "Tools",
+      "learnMore": "Learn more...",
+      "tools": {
+        "azzamAI": {
+          "title": "AzzamAI® Bilingual Professional Assistant",
+          "description": "Q&A knowledge extraction and summarization based on local regulations in real time",
+          "alt": "AI Assistant Icon"
+        },
+        "documentAutomation": {
+          "title": "Document Automation",
+          "description": "Creation, review, translation, e-signature, blockchain validation, & extraction by optical character recognition",
+          "alt": "Document Icon"
+        }
+      }
+    },
+    "newsSection": {
+      "title": "Sign up for updates on our services and our latest news.",
+      "emailPlaceholder": "Enter your email id...",
+      "sendButton": "Send",
+      "terms": {
+        "prefix": "By providing your email address, you agree to the",
+        "privacyPolicy": "Privacy Policy",
+        "and": "and",
+        "termsConditions": "Terms and Conditions",
+        "suffix": "."
+      },
+      "imageAlt": "Person using phone"
+    }
+  },
+  "addOns": {
+    "hero": {
+      "title": "Add Ons",
+      "contactUs": "Contact Us",
+      "imageAlt": "Add-ons background"
+    },
+    "content": {
+      "legalAdvisory": {
+        "title": "Legal Advisory Support",
+        "introduction": "Legal advisory support is offered as a premium add-on to any document being created or reviewed and consists of the following:",
+        "services": {
+          "templateCreation": "Template creation: Review of created template to ensure localization, legality, and concise alignment of content.",
+          "documentCreation": "Creation of document from template: Review of created document from template to ensure adequacy based on requirements of user per document.",
+          "translation": "Document translation: Review of document post-translation to ensure adequacy of translation and alignment along the translated document.",
+          "extraction": "Extraction: Review of extracted content to ensure raised prompts are being responded to accurately and making all necessary adjustments to ensure all raised prompts are addressed.",
+          "summarization": "Summarization: Review of summarized content to ensure alignment and accuracy and adjusting the prompts according to user needs in relation to the document summarized.",
+          "qa": "Q&A: Address Q&A of users on any specific matter outside the scope of the above."
+        }
+      },
+      "disclaimer": {
+        "title": "Legal Disclaimer",
+        "part1": "iLegalWorks® is neither a law firm nor a legal consultancy platform and is further not associated with any regulatory authority. iLegalWorks® does not offer any legal services of any kind, and thus cannot be liable to any errors or losses due to the use of this service. All legal support services are being offered by iLegal Solutions Limited, a licensed legal consultancy firm based under Ras Al Khaimah Digital Assets Oasis Authority, UAE, holding license number 07010134.",
+        "part2": "This add-on Legal Advisory Support service is offered as a separate service and offered only for documents being used on iLegalWorks® platform and exclusively relevant to the specific document the add-on is required to receive support and further the service is performed exclusively through iLegal Solutions Limited. Please note that you are not required to connect to an add-on service, and that this service is totally optional to the user without any liability whatsoever on iLegalWorks®."
+      }
+    }
+  },
+  "AzzamAI": {
+    "hero": {
+      "title": "AzzamAI® Bilingual Professional Assistant",
+      "description": "Meet AzzamAI - Your round-the-clock AI Professional Assistant, combining vast jurisdiction centric legal knowledge with intelligent learning. Whether you're crafting contracts, analyzing documents or seeking legal insights, we're here to transform your professional work from complex to confident.",
+      "imageAlt": "AzzamAI background"
+    },
+    "content": {
+      "mainTitle": "Our AI-Powered Solutions",
+      "features": {
+        "extraction": {
+          "title": "Extraction",
+          "description": "This tool allows you to extract information more efficiently from multiple or large documents and use it to create a detailed analysis, either based on pre-configured prompts or by way of an organization creating its own set of prompts. Simply upload scanned documents to AzzamAI and set up key types of information for the AzzamAI to look for. The platform utilizes machine learning algorithms to extract the needed information and consolidate the extracted content accordingly in a new document.",
+          "alt": "Data Analytics Illustration"
         },
         "documentReview": {
           "title": "Document Review",
-          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+          "description": "This tool can help reduce the risk of errors in documents and ensure the content is accurate, consistent and compliant with an organization's requirements. Initially, the platform provides a pre-set list of the most common questions relevant for that particular document type, but later, an organization can customize their own set of prompts for our AI to review and flag out the relevant outcome desired. The iLegal®Works© platform utilizes machine learning algorithms to scan uploaded documents and identify inconsistencies or anomalies in the text against your pre-set requirements.",
+          "alt": "Document Review Illustration"
         },
-        "documentTranslation": {
-          "title": "Document Translation",
-          "description": "It is used as placeholder text in the printing and typesetting industry."
+        "bilingualQA": {
+          "title": "Bilingual Question and Answer",
+          "description": "This is an innovative tool designed to assist users in navigating complex regulations of specific jurisdictions (Jordan, Kingdom of Saudi Arabia, and United Arab Emirates). Leveraging state-of-the-art artificial intelligence, it provides concise answers to questions related to laws and regulations helping you to understand and clarify regulatory requirements without the need for extensive research. It has a user-friendly interface where you can type your questions and receive instant responses in both Arabic and English. Furthermore, you can rest assured of the confidentiality of the interactions, by maintaining the privacy of user queries and ensuring no sensitive data is stored, all while maintaining a track of where you left last.",
+          "alt": "Bilingual Q&A Illustration"
         },
-        "documentValidation": {
-          "title": "Document Validation",
-          "description": "It ensures the document is error-free and meets all formatting requirements."
-        },
-        "documentExtraction": {
-          "title": "Document Extraction",
-          "description": "Data extraction from various types of documents for analysis and storage."
-        },
-        "documentArchiving": {
-          "title": "Document Archiving",
-          "description": "Securely store and organize documents for long-term access and retrieval."
+        "summarization": {
+          "title": "Summarization",
+          "description": "This tool is useful if you need to quickly identify the core points of extensive content, primarily designed to help with documents of legal nature or similar. It is powered by artificial intelligence software utilizing cutting edge machine learning algorithms. It can condense lengthy documents into concise and clear bullet points of customizable length, while being considerate of the context, the format needed per document type (e.g., contracts, research papers, reports) and language need. Furthermore, interactive editing is possible, and data security is guaranteed with encryption.",
+          "alt": "Summarization Illustration"
         }
       }
-    },
-    "stayUpdated": {
-      "title": "Stay Updated",
-      "description1": "Sign up for periodic updates for the latest on our new services, offers, and customer experience.",
-      "description2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      "emailPlaceholder": "Enter your email id...",
-      "sendButton": "Send",
-      "disclaimer": "By providing your email address, you agree to the Privacy Policy and Terms and Conditions."
     }
   },
-  "about": {
+  "documentAutomation": {
     "hero": {
-      "title": "About our business",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+      "title": "Document Automation",
+      "imageAlt": "Legal scales of justice"
     },
-    "overview": {
-      "title": "Overview",
-      "paragraph1": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      "paragraph2": "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    "bilingualTemplate": {
+      "title": "Bilingual Template and Document Creation",
+      "description": "This tool is especially useful if you need to create documents quickly and efficiently. With iLegal®Works©, you can either access a library of pre-set templates (i.e. contracts, resolutions, and policies) that can be easily filled with your specific content or can customize your own templates. Also, in case you need more content customization, you can create a new template with easily modifiable text, clauses, and formatting.",
+      "alt": "Data Analytics Illustration"
     },
-    "moreAboutUs": {
-      "row1": {
-        "text": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        "buttonText": "Learn more..."
+    "content": {
+      "features": {
+        "translation": {
+          "title": "Document Translation",
+          "description": "With this tool, you may convert the language of a document from Arabic to English (vice versa) quickly and easily. It is particularly useful for when a bilingual document is required to be signed between two parties or to adhere to local authority requirements. You can further have the document vetted and certified from a legal point of view, by opting for an add on premium service*.",
+          "alt": "Translation Illustration"
+        },
+        "validation": {
+          "title": "Bilingual Question and Answer",
+          "description": "You can efficiently and confidently verify the authenticity of a document with this tool. iLegal®Works© uses blockchain technology to validate authenticity of documents created on iLegal®Works©, ensuring that the document has not been altered after it is created on the platform and reducing the need for time consuming manual verification. The blockchain integration creates a secure and immutable record of all changes and updates made to the document. iLegal®Works© creates a digital signature for each document that is stored on the blockchain, making it easy to verify the authenticity of the document at any time. A change made to the document will create a new digital signature that is also stored on the blockchain, providing a record of all modifications made.",
+          "alt": "Contextual Awareness Illustration"
+        },
+        "ocr": {
+          "title": "Bilingual Fine-Tuned Optical Character Recognition",
+          "description": "An AI powered deep learning tool that can convert Arabic image formats into machine readable formats accurately with high precision in both Arabic and English.",
+          "alt": "Document Flow Illustration"
+        }
+      }
+    }
+  },
+  "cookie-policy": {
+    "hero": {
+      "title": "Cookie Policy",
+      "imageAlt": "Privacy Policy background"
+    },
+    "content": {
+      "title": "Cookie Policy",
+      "introduction": {
+        "text": "We want your experience on www.iLegal.works to be efficient, simple and easy. To ensure that you can make the most of our services on your car tracker, tablet or mobile devices, you will need to accept cookies. If cookies are not activated on your device, many may limit your experience on this website. In some instances, it may mean that you cannot access some of our services at all. More precisely, we use cookies when delivering up to ensure that we can personalize your experience on our website."
       },
-      "row2": {
-        "text": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-        "buttonText": "Learn more..."
-      }
-    }
-  },
-  "services": {
-    "hero": {
-      "title": "Our Practice Area",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-    },
-    "ourServices": {
-      "title": "Our Services",
-      "items": {
-        "item-1": {
-          "title": "Document Creation",
-          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+      "whatIsCookie": {
+        "title": "What is a cookie?",
+        "description1": "A cookie is deposited on your browser and is used by the website you are viewing to identify you as a user, enabling information to be stored on the hard drive of your device. Cookies allow us to recognize you when you return to our website and help us to understand your preferences and improve your experience on our website.",
+        "description2": "This data is used to help us improve our website and to help us understand what content and services are most important to our users. In addition, some companies that advertise on third parties, in which case, we cannot be held responsible for such without prior.",
+        "description3": "In addition, some companies that advertise on the iLegalWorks website may need programs that collect user information to determine how effective their advertisements are. Such advertisers, which are managed by third party to the privacy policy. Note: such user statistics via internal processes for the purpose of improving the quality of our data and measuring time.",
+        "description4": "You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser settings (such as cookies, session settings, and app-specific programming) under JavaScript for the same purpose mentioned above."
+      },
+      "cookieTypes": {
+        "intro": "We use four categories of cookie on our websites:",
+        "categories": {
+          "necessary": "Strictly necessary",
+          "functionality": "Functionality",
+          "targeting": "Targeting",
+          "performance": "Performance"
         },
-        "item-2": {
-          "title": "Document Review",
-          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        "sessionInfo": "We use First Session Cookies, which only exist for the duration of your visit and are deleted when you leave the website. Others are Persistent Cookie, these stay on your device until they delete or expire.",
+        "strictlyNecessary": {
+          "title": "Strictly necessary cookies",
+          "description": "Strictly necessary cookies are required for the operation of our website. These cookies are essential to enable you to navigate the website and use its features. Without these, we cannot guarantee that you can use all functionalities of our website.",
+          "usage": "Our use of strictly necessary cookies includes:",
+          "purpose1": "Recording your account reference to maintain content and account information",
+          "purpose2": "Providing secure access to protected areas of the website within the user session",
+          "purpose3": "Authenticating and verifying web requests",
+          "purpose4": "Ensuring the information entered on our website is secure and is not subject to access from third parties"
         },
-        "item-3": {
-          "title": "Document Translation",
-          "description": "It is used as placeholder text in the printing and typesetting industry."
+        "performance": {
+          "title": "Performance Cookies",
+          "description": "These measure collected information about how visitors use a website, such as which pages visitors go to most often and if they get error messages from web pages. They do not collect information that identifies a visitor. All information these cookies collect is aggregated and therefore anonymous. It is only used to improve how a website works.",
+          "usage": "Our use of Performance cookies includes:",
+          "purpose1": "Collecting anonymous aggregated information that is used to manage and plan enhancements to our service",
+          "purpose2": "Assisting us in tailoring the website to customer needs",
+          "purpose3": "Measuring advertising effectiveness"
         },
-        "item-4": {
-          "title": "Document Validation",
-          "description": "Ensures the document is error-free and meets all formatting requirements."
+        "functionality": {
+          "title": "Functionality cookies",
+          "description": "These cookies allow the website to remember choices you make (such as your user name, language or the region you are in) to provide enhanced and more personalized features. For example, these cookies can be used to remember changes you have made to text size, fonts and other parts of web pages that you can customize. They may also be used to provide services you have asked for such as watching a video or commenting on a blog. We may also use functionality cookies to target you with promotional emails, based on your context, and inform their content.",
+          "usage": "Our use of functionality cookies includes:",
+          "purpose1": "Remembering preferences you have chosen to customize your experience",
+          "purpose2": "Providing live chat functionality"
         },
-        "item-5": {
-          "title": "Document Extraction",
-          "description": "Data extraction from various types of documents for analysis and storage."
-        },
-        "item-6": {
-          "title": "Document Management",
-          "description": "A comprehensive system for managing, tracking, and storing documents efficiently."
+        "targeting": {
+          "title": "Targeting Cookies",
+          "description1": "Targeting cookies record your visit to our website, including the web pages you have visited and the links you have followed. We will use this information to make our website and the advertising displayed on it more relevant to your interests. We may also share this information with third parties for this purpose.",
+          "description2": "Although these cookies do not collect information that you enter into forms on our website (such as your email address), we sometimes share user data with our service providers so that they can combine this information with other data they hold about you. This helps us to understand how our customers interact with our website and other websites.",
+          "usage": "Our providers will use targeting cookies to:",
+          "purpose1": "Improve our website, by enabling us to understand how our customers interact with our website",
+          "purpose2": "Collect information about browsing patterns on third party websites",
+          "purpose3": "Trigger promotional emails sent to you, based on your context, and inform their content",
+          "purpose4": "Target ads on third party websites"
         }
       }
     }
   },
-  "team": {
+  "terms": {
     "hero": {
-      "title": "Our Team",
-      "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+      "title": "Terms & Conditions",
+      "imageAlt": "Privacy Policy background"
     },
-    "overview": {
-      "title1": "Service With A Smile",
-      "title2": "Meet Our People",
-      "paragraph1": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "paragraph2": "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
-    },
-    "partners": {
-      "title": "The Partners",
-      "items": {
-        "item-1": {
-          "name": "Lorem Ipsum",
-          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
+    "content": {
+      "title": "Terms & Conditions",
+      "introduction": {
+        "paragraph1": "iLegalWorks is a multi-language document automation platform, with varied services from creating bilingual documents to modifying, correcting, signing, approving, summarizing, extracting to overall managing documents all the way to concluding a verification system on the blockchain for securing the authenticity of the created document.",
+        "paragraph2": "Content through iLegalWorks is available on any screen that can connect to the internet; from Desktops and mobiles, to tablets and TVs.",
+        "paragraph3": "iLegalWorks is designed to keep people well informed, educated, inspired and nudge them in the right direction."
+      },
+      "definitions": {
+        "title": "Definitions",
+        "ilegalworks": {
+          "term": "we us our and iLegalWorks: ",
+          "definition": "all mean the iLegalWorks website www.ilegal.works owned by iLegal Technologies Limited."
         },
-        "item-2": {
-          "name": "Lorem Ipsum",
-          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        "you": {
+          "term": "You and your: ",
+          "definition": "and all similar expressions refer to the user of the iLegalWorks website."
         },
-        "item-3": {
-          "name": "Lorem Ipsum",
-          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        "serviceProvider": {
+          "term": "Service Provider: ",
+          "definition": "any individual or institution legally authorized to upload content on the platform in the respective jurisdictions."
+        },
+        "service": {
+          "term": "Service: ",
+          "definition": "A multi-language document automation platform offering services such as document creation, modification, signing, approval, and blockchain verification."
+        }
+      },
+      "notePoints": {
+        "title": "Note Points",
+        "introduction": "We set out below the important points for you to note when using the website. These summary points are not part of our Terms and Conditions and are for reference only:",
+        "point1": "You must provide accurate and complete information when using this website so that we can direct you to the most appropriate and relevant content for you to review.",
+        "point2": "All information data and copyright material contained on this website must not be reproduced or used without our prior written consent."
+      },
+      "sections": {
+        "1": {
+          "title": "1. General Terms and Conditions",
+          "content": {
+            "point1": "These Terms and Conditions apply to your use of this website.",
+            "point2": "By using this website you agree to these Terms and Conditions. If you do not wish to be bound by these Terms and Conditions, you should not use this website."
+          }
+        },
+        "2": {
+          "title": "2. Use of this Website",
+          "content": {
+            "intro": "By using this website you agree that:",
+            "subpoint1": "You will not do anything that affects the integrity or security of this website or causes or may cause harm, damage or unreasonable inconvenience to other users of this website or us.",
+            "subpoint2": "You will not gather, extract, download, reproduce and/or display or advertise on any other website, other online or off-line service or otherwise, any material on or from this website.",
+            "subpoint3": "If you breach any of the clauses set out above, we may take such action as we deem appropriate, including denying you access to this website, bringing legal proceedings against you and disclosing such information to the appropriate legal and/or regulatory bodies.",
+            "point2": "If you use www.iLegal.works, you are responsible for maintaining the confidentiality of your Account and its password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your Account or password.",
+            "point3": "iLegalWorks is intended for offering specific Services to adults above 18 years old, in the event minors are using the platform, they shall do so while supervised by their adult family members."
+          }
+        },
+        "3": {
+          "title": "3. Submission on the Website",
+          "content": {
+            "intro": "You are welcome to contact us directly at any time with information, reference, ideas, concepts, know-how, techniques, comments, or suggestions.",
+            "subIntro": "Subject to the following:",
+            "point1": "You must not misuse iLegalWorks website by knowingly introducing material which is malicious or technologically harmful or that is designed to interrupt, destroy or limit the functionality of any computer software, hardware or interfere with or disrupt your documents.",
+            "point2": "You are responsible for ensuring that the computer or other devices you use to access your documents are sufficiently protected against viruses, harmful material or unauthorized access.",
+            "point3": "You must upload accurate and complete information as requested by us on the website.",
+            "point4": "The information you provide to us or post to your account is yours. We do not own this information, but you give us a right to use your information to enable us to provide you with access to relevant content.",
+            "point5": "We reserve the right to refuse or delete any information you provide, at our own discretion.",
+            "point6": "We reserve the right at any time to terminate or restrict or suspend access to account without prior notice.",
+            "point7": "We reserve the right to refuse Service or access to the Website, terminate accounts, or cancel access at our sole discretion.",
+            "point8": "You are only permitted to view the materials contained on iLegalWorks website for your own personal non-commercial use.",
+            "point9": "If you copy or download or publish or make available any content of your documents in breach of the terms and conditions, your right to use your access and content in your account will cease immediately."
+          }
+        },
+        "4": {
+          "title": "4. Your Obligations",
+          "content": {
+            "point1": "iLegalWorks website is only for personal use and exclusive to the platform customer and agreement holders and is non-transferable to any third party.",
+            "point2": "It is your responsibility to ensure that all information you supply to us or enter onto this website is complete and accurate.",
+            "point3": "You are required to share a valid email address in addition to a valid mobile number to receive information related to your access on to the platform.",
+            "point4": "You will need to answer a number of questions in order to provide you with the appropriate service."
+          }
+        },
+        "5": {
+          "title": "5. Our Service",
+          "content": {
+            "point1": "iLegalWorks service provides its customers access to a multi-language document automation platform, with varied services from creating bilingual documents to modifying, correcting, signing, approving and overall managing documents all the way to concluding a verification system on the blockchain for securing the authenticity of the created document.",
+            "point2": "The information provided by you will assist us in providing you with the best services and most suitable content to your request."
+          }
+        },
+        "6": {
+          "title": "6. Orders",
+          "content": {
+            "point1": "All orders are subject to acceptance and availability.",
+            "point2": "We reserve the right to refuse to accept any order without giving any reason. In the event that we do not accept your order, we will advise you of this and ensure that you are not charged.",
+            "point3": "You will be charged for the service once you have confirmed your order and payment has been authorized.",
+            "point4": "We may update the pricing from time to time. We will ensure that you are aware of the current pricing before you place your order."
+          }
+        },
+        "7": {
+          "title": "7. Liability",
+          "content": {
+            "intro": "We will not be liable for any loss or damage caused by us or our employees or agents in circumstances where:",
+            "subpoint1": "There is no breach of a legal duty of care owed to you by us or by any of our employees or agents;",
+            "subpoint2": "Such loss or damage was not reasonably foreseeable by both parties;",
+            "subpoint3": "Such loss or damage is caused by you breaching these terms and conditions;",
+            "subpoint4": "Such loss or damage relates to a business of yours;",
+            "subpoint5": "Such loss or damage relates to any falling in the value of the service provided.",
+            "point2": "Nothing in these terms and conditions excludes or limits our liability for death or personal injury caused by our negligence or for fraud or fraudulent misrepresentation."
+          }
+        },
+        "8": {
+          "title": "8. SMS Messages",
+          "content": {
+            "point1": "By providing us with your mobile phone number, you agree that we may send you SMS messages.",
+            "point2": "You may opt out of receiving SMS messages at any time by contacting us.",
+            "point3": "Standard message and data rates may apply."
+          }
+        },
+        "9": {
+          "title": "9. Intellectual Property",
+          "content": {
+            "point1": "All intellectual property rights in this website and the material published on it belong to us or our licensors.",
+            "point2": "You may print off one copy and may download extracts of any page(s) from our website for your personal reference.",
+            "point3": "You must not modify the paper or digital copies of any materials you have printed off or downloaded in any way.",
+            "point4": "Our status (and that of any identified contributors) as the authors of material on our website must always be acknowledged."
+          }
+        },
+        "10": {
+          "title": "10. Privacy Policy",
+          "content": {
+            "point1": "We take your privacy seriously and will only use your personal information in accordance with our Privacy Policy.",
+            "point2": "By using our website, you consent to the processing described therein and warrant that all data provided by you is accurate."
+          }
+        },
+        "11": {
+          "title": "11. External Links",
+          "content": {
+            "point1": "Links to third party websites on this website are provided solely for your convenience.",
+            "point2": "If you use these links, you leave our website.",
+            "point3": "We have not reviewed these third party websites and do not control them.",
+            "point4": "We are not responsible for these websites or their content or availability."
+          }
+        },
+        "12": {
+          "title": "12. Termination",
+          "content": {
+            "point1": "We reserve the right to terminate your access to the website immediately without notice.",
+            "point2": "Upon termination, you must immediately cease using the website.",
+            "point3": "All provisions of these terms which by their nature should survive termination shall survive termination."
+          }
+        },
+        "13": {
+          "title": "13. Governing Law",
+          "content": {
+            "point1": "These terms and conditions are governed by and construed in accordance with the laws of the United Arab Emirates.",
+            "point2": "Any disputes relating to these terms and conditions shall be subject to the exclusive jurisdiction of the courts of the United Arab Emirates."
+          }
+        },
+        "14": {
+          "title": "14. Adjustments to Terms and Conditions",
+          "content": {
+            "point1": "We reserve the right to make changes to these terms and conditions at any time.",
+            "point2": "You will be subject to the terms and conditions in force at the time that you use the website.",
+            "point3": "If any of these terms and conditions are determined to be illegal, invalid or otherwise unenforceable, then to the extent and within the jurisdiction in which that term or condition is illegal, invalid or unenforceable, it shall be severed and deleted from these terms and conditions and the remaining terms and conditions shall survive and continue to be binding and enforceable."
+          }
+        },
+        "15": {
+          "title": "15. Complaints Procedure",
+          "content": "We aim to provide a high standard of service to all our customers. If you have any queries or complaints, please connect with us on /Contact Us – ContactUs@iLegal.Works"
         }
       }
-    },
-    "attorneys": {
-      "title": "Attorneys",
-      "items": {
-        "item-1": {
-          "name": "Lorem Ipsum",
-          "description": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-        },
-        "item-2": {
-          "name": "Lorem Ipsum",
-          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        },
-        "item-3": {
-          "name": "Lorem Ipsum",
-          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }
+  },
+  "privacy": {
+    "content": {
+      "title": "Privacy Policy",
+      "introduction": {
+        "paragraph1": "We take data protection very seriously in compliance with the regulations of the United Arab Emirates (UAE) and in the interest of the user, and it is important for us for you to understand how we use your personal data.",
+        "paragraph2": "This privacy policy details the purposes by which we process your personal data, with whom we share it, the rights you own with respect to that data and everything else we believe is important for to you to know.",
+        "paragraph3": "You should read this privacy policy to ensure you understand Our privacy practices of which are applicable to its services that may be provided through the entire world. Use of any of the online services available at this website implies that you accept these terms and conditions. If you do not accept these terms and conditions, please do not access this website, or use any of the online services available at this website.",
+        "paragraph4": "The main purpose for which we process your personal data is to provide you with the services you request from us through www.iLegal.works (the website) or our application. We may need some information from you to do this and cannot provide our services without this data. We will also process personal data for other purposes, such as marketing (where you agree), market research, where you agree, and fraud prevention. We will only keep your personal data if it is necessary for the purpose we need for personal data as per the applicable rules and regulations within the UAE.",
+        "paragraph5": "We will need to share some of your personal data with certain third parties that offer you services through our website or application by performing checks on you and assess specific relevant content to share with you in fully automated ways. These partners are responsible for how they process your personal data and should you wish to see their policies through their public websites, please refer to their public websites directly."
+      },
+      "definitions": {
+        "title": "1. Definitions",
+        "ilegalworks": "We US OUR iLegalWorks: iLegalWorks website www.iLegal.works or iLegalWorks app. This website is operated by (iLegal Technologies Limited); additional details about iLegalWorks are provided in our website usage terms.",
+        "you": "YOU YOUR: A user to the website or the application."
+      },
+      "scope": {
+        "title": "2. Scope of policy",
+        "content": "Please be aware that this privacy policy applies only to this website. Within this website, you may see links or references to other websites which are not covered by this policy and are likely to have different information practices. We therefore encourage you to read the privacy policy of each website you visit. We provide these references and links for your convenience; they should not be construed as an endorsement of such websites, their content, or their information practices. You are solely responsible for any interactions you may have with such websites."
+      },
+      "warranties": {
+        "title": "3. No Warranties",
+        "paragraph1": "Due to the nature of the internet, iLegalWorks does not warrant that this website or the server that makes it available are free of viruses or other harmful components or that other contaminating or destructive properties will be transmitted or that no damage will occur to your computer system. As user, you have the sole responsibility for adequate protection and back up of your data and/or equipment and for undertaking reasonable and appropriate precautions to scan for computer viruses or other destructive properties. The user assumes the entire cost of all necessary maintenance, repair or correction of its own hardware or software.",
+        "paragraph2": "We make no representations or warranties regarding the accuracy, functionality or performance of any third-party software that may be used in connection with the website, or the services offered through this website.",
+        "paragraph3": "The information on this website is provided on an as is and as available basis. All express or implied warranties of any kind are excluded to the fullest extent permitted by applicable law."
+      },
+      "information": {
+        "title": "4. How we use your information and who we share it with",
+        "main": "Your privacy is very important to us, and we have designed our Privacy Policy with the objective of maintaining your trust, confidence and respecting your right of protecting your personal information. We will use your information to manage your insurance with us, including underwriting, claims handling and statistical analysis. This may include disclosing your information within the iLegalWorks internal service and other service providers who are authorized by official authorities to share content on our platform.",
+        "disclosure": {
+          "intro": "We do not disclose your information to anyone outside the iLegalWorks service except:",
+          "point1": "Where we have your permission",
+          "point2": "Where we are required or permitted to do so by law",
+          "point3": "To other companies who provide a service to us or you",
+          "point4": "Where we may transfer rights and obligations under this Privacy Policy to a third party as permitted by law"
         }
+      },
+      "collection": {
+        "title": "5. Collection of Information",
+        "paragraph1": "Most of the data we process will be data we collect directly from you when you request to use our service. We will ask you various questions to collect the data we need for ensuring we direct you to the proper channels on our platform. We will only be able to offer the most relevant service if you answer the mandatory questions. We are doing our utmost to ensure that that information is accurate and up to date, please assist us in this by advising us of any changes as soon as possible.",
+        "paragraph2": "We are constantly striving to improve the quality of our service and the efficiency of our systems and so, from time to time, we may use your personal information during staff training and/or system testing."
+      },
+      "exchange": {
+        "title": "6. Exchange of Information",
+        "intro": "At various times, we will exchange personal information with certain other approved organizations where required or permitted by law. Also, your personal information will sometimes be used and analyzed by us and other partners participating on our platform for the following purposes:",
+        "purposes": {
+          "point1": "Considering any applications for products you may request and to help in making related decisions about you where appropriate",
+          "point2": "Helping ILegalWorks to develop new and innovative products and services"
+        },
+        "consent": "We may send data in confidence for processing to other companies, therefore, by entering your details onto our website, you are consenting to such use of your personal data."
+      },
+      "promotional": {
+        "title": "7. Use of Personal Information for Promotional Purposes",
+        "content": "The information you provide may be used by us, other members of iLegalWorks and carefully selected third parties for market research purposes or to inform you of other products or services that may be of interest to you, or to create a better experience for you on our website, unless you have advised us otherwise in writing. You will always be given the option to opt out of any further communication."
+      },
+      "others": {
+        "title": "8. Dealing with Other People",
+        "content": "If your spouse or one of your family members contacts us on your behalf, due to data protection, we will be unable to answer their queries."
+      },
+      "security": {
+        "title": "9. Data Security",
+        "content": "Although we take reasonable steps to protect the personally identifiable information that you provide via this website, no system is 100% secure or error-free. Therefore, we do not, and cannot, guarantee the security or accuracy of the information we gather or provide via this website. You also acknowledge and agree to your knowledge without any liability to us."
+      },
+      "copyright": {
+        "title": "10. Copyright and Trademarks",
+        "paragraph1": "iLegalWorks owns or has license to use the trademarks, logos, copyrighted content and service marks displayed on this website. These may not be copied, shared, or distributed from iLegalWorks website, without the prior written permission of iLegalWorks. You consent that you will be subject to liability and payment of liquidated damages to iLegalWorks if you make any kind of improper and contrary use of the terms and conditions mentioned here.",
+        "paragraph2": "iLegalWorks website is only for a personal use and exclusive to the concerned individual and non-transferable to any third party.",
+        "paragraph3": "Materials on this website are protected by registration of copyright and trademark. No part of these materials may be modified, reproduced, stored in a retrieval system, transmitted, copied, distributed, or used in any other way for commercial or public purposes without iLegalWorks prior written consent."
+      },
+      "amendments": {
+        "title": "11. Amendments",
+        "content": "We may change this privacy policy at any time without prior or subsequent notice. You are responsible to keep yourself updated by reading this privacy policy before you access your account on the website. You agree that the current version of the privacy policy applies to your use of the website www.iLegal.works"
+      },
+      "inquiries": {
+        "title": "12. Inquiries",
+        "content": "Any questions or comments about the website or privacy policy should be directed via email using the form on the page Contact Us on www.iLegal.works"
+      },
+      "law": {
+        "title": "13. Applicable law and competent courts",
+        "content": "These terms of use shall be governed by and construed in accordance with the laws of the United Arab Emirates. Disputes arising of the terms of shall be subject to the exclusive jurisdiction of the local courts of Dubai."
       }
-    },
-    "client": {
-      "title1": "WHAT PEOPLE SAY ABOUT US",
-      "title2": "Client Testimonials",
-      "paragraph1": "t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-      "name": "Name",
-      "paragraph2": "it has survived"
     }
   },
   "pricing": {
@@ -191,6 +507,60 @@
       "description": "A premium plan for established businesses that require advanced features.",
       "price": "$19.99",
       "button": "Continue"
+    }
+  },
+  "login": {
+    "title": "Sign in Form",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "submitButton": "Continue",
+    "loadingButton": "Logging in...",
+    "forgetPasswordText": "Forget password?",
+    "forgetPasswordLink": "Reset your password",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "Email is required": "Email is required",
+      "Invalid email format": "Invalid email format",
+      "Password is required": "Password is required",
+      "Password must be at least 6 characters": "Password must be at least 6 characters"
+    }
+  },
+  "forgetPassword": {
+    "title": "Forget Password",
+    "emailLabel": "Email",
+    "submitButton": "Submit",
+    "loadingButton": "Sending...",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "Email is required": "Email is required",
+      "Invalid email format": "Invalid email format"
+    }
+  },
+  "otp": {
+    "enterOtp": "Enter OTP",
+    "verifyButton": "Verify OTP",
+    "verifyingButton": "Verifying...",
+    "noOtpReceived": "Didn't receive the OTP?",
+    "resendOtp": "Resend OTP",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "OTP is required": "OTP is required",
+      "OTP must be 6 digits": "OTP must be 6 digits"
+    }
+  },
+  "resetPassword": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "updateButton": "Update",
+    "updatingButton": "Updating...",
+    "genericError": "An error occurred. Please try again.",
+    "validation": {
+      "Email is required": "Email is required",
+      "Invalid email format": "Invalid email format",
+      "Password is required": "Password is required",
+      "Password must be at least 6 characters": "Password must be at least 6 characters"
     }
   },
   "contactUs": {
@@ -646,3 +1016,4 @@
     }
   }
 }
+

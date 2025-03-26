@@ -50,8 +50,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/", // Root
-    "/(en|ar)/:path*", // Localized routes
-  ],
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 };

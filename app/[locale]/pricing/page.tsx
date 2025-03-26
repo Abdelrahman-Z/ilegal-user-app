@@ -1,7 +1,6 @@
 "use client";
 
-import Footer from "@/components/commercial-app/Footer";
-import Header from "@/components/commercial-app/Navbar";
+import Footer from "@/components/commercial-app/UI/Footer";
 import { Button, cn } from "@heroui/react";
 import React from "react";
 import { useTranslations } from "next-intl"; 
@@ -31,7 +30,6 @@ const Page = () => {
       className={cn("min-h-screen bg-cover bg-center text-white w-full flex flex-col justify-between")}
       style={{ backgroundImage: `url(/images/landing7.svg)` }} // Set dynamic background image
     >
-      <Header />
       <div className="flex flex-col items-center p-8">
         {/* Title */}
         <h1 className="text-3xl font-bold mb-10 w-3/4 sm:pl-10 sm:border-l border-white">
