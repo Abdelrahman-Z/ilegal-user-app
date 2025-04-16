@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Modal,
   ModalContent,
@@ -25,22 +25,18 @@ export function ChatBot() {
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
         <ModalContent>
-          {() => (
-            <>
-              <ModalBody>
-                <iframe
-                  src="https://ilegal-chat.netlify.app/"
-                  style={{
-                    width: 450,
-                    height: 700,
-                    border: "none",
-                  }}
-                  className="mx-auto"
-                  title="Rasa Chatbot"
-                />
-              </ModalBody>
-            </>
-          )}
+          <ModalBody>
+            <iframe
+              src="https://ilegal-chat.netlify.app/"
+              style={{
+                width: 450,
+                height: 700,
+                border: "none",
+              }}
+              className="mx-auto"
+              title="Rasa Chatbot"
+            />
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>
