@@ -46,14 +46,14 @@ export const StaticComponent = () => {
     setSummary(""); // Clear previous summary
     try {
       const response = await summarizeText(data.text).unwrap();
-      console.log("Response Data:", response.Data);
+      console.log("Response Data:", response.data);
 
-      if (!response.Data || typeof response.Data !== "object") {
-        console.error("Invalid response.Data:", response.Data);
+      if (!response.data || typeof response.data !== "object") {
+        console.error("Invalid response.Data:", response.data);
         return;
       }
 
-      const text = formatObjectToMarkdown(response.Data);
+      const text = formatObjectToMarkdown(response.data);
       setSummary(text);
       onClose();
       reset();
