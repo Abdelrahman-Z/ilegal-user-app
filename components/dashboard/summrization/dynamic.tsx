@@ -12,7 +12,6 @@ import {
 } from "@heroui/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSubmitDynamicFormMutation } from "@/redux/services/api";
-import { formatObjectToMarkdown } from "@/utils";
 import Markdown from "markdown-to-jsx";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { useTranslations } from "next-intl";
@@ -59,7 +58,7 @@ export const DynamicComponent = () => {
     formData.append("fields", JSON.stringify(dynamicFields));
 
     try {
-      const result = await submitDynamicForm(formData).unwrap();
+      await submitDynamicForm(formData).unwrap();
       onClose();
       reset();
     } catch (error) {

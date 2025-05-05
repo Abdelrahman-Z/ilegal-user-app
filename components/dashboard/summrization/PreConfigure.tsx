@@ -18,7 +18,6 @@ import {
   useGetQuestionsQuery,
   useSubmitDynamicFormMutation,
 } from "@/redux/services/api";
-import { formatObjectToMarkdown } from "@/utils";
 import Markdown from "markdown-to-jsx";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { useTranslations } from "next-intl";
@@ -44,7 +43,6 @@ export function PreConfigure() {
   const t = useTranslations("summarization");
   const [file, setFile] = useState<File | null>(null);
 
-  const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data } = useGetQuestionsQuery({ page: 1, limit: 10 }); // Fetch the first 10 questions
 
@@ -70,7 +68,7 @@ export function PreConfigure() {
     name: "questions",
   });
 
-  const [submitDynamicForm, { isLoading, error }] =
+  const [submitDynamicForm, { isLoading, error , data:summary }] =
     useSubmitDynamicFormMutation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -90,13 +88,7 @@ export function PreConfigure() {
     formData.append("fields", JSON.stringify(dynamicFields));
     formData.append("file", file);
     try {
-      const result = await submitDynamicForm(formData).unwrap();
-      setStreamedResponse("");
-
-      // Stream the response from the array
-      // console.log(formatObjectToPlainText(result.Data))
-      const text = formatObjectToMarkdown(result.Data);
-      setStreamedResponse(text);
+      await submitDynamicForm(formData).unwrap();
       onClose();
       reset();
     } catch (error) {
@@ -232,8 +224,18 @@ export function PreConfigure() {
           )}
         </ModalContent>
       </Modal>
-      <div className="mt-5 whitespace-pre-wrap">
-        <Markdown>{streamedResponse}</Markdown>
+      <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none prose-ul:text-black prose-li:marker:text-black">
+        {summary && summary.data.summary && (
+          <>
+            <h2 className="text-2xl font-semibold text-gray-800">
+              Summary
+            </h2>
+            <Markdown>{summary.data.summary}</Markdown>
+          </>
+        )}
+      </div>
+      <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none prose-ul:text-black prose-li:marker:text-black">
+        {summary && <Markdown>{summary.data.raw_response}</Markdown>}
       </div>
     </>
   );
