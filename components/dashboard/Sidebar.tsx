@@ -4,7 +4,7 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
-import { FaFileAlt, FaCog, FaPen, FaCoins } from "react-icons/fa";
+import { FaFileAlt, FaCog, FaPen, FaCoins, FaRobot } from "react-icons/fa";
 import { BsShieldFillCheck, BsTranslate } from "react-icons/bs";
 import { AiFillSignature } from "react-icons/ai";
 import { GiInjustice } from "react-icons/gi";
@@ -70,13 +70,18 @@ const navLinks = [
     icon: <MdOutlineDocumentScanner className="text-2xl" />,
     path: "/dashboard/transfaredDocuments",
   },
+  // {
+  //   name: "Chat",
+  //   icon: <FaRobot className="text-2xl" />,
+  //   path: "/chat",
+  // },
 ];
 
 const Sidebar = () => {
   const { locale } = useParams();
   const t = useTranslations("sideBar");
   return (
-    <aside className="w-60 h-full space-y-1 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue px-10">
+    <aside className="w-60 h-screen space-y-1 text-white justify-between bg-gradient-to-b from-deepBlue to-lightBlue px-10 flex flex-col">
       <div>
         <Image
           src="/images/logo.svg"
@@ -86,7 +91,8 @@ const Sidebar = () => {
           height={32}
         />
       </div>
-      <nav className="flex flex-col items-start justify-start w-full overflow-y-auto gap-5 scrollbar-default">
+
+      <nav className="flex flex-col items-start justify-start w-full gap-5 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent">
         {navLinks.map((link, index) => (
           <Button
             key={index}
@@ -98,6 +104,14 @@ const Sidebar = () => {
             {t(link.name)}
           </Button>
         ))}
+        <Button
+          startContent={<FaRobot className="text-2xl" />}
+          className="bg-transparent text-white hover:text-gray-300 p-0 w-full justify-start"
+          as={Link}
+          href={`/${locale}/chat`}
+        >
+          Chat
+        </Button>
       </nav>
     </aside>
   );

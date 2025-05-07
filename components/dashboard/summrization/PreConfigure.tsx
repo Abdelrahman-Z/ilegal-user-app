@@ -88,6 +88,7 @@ export function PreConfigure() {
     formData.append("fields", JSON.stringify(dynamicFields));
     formData.append("file", file);
     try {
+
       await submitDynamicForm(formData).unwrap();
       onClose();
       reset();

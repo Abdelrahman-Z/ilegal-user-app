@@ -121,7 +121,7 @@ export const NavigationBar = () => {
         {/* Language Switcher Button */}
         <NavbarItem>
           <Button
-            onClick={handleLanguageChange}
+            onPress={handleLanguageChange}
             className="bg-transparent border-1 border-white text-white"
             variant="bordered"
             size="sm"

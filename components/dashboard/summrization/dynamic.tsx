@@ -58,6 +58,7 @@ export const DynamicComponent = () => {
     formData.append("fields", JSON.stringify(dynamicFields));
 
     try {
+
       await submitDynamicForm(formData).unwrap();
       onClose();
       reset();

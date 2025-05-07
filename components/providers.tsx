@@ -20,7 +20,7 @@ const Providers: React.FC<ProvidersProps> = ({
   return (
     <Provider store={store}>
       <HeroUIProvider>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider timeZone="UTC" locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
       </HeroUIProvider>

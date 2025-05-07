@@ -11,7 +11,7 @@ export default async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value; // Retrieve the auth token from cookies
 
   const url = req.nextUrl
-  const isDashboardRoute = url.pathname.includes(`/dashboard`);
+  const isDashboardRoute = url.pathname.includes(`/dashboard`) || url.pathname.includes(`/chat`);
   const isLoginPage = url.pathname.includes(`/login`);
   const isPublicRoute = !isDashboardRoute && !isLoginPage;
 
@@ -24,8 +24,6 @@ export default async function middleware(req: NextRequest) {
       isLoggedIn = false;
     }
   }
-
-  console.log("isLoggedIn:", isLoggedIn, "Path:", url.pathname);
 
   // Redirect unauthenticated users trying to access the dashboard
   if (isDashboardRoute && !isLoggedIn) {

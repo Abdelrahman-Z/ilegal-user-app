@@ -1,32 +1,31 @@
-// Function to set a token in cookies with expiration in days
-export function setToken(tokenName: string, tokenValue: string, days: number) {
-  const date = new Date();
-  // Set the expiration date by adding days
-  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-  const expires = "expires=" + date.toUTCString();
-  // Set the cookie with name, value, and expiration
-  document.cookie = `${tokenName}=${tokenValue}; ${expires}; path=/;`;
+'use server'
+import { cookies } from "next/headers"
+
+export async function setToken(tokenName: string, tokenValue: string, days: number) {
+  const cookieStore = await cookies()
+  const expirationTimeInMs = Date.now() + (days * 24 * 60 * 60 * 1000)
+
+  cookieStore.set({
+    name: tokenName,
+    value: tokenValue,
+    httpOnly: true,
+    expires: new Date(expirationTimeInMs),
+    path: "/",
+    secure: process.env.NODE_ENV === "production",
+  })
 }
 
 // Function to remove a token from cookies
-export function removeToken(tokenName: string) {
-  // Set the cookie with an expiration date in the past to remove it
-  document.cookie = `${tokenName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+export async function removeToken(tokenName: string) {
+  const cookieStore = await cookies()
+  cookieStore.delete("token")
 }
 
 // Function to get a token from cookies by name
-export function getToken(tokenName: string) {
-  const name = tokenName + "=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const cookieArray = decodedCookie.split(";");
-
-  for (let i = 0; i < cookieArray.length; i++) {
-    let cookie = cookieArray[i].trim();
-    if (cookie.indexOf(name) === 0) {
-      return cookie.substring(name.length, cookie.length);
-    }
-  }
-  return undefined; // Return null if the token is not found
+export async function getToken(tokenName: string) {
+  const cookieStore = await cookies()
+  const token = cookieStore.get(tokenName)
+  return token?.value
 }
 
 export async function validateToken(
@@ -60,7 +59,7 @@ export async function validateToken(
   }
 }
 
-export function formatObjectToMarkdown(obj: Record<string, any>): string {
+export async function  formatObjectToMarkdown(obj: Record<string, any>): Promise<string> {
   let result = "";
 
   for (const [key, value] of Object.entries(obj)) {

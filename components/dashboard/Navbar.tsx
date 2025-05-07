@@ -7,7 +7,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useParams, usePathname } from "next/navigation";
 import { useGetUserByIdQuery } from "@/redux/services/api";
@@ -17,31 +17,39 @@ const Navbar = () => {
   const t = useTranslations("navBar");
   const { locale } = useParams();
   const path = usePathname();
+  const [userId, setUserId] = useState('');
   
-  
-  const token = getToken("token");
-  let userId = '';
-
-  if (token) {
-    const decodedToken = jwtDecode(token) as {
-      email: string;
-      id: string;
-      userName: string;
-      tenantId: string;
-      isActive: boolean;
-      role: string;
-      roles: string[];
-      permissions: string[];
-      iat: number;
-      exp: number;
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const token = await getToken("token");
+        if (token) {
+          const decodedToken = jwtDecode(token) as {
+            email: string;
+            id: string;
+            userName: string;
+            tenantId: string;
+            isActive: boolean;
+            role: string;
+            roles: string[];
+            permissions: string[];
+            iat: number;
+            exp: number;
+          };
+          setUserId(decodedToken.id);
+        }
+      } catch (error) {
+        console.error("Error fetching token:", error);
+      }
     };
-    userId = decodedToken.id;
-  }
+
+    fetchToken();
+  }, []);
 
   const { data: userData } = useGetUserByIdQuery(userId, { skip: !userId });
 
-  const signOut = () => {
-    removeToken("token");
+  const signOut = async () => {
+    await removeToken("token");
     window.location.reload();
   };
 
