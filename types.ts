@@ -143,3 +143,19 @@ export interface SignDocuments {
   signName: string;
   documentSignImageUrl: string;
 }
+
+
+export interface ConversationMessage {
+  id: number
+  sender: 'human' | 'ai'
+  text: string
+  timestamp: string
+}
+
+export interface ConversationMessagesResponse {
+  conversation_id: string
+  created_at: string
+  title: string
+  feedback: string | null
+  messages: ConversationMessage[]
+}

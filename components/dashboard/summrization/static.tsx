@@ -53,7 +53,7 @@ export const StaticComponent = () => {
         return;
       }
 
-      const text = formatObjectToMarkdown(response.Data);
+      const text = await formatObjectToMarkdown(response.Data);
       setSummary(text);
       onClose();
       reset();
@@ -65,7 +65,7 @@ export const StaticComponent = () => {
   return (
     <div className="flex-1">
       {/* Button to open modal */}
-      <Button onClick={onOpen} color="primary">
+      <Button onPress={onOpen} color="primary">
       {t("static.openText")}
       </Button>
 

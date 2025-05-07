@@ -65,7 +65,7 @@ export const DynamicComponent = () => {
 
       // Stream the response from the array
       // console.log(formatObjectToPlainText(result.Data))
-      const text = formatObjectToMarkdown(result.Data);
+      const text = await formatObjectToMarkdown(result.Data);
       setStreamedResponse(text);
 
       onClose();

@@ -1,4 +1,5 @@
 import {
+  ConversationMessagesResponse,
   GetJurisdictionsQueryParams,
   GetJurisdictionsResponse,
   GetQuestionsQueryParams,
@@ -18,11 +19,12 @@ export const api = createApi({
     "Document",
     "tokens",
     "signDocuments",
+    "conversation",
   ],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-    prepareHeaders: (headers) => {
-      const token = getToken("token");
+    prepareHeaders: async (headers) => {
+      const token = await getToken("token");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
@@ -623,6 +625,32 @@ export const api = createApi({
     getAllTransferredDocuments: builder.query({
       query: ({ page, limit }) => `/document/transferred?page=${page}&limit=${limit}`,
     }),
+    getConversationMessages: builder.query<
+      ConversationMessagesResponse,
+      string
+    >({
+      query: (conversation_id) => ({
+        url: `https://ce44-86-99-189-186.ngrok-free.app/api/chatbot/conversation/messages`,
+        method: 'POST',
+        body: { conversation_id },
+      }),
+    }),
+    postConversationTitle: builder.mutation({
+      query: (data) => ({
+        url: 'https://ce44-86-99-189-186.ngrok-free.app/api/chatbot/conversation/title', // Your endpoint path
+        method: 'POST',
+        body: data, // The body will contain the conversation_id and title
+      }),
+      invalidatesTags: ['conversation'],
+    }),
+    getConversations: builder.query({
+      query: (tenantId) => ({
+        url: 'https://ce44-86-99-189-186.ngrok-free.app/api/chatbot/user/conversations',
+        method: 'POST',
+        body: { user_id: tenantId },
+      }),
+      providesTags: ['conversation'],
+    }),
   }),
 });
 
@@ -718,4 +746,8 @@ export const {
   usePreviewDocumentQuery,
   useDocumentTransfareToTenantMutation,
   useGetAllTransferredDocumentsQuery,
+  // chat 
+  useGetConversationMessagesQuery,
+  usePostConversationTitleMutation,
+  useGetConversationsQuery,
 } = api;

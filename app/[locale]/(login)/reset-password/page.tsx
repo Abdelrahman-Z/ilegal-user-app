@@ -45,7 +45,6 @@ export default function LoginForm() {
     try {
       const response = await resetPassword(data).unwrap(); // Unwrap to get the result directly
       // Assuming the response contains a token that needs to be stored in cookies
-      // setToken('token', response.)
       console.log(response);
       router.push(`/${locale}/login`); // Navigate to the home page upon successful login
     } catch (err) {

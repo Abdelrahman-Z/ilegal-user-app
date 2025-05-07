@@ -43,7 +43,7 @@ export default function LoginForm() {
     try {
       const response = await login(data).unwrap(); // Unwrap to get the result directly
       // Store token in cookies for 7 days
-      setToken("token", response.access_token, 7);
+      await setToken("token", response.access_token, 7);
       // Navigate to the home page upon successful login
       window.location.reload();
     } catch (err) {
