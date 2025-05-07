@@ -24,3 +24,4 @@ export default {
   },
   plugins: [heroui() , require('@tailwindcss/typography')],
 } satisfies Config;
+

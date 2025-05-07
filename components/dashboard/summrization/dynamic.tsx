@@ -12,7 +12,6 @@ import {
 } from "@heroui/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSubmitDynamicFormMutation } from "@/redux/services/api";
-import { formatObjectToMarkdown } from "@/utils";
 import Markdown from "markdown-to-jsx";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { useTranslations } from "next-intl";
@@ -22,7 +21,6 @@ export const DynamicComponent = () => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const [file, setFile] = useState<File | null>(null);
-  const [streamedResponse, setStreamedResponse] = useState<string>(""); // Array to store streamed key-value pairs
 
   const { register, control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -35,7 +33,7 @@ export const DynamicComponent = () => {
     name: "questions",
   });
 
-  const [submitDynamicForm, { isLoading, error }] =
+  const [submitDynamicForm, { isLoading, error, data }] =
     useSubmitDynamicFormMutation();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -60,14 +58,8 @@ export const DynamicComponent = () => {
     formData.append("fields", JSON.stringify(dynamicFields));
 
     try {
-      const result = await submitDynamicForm(formData).unwrap();
-      setStreamedResponse("");
 
-      // Stream the response from the array
-      // console.log(formatObjectToPlainText(result.Data))
-      const text = await formatObjectToMarkdown(result.Data);
-      setStreamedResponse(text);
-
+      await submitDynamicForm(formData).unwrap();
       onClose();
       reset();
     } catch (error) {
@@ -76,10 +68,10 @@ export const DynamicComponent = () => {
   });
 
   return (
-    <div>
+    <>
       {/* Button to open modal */}
       <Button onClick={onOpen} color="primary">
-      {t("dynamic.openModel")}
+        {t("dynamic.openModel")}
       </Button>
 
       {/* Modal */}
@@ -135,7 +127,7 @@ export const DynamicComponent = () => {
                       color="primary"
                       onClick={() => append({ category: "", question: "" })}
                     >
-                     {t("dynamic.addQuestion")}
+                      {t("dynamic.addQuestion")}
                     </Button>
                   </div>
                 </form>
@@ -177,9 +169,19 @@ export const DynamicComponent = () => {
       </Modal>
 
       {/* Response Display */}
-      <div className="mt-5 whitespace-pre-wrap">
-        <Markdown>{streamedResponse}</Markdown>
+      <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none prose-ul:text-black prose-li:marker:text-black">
+        {data && data.data.summary && (
+          <>
+            <h2 className="text-2xl font-semibold text-gray-800">
+              Summary
+            </h2>
+            <Markdown>{data.data.summary}</Markdown>
+          </>
+        )}
       </div>
-    </div>
+      <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none prose-ul:text-black prose-li:marker:text-black">
+        {data && <Markdown>{data.data.raw_response}</Markdown>}
+      </div>
+    </>
   );
 };
