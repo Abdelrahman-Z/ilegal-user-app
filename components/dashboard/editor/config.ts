@@ -1,316 +1,69 @@
-"use client";
-import {
-    Alignment,
-	AutoImage,
-	AutoLink,
-	Autosave,
-	BalloonToolbar,
-	Bold,
-	CKBox,
-	CKBoxImageEdit,
-	CloudServices,
-	Code,
-	Essentials,
-	FontBackgroundColor,
-	FontColor,
-	FontFamily,
-	FontSize,
-	Heading,
-	HorizontalLine,
-	ImageBlock,
-	ImageCaption,
-	ImageInline,
-	ImageInsert,
-	ImageInsertViaUrl,
-	ImageResize,
-	ImageStyle,
-	ImageTextAlternative,
-	ImageToolbar,
-	ImageUpload,
-	Indent,
-	IndentBlock,
-	Italic,
-	Link,
-	LinkImage,
-	List,
-	ListProperties,
-	Paragraph,
-	PictureEditing,
-	RemoveFormat,
-	SpecialCharacters,
-	Strikethrough,
-	Subscript,
-	Superscript,
-	Table,
-	TableCaption,
-	TableCellProperties,
-	TableColumnResize,
-	TableProperties,
-	TableToolbar,
-	TodoList,
-	Underline
-} from "ckeditor5";
-import {
-  ExportPdf,
-  ExportWord,
-  ImportWord,
-  MultiLevelList,
-} from "ckeditor5-premium-features";
+import Highlight from "@tiptap/extension-highlight";
+import TextAlign from "@tiptap/extension-text-align";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import Subscript from "@tiptap/extension-subscript";
+import Superscript from "@tiptap/extension-superscript";
+import Link from "@tiptap/extension-link";
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import Color from "@tiptap/extension-color";
+import TextStyle from "@tiptap/extension-text-style";
+import FontFamily from "@tiptap/extension-font-family";
+import ResizableImage from "tiptap-extension-resize-image";
 
-export const config = {
-  editorConfig: {
-    toolbar: {
-      items: [
-        "importWord",
-        "exportWord",
-        "exportPdf",
-        "|",
-        "heading",
-        "|",
-        "fontSize",
-        "fontFamily",
-        "fontColor",
-        "fontBackgroundColor",
-        "|",
-        "bold",
-        "italic",
-        "underline",
-        "strikethrough",
-        "subscript",
-        "superscript",
-        "code",
-        "removeFormat",
-        "|",
-        "specialCharacters",
-        "horizontalLine",
-        "link",
-        "insertImage",
-        "insertImageViaUrl",
-        "ckbox",
-        "insertTable",
-        "|",
-        "alignment",
-        "|",
-        "bulletedList",
-        "numberedList",
-        "multiLevelList",
-        "todoList",
-        "outdent",
-        "indent",
-      ],
-      shouldNotGroupWhenFull: true,
-    },
-    plugins: [
-      Alignment,
-      AutoImage,
-      AutoLink,
-      Autosave,
-      BalloonToolbar,
-      Bold,
-      CKBox,
-      CKBoxImageEdit,
-      CloudServices,
-      Code,
-      Essentials,
-      ExportPdf,
-      ExportWord,
-      FontBackgroundColor,
-      FontColor,
-      FontFamily,
-      FontSize,
-      Heading,
-      HorizontalLine,
-      ImageBlock,
-      ImageCaption,
-      ImageInline,
-      ImageInsert,
-      ImageInsertViaUrl,
-      ImageResize,
-      ImageStyle,
-      ImageTextAlternative,
-      ImageToolbar,
-      ImageUpload,
-      ImportWord,
-      Indent,
-      IndentBlock,
-      Italic,
-      Link,
-      LinkImage,
-      List,
-      ListProperties,
-      MultiLevelList,
-      Paragraph,
-      PictureEditing,
-      RemoveFormat,
-      SpecialCharacters,
-      Strikethrough,
+export const useTipTapEditor = (content: string) => {
+  return useEditor({
+    extensions: [
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3],
+        },
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: true,
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: true,
+        },
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      Highlight,
+      Underline,
       Subscript,
       Superscript,
-      Table,
-      TableCaption,
-      TableCellProperties,
-      TableColumnResize,
-      TableProperties,
-      TableToolbar,
-      TodoList,
-      Underline,
+      Link.configure({
+        openOnClick: false,
+        validate: (href) => /^https?:\/\//.test(href),
+      }),
+      TextStyle,
+      Color,
+      FontFamily,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+      ResizableImage.configure({
+        inline: false,
+        allowBase64: true,
+        HTMLAttributes: {
+          class: "resizable-image",
+        },
+      }),
     ],
-    balloonToolbar: [
-      "bold",
-      "italic",
-      "|",
-      "link",
-      "insertImage",
-      "|",
-      "bulletedList",
-      "numberedList",
-    ],
-    cloudServices: {
-      tokenUrl: process.env.NEXT_PUBLIC_CLOUD_SERVICES,
-    },
-    exportPdf: {
-      stylesheets: [
-        /* This path should point to application stylesheets. */
-        /* See: https://ckeditor.com/docs/ckeditor5/latest/features/converters/export-pdf.html */
-        "./editor.css",
-        /* Export PDF needs access to stylesheets that style the content. */
-        "https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css",
-        "https://cdn.ckeditor.com/ckeditor5-premium-features/44.1.0/ckeditor5-premium-features.css",
-      ],
-      fileName: "export-pdf-demo.pdf",
-      converterOptions: {
-        format: "A4",
-        margin_top: "20mm",
-        margin_bottom: "20mm",
-        margin_right: "12mm",
-        margin_left: "12mm",
-        page_orientation: "portrait",
+    content: content,
+    editorProps: {
+      attributes: {
+        class: "tiptap-editor-content focus:outline-none w-full p-3",
       },
     },
-    exportWord: {
-      stylesheets: [
-        /* This path should point to application stylesheets. */
-        /* See: https://ckeditor.com/docs/ckeditor5/latest/features/converters/export-word.html */
-        "./editor.css",
-        /* Export Word needs access to stylesheets that style the content. */
-        "https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css",
-        "https://cdn.ckeditor.com/ckeditor5-premium-features/44.1.0/ckeditor5-premium-features.css",
-      ],
-      fileName: "export-word-demo.docx",
-      converterOptions: {
-        document: {
-          orientation: "portrait",
-          size: "A4",
-          margins: {
-            top: "20mm",
-            bottom: "20mm",
-            right: "12mm",
-            left: "12mm",
-          },
-        },
-      },
-    },
-    fontFamily: {
-      supportAllValues: true,
-    },
-    fontSize: {
-      options: [10, 12, 14, "default", 18, 20, 22],
-      supportAllValues: true,
-    },
-    heading: {
-      options: [
-        {
-          model: "paragraph" as const,
-          title: "Paragraph",
-          class: "ck-heading_paragraph",
-        },
-        {
-          model: "heading1" as const,
-          view: "h1",
-          title: "Heading 1",
-          class: "ck-heading_heading1",
-        },
-        {
-          model: "heading2" as const,
-          view: "h2",
-          title: "Heading 2",
-          class: "ck-heading_heading2",
-        },
-        {
-          model: "heading3" as const,
-          view: "h3",
-          title: "Heading 3",
-          class: "ck-heading_heading3",
-        },
-        {
-          model: "heading4" as const,
-          view: "h4",
-          title: "Heading 4",
-          class: "ck-heading_heading4",
-        },
-        {
-          model: "heading5" as const,
-          view: "h5",
-          title: "Heading 5",
-          class: "ck-heading_heading5",
-        },
-        {
-          model: "heading6" as const,
-          view: "h6",
-          title: "Heading 6",
-          class: "ck-heading_heading6",
-        },
-      ],
-    },
-    image: {
-      toolbar: [
-        "toggleImageCaption",
-        "imageTextAlternative",
-        "|",
-        "imageStyle:inline",
-        "imageStyle:wrapText",
-        "imageStyle:breakText",
-        "|",
-        "resizeImage",
-        "|",
-        "ckboxImageEdit",
-      ],
-    },
-    initialData:
-      '<h2>Congratulations on setting up CKEditor 5! 🎉</h2>\n<p>\n\tYou\'ve successfully created a CKEditor 5 project. This powerful text editor\n\twill enhance your application, enabling rich text editing capabilities that\n\tare customizable and easy to use.\n</p>\n<h3>What\'s next?</h3>\n<ol>\n\t<li>\n\t\t<strong>Integrate into your app</strong>: time to bring the editing into\n\t\tyour application. Take the code you created and add to your application.\n\t</li>\n\t<li>\n\t\t<strong>Explore features:</strong> Experiment with different plugins and\n\t\ttoolbar options to discover what works best for your needs.\n\t</li>\n\t<li>\n\t\t<strong>Customize your editor:</strong> Tailor the editor\'s\n\t\tconfiguration to match your application\'s style and requirements. Or\n\t\teven write your plugin!\n\t</li>\n</ol>\n<p>\n\tKeep experimenting, and don\'t hesitate to push the boundaries of what you\n\tcan achieve with CKEditor 5. Your feedback is invaluable to us as we strive\n\tto improve and evolve. Happy editing!\n</p>\n<h3>Helpful resources</h3>\n<ul>\n\t<li>📝 <a href="https://portal.ckeditor.com/checkout?plan=free">Trial sign up</a>,</li>\n\t<li>📕 <a href="https://ckeditor.com/docs/ckeditor5/latest/installation/index.html">Documentation</a>,</li>\n\t<li>⭐️ <a href="https://github.com/ckeditor/ckeditor5">GitHub</a> (star us if you can!),</li>\n\t<li>🏠 <a href="https://ckeditor.com">CKEditor Homepage</a>,</li>\n\t<li>🧑‍💻 <a href="https://ckeditor.com/ckeditor-5/demo/">CKEditor 5 Demos</a>,</li>\n</ul>\n<h3>Need help?</h3>\n<p>\n\tSee this text, but the editor is not starting up? Check the browser\'s\n\tconsole for clues and guidance. It may be related to an incorrect license\n\tkey if you use premium features or another feature-related requirement. If\n\tyou cannot make it work, file a GitHub issue, and we will help as soon as\n\tpossible!\n</p>\n',
-    licenseKey: process.env.NEXT_PUBLIC_LICENSE_KEY,
-    link: {
-      addTargetToExternalLinks: true,
-      defaultProtocol: "https://",
-      decorators: {
-        toggleDownloadable: {
-          mode: "manual" as const,
-          label: "Downloadable",
-          attributes: {
-            download: "file",
-          },
-        },
-      },
-    },
-    list: {
-      properties: {
-        styles: true,
-        startIndex: true,
-        reversed: true,
-      },
-    },
-    menuBar: {
-      isVisible: true,
-    },
-    placeholder: "Type or paste your content here!",
-    table: {
-      contentToolbar: [
-        "tableColumn",
-        "tableRow",
-        "mergeTableCells",
-        "tableProperties",
-        "tableCellProperties",
-      ],
-    },
-  },
+  });
 };
