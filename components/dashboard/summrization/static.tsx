@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Markdown from "markdown-to-jsx";
 
 import {
@@ -15,7 +15,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSummarizeTextMutation } from "@/redux/services/api";
-import { formatObjectToMarkdown } from "@/utils";
 import { isFetchBaseQueryError } from "@/redux/store";
 import { useTranslations } from "next-intl";
 
@@ -29,9 +28,8 @@ const schema = yup.object().shape({
 export const StaticComponent = () => {
   const t = useTranslations("summarization");
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-  const [summary, setSummary] = useState("");
 
-  const [summarizeText, { isLoading, error }] = useSummarizeTextMutation();
+  const [summarizeText, {data, isLoading, error }] = useSummarizeTextMutation();
 
   const {
     register,
@@ -43,7 +41,6 @@ export const StaticComponent = () => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    setSummary(""); // Clear previous summary
     try {
       const response = await summarizeText(data.text).unwrap();
       console.log("Response Data:", response.data);
@@ -53,9 +50,6 @@ export const StaticComponent = () => {
         return;
       }
 
-      const text = await formatObjectToMarkdown(response.Data);
-
-      setSummary(text);
       onClose();
       reset();
     } catch (error) {
@@ -67,7 +61,7 @@ export const StaticComponent = () => {
     <div className="flex-1">
       {/* Button to open modal */}
       <Button onPress={onOpen} color="primary">
-      {t("static.openText")}
+        {t("static.openText")}
       </Button>
 
       {/* Modal */}
@@ -136,8 +130,16 @@ export const StaticComponent = () => {
       </Modal>
 
       {/* Summary Output */}
-      <div className="mt-5 whitespace-pre-wrap">
-        {summary && <Markdown>{summary}</Markdown>}
+      <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none prose-ul:text-black prose-li:marker:text-black">
+        {data && data.data.summary && (
+          <>
+            <h2 className="text-2xl font-semibold text-gray-800">Summary</h2>
+            <Markdown>{data.data.summary}</Markdown>
+          </>
+        )}
+      </div>
+      <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none prose-ul:text-black prose-li:marker:text-black">
+        {data && <Markdown>{data.data.raw_response}</Markdown>}
       </div>
     </div>
   );
