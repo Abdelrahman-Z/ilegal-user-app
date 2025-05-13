@@ -31,11 +31,10 @@ type CustomFileReader = FileReader & {
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
   const [linkUrl, setLinkUrl] = useState("");
   const [showLinkInput, setShowLinkInput] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement>(null);
   if (!editor) {
     return null;
   }
-  const isSignedDocument = usePathname().includes("sign-document");
-
   const exportWord = async () => {
     const html = editor.getHTML();
     const docxBuffer = await htmlToWord(html);
@@ -154,7 +153,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         : "bg-gray-100 text-gray-800 hover:bg-gray-200"
     }`;
 
-  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const triggerImageUpload = () => {
     imageInputRef.current?.click();
@@ -483,8 +481,8 @@ export const TiptapEditor = ({ editor }: { editor: Editor | null }) => {
 };
 
 const TokenComponent = ({ editor }: { editor: Editor | null }) => {
-  const { data: tokendata } = useGetTokensQuery({});
   const isTemplate = usePathname().includes("templates");
+  const { data: tokendata } = useGetTokensQuery({});
 
   if (!tokendata?.data || !isTemplate || !editor) {
     return null;
@@ -519,9 +517,9 @@ interface TokenFormData {
   [key: string]: string;
 }
 const ReplaceTokenComponent = ({ editor }: { editor: Editor | null }) => {
+  const isDocument = usePathname().includes("documents");
   const [tokens, setTokens] = useState<string[]>([]);
   const [showPopover, setShowPopover] = useState(false);
-  const isDocument = usePathname().includes("documents");
 
   // Extract tokens from current editor content
   useEffect(() => {
@@ -644,15 +642,15 @@ const AddSignToDocumentComponent = ({
 }) => {
    const pathname = usePathname();
   const isSignDocumentPage = pathname.includes("sign-document");
+  const {
+    data: signDocuments,
+  } = useGetSignDocumentsQuery({ page: 1, limit: 10 });
+  const [selectedSignId, setSelectedSignId] = React.useState<string | null>(null);
 
   // Don't render if not on /sign-document or editor not available
   if (!isSignDocumentPage || !editor) return null;
 
-  const {
-    data: signDocuments,
-  } = useGetSignDocumentsQuery({ page: 1, limit: 10 });
 
-  const [selectedSignId, setSelectedSignId] = React.useState<string | null>(null);
 
   // Don't render if no signatures found
   if (!signDocuments?.data || signDocuments.data.length === 0) {

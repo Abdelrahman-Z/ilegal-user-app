@@ -29,8 +29,6 @@ export const TiptapTextTranslatorPopover = ({
 }: TiptapTextTranslatorPopoverProps) => {
   const isDocument = usePathname().includes("documents");
 
-  if (!isDocument || !editor) return null;
-
   const {
     control,
     handleSubmit,
@@ -45,6 +43,7 @@ export const TiptapTextTranslatorPopover = ({
   });
 
   const [translate] = useTranslateMutation();
+  if (!isDocument || !editor) return null;
 
   const targetLanguage = watch("targetLanguage");
 
@@ -70,7 +69,11 @@ export const TiptapTextTranslatorPopover = ({
         editor.commands.setContent(response.text);
 
         const isRTL = data.targetLanguage === "ar";
-        editor.chain().focus().setTextAlign(isRTL ? "right" : "left").run();
+        editor
+          .chain()
+          .focus()
+          .setTextAlign(isRTL ? "right" : "left")
+          .run();
 
         toast.success("Translation applied successfully!");
       }
@@ -86,7 +89,9 @@ export const TiptapTextTranslatorPopover = ({
   return (
     <Popover placement="bottom" showArrow>
       <PopoverTrigger>
-        <Button className="px-2 py-1 border border-gray-300 text-sm bg-gray-100 text-gray-800 hover:bg-gray-200">Translate</Button>
+        <Button className="px-2 py-1 border border-gray-300 text-sm bg-gray-100 text-gray-800 hover:bg-gray-200">
+          Translate
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="p-4 w-72">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-full">

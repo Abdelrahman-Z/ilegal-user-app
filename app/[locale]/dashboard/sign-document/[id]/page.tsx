@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { TiptapEditor } from "@/components/dashboard/editor/Editor";
 import {
   useGetDocumentQuery,
-  useGetSignDocumentsQuery,
   useUpdateDocumentMutation,
 } from "@/redux/services/api";
 import toast from "react-hot-toast";
