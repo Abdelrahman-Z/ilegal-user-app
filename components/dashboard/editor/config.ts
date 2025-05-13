@@ -15,7 +15,7 @@ import TextStyle from "@tiptap/extension-text-style";
 import FontFamily from "@tiptap/extension-font-family";
 import ResizableImage from "tiptap-extension-resize-image";
 
-export const useTipTapEditor = (content: string) => {
+export const useTipTapEditor = (content?: string) => {
   return useEditor({
     extensions: [
       StarterKit.configure({

@@ -1,11 +1,28 @@
 "use client";
 
 import React, { ChangeEvent, useState, useEffect, useRef } from "react";
-// import { generatePdf, htmlToWord } from "@/actions/htmltoword";
+import { generatePdf, htmlToWord } from "@/actions/htmltoword";
 import mammoth from "mammoth";
 
-import { Button } from "@heroui/react";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  ScrollShadow,
+  Select,
+  SelectItem,
+} from "@heroui/react";
 import { Editor, EditorContent } from "@tiptap/react";
+import { useGetSignDocumentsQuery, useGetTokensQuery } from "@/redux/services/api";
+import { usePathname } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { TiptapTextTranslatorPopover } from "../documents/TextTranslator";
 
 type CustomFileReader = FileReader & {
   result: string | ArrayBuffer | null;
@@ -14,27 +31,27 @@ type CustomFileReader = FileReader & {
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
   const [linkUrl, setLinkUrl] = useState("");
   const [showLinkInput, setShowLinkInput] = useState(false);
-
   if (!editor) {
     return null;
   }
+  const isSignedDocument = usePathname().includes("sign-document");
 
   const exportWord = async () => {
-    // const html = editor.getHTML();
-    // const docxBuffer = await htmlToWord(html);
-    // // Convert the buffer to a Blob
-    // const blob = new Blob([docxBuffer], {
-    //   type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    // });
-    // // Create a download link
-    // const url = window.URL.createObjectURL(blob);
-    // const a = document.createElement("a");
-    // a.href = url;
-    // a.download = "document.docx";
-    // document.body.appendChild(a);
-    // a.click();
-    // window.URL.revokeObjectURL(url);
-    // document.body.removeChild(a);
+    const html = editor.getHTML();
+    const docxBuffer = await htmlToWord(html);
+    // Convert the buffer to a Blob
+    const blob = new Blob([docxBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    });
+    // Create a download link
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "document.docx";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   };
 
   const importWord = (event: ChangeEvent<HTMLInputElement>) => {
@@ -88,21 +105,21 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
   };
 
   const exportPDF = async () => {
-    // const html = editor.getHTML();
-    // console.log(html);
-    // const pdfBuffer = await generatePdf(html);
-    // // Convert the buffer to a Blob
-    // const blob = new Blob([pdfBuffer], {
-    //   type: "application/pdf",
-    // });
-    // const url = window.URL.createObjectURL(blob);
-    // const a = document.createElement("a");
-    // a.href = url;
-    // a.download = "document.pdf";
-    // document.body.appendChild(a);
-    // a.click();
-    // window.URL.revokeObjectURL(url);
-    // document.body.removeChild(a);
+    const html = editor.getHTML();
+    console.log(html);
+    const pdfBuffer = await generatePdf(html);
+    // Convert the buffer to a Blob
+    const blob = new Blob([pdfBuffer], {
+      type: "application/pdf",
+    });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "document.pdf";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
   };
 
   const setLink = () => {
@@ -439,6 +456,10 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
       >
         Redo
       </Button>
+      <TokenComponent editor={editor} />
+      <ReplaceTokenComponent editor={editor} />
+      <TiptapTextTranslatorPopover editor={editor} />
+      <AddSignToDocumentComponent editor={editor}/>
     </div>
   );
 };
@@ -449,14 +470,244 @@ export const TiptapEditor = ({ editor }: { editor: Editor | null }) => {
       {editor && (
         <>
           <MenuBar editor={editor} />
-          <div className="!h-[calc(100vh-300px)] overflow-y-auto prose max-w-none">
+          <ScrollShadow className="!h-[calc(100vh-350px)] overflow-y-auto prose max-w-none">
             <EditorContent
               editor={editor}
               className="text-gray-800 flex-1 overflow-y-scroll h-full p-4"
             />
-          </div>
+          </ScrollShadow>
         </>
       )}
     </div>
+  );
+};
+
+const TokenComponent = ({ editor }: { editor: Editor | null }) => {
+  const { data: tokendata } = useGetTokensQuery({});
+  const isTemplate = usePathname().includes("templates");
+
+  if (!tokendata?.data || !isTemplate || !editor) {
+    return null;
+  }
+
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button variant="bordered">Add Token</Button>
+      </DropdownTrigger>
+      <DropdownMenu aria-label="Tokens" items={tokendata.data}>
+        {(item: { keyWord: string; id: string }) => (
+          <DropdownItem
+            key={item.id}
+            onPress={() => {
+              editor
+                ?.chain()
+                .focus()
+                .insertContent(`{{${item.keyWord}}}`)
+                .run();
+            }}
+          >
+            {item.keyWord}
+          </DropdownItem>
+        )}
+      </DropdownMenu>
+    </Dropdown>
+  );
+};
+
+interface TokenFormData {
+  [key: string]: string;
+}
+const ReplaceTokenComponent = ({ editor }: { editor: Editor | null }) => {
+  const [tokens, setTokens] = useState<string[]>([]);
+  const [showPopover, setShowPopover] = useState(false);
+  const isDocument = usePathname().includes("documents");
+
+  // Extract tokens from current editor content
+  useEffect(() => {
+    if (!editor) return;
+
+    const extractTokens = () => {
+      const content = editor.getHTML();
+      const matches = content.match(/{{(.*?)}}/g) || [];
+      const extractedTokens = [
+        ...new Set(matches.map((t) => t.replace(/{{|}}/g, "").trim())),
+      ].filter((token) => token.trim() !== "");
+
+      setTokens(extractedTokens);
+      if (extractedTokens.length === 0) {
+        setShowPopover(false);
+      }
+    };
+
+    extractTokens();
+
+    // Update tokens on every editor change
+    editor.on("update", extractTokens);
+
+    return () => {
+      editor.off("update", extractTokens); // Cleanup listener
+    };
+  }, [editor]);
+
+  // Recreate useForm whenever tokens change
+  const formInstance = useForm<TokenFormData>({
+    defaultValues: {
+      ...tokens.reduce((acc, token) => ({ ...acc, [token]: "" }), {}),
+    },
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = formInstance;
+
+  // Sync form values when tokens change
+  useEffect(() => {
+    reset({
+      ...tokens.reduce((acc, token) => ({ ...acc, [token]: "" }), {}),
+    });
+  }, [tokens, reset]);
+
+  const onSubmit = (data: TokenFormData) => {
+    if (!editor) return;
+
+    let content = editor.getHTML();
+
+    Object.entries(data).forEach(([token, value]) => {
+      if (value.trim()) {
+        const regex = new RegExp(`{{\\s*${token}\\s*}}`, "g");
+        content = content.replace(regex, value.trim());
+      }
+    });
+
+    editor.commands.setContent(content, true);
+    setShowPopover(false);
+    reset({ ...tokens.reduce((acc, token) => ({ ...acc, [token]: "" }), {}) }); // Reset form
+  };
+
+  if (tokens.length === 0 || !isDocument) return null;
+
+  return (
+    <Popover
+      placement="bottom"
+      showArrow={true}
+      isOpen={showPopover}
+      onOpenChange={setShowPopover}
+    >
+      <PopoverTrigger>
+        <Button onPress={() => setShowPopover(true)}>Replace Tokens</Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-72 p-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-full">
+          <div className="text-sm font-semibold">Replace Tokens</div>
+          {tokens.map((token) => (
+            <div key={token} className="flex flex-col gap-1">
+              <label htmlFor={token} className="text-xs text-gray-600">
+                {token}
+              </label>
+              <Input
+                id={token}
+                {...register(token, { required: true })}
+                placeholder={`Enter value`}
+                isInvalid={!!errors[token]}
+                errorMessage={
+                  errors[token] ? "This field is required" : undefined
+                }
+              />
+            </div>
+          ))}
+          <div className="flex justify-end gap-2 mt-2">
+            <Button
+              type="button"
+              variant="flat"
+              onPress={() => setShowPopover(false)}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" color="primary">
+              Replace
+            </Button>
+          </div>
+        </form>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+const AddSignToDocumentComponent = ({
+  editor,
+}: {
+  editor: Editor | null;
+}) => {
+   const pathname = usePathname();
+  const isSignDocumentPage = pathname.includes("sign-document");
+
+  // Don't render if not on /sign-document or editor not available
+  if (!isSignDocumentPage || !editor) return null;
+
+  const {
+    data: signDocuments,
+  } = useGetSignDocumentsQuery({ page: 1, limit: 10 });
+
+  const [selectedSignId, setSelectedSignId] = React.useState<string | null>(null);
+
+  // Don't render if no signatures found
+  if (!signDocuments?.data || signDocuments.data.length === 0) {
+    return null;
+  }
+
+  const selectedSignature = signDocuments.data.find(
+    (sign: {id:string}) => sign.id === selectedSignId
+  );
+
+  const handleInsertSignature = () => {
+    if (!selectedSignature || !editor) return;
+
+    const { documentSignImageUrl, signName } = selectedSignature;
+
+    // Insert image at current cursor position
+    editor.commands.setImage({
+      src: documentSignImageUrl,
+      alt: `Signature of ${signName}`,
+      title: signName,
+    });
+  };
+
+
+  return (
+    <Popover placement="bottom" showArrow>
+      <PopoverTrigger>
+        <Button variant="flat">Add Signature</Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-4 w-72">
+        <div className="space-y-3 w-full">
+          <h3 className="text-sm font-semibold">Select a Signature</h3>
+
+          <Select
+            label="Choose a signature"
+            onChange={(e) => setSelectedSignId(e.target.value)}
+            selectedKeys={selectedSignId ? [selectedSignId] : []}
+          >
+            {signDocuments.data.map((sign: {id:string , signName:string}) => (
+              <SelectItem key={sign.id} textValue={sign.signName}>
+                {sign.signName}
+              </SelectItem>
+            ))}
+          </Select>
+
+          <Button
+            color="primary"
+            onPress={handleInsertSignature}
+            isDisabled={!selectedSignId}
+            className="w-full"
+          >
+            Insert Signature
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
