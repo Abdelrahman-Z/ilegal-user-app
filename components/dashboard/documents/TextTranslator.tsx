@@ -1,144 +1,154 @@
-import { Button, Select, SelectItem } from "@heroui/react";
-import { DecoupledEditor } from "ckeditor5";
-import { useTranslateMutation } from "@/redux/services/api";
-import toast from "react-hot-toast";
+import React from "react";
+import { Editor } from "@tiptap/react";
+import {
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Select,
+  SelectItem,
+} from "@heroui/react";
 import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
+import { useTranslateMutation } from "@/redux/services/api";
+import { usePathname } from "next/navigation";
 
-interface TextTranslatorProps {
-  editorInstance: DecoupledEditor | null;
-}
-
+// Define available languages
 const languages = [
   { label: "Arabic", value: "ar" },
   { label: "English", value: "en" },
-  // Add more languages as needed
+  // Add more as needed
 ];
 
-const schema = yup.object().shape({
-  targetLanguage: yup.string().required("Target language is required"),
-  defaultLanguage: yup.string().required("Default language is required"),
-});
+interface TiptapTextTranslatorPopoverProps {
+  editor: Editor | null;
+}
 
-export const TextTranslator = ({ editorInstance }: TextTranslatorProps) => {
-  const { control, handleSubmit, watch } = useForm({
-    resolver: yupResolver(schema),
+export const TiptapTextTranslatorPopover = ({
+  editor,
+}: TiptapTextTranslatorPopoverProps) => {
+  const isDocument = usePathname().includes("documents");
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { isSubmitting },
+  } = useForm({
     defaultValues: {
       targetLanguage: "",
-      defaultLanguage: "en", // Default to English
+      defaultLanguage: "en",
     },
   });
 
-  const [translate, { isLoading }] = useTranslateMutation();
-  const targetLanguage = watch("targetLanguage");
-  const defaultLanguage = watch("defaultLanguage");
+  const [translate] = useTranslateMutation();
+  if (!isDocument || !editor) return null;
 
-  const handleTranslate = async () => {
-    if (!editorInstance || !targetLanguage) {
-      toast.error("Please select a target language");
+  const targetLanguage = watch("targetLanguage");
+
+  const onSubmit = async (data: {
+    targetLanguage: string;
+    defaultLanguage: string;
+  }) => {
+    if (!editor || !data.targetLanguage) {
+      toast.error("Please select a valid target language.");
       return;
     }
 
     try {
-      const content = editorInstance.getData();
+      const htmlContent = editor.getHTML();
+
       const response = await translate({
-        htmlStrings: content,
-        target_lang: targetLanguage,
-        original_lang: defaultLanguage === "ar" ? "ar" : "en",
+        htmlStrings: htmlContent,
+        target_lang: data.targetLanguage,
+        original_lang: data.defaultLanguage === "ar" ? "ar" : "en",
       }).unwrap();
 
       if (response.text) {
-        editorInstance.setData(response.text);
-        if (response.target_lang === "ar") {
-          const lines = editorInstance.model.document.getRootNames();
-          for (const rootName of lines) {
-            const root = editorInstance.model.document.getRoot(rootName);
-            if (root) {
-              editorInstance.model.change((writer) => {
-                writer.setSelectionAttribute(
-                  "alignment",
-                  response.target_lang === "ar" ? "right" : "left"
-                );
-                writer.setSelection(root, "in");
-                editorInstance.execute("alignment", {
-                  value: response.target_lang === "ar" ? "right" : "left",
-                });
-              });
-            }
-          }
-        } else {
-          const lines = editorInstance.model.document.getRootNames();
-          for (const rootName of lines) {
-            const root = editorInstance.model.document.getRoot(rootName);
-            if (root) {
-              editorInstance.model.change((writer) => {
-                writer.setSelectionAttribute("alignment", "left");
-                writer.setSelection(root, "in");
-                editorInstance.execute("alignment", {
-                  value: "left",
-                });
-              });
-            }
-          }
-        }
-        toast.success("Text translated successfully!");
+        editor.commands.setContent(response.text);
+
+        const isRTL = data.targetLanguage === "ar";
+        editor
+          .chain()
+          .focus()
+          .setTextAlign(isRTL ? "right" : "left")
+          .run();
+
+        toast.success("Translation applied successfully!");
       }
     } catch (error) {
       console.error("Translation error:", error);
       toast.error("Failed to translate text. Please try again.");
+    } finally {
+      // Optionally reset form after submission
+      reset();
     }
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Controller
-        name="defaultLanguage"
-        control={control}
-        render={({ field }) => (
-          <Select
-            placeholder="Choose a default language"
-            value={field.value}
-            onChange={(e) => field.onChange(e.target.value)}
-            className="max-w-xs"
-          >
-            {languages.map((lang) => (
-              <SelectItem key={lang.value}>
-                {lang.label}
-              </SelectItem>
-            ))}
-          </Select>
-        )}
-      />
+    <Popover placement="bottom" showArrow>
+      <PopoverTrigger>
+        <Button className="px-2 py-1 border border-gray-300 text-sm bg-gray-100 text-gray-800 hover:bg-gray-200">
+          Translate
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-4 w-72">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 w-full">
+          <h3 className="text-sm font-semibold mb-2">Translate Document</h3>
 
-      <Controller
-        name="targetLanguage"
-        control={control}
-        render={({ field }) => (
-          <Select
-            placeholder="Choose a target language"
-            value={field.value}
-            onChange={(e) => field.onChange(e.target.value)}
-            className="max-w-xs"
-          >
-            {languages.map((lang) => (
-              <SelectItem key={lang.value}>
-                {lang.label}
-              </SelectItem>
-            ))}
-          </Select>
-        )}
-      />
+          {/* Default Language */}
+          <Controller
+            name="defaultLanguage"
+            control={control}
+            render={({ field }) => (
+              <Select
+                label="Default Language"
+                selectedKeys={[field.value]}
+                onChange={(e) => field.onChange(e.target.value)}
+                className="w-full"
+              >
+                {languages.map((lang) => (
+                  <SelectItem key={lang.value} textValue={lang.value}>
+                    {lang.label}
+                  </SelectItem>
+                ))}
+              </Select>
+            )}
+          />
 
-      <Button
-        className="bg-gray-400 text-white py-2 px-4 rounded-lg shadow"
-        onClick={handleSubmit(handleTranslate)}
-        isLoading={isLoading}
-        color="primary"
-        isDisabled={!targetLanguage || isLoading}
-      >
-        {isLoading ? "Translating..." : "Translate Text"}
-      </Button>
-    </div>
+          {/* Target Language */}
+          <Controller
+            name="targetLanguage"
+            control={control}
+            render={({ field }) => (
+              <Select
+                label="Target Language"
+                selectedKeys={[field.value]}
+                onChange={(e) => field.onChange(e.target.value)}
+                className="w-full"
+              >
+                {languages.map((lang) => (
+                  <SelectItem key={lang.value} textValue={lang.value}>
+                    {lang.label}
+                  </SelectItem>
+                ))}
+              </Select>
+            )}
+          />
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            color="primary"
+            isLoading={isSubmitting}
+            isDisabled={!targetLanguage || isSubmitting}
+            className="w-full mt-2"
+          >
+            {isSubmitting ? "Translating..." : "Translate Text"}
+          </Button>
+        </form>
+      </PopoverContent>
+    </Popover>
   );
 };

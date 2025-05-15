@@ -19,7 +19,6 @@ export default function RootLayout({
         {/* Page Content */}
         <main className="p-4 overflow-auto flex-grow flex">{children}</main>
       </div>
-      {/* <ChatbotWidget/> */}
     </div>
   );
 }
