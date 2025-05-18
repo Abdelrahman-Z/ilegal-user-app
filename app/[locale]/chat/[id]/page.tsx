@@ -88,7 +88,7 @@ export default function ConversationPage() {
 
     try {
       const res = await fetch(
-        "https://ce44-86-99-189-186.ngrok-free.app/api/chatbot/ask?reasoning=false",
+        `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/ask?reasoning=false`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

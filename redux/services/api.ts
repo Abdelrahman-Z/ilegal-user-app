@@ -630,14 +630,14 @@ export const api = createApi({
       string
     >({
       query: (conversation_id) => ({
-        url: `https://ce44-86-99-189-186.ngrok-free.app/api/chatbot/conversation/messages`,
+        url: `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/conversation/messages`,
         method: 'POST',
         body: { conversation_id },
       }),
     }),
     postConversationTitle: builder.mutation({
       query: (data) => ({
-        url: 'https://ce44-86-99-189-186.ngrok-free.app/api/chatbot/conversation/title', // Your endpoint path
+        url: `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/conversation/title`, // Your endpoint path
         method: 'POST',
         body: data, // The body will contain the conversation_id and title
       }),
@@ -645,7 +645,7 @@ export const api = createApi({
     }),
     getConversations: builder.query({
       query: (tenantId) => ({
-        url: 'https://ce44-86-99-189-186.ngrok-free.app/api/chatbot/user/conversations',
+        url: `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/user/conversations`,
         method: 'POST',
         body: { user_id: tenantId },
       }),
