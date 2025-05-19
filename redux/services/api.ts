@@ -103,7 +103,8 @@ export const api = createApi({
       }),
       invalidatesTags: ["users"],
     }),
-    getUserById: builder.query<{
+    getUserById: builder.query<
+      {
         id: string;
         userName: string;
         email: string;
@@ -114,7 +115,9 @@ export const api = createApi({
         updatedAt: string;
         userPremissions: any[];
         userRole: { roleId: string }[];
-    }, string>({
+      },
+      string
+    >({
       query: (userId) => `/user/one/${userId}`,
     }),
     // roles
@@ -623,7 +626,8 @@ export const api = createApi({
       }),
     }),
     getAllTransferredDocuments: builder.query({
-      query: ({ page, limit }) => `/document/transferred?page=${page}&limit=${limit}`,
+      query: ({ page, limit }) =>
+        `/document/transferred?page=${page}&limit=${limit}`,
     }),
     getConversationMessages: builder.query<
       ConversationMessagesResponse,
@@ -631,25 +635,40 @@ export const api = createApi({
     >({
       query: (conversation_id) => ({
         url: `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/conversation/messages`,
-        method: 'POST',
+        method: "POST",
         body: { conversation_id },
       }),
     }),
     postConversationTitle: builder.mutation({
       query: (data) => ({
         url: `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/conversation/title`, // Your endpoint path
-        method: 'POST',
+        method: "POST",
         body: data, // The body will contain the conversation_id and title
       }),
-      invalidatesTags: ['conversation'],
+      invalidatesTags: ["conversation"],
     }),
     getConversations: builder.query({
       query: (tenantId) => ({
         url: `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/user/conversations`,
-        method: 'POST',
+        method: "POST",
         body: { user_id: tenantId },
       }),
-      providesTags: ['conversation'],
+      providesTags: ["conversation"],
+    }),
+    // OCR
+    ocr: builder.mutation<{ text: string }, FormData>({
+      query: (formData) => ({
+        url: `${process.env.NEXT_PUBLIC_AI_OCR_MASKING_ENDPOINT}/upload`, // ← your actual OCR endpoint
+        method: "POST",
+        body: formData,
+      }),
+    }),
+    maskPII: builder.mutation<{ masked: string }, FormData>({
+      query: (formData) => ({
+        url: `${process.env.NEXT_PUBLIC_AI_OCR_MASKING_ENDPOINT}/ner`,       // ← your actual PII-masking endpoint
+        method: "POST",
+        body: formData,
+      }),
     }),
   }),
 });
@@ -746,8 +765,11 @@ export const {
   usePreviewDocumentQuery,
   useDocumentTransfareToTenantMutation,
   useGetAllTransferredDocumentsQuery,
-  // chat 
+  // chat
   useGetConversationMessagesQuery,
   usePostConversationTitleMutation,
   useGetConversationsQuery,
+  // ocr
+  useOcrMutation,
+  useMaskPIIMutation,
 } = api;
