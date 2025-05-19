@@ -2,7 +2,7 @@
 import React from "react";
 import { Tabs, Tab } from "@heroui/react";
 import { OCRComponent } from "@/components/dashboard/ocr/ocr";
-
+import { MaskingComponent } from "@/components/dashboard/ocr/masking";
 
 const DashboardPage = () => {
   return (
@@ -21,7 +21,7 @@ const DashboardPage = () => {
             <OCRComponent />
           </Tab>
           <Tab className="w-full flex-1" key="dynamic" title={"Masking"}>
-            
+            <MaskingComponent />
           </Tab>
         </Tabs>
       </div>

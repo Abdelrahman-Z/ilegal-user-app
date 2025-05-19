@@ -99,10 +99,10 @@ export const MaskingComponent = () => {
         </ModalContent>
       </Modal>
 
-      {data?.masked && (
+      {data?.masked_text && (
         <div className="mt-5 prose max-w-none">
           <h2 className="text-xl font-semibold">Masked Text</h2>
-          <Markdown>{data.masked}</Markdown>
+          <Markdown>{data.masked_text}</Markdown>
         </div>
       )}
     </>

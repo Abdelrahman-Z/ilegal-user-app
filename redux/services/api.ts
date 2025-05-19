@@ -663,7 +663,7 @@ export const api = createApi({
         body: formData,
       }),
     }),
-    maskPII: builder.mutation<{ masked: string }, FormData>({
+    maskPII: builder.mutation<{ masked_text: string }, FormData>({
       query: (formData) => ({
         url: `${process.env.NEXT_PUBLIC_AI_OCR_MASKING_ENDPOINT}/ner`,       // ← your actual PII-masking endpoint
         method: "POST",
