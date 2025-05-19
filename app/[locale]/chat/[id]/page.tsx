@@ -257,7 +257,6 @@ export default function ConversationPage() {
                   }`}
                 >
                   <motion.div
-                    whileHover={{ scale: 1.02 }}
                     className={`flex items-start gap-2.5 max-w-3xl ${
                       message.isUser ? "ml-4" : "mr-4"
                     }`}
