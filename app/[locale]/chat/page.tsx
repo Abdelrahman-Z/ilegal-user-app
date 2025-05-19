@@ -11,10 +11,12 @@ import * as yup from "yup";
 import { usePostConversationTitleMutation } from "@/redux/services/api";
 import { getToken } from "@/utils";
 import { jwtDecode } from "jwt-decode";
+import { Accordion, AccordionItem } from "@heroui/react";
 
 type Message = {
-  text: string;
   isUser: boolean;
+  thinkingContent?: string;
+  answerContent?: string;
 };
 
 const schema = yup.object({
@@ -28,6 +30,7 @@ const schema = yup.object({
 type ChatFormValues = yup.InferType<typeof schema>;
 
 export default function Page() {
+  const [useReasoning, setUseReasoning] = useState(false);
   const [conversation_id, setConversation_id] = useState("");
   const path = usePathname();
   const [messages, setMessages] = useState<Message[]>([]);
@@ -36,13 +39,7 @@ export default function Page() {
   const [isFirst, setIsFirst] = useState(true);
   const [postTitle] = usePostConversationTitleMutation();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm<ChatFormValues>({
+  const { register, handleSubmit, reset, watch } = useForm<ChatFormValues>({
     resolver: yupResolver(schema),
     defaultValues: { message: "", knowledge_set: "plead" },
   });
@@ -54,7 +51,10 @@ export default function Page() {
   }, [messages]);
 
   const handleSendMessage = handleSubmit(async (data) => {
-    setMessages((prev) => [...prev, { text: data.message, isUser: true }]);
+    setMessages((prev) => [
+      ...prev,
+      { isUser: true, thinkingContent: undefined, answerContent: undefined },
+    ]);
     setIsLoading(true);
     const { tenantId } = jwtDecode((await getToken("token")) as string) as {
       tenantId: string;
@@ -62,7 +62,7 @@ export default function Page() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/ask?reasoning=false`,
+        `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/ask?reasoning=${useReasoning}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -97,13 +97,45 @@ export default function Page() {
             const json = JSON.parse(line);
             if (json.full_content) {
               aiText = json.full_content;
+              const phase = json.phase as "think" | "answer" | undefined;
+
               setMessages((prev) => {
-                if (prev[prev.length - 1]?.isUser === false) {
+                if (prev.length === 0 || prev[prev.length - 1].isUser) {
+                  // No AI message yet, create new one
+                  if (phase === "think") {
+                    return [
+                      ...prev,
+                      {
+                        isUser: false,
+                        thinkingContent: aiText,
+                        answerContent: "",
+                      },
+                    ];
+                  } else if (phase === "answer") {
+                    return [
+                      ...prev,
+                      {
+                        isUser: false,
+                        thinkingContent: "",
+                        answerContent: aiText,
+                      },
+                    ];
+                  }
+                } else {
+                  // Update last AI message
                   const updated = [...prev];
-                  updated[updated.length - 1].text = aiText;
+                  const lastMsg = updated[updated.length - 1];
+                  if (phase === "think") {
+                    lastMsg.thinkingContent = aiText;
+                  } else if (phase === "answer") {
+                    const cleanedAnswer = lastMsg.thinkingContent
+                      ? aiText.replace(lastMsg.thinkingContent, "").trim()
+                      : aiText;
+                    lastMsg.answerContent = cleanedAnswer;
+                  }
                   return updated;
                 }
-                return [...prev, { text: aiText, isUser: false }];
+                return prev;
               });
             }
             if (json.done && json.conversation_id && isFirst) {
@@ -179,7 +211,6 @@ export default function Page() {
                     }`}
                   >
                     <motion.div
-                      whileHover={{ scale: 1.02 }}
                       className={`flex items-start gap-2.5 max-w-3xl ${
                         message.isUser ? "ml-4" : "mr-4"
                       }`}
@@ -201,10 +232,23 @@ export default function Page() {
                         }`}
                       >
                         {message.isUser ? (
-                          <p className="text-sm">{message.text}</p>
+                          <p className="text-sm">
+                            {message.thinkingContent || message.answerContent}
+                          </p>
                         ) : (
-                          <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none">
-                            <Markdown>{message.text}</Markdown>
+                          <div>
+                            {message.thinkingContent && (
+                              <PhaseContentRenderer
+                                phase="think"
+                                content={message.thinkingContent}
+                              />
+                            )}
+                            {message.answerContent && (
+                              <PhaseContentRenderer
+                                phase="answer"
+                                content={message.answerContent}
+                              />
+                            )}
                           </div>
                         )}
                       </div>
@@ -230,18 +274,19 @@ export default function Page() {
               type="text"
               {...register("message")}
               placeholder="Type your message here..."
-              className={`w-full p-4 pr-16 rounded-lg border ${
-                errors.message
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-purple-500"
-              } focus:outline-none focus:ring-2 focus:border-transparent`}
+              className={`w-full p-4 pr-16 rounded-lg border focus:outline-none focus:ring-2 focus:border-transparent`}
             />
-            {errors.message && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.message.message}
-              </p>
-            )}
-
+            <motion.button
+              type="button"
+              onClick={() => setUseReasoning((prev) => !prev)}
+              className={`absolute right-24 top-1/2 -translate-y-1/2 px-3 py-1 rounded-md text-sm font-medium ${
+                useReasoning
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+            >
+              Reasoning
+            </motion.button>
             <motion.button
               type="submit"
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-500 text-white p-2 rounded-md disabled:bg-purple-300"
@@ -286,4 +331,41 @@ export default function Page() {
       </motion.div>
     </div>
   );
+}
+
+type PhaseContentRendererProps = {
+  content: string;
+  phase: "think" | "answer";
+};
+
+function PhaseContentRenderer({ content, phase }: PhaseContentRendererProps) {
+  const [displayContent, setDisplayContent] = useState("");
+
+  useEffect(() => {
+    setDisplayContent(content);
+  }, [content]);
+
+  if (phase === "think") {
+    return (
+      <Accordion>
+        <AccordionItem
+          key="thinking"
+          aria-label="Thinking content"
+          title="🧠 التفكير"
+        >
+          <div className="p-4 text-blue-900 max-h-72 overflow-auto">
+            <Markdown>{displayContent}</Markdown>
+          </div>
+        </AccordionItem>
+      </Accordion>
+    );
+  }
+
+  if (phase === "answer") {
+    return (
+        <Markdown className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none">{displayContent}</Markdown>
+    );
+  }
+
+  return null;
 }
