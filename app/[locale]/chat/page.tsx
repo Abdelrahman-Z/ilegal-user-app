@@ -53,7 +53,7 @@ export default function Page() {
   const handleSendMessage = handleSubmit(async (data) => {
     setMessages((prev) => [
       ...prev,
-      { isUser: true, thinkingContent: undefined, answerContent: undefined },
+      { isUser: true, thinkingContent: undefined, answerContent: data.message },
     ]);
     setIsLoading(true);
     const { tenantId } = jwtDecode((await getToken("token")) as string) as {
@@ -338,7 +338,7 @@ type PhaseContentRendererProps = {
   phase: "think" | "answer";
 };
 
-function PhaseContentRenderer({ content, phase }: PhaseContentRendererProps) {
+export function PhaseContentRenderer({ content, phase }: PhaseContentRendererProps) {
   const [displayContent, setDisplayContent] = useState("");
 
   useEffect(() => {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import Markdown from "markdown-to-jsx";
 import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,10 +12,12 @@ import {
 } from "@/redux/services/api";
 import { jwtDecode } from "jwt-decode";
 import { getToken } from "@/utils";
+import { PhaseContentRenderer } from "../page";
 
 type Message = {
-  text: string;
   isUser: boolean;
+  thinkingContent?: string;
+  answerContent?: string;
 };
 
 const schema = yup.object({
@@ -31,8 +32,9 @@ type ChatFormValues = yup.InferType<typeof schema>;
 export default function ConversationPage() {
   const { id: conversation_id } = useParams() as { id: string };
   const [isFirst, setIsFirst] = useState(true);
+  const [useReasoning, setUseReasoning] = useState(false);
 
-  // 1️⃣ Fetch the history
+  // Fetch history
   const {
     data: convo,
     isLoading: isLoadingHistory,
@@ -41,12 +43,11 @@ export default function ConversationPage() {
   } = useGetConversationMessagesQuery(conversation_id);
   const [postTitle] = usePostConversationTitleMutation();
 
-  // Our local UI state of messages (history + new ones)
+  // Local messages state: updated to hold thinking/answer parts
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // react-hook-form for the input
   const {
     register,
     handleSubmit,
@@ -59,27 +60,30 @@ export default function ConversationPage() {
   });
   const messageValue = watch("message");
 
-  // 2️⃣ When the history arrives, seed our local state
+  // Load history into new message format
   useEffect(() => {
     if (convo?.messages) {
       setMessages(
         convo.messages.map((m) => ({
-          text: m.text,
           isUser: m.sender === "human",
+          // Old messages do not have phases, just fill answerContent
+          answerContent: m.text,
+          thinkingContent: undefined,
         }))
       );
     }
   }, [convo]);
 
-  // 3️⃣ Scroll on new messages
+  // Scroll on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // 4️⃣ Your existing streaming send logic
   const handleSendMessage = handleSubmit(async (data) => {
-    // append user message immediately
-    setMessages((prev) => [...prev, { text: data.message, isUser: true }]);
+    setMessages((prev) => [
+      ...prev,
+      { isUser: true, thinkingContent: undefined, answerContent: data.message },
+    ]);
     setIsLoading(true);
 
     const { tenantId } = jwtDecode((await getToken("token")) as string) as {
@@ -88,7 +92,7 @@ export default function ConversationPage() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/ask?reasoning=false`,
+        `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/ask?reasoning=${useReasoning}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -122,14 +126,45 @@ export default function ConversationPage() {
             const json = JSON.parse(line);
             if (json.full_content) {
               aiText = json.full_content;
+              const phase = json.phase as "think" | "answer" | undefined;
+
               setMessages((prev) => {
-                // update last AI bubble if exists
-                if (prev[prev.length - 1]?.isUser === false) {
-                  const copy = [...prev];
-                  copy[copy.length - 1].text = aiText;
-                  return copy;
+                if (prev.length === 0 || prev[prev.length - 1].isUser) {
+                  // No AI message yet, create new one
+                  if (phase === "think") {
+                    return [
+                      ...prev,
+                      {
+                        isUser: false,
+                        thinkingContent: aiText,
+                        answerContent: "",
+                      },
+                    ];
+                  } else if (phase === "answer") {
+                    return [
+                      ...prev,
+                      {
+                        isUser: false,
+                        thinkingContent: "",
+                        answerContent: aiText,
+                      },
+                    ];
+                  }
+                } else {
+                  // Update last AI message
+                  const updated = [...prev];
+                  const lastMsg = updated[updated.length - 1];
+                  if (phase === "think") {
+                    lastMsg.thinkingContent = aiText;
+                  } else if (phase === "answer") {
+                    const cleanedAnswer = lastMsg.thinkingContent
+                      ? aiText.replace(lastMsg.thinkingContent, "").trim()
+                      : aiText;
+                    lastMsg.answerContent = cleanedAnswer;
+                  }
+                  return updated;
                 }
-                return [...prev, { text: aiText, isUser: false }];
+                return prev;
               });
             }
             if (json.done && json.conversation_id && isFirst) {
@@ -163,9 +198,10 @@ export default function ConversationPage() {
         </h1>
       </motion.div>
 
-      {/* 1. HISTORY LOADING / ERROR */}
+      {/* History loading/error */}
       {isLoadingHistory ? (
         <div className="flex-1 flex items-center justify-center">
+          {/* spinner */}
           <svg
             className="animate-spin h-8 w-8 text-gray-600"
             viewBox="0 0 24 24"
@@ -196,7 +232,7 @@ export default function ConversationPage() {
           </button>
         </div>
       ) : (
-        /* 2. MESSAGE LIST */
+        // Message list
         <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
           <div className="max-w-3xl mx-auto space-y-4">
             {messages.length === 0 && (
@@ -243,11 +279,22 @@ export default function ConversationPage() {
                       }`}
                     >
                       {message.isUser ? (
-                        <p className="text-sm">{message.text}</p>
+                        <p className="text-sm">{message.answerContent}</p>
                       ) : (
-                        <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none">
-                          <Markdown>{message.text}</Markdown>
-                        </div>
+                        <>
+                          {message.thinkingContent && (
+                            <PhaseContentRenderer
+                              phase="think"
+                              content={message.thinkingContent}
+                            />
+                          )}
+                          {message.answerContent && (
+                            <PhaseContentRenderer
+                              phase="answer"
+                              content={message.answerContent}
+                            />
+                          )}
+                        </>
                       )}
                     </div>
                   </motion.div>
@@ -259,7 +306,7 @@ export default function ConversationPage() {
         </div>
       )}
 
-      {/* 3. INPUT */}
+      {/* Input */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -271,18 +318,25 @@ export default function ConversationPage() {
               type="text"
               {...register("message")}
               placeholder="Type your message here..."
-              className={`w-full p-4 pr-16 rounded-lg border ${
+              className={`w-full p-4 pr-32 rounded-lg border ${
                 errors.message
                   ? "border-red-500 focus:ring-red-500"
                   : "border-gray-300 focus:ring-purple-500"
               } focus:outline-none focus:ring-2 focus:border-transparent`}
             />
-            {errors.message && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.message.message}
-              </p>
-            )}
-
+            {/* Reasoning toggle button */}
+            <motion.button
+              type="button"
+              onClick={() => setUseReasoning((prev) => !prev)}
+              className={`absolute right-24 top-1/2 -translate-y-1/2 px-3 py-1 rounded-md text-sm font-medium ${
+                useReasoning
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+            >
+              Reasoning
+            </motion.button>
+            {/* Submit button */}
             <motion.button
               type="submit"
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-500 text-white p-2 rounded-md disabled:bg-purple-300"
