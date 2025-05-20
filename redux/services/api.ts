@@ -656,7 +656,7 @@ export const api = createApi({
       providesTags: ["conversation"],
     }),
     // OCR
-    ocr: builder.mutation<{ text: string }, FormData>({
+    ocr: builder.mutation<{ markdown: string }, FormData>({
       query: (formData) => ({
         url: `${process.env.NEXT_PUBLIC_AI_OCR_MASKING_ENDPOINT}/upload`, // ← your actual OCR endpoint
         method: "POST",

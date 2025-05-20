@@ -104,10 +104,10 @@ export const OCRComponent = () => {
         </ModalContent>
       </Modal>
 
-      {data?.text && (
+      {data?.markdown && (
         <div className="mt-5 prose max-w-none">
           <h2 className="text-xl font-semibold">OCR Result</h2>
-          <Markdown>{data.text}</Markdown>
+          <Markdown>{data.markdown}</Markdown>
         </div>
       )}
     </>
