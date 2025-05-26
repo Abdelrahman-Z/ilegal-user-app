@@ -3,7 +3,6 @@
 
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import Markdown from "markdown-to-jsx";
 import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,7 +10,7 @@ import * as yup from "yup";
 import { usePostConversationTitleMutation } from "@/redux/services/api";
 import { getToken } from "@/utils";
 import { jwtDecode } from "jwt-decode";
-import { Accordion, AccordionItem } from "@heroui/react";
+import { PhaseContentRenderer } from "@/components/chat/phaseContentRenderer";
 
 type Message = {
   isUser: boolean;
@@ -331,41 +330,4 @@ export default function Page() {
       </motion.div>
     </div>
   );
-}
-
-type PhaseContentRendererProps = {
-  content: string;
-  phase: "think" | "answer";
-};
-
-export function PhaseContentRenderer({ content, phase }: PhaseContentRendererProps) {
-  const [displayContent, setDisplayContent] = useState("");
-
-  useEffect(() => {
-    setDisplayContent(content);
-  }, [content]);
-
-  if (phase === "think") {
-    return (
-      <Accordion>
-        <AccordionItem
-          key="thinking"
-          aria-label="Thinking content"
-          title="🧠 التفكير"
-        >
-          <div className="p-4 text-blue-900 max-h-72 overflow-auto">
-            <Markdown>{displayContent}</Markdown>
-          </div>
-        </AccordionItem>
-      </Accordion>
-    );
-  }
-
-  if (phase === "answer") {
-    return (
-        <Markdown className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none">{displayContent}</Markdown>
-    );
-  }
-
-  return null;
 }

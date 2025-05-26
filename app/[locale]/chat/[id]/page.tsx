@@ -12,7 +12,7 @@ import {
 } from "@/redux/services/api";
 import { jwtDecode } from "jwt-decode";
 import { getToken } from "@/utils";
-import { PhaseContentRenderer } from "../page";
+import { PhaseContentRenderer } from "@/components/chat/phaseContentRenderer";
 
 type Message = {
   isUser: boolean;
