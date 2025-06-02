@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -13,6 +13,8 @@ import {
 import { jwtDecode } from "jwt-decode";
 import { getToken } from "@/utils";
 import { PhaseContentRenderer } from "@/components/chat/phaseContentRenderer";
+import { useDropzone } from "react-dropzone";
+import { FiFileText, FiUploadCloud, FiX } from "react-icons/fi";
 
 type Message = {
   isUser: boolean;
@@ -48,6 +50,9 @@ export default function ConversationPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Files state
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -66,7 +71,6 @@ export default function ConversationPage() {
       setMessages(
         convo.messages.map((m) => ({
           isUser: m.sender === "human",
-          // Old messages do not have phases, just fill answerContent
           answerContent: m.text,
           thinkingContent: undefined,
         }))
@@ -78,6 +82,33 @@ export default function ConversationPage() {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Dropzone overlay debounce states
+  const [showDragOverlay, setShowDragOverlay] = useState(false);
+  const [dropLock, setDropLock] = useState(false);
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    setUploadedFiles((prev) => [...prev, ...acceptedFiles]);
+    setDropLock(true);
+    setTimeout(() => {
+      setDropLock(false);
+      setShowDragOverlay(false);
+    }, 500);
+  }, []);
+
+  const onDragEnter = () => {
+    if (!dropLock) setShowDragOverlay(true);
+  };
+  const onDragLeave = () => {
+    if (!dropLock) setShowDragOverlay(false);
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    onDragEnter,
+    onDragLeave,
+    multiple: true,
+  });
 
   const handleSendMessage = handleSubmit(async (data) => {
     setMessages((prev) => [
@@ -130,7 +161,6 @@ export default function ConversationPage() {
 
               setMessages((prev) => {
                 if (prev.length === 0 || prev[prev.length - 1].isUser) {
-                  // No AI message yet, create new one
                   if (phase === "think") {
                     return [
                       ...prev,
@@ -151,7 +181,6 @@ export default function ConversationPage() {
                     ];
                   }
                 } else {
-                  // Update last AI message
                   const updated = [...prev];
                   const lastMsg = updated[updated.length - 1];
                   if (phase === "think") {
@@ -186,7 +215,32 @@ export default function ConversationPage() {
   });
 
   return (
-    <div className="flex flex-col h-screen">
+    <div
+      {...getRootProps()}
+      className="relative min-h-screen flex flex-col"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <input {...getInputProps()} />
+
+      {/* Drag overlay */}
+      {showDragOverlay && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-blue-50 bg-opacity-80 pointer-events-auto"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        >
+          <FiUploadCloud className="w-12 h-12 animate-bounce text-blue-600" />
+          <p className="text-lg font-semibold text-blue-700 mt-2">
+            Release to upload your files
+          </p>
+          <p className="text-sm text-blue-400 mt-1">
+            Supported formats: PDF, images, docs
+          </p>
+        </div>
+      )}
+
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -312,16 +366,47 @@ export default function ConversationPage() {
         className="border-t border-gray-200 bg-white p-4"
       >
         <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto">
+          {/* Attached files pill list */}
+          {uploadedFiles.length > 0 && (
+            <div className="mb-3 max-w-3xl mx-auto flex gap-2 overflow-x-auto pb-2">
+              {uploadedFiles.map((file, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center bg-gray-100 border border-gray-300 rounded-full px-3 py-1 text-sm text-gray-800 shadow-sm flex-shrink-0"
+                >
+                  <FiFileText className="w-4 h-4 mr-2 text-gray-500 flex-shrink-0" />
+                  <span className="truncate max-w-[150px]" title={file.name}>
+                    {file.name}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUploadedFiles((prev) =>
+                        prev.filter((_, i) => i !== idx)
+                      );
+                    }}
+                    className="ml-2 rounded-full hover:bg-gray-300 p-0.5 text-gray-600 hover:text-gray-900 transition"
+                    aria-label={`Remove file ${file.name}`}
+                  >
+                    <FiX className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="relative">
             <input
               type="text"
               {...register("message")}
               placeholder="Type your message here..."
-              className={`w-full p-4 pr-32 rounded-lg border ${
+              className={`w-full p-4 rounded-lg border ${
                 errors.message
                   ? "border-red-500 focus:ring-red-500"
                   : "border-gray-300 focus:ring-purple-500"
-              } focus:outline-none focus:ring-2 focus:border-transparent`}
+              } focus:outline-none focus:ring-2 focus:border-transparent
+          pr-32
+        `}
             />
             {/* Reasoning toggle button */}
             <motion.button
