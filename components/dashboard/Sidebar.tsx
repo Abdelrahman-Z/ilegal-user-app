@@ -12,7 +12,7 @@ import { FaUser } from "react-icons/fa";
 import { HiOutlineKey } from "react-icons/hi2";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { MdOutlineDocumentScanner } from "react-icons/md";
+import { MdOutlineDocumentScanner, MdQrCodeScanner } from "react-icons/md";
 
 const navLinks = [
   {
@@ -71,6 +71,11 @@ const navLinks = [
     path: "/dashboard/transfaredDocuments",
   },
   // {
+  //   name: "OCR",
+  //   icon: <MdQrCodeScanner className="text-2xl" />,
+  //   path: "/dashboard/ocr",
+  // },
+  // {
   //   name: "Chat",
   //   icon: <FaRobot className="text-2xl" />,
   //   path: "/chat",
@@ -104,6 +109,14 @@ const Sidebar = () => {
             {t(link.name)}
           </Button>
         ))}
+        <Button
+          startContent={<MdQrCodeScanner className="text-2xl" />}
+          className="bg-transparent text-white hover:text-gray-300 p-0 w-full justify-start"
+          as={Link}
+          href={`/${locale}/dashboard/ocr`}
+        >
+          OCR
+        </Button>
         <Button
           startContent={<FaRobot className="text-2xl" />}
           className="bg-transparent text-white hover:text-gray-300 p-0 w-full justify-start"
