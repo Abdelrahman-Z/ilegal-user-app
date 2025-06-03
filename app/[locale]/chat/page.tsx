@@ -1,20 +1,22 @@
-// app/chat/page.tsx
 "use client";
 
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import Markdown from "markdown-to-jsx";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { usePostConversationTitleMutation } from "@/redux/services/api";
 import { getToken } from "@/utils";
 import { jwtDecode } from "jwt-decode";
+import { useDropzone } from "react-dropzone";
+import { PhaseContentRenderer } from "@/components/chat/phaseContentRenderer";
+import { FiFileText, FiUploadCloud, FiX } from "react-icons/fi";
 
 type Message = {
-  text: string;
   isUser: boolean;
+  thinkingContent?: string;
+  answerContent?: string;
 };
 
 const schema = yup.object({
@@ -28,6 +30,7 @@ const schema = yup.object({
 type ChatFormValues = yup.InferType<typeof schema>;
 
 export default function Page() {
+  const [useReasoning, setUseReasoning] = useState(false);
   const [conversation_id, setConversation_id] = useState("");
   const path = usePathname();
   const [messages, setMessages] = useState<Message[]>([]);
@@ -35,14 +38,9 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
   const [isFirst, setIsFirst] = useState(true);
   const [postTitle] = usePostConversationTitleMutation();
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm<ChatFormValues>({
+  const { register, handleSubmit, reset, watch } = useForm<ChatFormValues>({
     resolver: yupResolver(schema),
     defaultValues: { message: "", knowledge_set: "plead" },
   });
@@ -53,8 +51,43 @@ export default function Page() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // --- Dropzone states for overlay debounce
+  const [showDragOverlay, setShowDragOverlay] = useState(false);
+  const [dropLock, setDropLock] = useState(false);
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    setUploadedFiles((prev) => [...prev, ...acceptedFiles]);
+    setDropLock(true);
+    setTimeout(() => {
+      setDropLock(false);
+      setShowDragOverlay(false);
+    }, 500);
+  }, []);
+
+  const onDragEnter = () => {
+    if (!dropLock) {
+      setShowDragOverlay(true);
+    }
+  };
+
+  const onDragLeave = () => {
+    if (!dropLock) {
+      setShowDragOverlay(false);
+    }
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    onDragEnter,
+    onDragLeave,
+    multiple: true,
+  });
+
   const handleSendMessage = handleSubmit(async (data) => {
-    setMessages((prev) => [...prev, { text: data.message, isUser: true }]);
+    setMessages((prev) => [
+      ...prev,
+      { isUser: true, thinkingContent: undefined, answerContent: data.message },
+    ]);
     setIsLoading(true);
     const { tenantId } = jwtDecode((await getToken("token")) as string) as {
       tenantId: string;
@@ -62,7 +95,7 @@ export default function Page() {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/ask?reasoning=false`,
+        `${process.env.NEXT_PUBLIC_AI_ENDPOINT}/api/chatbot/ask?reasoning=${useReasoning}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -97,13 +130,43 @@ export default function Page() {
             const json = JSON.parse(line);
             if (json.full_content) {
               aiText = json.full_content;
+              const phase = json.phase as "think" | "answer" | undefined;
+
               setMessages((prev) => {
-                if (prev[prev.length - 1]?.isUser === false) {
+                if (prev.length === 0 || prev[prev.length - 1].isUser) {
+                  if (phase === "think") {
+                    return [
+                      ...prev,
+                      {
+                        isUser: false,
+                        thinkingContent: aiText,
+                        answerContent: "",
+                      },
+                    ];
+                  } else if (phase === "answer") {
+                    return [
+                      ...prev,
+                      {
+                        isUser: false,
+                        thinkingContent: "",
+                        answerContent: aiText,
+                      },
+                    ];
+                  }
+                } else {
                   const updated = [...prev];
-                  updated[updated.length - 1].text = aiText;
+                  const lastMsg = updated[updated.length - 1];
+                  if (phase === "think") {
+                    lastMsg.thinkingContent = aiText;
+                  } else if (phase === "answer") {
+                    const cleanedAnswer = lastMsg.thinkingContent
+                      ? aiText.replace(lastMsg.thinkingContent, "").trim()
+                      : aiText;
+                    lastMsg.answerContent = cleanedAnswer;
+                  }
                   return updated;
                 }
-                return [...prev, { text: aiText, isUser: false }];
+                return prev;
               });
             }
             if (json.done && json.conversation_id && isFirst) {
@@ -131,7 +194,31 @@ export default function Page() {
   });
 
   return (
-    <div className="flex flex-col h-screen">
+    <div
+      {...getRootProps()}
+      className="relative min-h-screen flex flex-col"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <input {...getInputProps()} />
+      {/* Drag overlay */}
+      {showDragOverlay && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-blue-50 bg-opacity-80 pointer-events-auto"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        >
+          <FiUploadCloud className="w-12 h-12 animate-bounce text-blue-600" />
+          <p className="text-lg font-semibold text-blue-700 mt-2">
+            Release to upload your files
+          </p>
+          <p className="text-sm text-blue-400 mt-1">
+            Supported formats: PDF, images, docs
+          </p>
+        </div>
+      )}
+
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -179,7 +266,6 @@ export default function Page() {
                     }`}
                   >
                     <motion.div
-                      whileHover={{ scale: 1.02 }}
                       className={`flex items-start gap-2.5 max-w-3xl ${
                         message.isUser ? "ml-4" : "mr-4"
                       }`}
@@ -201,10 +287,23 @@ export default function Page() {
                         }`}
                       >
                         {message.isUser ? (
-                          <p className="text-sm">{message.text}</p>
+                          <p className="text-sm">
+                            {message.thinkingContent || message.answerContent}
+                          </p>
                         ) : (
-                          <div className="mt-5 whitespace-pre-wrap prose prose-slate max-w-none">
-                            <Markdown>{message.text}</Markdown>
+                          <div>
+                            {message.thinkingContent && (
+                              <PhaseContentRenderer
+                                phase="think"
+                                content={message.thinkingContent}
+                              />
+                            )}
+                            {message.answerContent && (
+                              <PhaseContentRenderer
+                                phase="answer"
+                                content={message.answerContent}
+                              />
+                            )}
                           </div>
                         )}
                       </div>
@@ -224,24 +323,56 @@ export default function Page() {
         animate={{ opacity: 1, y: 0 }}
         className="border-t border-gray-200 bg-white p-4"
       >
-        <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto">
-          <div className="relative">
+        <form
+          onSubmit={handleSendMessage}
+          className="max-w-3xl mx-auto w-full relative"
+        >
+          {uploadedFiles.length > 0 && (
+            <div className="mb-3 max-w-3xl mx-auto flex flex-wrap gap-2">
+              {uploadedFiles.map((file, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center max-w-xs bg-gray-100 border border-gray-300 rounded-full px-3 py-1 text-sm text-gray-800 shadow-sm"
+                >
+                  <FiFileText className="w-4 h-4 mr-2 text-gray-500 flex-shrink-0" />
+                  <span className="truncate max-w-[150px]" title={file.name}>
+                    {file.name}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // Remove file handler (update your state accordingly)
+                      setUploadedFiles((prev) =>
+                        prev.filter((_, i) => i !== idx)
+                      );
+                    }}
+                    className="ml-2 rounded-full hover:bg-gray-300 p-0.5 text-gray-600 hover:text-gray-900 transition"
+                    aria-label={`Remove file ${file.name}`}
+                  >
+                    <FiX className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="relative w-full">
             <input
               type="text"
               {...register("message")}
               placeholder="Type your message here..."
-              className={`w-full p-4 pr-16 rounded-lg border ${
-                errors.message
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-purple-500"
-              } focus:outline-none focus:ring-2 focus:border-transparent`}
+              className="w-full p-4 pr-16 rounded-lg border focus:outline-none focus:ring-2 focus:border-transparent"
             />
-            {errors.message && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.message.message}
-              </p>
-            )}
-
+            <motion.button
+              type="button"
+              onClick={() => setUseReasoning((prev) => !prev)}
+              className={`absolute right-24 top-1/2 -translate-y-1/2 px-3 py-1 rounded-md text-sm font-medium ${
+                useReasoning
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+            >
+              Reasoning
+            </motion.button>
             <motion.button
               type="submit"
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-500 text-white p-2 rounded-md disabled:bg-purple-300"
@@ -276,13 +407,6 @@ export default function Page() {
             </motion.button>
           </div>
         </form>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          className="text-xs text-center mt-2 text-gray-500"
-        >
-          Assistant is designed to be helpful, harmless, and honest.
-        </motion.p>
       </motion.div>
     </div>
   );
